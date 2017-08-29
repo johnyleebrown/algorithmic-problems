@@ -16,7 +16,8 @@ public class SymmetricTree {
     }
 
     // Recursive
-    // Total run time is O(n), where nn is the total number of nodes in the tree
+    // Total run time is O(n), where n is the total number of nodes in the tree
+    // Space complexity: O(n)
     public boolean isSymmetric(TreeNode root) {
         if (root == null) return true;
         return isSymmetric2(root.left, root.right);
@@ -31,6 +32,8 @@ public class SymmetricTree {
     }
 
     // Non-Recursive
+    // Space complexity: O(n)
+    // Time complexity : O(n)
     public boolean isSymmetricNonRecursive(TreeNode root) {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);

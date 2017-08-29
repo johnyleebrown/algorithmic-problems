@@ -1,0 +1,52 @@
+package Tree;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+/**
+ * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+ */
+public class SymmetricTree {
+
+    private class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode(int x) { val = x; }
+    }
+
+    // Recursive
+    // Total run time is O(n), where nn is the total number of nodes in the tree
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) return true;
+        return isSymmetric2(root.left, root.right);
+    }
+
+    public boolean isSymmetric2(TreeNode left, TreeNode right) {
+        if (left == null && right == null) return true;
+        return  left != null && right != null
+                && left.val == right.val
+                && isSymmetric2(left.left,right.right)
+                && isSymmetric2(left.right,right.left);
+    }
+
+    // Non-Recursive
+    public boolean isSymmetricNonRecursive(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        q.add(root);
+        while (!q.isEmpty()) {
+            TreeNode t1 = q.poll();
+            TreeNode t2 = q.poll();
+            if (t1 == null && t2 == null) continue;
+            if (t1 == null || t2 == null) return false;
+            if (t1.val != t2.val) return false;
+            q.add(t1.left);
+            q.add(t2.right);
+            q.add(t1.right);
+            q.add(t2.left);
+        }
+        return true;
+    }
+
+}

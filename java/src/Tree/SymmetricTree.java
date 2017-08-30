@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
+ * 101
  * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
  */
 public class SymmetricTree {

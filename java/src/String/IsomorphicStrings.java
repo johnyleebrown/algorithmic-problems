@@ -11,6 +11,7 @@ package String;
 public class IsomorphicStrings {
 
     // beats 96%
+    // possible overflow
     public boolean isIsomorphic(String s, String t) {
         int[] m = new int[512];
         char[] c1 = s.toCharArray();

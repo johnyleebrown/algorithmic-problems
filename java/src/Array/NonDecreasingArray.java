@@ -27,7 +27,7 @@ public class NonDecreasingArray {
         for (int i = 1, prev = a[0]; i < a.length; i++) {
             if (a[i] < prev) {
                 if (c++ > 0) return false;
-                if (i - 2 >= 0 && a[i - 2] > a[i]) continue;
+                if (i >= 2 && a[i - 2] > a[i]) continue;
             }
             prev = a[i];
         }

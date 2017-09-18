@@ -14,8 +14,7 @@ package Medium.String;
 public class ValidParenthesisString {
 
     // O(n), O(1)
-    // low - lowest number of open brackets, with *
-    // high - highest number of open brackets, where * is ')'
+    // low  - keeps track of '('
     public boolean checkValidString(String s) {
         int low = 0, high = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -49,8 +48,8 @@ public class ValidParenthesisString {
             case '(': return dfs(s, index+1, left+1, right);
             case ')': return right+1 <= left ? dfs(s, index+1, left, right+1) : false;
             case '*':
-                if(dfs(s, index+1, left, right)) return true;
-                else if(dfs(s, index+1, left+1, right)) return true;
+                if (dfs(s, index+1, left, right)) return true;
+                else if (dfs(s, index+1, left+1, right)) return true;
                 else return right+1 <= left ? dfs(s, index+1, left, right+1) : false;
         }
         return false;

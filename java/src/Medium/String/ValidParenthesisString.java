@@ -15,28 +15,18 @@ public class ValidParenthesisString {
 
     // O(n), O(1)
     // low  - keeps track of '('
+    // However, creating a new character array will take O(n) space
     public boolean checkValidString(String s) {
-        int low = 0, high = 0;
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            if (ch == '(') {
-                low++;
-                high++;
-            }
-            else if (ch == ')') {
-                if (low > 0) low--;
-                high--;
-            }
-            else {
-                if (low > 0) low--;
-                high++;
-            }
-            if (high < 0) return false;
+        int lo = 0, hi = 0;
+        for (char c: s.toCharArray()) {
+            lo += c == '(' ? 1 : -1;
+            hi += c != ')' ? 1 : -1;
+            if (hi < 0) break;
+            lo = Math.max(lo, 0);
         }
-        return low == 0;
+        return lo == 0;
     }
 
-    //
     //
     public boolean checkValidString2(String s) {
         return dfs(s.toCharArray(), 0, 0, 0);

@@ -12,6 +12,7 @@ package Easy.String;
  */
 public class CountAndSay {
 
+    // O(n)
     class Solution {
         public String countAndSay(int n) {
             if (n == 1) return "1";

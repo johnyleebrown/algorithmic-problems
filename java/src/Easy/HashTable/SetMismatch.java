@@ -1,4 +1,4 @@
-package HashTable;
+package Easy.HashTable;
 
 /**
  * 645

@@ -1,4 +1,4 @@
-package Tree;
+package Easy.Tree;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

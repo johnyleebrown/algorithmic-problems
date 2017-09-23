@@ -1,4 +1,4 @@
-package Tree;
+package Easy.Tree;
 
 /**
  * 112

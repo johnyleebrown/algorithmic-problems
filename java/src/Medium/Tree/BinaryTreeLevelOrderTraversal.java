@@ -40,14 +40,14 @@ public class BinaryTreeLevelOrderTraversal {
     // DFS
     public class Solution2{
         public List<List<Integer>> levelOrder(TreeNode root) {
-            List<List<Integer>> res = new ArrayList<List<Integer>>();
+            List<List<Integer>> res = new ArrayList<>();
             levelHelper(res, root, 0);
             return res;
         }
 
         public void levelHelper(List<List<Integer>> res, TreeNode root, int height) {
             if (root == null) return;
-            if (height >= res.size()) res.add(new LinkedList<Integer>());
+            if (height >= res.size()) res.add(new LinkedList<>());
             res.get(height).add(root.val);
             levelHelper(res, root.left, height+1);
             levelHelper(res, root.right, height+1);

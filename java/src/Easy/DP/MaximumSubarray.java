@@ -30,6 +30,7 @@ public class MaximumSubarray {
         }
     }
 
+    // O(n^3)
     class Solution3 {
         public int maxSubArray(int[] nums) {
             int max = Integer.MIN_VALUE;

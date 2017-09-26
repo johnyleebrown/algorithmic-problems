@@ -1,4 +1,4 @@
-package LinkedList;
+package Easy.LinkedList;
 
 /**
  * 206
@@ -23,7 +23,7 @@ public class ReverseLinkedList {
     // Time complexity : O(n). Space complexity : O(n).
     public ListNode reverseList2(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode p = reverseList(head.next);
+        ListNode p = reverseList2(head.next);
         head.next.next = head;
         head.next = null;
         return p;

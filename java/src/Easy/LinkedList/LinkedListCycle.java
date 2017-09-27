@@ -3,16 +3,13 @@ package Easy.LinkedList;
 import java.util.HashSet;
 import java.util.Set;
 
+import Helpers.ListNode;
+
 /**
  * 141
  * Given a linked list, determine if it has a cycle in it.
  */
 public class LinkedListCycle {
-    public static class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) { val = x; }
-    }
 
     // O(n) ; O(n)
     class Solution1 {

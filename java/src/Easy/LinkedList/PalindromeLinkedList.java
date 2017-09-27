@@ -1,16 +1,12 @@
 package Easy.LinkedList;
 
+import Helpers.ListNode;
+
 /**
  * 234
  * Given a singly linked list, determine if it is a palindrome.
  */
 public class PalindromeLinkedList {
-
-    public class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) { val = x; }
-    }
 
     // Get size, reverse half, compare halves
     public boolean isPalindrome(ListNode head) {

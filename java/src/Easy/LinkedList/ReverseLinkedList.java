@@ -1,8 +1,10 @@
 package Easy.LinkedList;
 
+import Helpers.ListNode;
+
 /**
  * 206
- *
+ * Reverse Linked List
  */
 
 public class ReverseLinkedList {
@@ -27,11 +29,5 @@ public class ReverseLinkedList {
         head.next.next = head;
         head.next = null;
         return p;
-    }
-
-    public static class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) { val = x; }
     }
 }

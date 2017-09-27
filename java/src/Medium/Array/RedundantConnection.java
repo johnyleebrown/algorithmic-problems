@@ -34,21 +34,20 @@ public class RedundantConnection {
         public int[] findRedundantConnection(int[][] edges) {
             HashMap<Integer, Integer> map = new HashMap<>();
             int[] res = null;
-            for(int i=0; i<edges.length; i++){
+            for (int i = 0; i < edges.length; i++) {
                 int[] p = edges[i];
                 int a = searchRoot(p[0], map);
                 int b = searchRoot(p[1], map);
-                if(a == b){
+                if (a == b) {
                     res = p;
                     continue;
-                }
-                else map.put(a,b);
+                } else map.put(a, b);
             }
             return res;
         }
 
-        private int searchRoot(int v, HashMap<Integer, Integer> map){
-            while(map.containsKey(v)) v = map.get(v);
+        private int searchRoot(int v, HashMap<Integer, Integer> map) {
+            while (map.containsKey(v)) v = map.get(v);
             return v;
         }
 

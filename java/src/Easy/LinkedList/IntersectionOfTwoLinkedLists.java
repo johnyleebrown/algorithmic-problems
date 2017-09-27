@@ -1,16 +1,12 @@
 package Easy.LinkedList;
 
+import Helpers.ListNode;
+
 /**
  * 160
  * Write a program to find the node at which the intersection of two singly linked lists begins.
  */
 public class IntersectionOfTwoLinkedLists {
-
-    public static class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) { val = x; }
-    }
 
     // O(1) memory, O(n) time
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {

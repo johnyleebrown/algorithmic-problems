@@ -1,16 +1,12 @@
 package Easy.LinkedList;
 
+import Helpers.ListNode;
+
 /**
  * 83
  * Given a sorted linked list, delete all duplicates such that each element appear only once.
  */
 public class RemoveDuplicatesFromSortedList {
-
-    public class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) { val = x; }
-    }
 
     class Solution1 {
         public ListNode deleteDuplicates(ListNode head) {

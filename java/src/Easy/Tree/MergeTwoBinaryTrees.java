@@ -1,5 +1,7 @@
 package Easy.Tree;
 
+import Helpers.TreeNode;
+
 /**
  * 617
  * You need to merge them into a new binary tree. The merge rule is that if two nodes overlap,
@@ -7,16 +9,6 @@ package Easy.Tree;
  * Otherwise, the NOT null node will be used as the node of new tree.
  */
 public class MergeTwoBinaryTrees {
-
-    private class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
-    }
 
     class Solution {
         public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {

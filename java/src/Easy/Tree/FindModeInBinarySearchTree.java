@@ -1,5 +1,7 @@
 package Easy.Tree;
 
+import Helpers.TreeNode;
+
 /**
  * 501
  * Given a binary search tree (BST) with duplicates, find all the mode(s)
@@ -10,13 +12,6 @@ package Easy.Tree;
  * (Assume that the implicit stack space incurred due to recursion does not count).
  */
 public class FindModeInBinarySearchTree {
-
-    private class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) { val = x; }
-    }
 
     // Space O(1); Time O(n)
     private int currVal;
@@ -43,8 +38,7 @@ public class FindModeInBinarySearchTree {
         if (currCount > maxCount) {
             maxCount = currCount;
             modeCount = 1;
-        }
-        else if (currCount == maxCount) {
+        } else if (currCount == maxCount) {
             if (modes != null) modes[modeCount] = currVal;
             modeCount++;
         }

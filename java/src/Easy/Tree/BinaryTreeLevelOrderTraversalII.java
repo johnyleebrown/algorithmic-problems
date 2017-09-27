@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import javax.swing.tree.TreeNode;
+import Helpers.TreeNode;
 
 /**
  * 107
@@ -12,13 +12,6 @@ import javax.swing.tree.TreeNode;
  * traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
  */
 public class BinaryTreeLevelOrderTraversalII {
-
-    private class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) { val = x; }
-    }
 
     // BFS
     public List<List<Integer>> levelOrderBottom(TreeNode root) {

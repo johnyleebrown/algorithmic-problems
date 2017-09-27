@@ -1,4 +1,6 @@
-package LinkedList;
+package Medium.LinkedList;
+
+import Helpers.ListNode;
 
 /**
  * 2. Add Two Numbers. Medium.
@@ -17,7 +19,6 @@ public class AddTwoNumbers {
 
     // Time complexity : O(max(m, n))
     // Space complexity: O(max(m, n))
-
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode newHead = new ListNode(0);
         ListNode p = l1, q = l2, curr = newHead;
@@ -32,15 +33,7 @@ public class AddTwoNumbers {
             if (p != null) p = p.next;
             if (q != null) q = q.next;
         }
-        if (carry > 0) {
-            curr.next = new ListNode(carry);
-        }
+        if (carry > 0) curr.next = new ListNode(carry);
         return newHead.next;
-    }
-
-    public static class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) { val = x; }
     }
 }

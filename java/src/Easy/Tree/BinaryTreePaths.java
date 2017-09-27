@@ -4,19 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import Helpers.TreeNode;
+
 /**
  * 257
  * Given a binary tree, return all root-to-leaf paths.
  * ["1->2->5", "1->3"]
  */
 public class BinaryTreePaths {
-
-    private class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) { val = x; }
-    }
 
     // Solution 1
     List<String> list = new LinkedList<>();

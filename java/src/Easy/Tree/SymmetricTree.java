@@ -3,18 +3,13 @@ package Easy.Tree;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import Helpers.TreeNode;
+
 /**
  * 101
  * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
  */
 public class SymmetricTree {
-
-    private class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) { val = x; }
-    }
 
     // Recursive
     // Total run time is O(n), where n is the total number of nodes in the tree
@@ -26,10 +21,10 @@ public class SymmetricTree {
 
     public boolean isSymmetric2(TreeNode left, TreeNode right) {
         if (left == null && right == null) return true;
-        return  left != null && right != null
+        return left != null && right != null
                 && left.val == right.val
-                && isSymmetric2(left.left,right.right)
-                && isSymmetric2(left.right,right.left);
+                && isSymmetric2(left.left, right.right)
+                && isSymmetric2(left.right, right.left);
     }
 
     // Non-Recursive

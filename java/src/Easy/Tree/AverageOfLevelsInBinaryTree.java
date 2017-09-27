@@ -5,17 +5,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import Helpers.TreeNode;
+
 /**
  * 637
  * Given a non-empty binary tree, return the average value of the nodes on each level in the form of an array.
  */
 public class AverageOfLevelsInBinaryTree {
-    private class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) { val = x; }
-    }
 
     // DFS
     class Solution {

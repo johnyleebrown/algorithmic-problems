@@ -9,15 +9,15 @@ public class MoveZeroes {
     // O(n), O(1)
     public class Solution {
         public void moveZeroes(int[] nums) {
-            int left = 0, right = 0;
-            while (right < nums.length) {
-                if (nums[right] != 0) {
-                    int temp = nums[left];
-                    nums[left] = nums[right];
-                    nums[right] = temp;
-                    left++;
+            int i = 0, j = 0;
+            while (j < nums.length) {
+                if (nums[j] != 0) {
+                    int temp = nums[i];
+                    nums[i] = nums[j];
+                    nums[j] = temp;
+                    i++;
                 }
-                right++;
+                j++;
             }
         }
     }

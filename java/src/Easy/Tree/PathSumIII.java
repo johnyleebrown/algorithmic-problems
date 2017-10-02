@@ -14,6 +14,8 @@ import Helpers.TreeNode;
  * The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.
  */
 public class PathSumIII {
+
+
     class Solution {
         public int pathSum(TreeNode root, int sum) {
             if (root == null) return 0;
@@ -30,6 +32,20 @@ public class PathSumIII {
             int res = numPathToCurr + findPathSum(curr.left, sum, target, map) + findPathSum(curr.right, sum, target, map);
             map.put(sum, map.get(sum) - 1);
             return res;
+        }
+    }
+
+    // Time: O(n^2)
+    // O(n)
+    public class Solution2 {
+        public int pathSum(TreeNode root, int sum) {
+            if (root == null) return 0;
+            return p(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
+        }
+
+        private int p(TreeNode node, int sum) {
+            if (node == null) return 0;
+            return (node.val == sum ? 1 : 0) + p(node.left, sum - node.val) + p(node.right, sum - node.val);
         }
     }
 }

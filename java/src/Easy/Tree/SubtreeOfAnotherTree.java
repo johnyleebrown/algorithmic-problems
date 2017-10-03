@@ -9,6 +9,9 @@ import Helpers.TreeNode;
  * The tree s could also be considered as a subtree of itself.
  */
 public class SubtreeOfAnotherTree {
+
+    // O(m*n)
+    // O(n)
     public class Solution {
         public boolean isSubtree(TreeNode s, TreeNode t) {
             if (s == null) return false;

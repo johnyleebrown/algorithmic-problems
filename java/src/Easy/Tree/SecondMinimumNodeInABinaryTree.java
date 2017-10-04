@@ -13,6 +13,8 @@ import Helpers.TreeNode;
  * If no such second minimum value exists, output -1 instead.
  */
 public class SecondMinimumNodeInABinaryTree {
+
+    // O(n), O(n)
     class Solution {
         public int findSecondMinimumValue(TreeNode root) {
             if (root == null) return -1;

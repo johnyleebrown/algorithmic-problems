@@ -6,7 +6,8 @@ import Helpers.TreeNode;
 
 /**
  * 530
- * Given a binary search tree with non-negative values, find the minimum absolute difference between values of any two nodes.
+ * Given a binary search tree with non-negative values,
+ * find the minimum absolute difference between values of any two nodes.
  */
 public class MinimumAbsoluteDifferenceInBST {
 
@@ -38,8 +39,10 @@ public class MinimumAbsoluteDifferenceInBST {
         public int getMinimumDifference(TreeNode root) {
             if (root == null) return min;
             if (!set.isEmpty()) {
-                if (set.floor(root.val) != null) min = Math.min(min, root.val - set.floor(root.val));
-                if (set.ceiling(root.val) != null) min = Math.min(min, set.ceiling(root.val) - root.val);
+                if (set.floor(root.val) != null)
+                    min = Math.min(min, root.val - set.floor(root.val));
+                if (set.ceiling(root.val) != null)
+                    min = Math.min(min, set.ceiling(root.val) - root.val);
             }
             set.add(root.val);
             getMinimumDifference(root.left);

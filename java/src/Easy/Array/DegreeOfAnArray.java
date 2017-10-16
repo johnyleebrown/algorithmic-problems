@@ -16,7 +16,9 @@ public class DegreeOfAnArray {
             Map<Integer, Integer> left = new HashMap(), right = new HashMap(), count = new HashMap();
             for (int i = 0; i < nums.length; i++) {
                 int x = nums[i];
+                // inserting first found values
                 if (left.get(x) == null) left.put(x, i);
+                // last found values will replace first ones
                 right.put(x, i);
                 count.put(x, count.getOrDefault(x, 0) + 1);
             }

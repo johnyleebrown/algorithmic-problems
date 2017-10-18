@@ -11,7 +11,7 @@ import Helpers.TreeNode;
  * How would you optimize the kthSmallest routine?
  */
 public class KthSmallestElementInABST {
-    // O(logn), O(n)
+    // O(n), O(n)
     class Solution {
         public int kthSmallest(TreeNode root, int k) {
             int count = countNodes(root.left);

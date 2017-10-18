@@ -12,6 +12,11 @@ import Helpers.TreeNode;
  */
 public class BinaryTreeInorderTraversal {
 
+    /**
+     * Iterative solution, for similar algorithm:
+     * @see KthSmallestElementInABST.Solution4
+     * @see ValidateBinarySearchTree.Solution2
+     */
     // O(n), O(n)
     class Solution {
         public List<Integer> inorderTraversal(TreeNode root) {

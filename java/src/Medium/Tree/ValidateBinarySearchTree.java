@@ -24,8 +24,6 @@ public class ValidateBinarySearchTree {
         }
     }
 
-
-
     /**
      * Iterative solution, for similar algorithm:
      * @see KthSmallestElementInABST.Solution4

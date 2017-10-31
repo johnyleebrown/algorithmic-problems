@@ -22,7 +22,7 @@ public class MaximumLengthOfRepeatedSubarray {
                 for (int j: Bstarts.get(A[i])) {
                     int k = 0;
                     while (i+k < A.length && j+k < B.length && A[i+k] == B[j+k]) {
-                        k++
+                        k++;
                     }
                     ans = Math.max(ans, k);
                 }

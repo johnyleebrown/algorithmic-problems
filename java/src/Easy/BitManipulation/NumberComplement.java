@@ -1,4 +1,4 @@
-package Easy.Bitwise;
+package Easy.BitManipulation;
 
 /**
  * 476

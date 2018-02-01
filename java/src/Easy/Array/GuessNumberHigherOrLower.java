@@ -57,4 +57,10 @@ public class GuessNumberHigherOrLower {
         }
     }
 
+    private class GuessGame{
+        int guess(int mid) {
+            return 0;
+        }
+    }
+
 }

@@ -26,10 +26,9 @@ public class Knapsack01 {
               a[i][j] = Math.max(a[i-1][j], val[i] + a[i-1][j-w[i]]
               The value in the bottom right of the array is the maximum profit
              */
-            int i, j;
             int k[][] = new int[values.length + 1][capacity + 1];
-            for (i = 0; i <= values.length; i++) {
-                for (j = 0; j <= capacity; j++) {
+            for (int i = 0; i <= values.length; i++) {
+                for (int j = 0; j <= capacity; j++) {
                     if (i == 0 || j == 0)
                         k[i][j] = 0;
                     else if (j < weights[i - 1])

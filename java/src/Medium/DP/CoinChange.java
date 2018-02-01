@@ -17,9 +17,9 @@ public class CoinChange {
      * @param coins  coin denominations
      * @return last item in the array
      */
-    public int SolutionBU(int amount, int[] coins) {
+    private int SolutionBU(int amount, int[] coins) {
         int[] total = new int[amount + 1];
-        Arrays.fill(total, Integer.MAX_VALUE);
+        Arrays.fill(total, Integer.MAX_VALUE - 1);
         total[0] = 0;
         for (int i = 1; i <= amount; i++) {
             for (int coin : coins) {
@@ -38,17 +38,19 @@ public class CoinChange {
      * Time complexity: O(amount*coins.length)
      * Space complexity: O(amount)
      */
-    public int SolutionTD(int amount, int[] coins, Map<Integer, Integer> map) {
+    private int SolutionTD(int amount, int[] coins, Map<Integer, Integer> map) {
+        // it takes 0 coins to form a total of 0
         if (amount == 0) return 0;
+        // memoization, how many coins it takes to form a total
         if (map.containsKey(amount)) return map.get(amount);
-        int min = Integer.MAX_VALUE;
+        int min = Integer.MAX_VALUE - 1;
+        // iterate through all coins to see which coin will give the best result
         for (int coin : coins) {
             if (coin > amount) continue;
             int val = SolutionTD(amount - coin, coins, map);
             min = Math.min(min, val);
         }
-        min = min == Integer.MAX_VALUE ? min : min + 1;
-        map.put(amount, min);
-        return min;
+        map.put(amount, min + 1);
+        return min + 1;
     }
 }

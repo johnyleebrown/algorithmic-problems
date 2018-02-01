@@ -12,6 +12,9 @@ public class CoinChange2 {
     /**
      * Similarly to knapsack problem we use 2d array to store number of
      * combinations for each coin for each change amount
+     *
+     * Time complexity: O(coins*amount)
+     * Space complexity: O(coins*amount)
      */
     private static int solution(int[] coins, int amount) {
         int[][] k = new int[coins.length + 1][amount + 1];
@@ -26,6 +29,9 @@ public class CoinChange2 {
 
     /**
      * Optimized Coin Change 2DA -> 1DA
+     *
+     * Time O(coins*amount)
+     * Space O(amount)
      */
     private static int solutionOptimized(int[] coins, int amount) {
         int[] temp = new int[amount + 1];
@@ -35,10 +41,11 @@ public class CoinChange2 {
                 if (coin <= j)
                     temp[j] += temp[j - coin];
 
+
         return temp[amount];
     }
 
     public static void main(String[] args) {
-        System.out.println(CoinChange2.solutionOptimized(new int[]{1, 2, 3}, 10));
+        System.out.println(CoinChange2.solution(new int[]{1, 2, 3}, 10));
     }
 }

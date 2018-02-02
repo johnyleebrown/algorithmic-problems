@@ -47,8 +47,7 @@ public class CoinChange {
         // iterate through all coins to see which coin will give the best result
         for (int coin : coins) {
             if (coin > amount) continue;
-            int val = SolutionTD(amount - coin, coins, map);
-            min = Math.min(min, val);
+            min = Math.min(min, SolutionTD(amount - coin, coins, map));
         }
         map.put(amount, min + 1);
         return min + 1;

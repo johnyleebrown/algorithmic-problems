@@ -8,34 +8,6 @@ package Easy.DP;
  */
 public class ClimbingStairs {
 
-    // O(n) ; O(n)
-    public class Solution {
-        public int climbStairs(int n) {
-            if (n == 1) return 1;
-            int[] a = new int[n + 1];
-            a[1] = 1;
-            a[2] = 2;
-            for (int i = 3; i <= n; i++) a[i] = a[i - 1] + a[i - 2];
-            return a[n];
-        }
-    }
-
-    // Fibonacci Number
-    // O(n) ; O(1)
-    class Solution2 {
-        public int climbStairs(int n) {
-            if (n == 1) return 1;
-            int first = 1;
-            int second = 2;
-            for (int i = 3; i <= n; i++) {
-                int third = first + second;
-                first = second;
-                second = third;
-            }
-            return second;
-        }
-    }
-
     // Brute Force
     // O(n^2) Size of recursion tree will be 2^n
     // O(n)
@@ -66,5 +38,38 @@ public class ClimbingStairs {
             memo[i] = climbRecursive(i + 1, n, memo) + climbRecursive(i + 2, n, memo);
             return memo[i];
         }
+    }
+
+    // Iterative
+    // O(n) ; O(n)
+    public class Solution {
+        public int climbStairs(int n) {
+            int[] a = new int[n + 1];
+            a[0] = 1;
+            a[1] = 1;
+            for (int i = 2; i <= n; i++)
+                a[i] = a[i - 1] + a[i - 2];
+            return a[n];
+        }
+    }
+
+    // Iterative optimized
+    // O(n) ; O(1)
+    static class Solution2 {
+        public static int climbStairs(int n) {
+            if (n == 1) return 1;
+            int first = 1;
+            int second = 2;
+            for (int i = 3; i <= n; i++) {
+                int third = first + second;
+                first = second;
+                second = third;
+            }
+            return second;
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Solution2.climbStairs(8));
     }
 }

@@ -7,6 +7,7 @@
 - [Climbing Stairs K Steps](java/src/Easy/DP/ClimbingStairsKSteps.java) (Easy)
 - [Min Cost Climbing Stairs](java/src/Easy/DP/MinCostClimbingStairs.java) (Easy)
 
+- [Minimum Path Sum](java/src/Medium/DP/MinimumPathSum.java) (Medium)
 - [Unique Paths](java/src/Medium/DP/UniquePaths.java) (Medium)
 - [0-1 Knapsack](java/src/Medium/DP/Knapsack01.java) (Medium)
 - [Unbounded Knapsack](java/src/Medium/DP/UnboundedKnapsack.java) (Medium)

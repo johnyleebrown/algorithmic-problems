@@ -35,7 +35,8 @@ public class ClimbingStairs {
             if (i > n) return 0;
             if (i == n) return 1;
             if (memo[i] > 0) return memo[i];
-            memo[i] = climbRecursive(i + 1, n, memo) + climbRecursive(i + 2, n, memo);
+            memo[i] = climbRecursive(i + 1, n, memo)
+                    + climbRecursive(i + 2, n, memo);
             return memo[i];
         }
     }

@@ -1,11 +1,27 @@
 ## Leetcode Problems
+
+- [Bit Manipulation]()
+- [Array]()
+- [Stack]()
+- [Linked List]()
+- [Hash Table]()
+- [Tree]()
+- [String]()
+- [Math]()
+- [DP](#dp)
+- [Greedy]()
+- [SQL]()
+
 ### DP
+
 - [Fibonacci](java/src/Medium/DP/Fibonacci.java)
 - [Maximum Subarray](java/src/Easy/DP/MaximumSubarray.java) (Easy)
 - [House Robber](java/src/Easy/DP/HouseRobber.java) (Easy)
 - [Climbing Stairs](java/src/Easy/DP/ClimbingStairs.java) (Easy)
 - [Climbing Stairs K Steps](java/src/Easy/DP/ClimbingStairsKSteps.java) (Easy)
 - [Min Cost Climbing Stairs](java/src/Easy/DP/MinCostClimbingStairs.java) (Easy)
+- [Paint House](java/src/Easy/DP/PaintHouse.java) (Easy)
+- [Paint Fence](java/src/Easy/DP/PaintFence.java) (Easy)
 
 - [Minimum Path Sum](java/src/Medium/DP/MinimumPathSum.java) (Medium)
 - [Unique Paths](java/src/Medium/DP/UniquePaths.java) (Medium)

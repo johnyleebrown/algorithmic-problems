@@ -23,7 +23,7 @@ public class CoinChange2 {
             for (int j = 1; j <= amount; j++)
                 if (coins[i - 1] > j) k[i][j] = k[i - 1][j];
                 else k[i][j] = k[i - 1][j] + k[i][j - coins[i - 1]];
-        Helper.print2Darray(k, coins.length + 1, amount + 1);
+
         return k[coins.length][amount];
     }
 
@@ -41,11 +41,7 @@ public class CoinChange2 {
                 if (coin <= j)
                     temp[j] += temp[j - coin];
 
-
         return temp[amount];
     }
 
-    public static void main(String[] args) {
-        System.out.println(CoinChange2.solution(new int[]{1, 2, 3}, 10));
-    }
 }

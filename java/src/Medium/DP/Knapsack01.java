@@ -32,11 +32,12 @@ public class Knapsack01 {
                     if (i == 0 || j == 0)
                         k[i][j] = 0;
                     else if (j < weights[i - 1])
-                        // meaning that we can't put an item of
-                        // weight[i - 1] into knapsack of cap w
+                        // if we can't put an item of weight[i - 1] into knapsack of cap w
                         k[i][j] = k[i - 1][j];
                     else
-                        k[i][j] = Math.max(k[i - 1][j], values[i - 1] + k[i - 1][j - weights[i - 1]]);
+                        // either we don't pick an item: take the prev max
+                        // or we do: take max cost for j - weights[i - 1] weight and add item's value
+                        k[i][j] = Math.max(k[i - 1][j], k[i - 1][j - weights[i - 1]] + values[i - 1]);
                 }
             }
             return k[values.length][capacity];

@@ -18,7 +18,7 @@ public class PaintFence {
         for (int i = 2; i <= n; i++)
             // 2 cases:
             // either n and n-1 are different color
-            // either n and n-1 are same color
+            // or n and n-1 are same color
             temp[i] = temp[i - 1] * (k - 1) + temp[i - 2] * (k - 1);
         return temp[n];
     }

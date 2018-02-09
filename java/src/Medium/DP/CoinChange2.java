@@ -28,7 +28,7 @@ public class CoinChange2 {
     }
 
     /**
-     * Optimized Coin Change 2DA -> 1DA
+     * Optimized 2DA -> 1DA
      *
      * Time O(coins*amount)
      * Space O(amount)

@@ -2,11 +2,20 @@ package Easy.DP;
 
 /**
  * 53
- * Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
+ * Find the contiguous subarray within an array
+ * (containing at least one number) which has the largest sum.
  */
 public class MaximumSubarray {
 
-    // Kadane's Algorithm
+    /**
+     * Kadane's Algorithm
+     * O(n), O(1)
+     *
+     * if we know the maximum subarray sum ending at position i
+     * what is the maximum subarray sum ending at position i+1
+     * either the maximum subarray sum ending at position i+1
+     * includes the maximum subarray sum ending at position i as a prefix, or it doesn't
+     */
     class Solution{
         public int maxSubArray(int[] A) {
             int maxSoFar = A[0], maxEndingHere = A[0];
@@ -30,18 +39,4 @@ public class MaximumSubarray {
         }
     }
 
-    // O(n^3)
-    class Solution3 {
-        public int maxSubArray(int[] nums) {
-            int max = Integer.MIN_VALUE;
-            for (int i = 1; i <= nums.length; i++) {
-                for (int j = 0; j < nums.length && j + i <= nums.length; j++) {
-                    int temp = 0;
-                    for (int k = j; k < j + i; k++) temp += nums[k];
-                    max = Math.max(max, temp);
-                }
-            }
-            return max;
-        }
-    }
 }

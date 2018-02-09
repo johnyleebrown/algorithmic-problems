@@ -11,7 +11,7 @@ public class ClimbingStairs {
     // Brute Force
     // O(n^2) Size of recursion tree will be 2^n
     // O(n)
-    public class Solution3 {
+    public class Solution1 {
         public int climbStairs(int n) {
             return climbRecursive(0, n);
         }
@@ -25,7 +25,7 @@ public class ClimbingStairs {
 
     // Recursion with memorization
     // O(n) ; O(n)
-    class Solution4 {
+    class Solution2{
         public int climbStairs(int n) {
             int memo[] = new int[n + 1];
             return climbRecursive(0, n, memo);
@@ -43,7 +43,7 @@ public class ClimbingStairs {
 
     // Iterative
     // O(n) ; O(n)
-    public class Solution {
+    public class Solution3 {
         public int climbStairs(int n) {
             int[] a = new int[n + 1];
             a[0] = 1;
@@ -56,7 +56,7 @@ public class ClimbingStairs {
 
     // Iterative optimized
     // O(n) ; O(1)
-    static class Solution2 {
+    static class Solution4 {
         public static int climbStairs(int n) {
             if (n == 1) return 1;
             int first = 1;

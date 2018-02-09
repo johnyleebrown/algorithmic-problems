@@ -19,8 +19,9 @@ public class DecodeWays  {
         a[1] = s.charAt(1) == '0' ? 0 : 1;
         for (int i = 2 ; i <= n ; i++) {
             if (i < n && s.charAt(i) == '0') continue;
-            int x = Integer.parseInt(s.substring(i - 2, i));
-            a[i] = x < 27 ? a[i - 2] + a[i - 1] : a[i - 1];
+            int x = Integer.parseInt(s.substring(i - 2, i)) < 27 ? a[i - 2] : 0;
+            // either we add nothing, or we add a[i-2] if the last two digits form a letter
+            a[i] = a[i - 1] + x;
         }
         return a[n];
     }

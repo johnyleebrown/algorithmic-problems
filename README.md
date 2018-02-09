@@ -31,3 +31,4 @@
 - [Coin Change 2](java/src/Medium/DP/CoinChange2.java) (Medium)
 - [Subset Sum](java/src/Medium/DP/SubsetSum.java) (Medium)
 - [Partition Equal Subset Sum](java/src/Medium/DP/PartitionEqualSubsetSum.java) (Medium)
+- [Decode Ways](java/src/Medium/DP/DecodeWays.java) (Medium)

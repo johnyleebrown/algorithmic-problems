@@ -22,6 +22,7 @@ public class MinimumDistanceBetweenBSTNodes {
         return ans;
     }
 
+    // bottom up
     public void dfs(TreeNode node) {
         if (node == null) return;
         dfs(node.left);

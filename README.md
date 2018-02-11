@@ -25,6 +25,7 @@
 
 - [Minimum Path Sum](java/src/Medium/DP/MinimumPathSum.java) (Medium)
 - [Unique Paths](java/src/Medium/DP/UniquePaths.java) (Medium)
+- [Unique Paths 2](java/src/Medium/DP/UniquePathsII.java) (Medium)
 - [0-1 Knapsack](java/src/Medium/DP/Knapsack01.java) (Medium)
 - [Unbounded Knapsack](java/src/Medium/DP/UnboundedKnapsack.java) (Medium)
 - [Coin Change](java/src/Medium/DP/CoinChange.java) (Medium)

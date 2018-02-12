@@ -1,6 +1,7 @@
 package Easy.DP;
 
 /**
+ * 746
  * On a staircase, the i-th step has some non-negative cost cost[i] assigned (0 indexed).
  * Once you pay the cost, you can either climb one or two steps.
  * You need to find minimum cost to reach the top of the floor,
@@ -18,7 +19,7 @@ public class MinCostClimbingStairs {
         a[1] = values[1];
         for (int i = 2 ; i <= values.length ; i++) {
             // the ending's cost is zero
-            int val = i == values.length ? 0 : values[i];
+            int val = i != values.length ? values[i] : 0;
             a[i] = Math.min(a[i - 1], a[i - 2]) + val;
         }
         return a[values.length];

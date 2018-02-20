@@ -14,7 +14,7 @@
 
 ### DP
 
-#####Easy
+##### Easy
 
 - [Fibonacci](java/src/Medium/DP/Fibonacci.java)
 - [Maximum Subarray](java/src/Easy/DP/MaximumSubarray.java)
@@ -25,7 +25,7 @@
 - [Paint House](java/src/Easy/DP/PaintHouse.java)
 - [Paint Fence](java/src/Easy/DP/PaintFence.java)
 
-#####Medium
+##### Medium
 
 - [Minimum Path Sum](java/src/Medium/DP/MinimumPathSum.java)
 - [Unique Paths](java/src/Medium/DP/UniquePaths.java)
@@ -39,5 +39,5 @@
 - [Decode Ways](java/src/Medium/DP/DecodeWays.java)
 - [Continuous Subarray Sum](java/src/Medium/DP/ContinuousSubarraySum.java)
 
-#####Hard
+##### Hard
 - [Best Time to Buy and Sell Stock K Transactions](java/src/Hard/DP/BestTimetoBuyandSellStockIV.java)

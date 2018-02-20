@@ -10,8 +10,8 @@ package Hard.DP;
  */
 public class BestTimetoBuyandSellStockIV {
     /**
-     * Time complexity: O()
-     * Space complexity: O()
+     * Time complexity: O(n^2)
+     * Space complexity: O(n)
      */
     public int maxProfit(int k, int[] prices) {
         if (prices.length == 0 || k == 0) return 0;

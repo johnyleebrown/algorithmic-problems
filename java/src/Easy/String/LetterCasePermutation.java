@@ -1,7 +1,6 @@
 package Easy.String;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,7 +14,7 @@ public class LetterCasePermutation {
      * Time complexity: O(N*2^N)
      * Space complexity: O(N*2^N)
      */
-    public List<String> letterCasePermutation(String S) {
+    public static List<String> letterCasePermutation(String S) {
         List<StringBuilder> ans = new ArrayList<>();
         ans.add(new StringBuilder());
 
@@ -37,6 +36,10 @@ public class LetterCasePermutation {
         for (StringBuilder sb: ans)
             res.add(sb.toString());
         return res;
+    }
+
+    public static void main(String[] args) {
+        letterCasePermutation("a2b");
     }
 
 

@@ -4,6 +4,7 @@ package Easy.DP;
  * 53
  * Find the contiguous subarray within an array
  * (containing at least one number) which has the largest sum.
+ * and return the sum
  */
 public class MaximumSubarray {
 

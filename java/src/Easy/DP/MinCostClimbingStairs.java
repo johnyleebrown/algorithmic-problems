@@ -3,7 +3,7 @@ package Easy.DP;
 /**
  * 746
  * On a staircase, the i-th step has some non-negative cost cost[i] assigned (0 indexed).
- * Once you pay the cost, you can either climb one or two steps.
+ * Once you pay the cost, you can either climb 1 or 2 steps.
  * You need to find minimum cost to reach the top of the floor,
  * and you can either start from the step with index 0, or the step with index 1.
  */
@@ -12,7 +12,7 @@ public class MinCostClimbingStairs {
      * Time complexity: O(n)
      * Space complexity: O(n)
      */
-    public int solution(int[] values) {
+    public static int solution(int[] values) {
         int[] a = new int[values.length + 1];
         // the i-th step has cost cost[i]
         a[0] = values[0];
@@ -24,4 +24,5 @@ public class MinCostClimbingStairs {
         }
         return a[values.length];
     }
+
 }

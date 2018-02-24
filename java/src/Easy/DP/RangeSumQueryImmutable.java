@@ -1,10 +1,5 @@
 package Easy.DP;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javafx.util.Pair;
-
 /**
  * 303
  * Given an integer array nums,
@@ -13,7 +8,6 @@ import javafx.util.Pair;
  */
 public class RangeSumQueryImmutable {
 
-    // Caching
     // sum from i to j equals sum from 0 to j - sum from 0 to i, i < j
     // O(1) per query, O(n) pre computation
     // space: O(n)

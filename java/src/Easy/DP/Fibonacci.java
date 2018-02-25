@@ -1,4 +1,4 @@
-package Medium.DP;
+package Easy.DP;
 
 /**
  * Return the n-th fib number

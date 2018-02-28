@@ -1,4 +1,4 @@
-package Easy.DP;
+package Easy.Array;
 
 /**
  * 303

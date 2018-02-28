@@ -29,5 +29,4 @@ public class UniquePathsII {
         }
         return obstacleGrid[m - 1][n - 1];
     }
-
 }

@@ -7,7 +7,6 @@ package Easy.DP;
  * and return the sum
  */
 public class MaximumSubarray {
-
     /**
      * Kadane's Algorithm
      * O(n), O(1)
@@ -17,28 +16,23 @@ public class MaximumSubarray {
      * either the maximum subarray sum ending at position i+1
      * includes the maximum subarray sum ending at position i as a prefix, or it doesn't
      */
-    class Solution{
-        public int maxSubArray(int[] A) {
-            int maxSoFar = A[0];
-            int maxEndingHere = A[0];
-            for (int i = 1; i < A.length; ++i) {
-                maxEndingHere = Math.max(maxEndingHere + A[i], A[i]);
-                maxSoFar = Math.max(maxSoFar, maxEndingHere);
-            }
-            return maxSoFar;
+    public static int solution1(int[] A) {
+        int maxSoFar = A[0];
+        int maxEndingHere = A[0];
+        for (int i = 1; i < A.length; ++i) {
+            maxEndingHere = Math.max(maxEndingHere + A[i], A[i]);
+            maxSoFar = Math.max(maxSoFar, maxEndingHere);
         }
+        return maxSoFar;
     }
 
-    class Solution2 {
-        public int maxSubArray(int[] A) {
-            int max = Integer.MIN_VALUE, sum = 0;
-            for (int i = 0; i < A.length; i++) {
-                if (sum < 0) sum = A[i];
-                else sum += A[i];
-                if (sum > max) max = sum;
-            }
-            return max;
+    public static int solution2(int[] A) {
+        int max = Integer.MIN_VALUE, sum = 0;
+        for (int i = 0; i < A.length; i++) {
+            if (sum < 0) sum = A[i];
+            else sum += A[i];
+            if (sum > max) max = sum;
         }
+        return max;
     }
-
 }

@@ -10,7 +10,7 @@ public class MinimumPathSum {
      * Time complexity: O(m*n)
      * Space complexity: O(1)
      */
-    public int solution(int[][] grid) {
+    public static int solution(int[][] grid) {
         for (int i = 0 ; i < grid.length ; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (i == 0 && j == 0) continue;

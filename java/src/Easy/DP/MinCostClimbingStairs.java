@@ -24,5 +24,4 @@ public class MinCostClimbingStairs {
         }
         return a[values.length];
     }
-
 }

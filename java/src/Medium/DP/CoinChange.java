@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
- * compute the fewest number of coins that you need to make up that amount.
+ * 322
+ * Compute the fewest number of coins that you need to make up the amount.
  */
 public class CoinChange {
     /**

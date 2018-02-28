@@ -1,6 +1,5 @@
 package Medium.DP;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,10 +33,4 @@ public class ContinuousSubarraySum {
         }
         return false;
     }
-
-    public int bulbs(ArrayList<Integer> a) {
-
-        return 0;
-    }
-
 }

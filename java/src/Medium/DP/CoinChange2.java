@@ -1,7 +1,5 @@
 package Medium.DP;
 
-import Helpers.Helper;
-
 /**
  * 518
  * You are given coins of different denominations and a total amount of money.
@@ -43,5 +41,4 @@ public class CoinChange2 {
 
         return temp[amount];
     }
-
 }

@@ -8,6 +8,7 @@ package Medium.DP;
 public class DominoAndTrominoTiling {
     /**
      * dp[n]=dp[n-1]+dp[n-2] + 2*(dp[n-3]+…+d[0]) = dp[n-1]+dp[n-3]+dp[n-1] = 2*dp[n-1]+dp[n-3]
+     * because dp[i - 1] = dp[i-2]+dp[i-3]+2*(dp[i-4]+..+dp[0])
      * Time complexity: O(n)
      * Space complexity: O(n)
      */

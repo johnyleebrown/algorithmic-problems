@@ -2,7 +2,8 @@ package Medium.DP;
 
 /**
  * 91
- * Given an encoded message containing digits, determine the total number of ways to decode it.
+ * Given an encoded message containing digits,
+ * determine the total number of ways to decode it.
  */
 public class DecodeWays  {
     /**
@@ -25,5 +26,4 @@ public class DecodeWays  {
         }
         return a[n];
     }
-
 }

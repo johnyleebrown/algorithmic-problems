@@ -36,5 +36,4 @@ public class PaintHouse {
         }
         return dp[n];
     }
-
 }

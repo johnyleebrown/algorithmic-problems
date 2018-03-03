@@ -44,13 +44,14 @@ public class CoinChange {
         if (amount == 0) return 0;
         // memoization, how many coins it takes to form a total
         if (map.containsKey(amount)) return map.get(amount);
-        int min = Integer.MAX_VALUE - 1;
+        int min = Integer.MAX_VALUE;
         // iterate through all coins to see which coin will give the best result
         for (int coin : coins) {
             if (coin > amount) continue;
             min = Math.min(min, SolutionTD(amount - coin, coins, map));
         }
-        map.put(amount, min + 1);
-        return min + 1;
+        min = min == Integer.MAX_VALUE ? min : min + 1;
+        map.put(amount, min);
+        return min;
     }
 }

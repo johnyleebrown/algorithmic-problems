@@ -17,14 +17,14 @@ public class Knapsack01 {
      * @return maximum value of items
      */
     public static int Knapsack01(int[] values, int[] weights, int capacity) {
-            /*
-              Algorithm:
-              Building a 2d array ixj
-              It will hold all of the best solutions to the sub problems
-              by finding the maximum profit of each item at each weight
-              a[i][j] = Math.max(a[i-1][j], val[i] + a[i-1][j-w[i]]
-              The value in the bottom right of the array is the maximum profit
-             */
+        /*
+          Algorithm:
+          Building a 2d array ixj
+          It will hold all of the best solutions to the sub problems
+          by finding the maximum profit of each item at each weight
+          a[i][j] = Math.max(a[i-1][j], val[i] + a[i-1][j-w[i]]
+          The value in the bottom right of the array is the maximum profit
+         */
         int k[][] = new int[values.length + 1][capacity + 1];
         for (int i = 0; i <= values.length; i++) {
             for (int j = 0; j <= capacity; j++) {

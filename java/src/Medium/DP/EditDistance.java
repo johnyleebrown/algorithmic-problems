@@ -1,7 +1,8 @@
 package Medium.DP;
 
 /**
- *
+ * GeeksForGeeks
+ * Originally Levenshtein distance (1965)
  */
 public class EditDistance {
     /**
@@ -21,7 +22,8 @@ public class EditDistance {
                     temp[i][j] = temp[i - 1][j - 1];
                 else
                     // insert, delete, replace
-                    temp[i][j] = 1 + Math.min(Math.min(temp[i - 1][j - 1], temp[i - 1][j]), temp[i][j - 1]);
+                    temp[i][j] = 1 +
+                            Math.min(Math.min(temp[i - 1][j - 1], temp[i - 1][j]), temp[i][j - 1]);
             }
         }
         return temp[str1.length][str2.length];

@@ -6,6 +6,9 @@ package Medium.DP;
  */
 public class UniqueBinarySearchTrees {
     /**
+     * Intuition: imagine each of the numbers as a root and compute the
+     *            product of dp from elements on the left and on the right
+     * Recurrence: dp[i] = sum(dp[j] * dp[i - j - 1]), 0 <= j < i
      * Time complexity: O(n^2)
      * Space complexity: O(n)
      */

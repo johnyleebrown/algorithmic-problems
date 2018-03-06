@@ -21,6 +21,7 @@ public class CloneGraph {
     private UndirectedGraphNode dfs(UndirectedGraphNode node, HashMap<Integer, UndirectedGraphNode> map) {
         if (node == null) return null;
         if (map.containsKey(node.label)) {
+            // wont go where already been, marked analogy
             return map.get(node.label);
         } else {
             UndirectedGraphNode clone = new UndirectedGraphNode(node.label);
@@ -39,19 +40,5 @@ public class CloneGraph {
             label = x;
             neighbors = new ArrayList<>();
         }
-    }
-
-    public static void main(String[] args) {
-        UndirectedGraphNode undirectedGraphNode = new UndirectedGraphNode(1);
-        UndirectedGraphNode undirectedGraphNode2 = new UndirectedGraphNode(2);
-        UndirectedGraphNode undirectedGraphNode3 = new UndirectedGraphNode(3);
-        undirectedGraphNode.neighbors.add(undirectedGraphNode2);
-        undirectedGraphNode2.neighbors.add(undirectedGraphNode3);
-        undirectedGraphNode3.neighbors.add(undirectedGraphNode);
-
-        CloneGraph cloneGraph = new CloneGraph();
-        UndirectedGraphNode u = cloneGraph.solution(undirectedGraphNode);
-        u.neighbors.stream().forEach((e) -> System.out.println(e.label));
-
     }
 }

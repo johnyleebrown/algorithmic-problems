@@ -2,6 +2,7 @@ package Medium.LinkedList;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  * 138
@@ -11,35 +12,33 @@ import java.util.HashSet;
  */
 public class CopyListWithRandomPointer {
     /**
-     * Time complexity: O()
-     * Space complexity: O()
+     * The main problem that arises is that we don't have the random nodes in the first iteration
+     * So we put all the original list nodes into hashmap with new nodes
+     *
+     * Time complexity: O(n)
+     * Space complexity: O(n)
      */
     public static RandomListNode solution(RandomListNode head) {
         if (head == null) return null;
-        HashMap<RandomListNode, RandomListNode> nodeMap = new HashMap<>();
-        HashMap<RandomListNode, RandomListNode> randomNodeMap = new HashMap<>();
 
-        RandomListNode random = new RandomListNode(head.label);
-        RandomListNode pointer = random;
-        while (head.next != null) {
-            nodeMap.put(head, pointer);
+        Map<RandomListNode, RandomListNode> map = new HashMap<>();
 
-            if (randomNodeMap.containsKey(head.next)) {
-                RandomListNode node = randomNodeMap.get(head.next);
-                node = pointer.next;
-            }
-            if (nodeMap.containsKey(head.random)) {
-                RandomListNode node = nodeMap.get(head.random);
-                pointer.random = node;
-            }
-            if (head.random != null)
-                randomNodeMap.put(head.random, pointer.random);
-
-            pointer.next = new RandomListNode(head.next.label);
-            pointer = pointer.next;
-            head = head.next;
+        // loop 1. copy all the nodes
+        RandomListNode node = head;
+        while (node != null) {
+            map.put(node, new RandomListNode(node.label));
+            node = node.next;
         }
-        return random;
+
+        // loop 2. assign next and random pointers
+        node = head;
+        while (node != null) {
+            map.get(node).next = map.get(node.next);
+            map.get(node).random = map.get(node.random);
+            node = node.next;
+        }
+
+        return map.get(head);
     }
 
     static class RandomListNode {
@@ -67,9 +66,12 @@ public class CopyListWithRandomPointer {
         RandomListNode randomListNode1 = new RandomListNode(1);
         RandomListNode randomListNode2 = new RandomListNode(2);
         RandomListNode randomListNode3 = new RandomListNode(3);
+        RandomListNode randomListNode4 = new RandomListNode(4);
         randomListNode1.next = randomListNode2;
         randomListNode2.next = randomListNode3;
-        randomListNode3.random = randomListNode1;
+        randomListNode3.next = randomListNode4;
+        randomListNode1.random = randomListNode3;
+        randomListNode2.random = randomListNode3;
 
         printLL(solution(randomListNode1));
     }

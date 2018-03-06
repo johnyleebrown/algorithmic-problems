@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class NumberOfMatchingSubsequences {
     /**
-     * Time complexity: O()
+     * Time complexity: O(n)
      * Space complexity: O(1)
      */
     public static int solution(String S, String[] words) {

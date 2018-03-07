@@ -1,7 +1,6 @@
 package Medium.LinkedList;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -20,7 +19,6 @@ public class CopyListWithRandomPointer {
      */
     public static RandomListNode solution(RandomListNode head) {
         if (head == null) return null;
-
         Map<RandomListNode, RandomListNode> map = new HashMap<>();
 
         // loop 1. copy all the nodes

@@ -30,4 +30,29 @@ public class CustomSortString {
                 ans.append(c);
         return ans.toString();
     }
+
+    /**
+     * Time complexity: O(S.length+T.length)
+     * Space complexity: O(T.length)
+     */
+    public static String solution2(String S, String T){
+        StringBuilder sb = new StringBuilder();
+        StringBuilder[] sbArray = new StringBuilder[27];
+        for (char c : T.toCharArray()) {
+            int ind = S.indexOf(c);
+            if (ind > -1) {
+                if (sbArray[ind] == null) sbArray[ind] = new StringBuilder();
+                sbArray[ind].append(c);
+            } else {
+                if (sbArray[26] == null) sbArray[26] = new StringBuilder();
+                sbArray[26].append(c);
+            }
+        }
+        for (StringBuilder s : sbArray) if (s != null) sb.append(s);
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(solution2("abc", "xbxcaxx"));
+    }
 }

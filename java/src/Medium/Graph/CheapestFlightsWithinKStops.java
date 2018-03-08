@@ -14,17 +14,19 @@ import java.util.Arrays;
 public class CheapestFlightsWithinKStops {
     /**
      * DP
-     * Thoughts:
-     * while the recurrence comes naturally - min(dp[i][to], dp[i - 1][from] + from_to_price)
-     * the main problem was to deal with cells whose prev flights weren't analyzed yet
+     * While the recurrence comes naturally - min(dp[i][to], dp[i - 1][from] + from_to_price)
+     * the main problem was to deal with cells whose prev flights weren't analyzed yet.
+     * To solve that, we will loop K + 1 times (number of edges between src and dst) to cover the worst case,
+     * when the flights are in the wrong order
      *
-     * Time complexity: O()
-     * Space complexity: O()
+     * Time complexity: O(K*M), M - dp.length
+     * Space complexity: O(n^2)
      */
     public static int solution1(int n, int[][] flights, int src, int dst, int K) {
+        int INF = Integer.MAX_VALUE / 2;
         int[][] dp = new int[K + 2][n];
         for (int i = 0; i < dp.length; i++)
-            Arrays.fill(dp[i], Integer.MAX_VALUE / 2);
+            Arrays.fill(dp[i], INF);
         dp[0][src] = 0;
 
         // loop K + 1 times to fill the path from src to dst
@@ -34,14 +36,15 @@ public class CheapestFlightsWithinKStops {
                 dp[i][flight[1]] = Math.min(dp[i][flight[1]], dp[i - 1][flight[0]] + flight[2]);
         }
 
-        return dp[K + 1][dst] >= Integer.MAX_VALUE / 2 ? -1 : dp[K + 1][dst];
+        return dp[K + 1][dst] >= INF / 2 ? -1 : dp[K + 1][dst];
     }
 
     // space O(n) optimized
     public static int solution1optimized(int n, int[][] flights, int src, int dst, int K) {
+        int INF = Integer.MAX_VALUE / 2;
         int[][] dp = new int[2][n];
-        Arrays.fill(dp[0], Integer.MAX_VALUE / 2);
-        Arrays.fill(dp[1], Integer.MAX_VALUE / 2);
+        Arrays.fill(dp[0], INF);
+        Arrays.fill(dp[1], INF);
         dp[0][src] = 0;
         dp[1][src] = 0;
 
@@ -52,11 +55,11 @@ public class CheapestFlightsWithinKStops {
             x = 1 - x;
         }
 
-        return dp[(K + 1) % 2][dst] >= Integer.MAX_VALUE / 2 ? -1 : dp[(K + 1) % 2][dst];
+        return dp[(K + 1) % 2][dst] >= INF / 2 ? -1 : dp[(K + 1) % 2][dst];
     }
 
     /**
-     * Dijkstra algo
+     * Dijkstra algorithm
      * Time complexity: O()
      * Space complexity: O()
      */

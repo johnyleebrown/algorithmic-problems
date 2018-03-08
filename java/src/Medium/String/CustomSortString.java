@@ -18,13 +18,16 @@ public class CustomSortString {
      */
     public static String solution(String S, String T) {
         int[] count = new int[26];
-        for (char c : T.toCharArray()) count[c - 'a']++;
+        for (char c : T.toCharArray())
+            count[c - 'a']++;
         StringBuilder ans = new StringBuilder();
+
         for (char c : S.toCharArray()) {
             for (int i = 0; i < count[c - 'a']; ++i)
                 ans.append(c);
             count[c - 'a'] = 0;
         }
+
         for (char c = 'a'; c <= 'z'; ++c)
             for (int i = 0; i < count[c - 'a']; ++i)
                 ans.append(c);
@@ -36,19 +39,27 @@ public class CustomSortString {
      * Space complexity: O(T.length)
      */
     public static String solution2(String S, String T){
-        StringBuilder sb = new StringBuilder();
+        int[] s_chars = new int[26];
+        for (int i = 0 ; i < S.length() ; i++)
+            s_chars[S.charAt(i) - 'a'] = i + 1;
+
         StringBuilder[] sbArray = new StringBuilder[27];
         for (char c : T.toCharArray()) {
-            int ind = S.indexOf(c);
-            if (ind > -1) {
-                if (sbArray[ind] == null) sbArray[ind] = new StringBuilder();
-                sbArray[ind].append(c);
-            } else {
+            int ind = s_chars[c - 'a'];
+            if (ind == 0) {
                 if (sbArray[26] == null) sbArray[26] = new StringBuilder();
                 sbArray[26].append(c);
+            } else {
+                if (sbArray[ind - 1] == null) sbArray[ind - 1] = new StringBuilder();
+                sbArray[ind - 1].append(c);
             }
         }
-        for (StringBuilder s : sbArray) if (s != null) sb.append(s);
+
+        StringBuilder sb = new StringBuilder();
+        for (StringBuilder s : sbArray)
+            if (s != null)
+                sb.append(s);
+
         return sb.toString();
     }
 

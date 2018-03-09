@@ -1,6 +1,9 @@
 package Medium.Graph;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  * 787
@@ -64,7 +67,33 @@ public class CheapestFlightsWithinKStops {
      * Space complexity: O()
      */
     public static int solution2(int n, int[][] flights, int src, int dst, int K) {
-return 0;
+        int[][] graph = new int[n][n];
+        for (int[] flight: flights) graph[flight[0]][flight[1]] = flight[2];
+        Map<Integer, Integer> bestCostSoFar = new HashMap<>();
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        pq.offer(new int[]{0, 0, src});
+
+        while (!pq.isEmpty()) {
+            int[] info = pq.poll();
+            int cost = info[0], k = info[1], place = info[2];
+
+            if (k > K + 1 || cost > bestCostSoFar.getOrDefault(k * 1000 + place, Integer.MAX_VALUE)) continue;
+            if (place == dst) return cost;
+            for (int i = 0; i < n; ++i) relax(pq, graph, bestCostSoFar, cost, k, place, i);
+        }
+
+        return -1;
+    }
+
+    // relaxation method - update the cost of getting to the vertex if a shorter path is found
+    private static void relax(PriorityQueue<int[]> pq, int[][] graph, Map<Integer, Integer> bestCostSoFar, int cost, int k, int place, int i){
+        if (graph[place][i] > 0) {
+            int newCost = cost + graph[place][i];
+            if (newCost < bestCostSoFar.getOrDefault((k + 1) * 1000 + i, Integer.MAX_VALUE)) {
+                pq.offer(new int[]{newCost, k + 1, i});
+                bestCostSoFar.put((k + 1) * 1000 + i, newCost);
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -76,6 +105,7 @@ return 0;
                 {0,1,100},
                 {0,2,300}
         };
-        System.out.println(solution1optimized(5, a, 0, 4,1));
+        System.out.println(solution2(5, a, 0, 4,1));
+        System.out.println(solution1(5, a, 0, 4,1));
     }
 }

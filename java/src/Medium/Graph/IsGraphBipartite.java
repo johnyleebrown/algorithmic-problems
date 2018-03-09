@@ -11,7 +11,7 @@ import java.util.Stack;
  */
 public class IsGraphBipartite {
     /**
-     * Time complexity: O(N + E)
+     * Time complexity: O(V + E)
      * Space complexity: O(N)
      */
     public static boolean solution1(int[][] graph) {
@@ -42,7 +42,7 @@ public class IsGraphBipartite {
     }
 
     /**
-     * Time complexity: O(N + E)
+     * Time complexity: O(V + E)
      * Space complexity: O(N)
      */
     public static boolean solution2(int[][] graph) {

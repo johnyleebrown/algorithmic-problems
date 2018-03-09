@@ -26,10 +26,12 @@ public class Helper {
 
     // [[3,4,6],[3,6],[3,6],[0,1,2,5],[0,7,8],[3],[0,1,2,7],[4,6],[4],[]]
     public static int[][] replaceBracets(String input) {
-        input = input.replace("[]","[ ]")
+        input = input.replaceAll(" ", "")
+                .replace("[]","[ ]")
                 .replace("[[", "")
                 .replaceAll("]]", "");
 
+        System.out.println("======================");
         String[] strings = input.split("],\\[");
         int[][] out = new int[strings.length][];
         for (int i = 0 ; i < strings.length ; i++) {
@@ -38,6 +40,7 @@ public class Helper {
             else out[i] = Arrays.stream(strings[i].split(",")).mapToInt(Integer::valueOf).toArray();
             System.out.println(Arrays.toString(out[i]));
         }
+        System.out.println("======================");
 
         return out;
     }

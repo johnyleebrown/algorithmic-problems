@@ -1,6 +1,9 @@
 package Medium.Array;
 
+import java.util.Arrays;
+
 /**
+ * 798
  * Given an array A, we may rotate it by a non-negative integer K
  * so that the array becomes A[K], A[K+1], A{K+2], ... A[A.length - 1],
  * A[0], A[1], ..., A[K-1].  Afterward, any entries that are less than
@@ -14,34 +17,58 @@ package Medium.Array;
  */
 public class SmallestRotationWithHighestScore {
     /**
+     * Interval Stabbing
      * Time complexity: O(n)
      * Space complexity: O(n)
      */
     public static int solution(int[] A) {
-        int[] res = new int[A.length];
+        int n = A.length;
+        int[] bad = new int[n];
 
-        for (int f = 0; f < A.length; f++) {
-            int pp = A[f];
-            int start = pp;
-            int end = A.length;
+        for (int i = 0; i < n; ++i) {
+            int left = (i - A[i] + 1 + n) % n;
+            int right = (i + 1) % n;
+            bad[left]--;
+            bad[right]++;
+            if (left > right) bad[0]--;
+        }
 
-            if (pp >= end) continue;
-            start -= f;
-            end -= f;
-            if (start >= 0) {
-                res[start]++;
-                if (end < A.length) res[end]--;
-            } else {
-                res[0]++;
-                res[start + A.length]++;
-                if (end < A.length) res[end]--;
+        int best = -n;
+        int ans = 0;
+        int cur = 0;
+
+        for (int i = 0; i < n; ++i) {
+            cur += bad[i];
+            if (cur > best) {
+                best = cur;
+                ans = i;
             }
         }
 
-        for (int k = 1; k < A.length; k++) res[k] += res[k - 1];
-        int min = 0;
-        for (int t = A.length - 1; t >= 1; t--) if (res[t] > res[min]) min = t;
+        return ans;
+    }
 
-        return (A.length - min) % A.length;
+    // O(n^2)
+    public static int solution2(int[] A) {
+        int n = A.length;
+        int res = 0;
+        int maxScore = Integer.MIN_VALUE;
+
+        for (int k = 0; k < n; k++) {
+            if (k != 0) {
+                int first = A[0];
+                for (int i = 1; i < n; i++) A[i - 1] = A[i];
+                A[n - 1] = first;
+            }
+
+            int score = 0;
+            for (int i = 0; i < n; i++) if (A[i] <= i) score++;
+
+            if (score > maxScore) {
+                res = k;
+                maxScore = score;
+            }
+        }
+        return res;
     }
 }

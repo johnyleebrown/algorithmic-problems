@@ -69,6 +69,7 @@ public class MinimumHeightTrees {
 
     public static void main(String[] args) {
         String s = "[[0,1],[0,2],[0,3],[3,4],[4,5]]";
-        System.out.println(Arrays.toString(solution1(6, replaceBracets(s)).toArray()));
+        //System.out.println(Arrays.toString(solution1(6, replaceBracets(s)).toArray()));
+        System.out.println(-2147483646 - Integer.MAX_VALUE);
     }
 }

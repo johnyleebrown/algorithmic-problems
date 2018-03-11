@@ -7,7 +7,10 @@ import java.util.Arrays;
  */
 public class Helper {
 
-    public static void print2Darray(int[][] k, int y, int x) {
+    public static void print2Darray(int[][] k) {
+        int y = k.length - 1;
+        int x = k[0].length - 1;
+
         int spaceN = 1;
         for (int i = 0; i <= y; i++) {
             for (int j = 0; j <= x; j++) {
@@ -31,16 +34,16 @@ public class Helper {
                 .replace("[[", "")
                 .replaceAll("]]", "");
 
-        System.out.println("======================");
+//        System.out.println("======================");
         String[] strings = input.split("],\\[");
         int[][] out = new int[strings.length][];
         for (int i = 0 ; i < strings.length ; i++) {
             out[i] = new int[strings[i].length()];
             if (strings[i].equals(" ")) out[i] = new int[]{};
             else out[i] = Arrays.stream(strings[i].split(",")).mapToInt(Integer::valueOf).toArray();
-            System.out.println(Arrays.toString(out[i]));
+//            System.out.println(Arrays.toString(out[i]));
         }
-        System.out.println("======================");
+//        System.out.println("======================");
 
         return out;
     }

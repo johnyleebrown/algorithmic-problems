@@ -1,9 +1,15 @@
 package Medium.Graph;
 
+import static Helpers.Helper.print2Darray;
+import static Helpers.Helper.replaceBracets;
+
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
 
 /**
@@ -26,40 +32,42 @@ public class CheapestFlightsWithinKStops {
      * Time complexity: O(K*M), M - dp.length
      * Space complexity: O(n^2)
      */
-    public static int solution1(int n, int[][] flights, int src, int dst, int K) {
-        int INF = Integer.MAX_VALUE / 2;
-        int[][] dp = new int[K + 2][n];
-        for (int i = 0; i < dp.length; i++)
-            Arrays.fill(dp[i], INF);
-        dp[0][src] = 0;
+    public static class solution1 {
+        public static int dp(int n, int[][] flights, int src, int dst, int K) {
+            int INF = Integer.MAX_VALUE / 2;
+            int[][] dp = new int[K + 2][n];
+            for (int i = 0; i < dp.length; i++)
+                Arrays.fill(dp[i], INF);
+            dp[0][src] = 0;
 
-        // loop K + 1 times to fill the path from src to dst
-        for (int i = 1; i < dp.length; i++) {
-            dp[i][src] = 0;
-            for (int[] flight : flights)
-                dp[i][flight[1]] = Math.min(dp[i][flight[1]], dp[i - 1][flight[0]] + flight[2]);
+            // loop K + 1 times to fill the path from src to dst
+            for (int i = 1; i < dp.length; i++) {
+                dp[i][src] = 0;
+                for (int[] flight : flights)
+                    dp[i][flight[1]] = Math.min(dp[i][flight[1]], dp[i - 1][flight[0]] + flight[2]);
+            }
+
+            return dp[K + 1][dst] >= INF / 2 ? -1 : dp[K + 1][dst];
         }
 
-        return dp[K + 1][dst] >= INF / 2 ? -1 : dp[K + 1][dst];
-    }
+        // space O(n) optimized
+        public static int dpOptimized(int n, int[][] flights, int src, int dst, int K) {
+            int INF = Integer.MAX_VALUE / 2;
+            int[][] dp = new int[2][n];
+            Arrays.fill(dp[0], INF);
+            Arrays.fill(dp[1], INF);
+            dp[0][src] = 0;
+            dp[1][src] = 0;
 
-    // space O(n) optimized
-    public static int solution1optimized(int n, int[][] flights, int src, int dst, int K) {
-        int INF = Integer.MAX_VALUE / 2;
-        int[][] dp = new int[2][n];
-        Arrays.fill(dp[0], INF);
-        Arrays.fill(dp[1], INF);
-        dp[0][src] = 0;
-        dp[1][src] = 0;
+            int x = 0;
+            for (int i = 0; i <= K; i++) {
+                for (int[] f : flights)
+                    dp[1 - x][f[1]] = Math.min(dp[1 - x][f[1]], dp[x][f[0]] + f[2]);
+                x = 1 - x;
+            }
 
-        int x = 0;
-        for (int i = 0; i <= K; i++) {
-            for (int[] f : flights)
-                dp[1 - x][f[1]] = Math.min(dp[1 - x][f[1]], dp[x][f[0]] + f[2]);
-            x = 1 - x;
+            return dp[(K + 1) % 2][dst] >= INF / 2 ? -1 : dp[(K + 1) % 2][dst];
         }
-
-        return dp[(K + 1) % 2][dst] >= INF / 2 ? -1 : dp[(K + 1) % 2][dst];
     }
 
     /**
@@ -67,81 +75,92 @@ public class CheapestFlightsWithinKStops {
      * Time complexity: O()
      * Space complexity: O()
      */
-    public static int solution2(int n, int[][] flights, int src, int dst, int K) {
-        int[][] graph = new int[n][n];
-        for (int[] flight: flights) graph[flight[0]][flight[1]] = flight[2];
-        Map<Integer, Integer> bestCostSoFar = new HashMap<>();
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-        pq.offer(new int[]{0, 0, src});
-
-        while (!pq.isEmpty()) {
-            int[] info = pq.poll();
-            int cost = info[0], k = info[1], place = info[2];
-
-            if (k > K + 1 || cost > bestCostSoFar.getOrDefault(k * 1000 + place, Integer.MAX_VALUE)) continue;
-            if (place == dst) return cost;
-            for (int i = 0; i < n; ++i) relax(pq, graph, bestCostSoFar, cost, k, place, i);
+    public static class solution2 {
+        public static int solution2(int n, int[][] flights, int src, int dst, int K) {
+            return 0;
         }
 
-        return -1;
-    }
+        // relaxation method - update the cost of getting to the vertex if a shorter path is found
+        private static void relax(){
 
-    // relaxation method - update the cost of getting to the vertex if a shorter path is found
-    private static void relax(PriorityQueue<int[]> pq, int[][] graph, Map<Integer, Integer> bestCostSoFar, int cost, int k, int place, int i){
-        if (graph[place][i] > 0) {
-            int newCost = cost + graph[place][i];
-            if (newCost < bestCostSoFar.getOrDefault((k + 1) * 1000 + i, Integer.MAX_VALUE)) {
-                pq.offer(new int[]{newCost, k + 1, i});
-                bestCostSoFar.put((k + 1) * 1000 + i, newCost);
-            }
         }
     }
 
     /**
+     * Dijkstras
      * Find Shortest Path
      * Non-negative edge weight
      * Relaxation - update the cost of getting to the point if found a shorter path
      * distTo[w] <= distTo[v] + e.weight()
      */
-    public static class Dijkstras {
+    public static class solution3 {
+        private static int[] costs;
+        //private static MinPQ<Integer> pq;
         private static int[] distTo;
-        private static MinPQ<Integer> pq;
+        private static final int MAX = Integer.MAX_VALUE / 2;
+        private static PriorityQueue<int[]> pQ;
 
         public static int solution(int n, int[][] flights, int src, int dst, int K) {
             EWDI graph = new EWDI(n, flights);
             distTo = new int[n];
-            Arrays.fill(distTo, Integer.MAX_VALUE);
-            distTo[src] = 0;
 
-            pq = new MinPQ<>(n);
-            pq.insert(src, 0);
+            costs = new int[n];
+            Arrays.fill(costs, MAX);
+            costs[src] = 0;
 
-            while (!pq.isEmpty()) {
-                int v = pq.delMin();
+            pQ = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+            pQ.offer(new int[]{src, 0});
+
+            while (!pQ.isEmpty()) {
+                int v = pQ.peek()[0];
+                int forgottenCost = pQ.poll()[1];
+
+//                System.out.println("v: " + v);
+//                pQ.forEach(val -> System.out.print(Arrays.toString(val)));
+//                System.out.println();
+
                 for (DWE edge : graph.adj(v))
-                    relax(edge);
+                    relax(edge, K, forgottenCost);
+
+//                System.out.println();
             }
 
-            return distTo[dst] == Integer.MAX_VALUE ? -1 : distTo[dst];
+//            System.out.println("====================");
+//            System.out.println(Arrays.toString(costs));
+//            System.out.println(Arrays.toString(distTo));
+            return costs[dst] >= MAX ? -1 : costs[dst];
         }
 
-        private static void relax(DWE edge) {
+        private static void relax(DWE edge, int K, int forgottenCost) {
             int from = edge.getV();
             int to = edge.getW();
             int cost = edge.getWeight();
-            if (distTo[to] > distTo[from] + cost) {
-                distTo[to] = distTo[from] + cost;
-                if (pq.contains(to)) pq.decreaseKey(to, distTo[to]);
-                else pq.insert(to, distTo[to]);
+
+            if (distTo[from] + 1 > K + 1) {
+                costs[from] = forgottenCost;
+                costs[to] = costs[from] + cost;
+                distTo[to] = distTo[from] + 1;
             }
+            else if (costs[to] > costs[from] + cost && distTo[from] + 1 <= K + 1) {
+                costs[to] = costs[from] + cost;
+                distTo[to] = distTo[from] + 1;
+                pQ.add(new int[]{to, costs[to]});
+
+//                pQ.forEach(val -> System.out.print(Arrays.toString(val)));
+//                System.out.println();
+            }
+
+//            System.out.println(Arrays.toString(costs));
+//            System.out.println(Arrays.toString(distTo));
+//            System.out.println("------------");
         }
 
-        public static class EWDI {
+        static class EWDI {
             private int V;
             private int E;
             private LinkedList<DWE>[] adj;
 
-            public EWDI(int n, int[][] graph) {
+            EWDI(int n, int[][] graph) {
                 this.V = n;
                 adj = (LinkedList<DWE>[]) new LinkedList[n];
                 for (int v = 0; v < V; v++) adj[v] = new LinkedList<>();
@@ -153,90 +172,101 @@ public class CheapestFlightsWithinKStops {
                 }
             }
 
-            public int outdegree(int v) {
+            int outdegree(int v) {
                 return adj[v].size();
             }
 
-            public Iterable<DWE> adj(int v) {
+            Iterable<DWE> adj(int v) {
                 return adj[v];
             }
         }
 
-        public static class DWE {
+        static class DWE {
             private final int v;
             private int w;
             private int weight;
 
-            public int getWeight() {
-                return weight;
-            }
-
-            public DWE(int v, int w, int weight) {
+            DWE(int v, int w, int weight) {
                 this.v = v;
                 this.w = w;
                 this.weight = weight;
             }
 
-            public int getV() {
+            int getV() {
                 return v;
             }
 
-            public int getW() {
+            int getW() {
                 return w;
+            }
+
+            int getWeight() {
+                return weight;
             }
         }
 
-        public static class MinPQ<Key extends Comparable<Key>> {
+        static class MinPQ<Key extends Comparable<Key>> implements Iterable<Integer> {
             private int maxN;        // maximum number of elements on PQ
             private int n;           // number of elements on PQ
             private int[] pq;        // binary heap using 1-based indexing
             private int[] qp;        // inverse of pq - qp[pq[i]] = pq[qp[i]] = i
             private Key[] keys;      // keys[i] = priority of i
 
-            public MinPQ(int maxN) {
-                if (maxN < 0) throw new IllegalArgumentException();
+            MinPQ(int maxN) {
                 this.maxN = maxN;
                 n = 0;
                 keys = (Key[]) new Comparable[maxN + 1];
-                pq   = new int[maxN + 1];
-                qp   = new int[maxN + 1];
+                pq = new int[maxN + 1];
+                qp = new int[maxN + 1];
                 for (int i = 0; i <= maxN; i++) qp[i] = -1;
             }
 
-            public int delMin() {
+            int delMin() {
                 int min = pq[1];
                 exch(1, n--);
                 sink(1);
                 qp[min] = -1;        // delete
                 keys[min] = null;    // to help with garbage collection
-                pq[n+1] = -1;        // not needed
+                pq[n + 1] = -1;        // not needed
+                printAll();
                 return min;
             }
 
-            public boolean isEmpty() {
+            boolean isEmpty() {
                 return n == 0;
             }
 
-            public boolean contains(int i) {
+            boolean contains(int i) {
                 return qp[i] != -1;
             }
 
-            public int size() {
+            int size() {
                 return n;
             }
 
-            public void insert(int i, Key key) {
+            void insert(int i, Key key) {
                 n++;
                 qp[i] = n;
                 pq[n] = i;
                 keys[i] = key;
                 swim(n);
+
+                printAll();
             }
 
             // Decrease the key associated with index i to the specified value.
-            public void decreaseKey(int i, Key key) {
+            void decreaseKey(int i, Key key) {
                 keys[i] = key;
                 swim(qp[i]);
+
+                printAll();
+            }
+
+            void printAll() {
+                System.out.println("===============");
+                Arrays.stream(pq).forEach(val -> System.out.print(" " + val + " "));
+                System.out.println();
+                System.out.println("===============");
             }
 
             private boolean greater(int i, int j) {
@@ -252,24 +282,46 @@ public class CheapestFlightsWithinKStops {
             }
 
             private void swim(int k) {
-                while (k > 1 && greater(k/2, k)) {
-                    exch(k, k/2);
-                    k = k/2;
+                while (k > 1 && greater(k / 2, k)) {
+                    exch(k, k / 2);
+                    k = k / 2;
                 }
             }
 
             private void sink(int k) {
-                while (2*k <= n) {
-                    int j = 2*k;
-                    if (j < n && greater(j, j+1)) j++;
+                while (2 * k <= n) {
+                    int j = 2 * k;
+                    if (j < n && greater(j, j + 1)) j++;
                     if (!greater(k, j)) break;
                     exch(k, j);
                     k = j;
                 }
             }
+
+            public Iterator<Integer> iterator() { return new HeapIterator(); }
+
+            private class HeapIterator implements Iterator<Integer> {
+                // create a new pq
+                private MinPQ<Key> copy;
+
+                // add all elements to copy of heap
+                // takes linear time since already in heap order so no keys move
+                public HeapIterator() {
+                    copy = new MinPQ<>(pq.length - 1);
+                    for (int i = 1; i <= n; i++)
+                        copy.insert(pq[i], keys[pq[i]]);
+                }
+
+                public boolean hasNext()  { return !copy.isEmpty();                     }
+                public void remove()      { throw new UnsupportedOperationException();  }
+
+                public Integer next() {
+                    if (!hasNext()) throw new NoSuchElementException();
+                    return copy.delMin();
+                }
+            }
         }
     }
-
 
     public static void main(String[] args) {
         int[][] a = new int[][] {
@@ -280,8 +332,20 @@ public class CheapestFlightsWithinKStops {
                 {0,1,100},
                 {0,2,300}
         };
-        System.out.println(solution2(5, a, 0, 4,1));
-        System.out.println(solution1(5, a, 0, 4,1));
-        System.out.println(Dijkstras.solution(5, a, 0, 4,1));
+
+        System.out.println(solution1.dp(5, a, 0, 4,1));
+        System.out.println(solution3.solution(5, a, 0, 4,1));
+        System.out.println("=========");
+        String s1 = "[[4,1,1],[1,2,3],[0,3,2],[0,4,10],[3,1,1],[1,4,3]]";
+        System.out.println(solution1.dp(5, replaceBracets(s1), 2, 1,1));
+        System.out.println(solution3.solution(5, replaceBracets(s1), 2, 1,1));
+        System.out.println("=========");
+        String s2 = "[[0,1,2],[1,2,1],[2,0,10]]";
+        System.out.println(solution1.dp(3, replaceBracets(s2), 1, 2,1));
+        System.out.println(solution3.solution(3, replaceBracets(s2), 1, 2,1));
+        System.out.println("=========");
+        String s3 = "[[0,1,1],[0,2,5],[1,2,1],[2,3,1]]";
+        System.out.println(solution1.dpOptimized(4, replaceBracets(s3), 0, 3,1));
+        System.out.println(solution3.solution(4, replaceBracets(s3), 0, 3,1));
     }
 }

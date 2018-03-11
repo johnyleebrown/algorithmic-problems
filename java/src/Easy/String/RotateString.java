@@ -10,12 +10,12 @@ package Easy.String;
  */
 public class RotateString {
     /**
-     * Time complexity: O()
-     * Space complexity: O()
+     * Time complexity: O(n)
+     * Space complexity: O(1)
      */
     public static boolean solution(String A, String B) {
-        for (int s = 0; s < A.length(); s++) {
-            String x = A.substring(s) + A.substring(0, s);
+        for (int i = 0; i < A.length(); i++) {
+            String x = A.substring(i) + A.substring(0, i);
             if (x.equals(B)) return true;
         }
         return false;

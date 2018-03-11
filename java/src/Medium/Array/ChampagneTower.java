@@ -38,4 +38,5 @@ public class ChampagneTower {
         return res[query_row][query_glass];
     }
 
+
 }

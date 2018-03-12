@@ -15,28 +15,32 @@ package Medium.Array;
  */
 public class ChampagneTower {
     /**
-     * Time complexity: O()
-     * Space complexity: O()
+     * HINT: fill the first row with max amount at the beginning
+     * Time complexity: O(n^2) n - rows
+     * Space complexity: O(n^2)
      */
-    public double champagneTower(int poured, int query_row, int query_glass) {
+    public static double champagneTower(int poured, int query_row, int query_glass){
         double[][] res = new double[100][100];
         res[0][0] = poured;
-        for (int i = 0; i < 99; i++) {
 
-            for (int r = 0; r <= i; r++) {
-                if (res[i][r] > 1) {
-                    double ex = res[i][r] - 1;
-                    res[i][r] = 1;
-                    res[i + 1][r] += ex / 2;
-                    res[i + 1][r + 1] += ex / 2;
+        // iterate through all rows and all glasses in each row
+        for (int i = 0 ; i < 100 ; i++){
+            for (int j = 0 ; j <= i ; j++) {
+                if (res[i][j] > 1) {
+                    double amountLeft = res[i][j] - 1;
+                    if (i != 99) {
+                        res[i + 1][j] += amountLeft / 2;
+                        res[i + 1][j + 1] += amountLeft / 2;
+                    }
+                    res[i][j] = 1;
                 }
-
             }
-//            System.out.println(Arrays.toString(res[i]));
         }
 
         return res[query_row][query_glass];
     }
 
-
+    public static void main(String[] args) {
+        System.out.println(champagneTower(4,2,1));
+    }
 }

@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class Helper {
 
-    public static void print2Darray(int[][] k) {
+    public static void print2DArray(int[][] k) {
         int y = k.length - 1;
         int x = k[0].length - 1;
 
@@ -35,14 +35,18 @@ public class Helper {
                 .replaceAll("]]", "");
 
 //        System.out.println("======================");
+
         String[] strings = input.split("],\\[");
         int[][] out = new int[strings.length][];
         for (int i = 0 ; i < strings.length ; i++) {
             out[i] = new int[strings[i].length()];
             if (strings[i].equals(" ")) out[i] = new int[]{};
             else out[i] = Arrays.stream(strings[i].split(",")).mapToInt(Integer::valueOf).toArray();
+
 //            System.out.println(Arrays.toString(out[i]));
+
         }
+
 //        System.out.println("======================");
 
         return out;

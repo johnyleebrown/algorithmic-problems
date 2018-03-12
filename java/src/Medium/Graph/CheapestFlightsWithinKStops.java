@@ -75,44 +75,41 @@ public class CheapestFlightsWithinKStops {
      */
     public static class solution2 {
         public static int solution2(int n, int[][] flights, int src, int dst, int K) {
+            /*
+              from : { to : cost }
+              to :
+            */
             Map<Integer, Map<Integer, Integer>> graph = new HashMap<>();
-            for (int[] f : flights) {
-                graph.put(f[0], graph.getOrDefault(f[0], new HashMap<>()));
-                graph.put(f[1], graph.getOrDefault(f[1], new HashMap<>()));
-                graph.get(f[0]).put(f[1], f[2]);
+            for (int[] weightedEdge : flights) {
+                graph.put(weightedEdge[0], graph.getOrDefault(weightedEdge[0], new HashMap<>()));
+                graph.put(weightedEdge[1], graph.getOrDefault(weightedEdge[1], new HashMap<>()));
+                graph.get(weightedEdge[0]).put(weightedEdge[1], weightedEdge[2]);
             }
+
+            /*
+              pq : cost, vertex, stops (k + 1 - max)
+            */
             Queue<int[]> pq = new PriorityQueue<>((a, b) -> (a[0] - b[0]));
             pq.add(new int[]{0, src, K + 1});
+
             while (!pq.isEmpty()) {
-                int[] top = pq.remove();
-                int price = top[0];
-                int city = top[1];
-                int stops = top[2];
-                if (city == dst) return price;
-                if (stops > 0) {
-                    Map<Integer, Integer> adj = graph.get(city);
-                    for (int a : adj.keySet()) {
-                        pq.add(new int[]{price + adj.get(a), a, stops - 1});
-                    }
+                int[] minCostEntry = pq.remove();
+                int cost = minCostEntry[0], from = minCostEntry[1], k = minCostEntry[2];
+
+                if (from == dst)
+                    return cost;
+
+                if (k > 0) {
+                    Map<Integer, Integer> adj = graph.get(from);
+                    for (int to : adj.keySet())
+                        pq.add(new int[]{cost + adj.get(to), to, k - 1});
                 }
             }
             return -1;
         }
     }
 
-
     public static void main(String[] args) {
-        int[][] a = new int[][] {
-                {3,4,200},
-                {2,4,300},
-                {0,4,700},
-                {1,3,200},
-                {0,1,100},
-                {0,2,300}
-        };
-
-        System.out.println(solution1.dp(5, a, 0, 4,1));
-        System.out.println("=========");
         String s1 = "[[4,1,1],[1,2,3],[0,3,2],[0,4,10],[3,1,1],[1,4,3]]";
         System.out.println(solution1.dp(5, replaceBracets(s1), 2, 1,1));
         System.out.println("=========");

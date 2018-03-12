@@ -70,7 +70,6 @@ public class SmallestRotationWithHighestScore {
         return res;
     }
 
-
     public static void main(String[] args) {
 //        System.out.println(solution3(new int[]{2, 3, 1, 4, 0}));
 //        System.out.println(solution3(new int[]{1, 3, 0, 2, 4}));

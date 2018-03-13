@@ -1,7 +1,11 @@
 package Medium.Array;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 792
@@ -18,23 +22,43 @@ public class NumberOfMatchingSubsequences {
      * waiting for that letter. Then for each of the lucky words whose current letter
      * just occurred in S, I update their progress and store them in the list for their
      * next letter.
-     * by {https://leetcode.com/stefanpochmann}
+     * by stefanpochmann
      *
      * Time complexity: O(n)
      * Space complexity: O(1)
      */
     public static int solution(String S, String[] words) {
-        List<Integer[]>[] waiting = new List[128];
-        for (int c = 0; c <= 'z'; c++)
-            waiting[c] = new ArrayList();
+        List<Integer[]>[] waiting = new List[26];
+        for (int i = 0; i < 26; i++) waiting[i] = new ArrayList<>();
         for (int i = 0; i < words.length; i++)
-            waiting[words[i].charAt(0)].add(new Integer[]{i, 1});
+            waiting[words[i].charAt(0) - 'a'].add(new Integer[]{i, 1});
         for (char c : S.toCharArray()) {
-            List<Integer[]> advance = new ArrayList(waiting[c]);
-            waiting[c].clear();
+            List<Integer[]> advance = new ArrayList<>(waiting[c - 'a']);
+            waiting[c - 'a'].clear();
             for (Integer[] a : advance)
-                waiting[a[1] < words[a[0]].length() ? words[a[0]].charAt(a[1]++) : 0].add(a);
+                waiting[a[1] < words[a[0]].length() ? words[a[0]].charAt(a[1]++) - 'a' : 0].add(a);
         }
         return waiting[0].size();
+    }
+
+    // 11% faster by setsuna214
+    public int solution2(String S, String[] words) {
+        Map<Character, Deque<String>> map = new HashMap<>();
+        for (char c = 'a'; c <= 'z'; c++)   map.putIfAbsent(c, new LinkedList<>());
+        for (String word : words)           map.get(word.charAt(0)).addLast(word);
+
+        int count = 0;
+        for (char c : S.toCharArray()) {
+            Deque<String> queue = map.get(c);
+            int size = queue.size();
+
+            for (int i = 0; i < size; i++) {
+                String word = queue.removeFirst();
+
+                if (word.length() == 1) count++;
+                else                    map.get(word.charAt(1)).addLast(word.substring(1));
+            }
+        }
+        return count;
     }
 }

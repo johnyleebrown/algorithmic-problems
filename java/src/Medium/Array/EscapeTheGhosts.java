@@ -1,4 +1,4 @@
-package Medium;
+package Medium.Array;
 
 import Helpers.Helper;
 

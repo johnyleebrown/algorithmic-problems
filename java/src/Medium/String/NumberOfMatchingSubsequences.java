@@ -1,4 +1,4 @@
-package Medium.Array;
+package Medium.String;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -41,6 +41,7 @@ public class NumberOfMatchingSubsequences {
         return waiting[0].size();
     }
 
+    // remove letter by letter from each word starting at S.charAt
     // 11% faster by setsuna214
     public int solution2(String S, String[] words) {
         Map<Character, Deque<String>> map = new HashMap<>();

@@ -3,6 +3,8 @@ package Medium.HashTable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javafx.util.Pair;
+
 /**
  * 36
  */
@@ -23,6 +25,7 @@ public class ValidSudoku {
                         return false;
             }
         }
+        Pair<Integer, Integer> p ;
         return true;
     }
 }

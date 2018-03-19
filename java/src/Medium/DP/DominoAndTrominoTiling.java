@@ -18,14 +18,17 @@ public class DominoAndTrominoTiling {
         if (N < 0) return 0;
         if (N == 0) return 1;
         if (N < 3) return N;
+
         int[] dp = new int[N + 1];
         dp[0] = 1;
         dp[1] = 1;
         dp[2] = 2;
+
         for (int i = 3; i <= N; i++) {
             dp[i] = 2 * dp[i - 1] % MOD + dp[i - 3] % MOD;
             dp[i] %= MOD;
         }
+
         return dp[N];
     }
 }

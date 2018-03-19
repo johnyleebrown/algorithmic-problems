@@ -1,9 +1,5 @@
 package Medium.DP;
 
-import java.util.Arrays;
-
-import Helpers.Helper;
-
 /**
  * 801
  *
@@ -24,48 +20,29 @@ public class MinimumSwapsToMakeSequencesIncreasing {
      * Space complexity: O(n)
      */
     public static int minSwap(int[] A, int[] B) {
-        if (A.length == 0) return 0;
-
-        System.out.println(Arrays.toString(A));
-        System.out.println(Arrays.toString(B));
-        System.out.println();
-
-        int[] dpNormal = new int[A.length];
-        int[] dpReverse = new int[A.length];
-
-        dpNormal[0] = 0;
-        dpReverse[0] = 1;
-
-        System.out.println(Arrays.toString(dpNormal));
-        System.out.println(Arrays.toString(dpReverse));
-        System.out.println();
+        int[] memo1 = new int[A.length];
+        int[] memo2 = new int[A.length];
+        memo2[0] = 1;
 
         for (int i = 1; i < A.length; i++) {
-            dpNormal[i] = Integer.MAX_VALUE;
-            dpReverse[i] = Integer.MAX_VALUE;
+            memo1[i] = Integer.MAX_VALUE;
+            memo2[i] = Integer.MAX_VALUE;
 
             if (A[i] > A[i - 1] && B[i] > B[i - 1]) {
-                dpNormal[i] = Math.min(dpNormal[i - 1], dpNormal[i]);
-                dpReverse[i] = Math.min(dpReverse[i - 1] + 1, dpReverse[i]);
-            } else {
-                dpNormal[i] = Math.min(dpReverse[i - 1], dpNormal[i]);
-                dpReverse[i] = Math.min(dpNormal[i - 1] + 1, dpReverse[i]);
+                memo1[i] = Math.min(memo1[i - 1], memo1[i]);
+                memo2[i] = Math.min(memo2[i - 1] + 1, memo2[i]);
             }
 
             if (A[i] > B[i - 1] && B[i] > A[i - 1]) {
-                dpNormal[i] = Math.min(dpReverse[i - 1], dpNormal[i]);
-                dpReverse[i] = Math.min(dpNormal[i - 1] + 1, dpReverse[i]);
+                memo1[i] = Math.min(memo2[i - 1], memo1[i]);
+                memo2[i] = Math.min(memo1[i - 1] + 1, memo2[i]);
             }
-
-            System.out.println(Arrays.toString(dpNormal));
-            System.out.println(Arrays.toString(dpReverse));
-            System.out.println();
         }
 
-        return Math.min(dpNormal[A.length - 1], dpReverse[A.length - 1]);
+        return Math.min(memo1[A.length - 1], memo2[A.length - 1]);
     }
 
     public static void main(String[] args) {
-        minSwap(new int[]{0,4,4,5,9},new int[]{0,1,6,8,10});
+        System.out.println(minSwap(new int[]{0,4,4,5,9},new int[]{0,1,6,8,10}));
     }
 }

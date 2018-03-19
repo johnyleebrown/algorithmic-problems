@@ -39,6 +39,26 @@ public class LongestIncreasingSubsequence {
         return memo[maxInd];
     }
 
+    // binary search
+    public int solution2(int[] nums) {
+        int[] dp = new int[nums.length];
+        int len = 0;
+
+        for (int num : nums) {
+            int i = Arrays.binarySearch(dp, 0, len, num);
+
+            if (i < 0)
+                i = -(i + 1);
+
+            dp[i] = num;
+
+            if (i == len)
+                len++;
+        }
+
+        return len;
+    }
+
     public static void main(String[] args) {
         System.out.println(solution(new int[]{3,4,-1,0,6,2,3}));
         System.out.println(solution(new int[]{1,3,6,7,9,4,10,5,6}));

@@ -2,9 +2,6 @@ package Medium.Graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
 
 import Helpers.Helper;
 
@@ -19,32 +16,36 @@ import Helpers.Helper;
  */
 public class CourseSchedule {
     /**
-     * Time complexity: O()
-     * Space complexity: O()
+     * Time complexity: O(E+V)
+     * Space complexity: O(V)
      */
     public static boolean canFinish(int numCourses, int[][] prerequisites) {
-        boolean[] marked = new boolean[numCourses];
-        ArrayList[] graph = new ArrayList[numCourses];
-        Arrays.fill(graph, new ArrayList());
-        for (int[] p : prerequisites) graph[p[1]].add(p[0]);
+        ArrayList<Integer>[] graph = new ArrayList[numCourses];
+        for (int i = 0; i < graph.length; i++)  graph[i] = new ArrayList<>();
+        for (int[] edge : prerequisites)        graph[edge[0]].add(edge[1]);
 
-        for (int v = 0; v < graph.length; v++)
-            if (!dfs(graph, marked, v))
+        int[] marked = new int[numCourses];
+        for (int i = 0; i < graph.length; i++)
+            if (hasCycle(graph, marked, i))
                 return false;
 
         return true;
     }
 
-    private static boolean dfs(ArrayList[] g, boolean[] marked, int v) {
-        if (marked[v]) return false;
-        marked[v] = true;
+    // 1 is visiting
+    // 2 is visited
+    // 0 is unvisited
+    private static boolean hasCycle(ArrayList<Integer>[] graph, int[] marked, int v) {
+        if (marked[v] == 1) return true;
+        if (marked[v] == 2) return false;
+        marked[v] = 1;
 
-        for (int w = 0; w < g[v].size(); w++)
-            if (!dfs(g, marked, w))
-                return false;
+        for (int w : graph[v])
+            if (hasCycle(graph, marked, w))
+                return true;
 
-        marked[v] = false;
-        return true;
+        marked[v] = 2;
+        return false;
     }
 
     public static void main(String[] args) {

@@ -51,4 +51,11 @@ public class Helper {
 
         return out;
     }
+
+    public static void trackTime(){
+        long startTime = System.nanoTime();
+        // action
+        long endTime = System.nanoTime();
+        System.out.println("That took " + (endTime - startTime)/1000000 + " milliseconds");
+    }
 }

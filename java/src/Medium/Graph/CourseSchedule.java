@@ -2,6 +2,8 @@ package Medium.Graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import Helpers.Helper;
 
@@ -21,8 +23,10 @@ public class CourseSchedule {
      */
     public static boolean canFinish(int numCourses, int[][] prerequisites) {
         ArrayList<Integer>[] graph = new ArrayList[numCourses];
-        for (int i = 0; i < graph.length; i++)  graph[i] = new ArrayList<>();
-        for (int[] edge : prerequisites)        graph[edge[0]].add(edge[1]);
+        for (int i = 0; i < graph.length; i++)
+            graph[i] = new ArrayList<>();
+        for (int[] edge : prerequisites)
+            graph[edge[0]].add(edge[1]);
 
         int[] marked = new int[numCourses];
         for (int i = 0; i < graph.length; i++)
@@ -32,9 +36,9 @@ public class CourseSchedule {
         return true;
     }
 
+    // 0 is unvisited
     // 1 is visiting
     // 2 is visited
-    // 0 is unvisited
     private static boolean hasCycle(ArrayList<Integer>[] graph, int[] marked, int v) {
         if (marked[v] == 1) return true;
         if (marked[v] == 2) return false;
@@ -49,6 +53,9 @@ public class CourseSchedule {
     }
 
     public static void main(String[] args) {
+        Map<String, Integer> map2Sum = new HashMap<>();
+        if(map2Sum.put(",1",1) != null) System.out.println();
+        System.out.println(-1 + "_" + 0 + "" + (3+5));
         String s = "[[0,1],[1,3],[2,3]]";
         System.out.println(canFinish(4, Helper.replaceBracets(s)));
 

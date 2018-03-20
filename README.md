@@ -62,4 +62,8 @@
 ### GRAPH
 
 ##### Medium
+
+- [Is Graph Bipartite](java/src/Medium/Graph/IsGraphBipartite.java) 
 - [Cheapest Flights Within K Stops](java/src/Medium/Graph/CheapestFlightsWithinKStops.java)
+- [Course Schedule](java/src/Medium/Graph/CourseSchedule.java)
+- [Find Eventual Safe States](java/src/Medium/Graph/FindEventualSafeStates.java) 

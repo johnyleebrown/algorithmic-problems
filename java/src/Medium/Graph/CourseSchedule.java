@@ -18,51 +18,47 @@ import Helpers.Helper;
  */
 public class CourseSchedule {
     /**
+     * Topological sort, if has cycle return false
+     *
+     * Mark in three colors:
+     * 0 - unvisited (initial)
+     * 1 - visiting (the vertex is on the current path)
+     * 2 - visited
+     *
      * Time complexity: O(E+V)
      * Space complexity: O(V)
      */
-    public static boolean canFinish(int numCourses, int[][] prerequisites) {
-        ArrayList<Integer>[] graph = new ArrayList[numCourses];
-        for (int i = 0; i < graph.length; i++)
-            graph[i] = new ArrayList<>();
-        for (int[] edge : prerequisites)
-            graph[edge[0]].add(edge[1]);
+    public class Solution1 {
+        boolean canFinish(int numCourses, int[][] prerequisites) {
+            ArrayList<Integer>[] graph = new ArrayList[numCourses];
 
-        int[] marked = new int[numCourses];
-        for (int i = 0; i < graph.length; i++)
-            if (hasCycle(graph, marked, i))
-                return false;
+            for (int i = 0; i < numCourses; i++)    graph[i] = new ArrayList<>();
+            for (int[] edge : prerequisites)        graph[edge[1]].add(edge[0]);
 
-        return true;
+            int[] marked = new int[numCourses];
+
+            for (int v = 0; v < graph.length; v++) {
+                if (hasCycle(graph, marked, v)) return false;
+            }
+
+            return true;
+        }
+
+        boolean hasCycle(ArrayList<Integer>[] graph, int[] marked, int v) {
+            if (marked[v] == 1) return true;
+            marked[v] = 1;
+
+            for (int w : graph[v]) {
+                if (marked[v] != 2 && hasCycle(graph, marked, w)) return true;
+            }
+
+            marked[v] = 2;
+            return false;
+        }
     }
-
-    // 0 is unvisited
-    // 1 is visiting
-    // 2 is visited
-    private static boolean hasCycle(ArrayList<Integer>[] graph, int[] marked, int v) {
-        if (marked[v] == 1) return true;
-        if (marked[v] == 2) return false;
-        marked[v] = 1;
-
-        for (int w : graph[v])
-            if (hasCycle(graph, marked, w))
-                return true;
-
-        marked[v] = 2;
-        return false;
-    }
-
     public static void main(String[] args) {
-        Map<String, Integer> map2Sum = new HashMap<>();
-        if(map2Sum.put(",1",1) != null) System.out.println();
-        System.out.println(-1 + "_" + 0 + "" + (3+5));
         String s = "[[0,1],[1,3],[2,3]]";
-        System.out.println(canFinish(4, Helper.replaceBracets(s)));
-
         String s2 = "[[1,0],[0,1]]";
-        System.out.println(canFinish(2, Helper.replaceBracets(s2)));
-
         String s3 = "[[1,0]]";
-        System.out.println(canFinish(2, Helper.replaceBracets(s3)));
     }
 }

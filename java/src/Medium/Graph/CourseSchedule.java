@@ -56,6 +56,7 @@ public class CourseSchedule {
             return false;
         }
     }
+
     public static void main(String[] args) {
         String s = "[[0,1],[1,3],[2,3]]";
         String s2 = "[[1,0],[0,1]]";

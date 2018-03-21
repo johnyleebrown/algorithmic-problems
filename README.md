@@ -1,17 +1,19 @@
 ## Leetcode Problems
 
-- [Bit Manipulation]()
+
 - [Array]()
-- [Stack]()
-- [Linked List]()
-- [Hash Table]()
-- [Tree]()
-- [Graph](#graph)
-- [String]()
-- [Math]()
+- [Bit Manipulation]()
 - [DP](#dp)
+- [Graph](#graph)
 - [Greedy]()
+- [Hash Table]()
+- [Linked List]()
+- [Math]()
 - [SQL]()
+- [Stack]()
+- [String]()
+- [Tree]()
+
 
 ### DP
 

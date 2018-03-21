@@ -7,7 +7,7 @@
 - [Graph](#graph)
 - [Greedy]()
 - [Hash Table]()
-- [Linked List]()
+- [Linked List](#linked list)
 - [Math]()
 - [SQL]()
 - [Stack]()
@@ -75,6 +75,13 @@
 - [Cheapest Flights Within K Stops](java/src/Medium/Graph/CheapestFlightsWithinKStops.java)
 - [Course Schedule](java/src/Medium/Graph/CourseSchedule.java)
 - [Find Eventual Safe States](java/src/Medium/Graph/FindEventualSafeStates.java) 
+
+
+### LINKED LIST
+
+##### Medium
+
+- [Rotate List](java/src/Medium/LinkedList/RotateList.java)
 
 ### STRING
 

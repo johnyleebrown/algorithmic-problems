@@ -52,6 +52,14 @@ public class Helper {
         return out;
     }
 
+    public static void printList(ListNode head) {
+        while (head != null) {
+            System.out.print(head.val);
+            if (head.next != null) System.out.print(" -> ");
+            head = head.next;
+        }
+    }
+
     public static void trackTime(){
         long startTime = System.nanoTime();
         // action

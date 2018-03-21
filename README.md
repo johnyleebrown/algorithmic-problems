@@ -1,7 +1,7 @@
 ## Leetcode Problems
 
 
-- [Array]()
+- [Array](#array)
 - [Bit Manipulation]()
 - [DP](#dp)
 - [Graph](#graph)
@@ -11,9 +11,15 @@
 - [Math]()
 - [SQL]()
 - [Stack]()
-- [String]()
+- [String](#string)
 - [Tree]()
 
+### ARRAY
+
+##### Medium
+
+- [Three Sum](java/src/Medium/Array/ThreeSum.java)
+- [Three Sum Closest](java/src/Medium/Array/ThreeSumClosest.java)
 
 ### DP
 
@@ -69,3 +75,9 @@
 - [Cheapest Flights Within K Stops](java/src/Medium/Graph/CheapestFlightsWithinKStops.java)
 - [Course Schedule](java/src/Medium/Graph/CourseSchedule.java)
 - [Find Eventual Safe States](java/src/Medium/Graph/FindEventualSafeStates.java) 
+
+### STRING
+
+##### Medium
+
+- [Reverse Words In A String](java/src/Medium/String/ReverseWordsInAString.java)

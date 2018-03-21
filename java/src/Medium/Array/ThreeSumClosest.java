@@ -29,11 +29,11 @@ public class ThreeSumClosest {
 
                 while (hi > lo) {
                     int curSum = nums[lo] + nums[hi] + nums[i];
-
+                    // balance the sum
                     if (curSum < target)        lo++;
                     else if (curSum > target)   hi--;
                     else                        return curSum;
-
+                    // update smallest diff and sum
                     if (diff > Math.abs(curSum - target)) {
                         diff = Math.abs(curSum - target);
                         res = curSum;

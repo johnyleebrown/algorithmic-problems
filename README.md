@@ -88,3 +88,4 @@
 ##### Medium
 
 - [Reverse Words In A String](java/src/Medium/String/ReverseWordsInAString.java)
+- [Longest Substring Without Repeating Characters](java/src/Medium/String/LongestSubstringWithoutRepeatingCharacters.java)

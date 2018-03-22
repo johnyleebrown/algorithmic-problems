@@ -32,6 +32,13 @@ public class LinkedListCycleII {
     }
 
     /**
+     * Find the meeting point
+     * Find the loop start by going from meeting point and from the head
+     * I-----I----I---
+     *       |_______|
+     * s = a + b
+     * f = 2 * (a + b) = a + b + cycle + b
+     * => a = c
      * Time complexity: O(n)
      * Space complexity: O(1)
      */
@@ -68,7 +75,7 @@ public class LinkedListCycleII {
 //        listNode3.next = listNode4;
 //        listNode4.next = listNode5;
 //        listNode5.next = listNode3;
-        ListNode sol = solution1(listNode);
+        ListNode sol = solution2(listNode);
         System.out.println(sol == null);
 //        Helper.printList(sol);
     }

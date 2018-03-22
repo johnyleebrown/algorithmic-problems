@@ -7,7 +7,7 @@
 - [Graph](#graph)
 - [Greedy]()
 - [Hash Table]()
-- [Linked List](#linked list)
+- [Linked List](#ll)
 - [Math]()
 - [SQL]()
 - [Stack]()
@@ -77,7 +77,7 @@
 - [Find Eventual Safe States](java/src/Medium/Graph/FindEventualSafeStates.java) 
 
 
-### LINKED LIST
+### LL
 
 ##### Medium
 

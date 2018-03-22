@@ -32,25 +32,42 @@ public class FindTheDuplicateNumber {
     }
 
     /**
+     * Floyd's Tortoise and Hare (Cycle Detection)
+     *
+     * A cycle must exist. Because each number in nums is between 1 and n,
+     * it will necessarily point to an index that exists.
+     *
+     * 0 1 2 3 4 5 6
+     * 1 2 3 4 5 6 3
+     *     ^       ^
+     * find intersection (5)
+     * now, like in {@link Medium.LinkedList.LinkedListCycleII}
+     * go from intersection with 'slow' speed as well as from
+     * nums[0] with the same speed to find the duplicate (3)
+     *
      * Time complexity: O(n)
      * Space complexity: O(1)
      */
     public static int solution2(int[] nums) {
-        int slow = nums[nums.length - 1];
-        int fast = slow;
+        // Find the intersection point of the two runners.
+        int slow = nums[0];
+        int fast = nums[0];
 
         while (true) {
-            slow = nums[slow - 1];
-            fast = nums[nums[fast - 1] - 1];
+            slow = nums[slow];
+            fast = nums[nums[fast]];
             if (slow == fast) break;
         }
 
-        fast = nums[nums.length - 1];
-        while (fast != slow) {
-            slow = nums[slow - 1];
-            fast = nums[fast - 1];
+        // Find the "entrance" to the cycle.
+        int pointer1 = nums[0];
+        int pointer2 = slow;
+
+        while (pointer1 != pointer2) {
+            pointer1 = nums[pointer1];
+            pointer2 = nums[pointer2];
         }
 
-        return fast;
+        return pointer1;
     }
 }

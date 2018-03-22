@@ -20,6 +20,7 @@
 
 - [Three Sum](java/src/Medium/Array/ThreeSum.java)
 - [Three Sum Closest](java/src/Medium/Array/ThreeSumClosest.java)
+- [Find The Duplicate Number](java/src/Medium/Array/FindTheDuplicateNumber.java)
 
 ### DP
 

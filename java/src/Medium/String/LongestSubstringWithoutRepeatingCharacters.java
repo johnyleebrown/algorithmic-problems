@@ -15,24 +15,26 @@ import java.util.Set;
  */
 public class LongestSubstringWithoutRepeatingCharacters {
     /**
+     * Delete every repeating character from set
+     * and increment starting pos
      * Time complexity: O(n)
      * Space complexity: O(n)
      */
     public static int solution(String s) {
-        Set<Character> set = new HashSet<>();
         char[] ca = s.toCharArray();
-        int ans = 0, i = 0, j = 0;
+        int maxLen = 0, i = 0, j = 0;
+        Set<Character> set = new HashSet<>();
 
         while (i < s.length() && j < s.length()) {
-            if (!set.contains(ca[j])) {
-                set.add(ca[j++]);
-                ans = Math.max(ans, j - i);
+            if (!set.contains(ca[i])) {
+                set.add(ca[i++]);
+                maxLen = Math.max(maxLen, i - j);
             } else {
-                set.remove(ca[i++]);
+                set.remove(ca[j++]);
             }
         }
 
-        return ans;
+        return maxLen;
     }
 
     public static void main(String[] args) {

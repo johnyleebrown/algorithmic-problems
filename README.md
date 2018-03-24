@@ -1,5 +1,6 @@
 ## Leetcode Problems
 
+**Total Count: 204 / 781** 
 
 - [Array](#array)
 - [Bit Manipulation]()
@@ -12,11 +13,11 @@
 - [SQL]()
 - [Stack]()
 - [String](#string)
-- [Tree]()
+- [Tree](#tree)
 
 ### ARRAY
 
-##### Medium
+#### Medium
 
 - [Three Sum](java/src/Medium/Array/ThreeSum.java)
 - [Three Sum Closest](java/src/Medium/Array/ThreeSumClosest.java)
@@ -25,7 +26,7 @@
 
 ### DP
 
-##### Easy
+#### Easy
 
 - [Fibonacci](java/src/Medium/DP/Fibonacci.java)
 - [Tiling Problem](java/src/Easy/DP/TilingProblem.java)
@@ -37,41 +38,36 @@
 - [Paint House](java/src/Easy/DP/PaintHouse.java)
 - [Paint Fence](java/src/Easy/DP/PaintFence.java)
 
-##### Medium
+#### Medium
 
 - [0-1 Knapsack](java/src/Medium/DP/Knapsack01.java)
 - [Unbounded Knapsack](java/src/Medium/DP/UnboundedKnapsack.java)
-
 - [Coin Change](java/src/Medium/DP/CoinChange.java)
 - [Coin Change 2](java/src/Medium/DP/CoinChange2.java)
-
 - [Subset Sum](java/src/Medium/DP/SubsetSum.java)
 - [Partition Equal Subset Sum](java/src/Medium/DP/PartitionEqualSubsetSum.java)
 - [Continuous Subarray Sum](java/src/Medium/DP/ContinuousSubarraySum.java)
-
 - [Decode Ways](java/src/Medium/DP/DecodeWays.java)
 - [Integer Break](java/src/Medium/DP/IntegerBreak.java)
 - [Domino And Tromino Tiling](java/src/Medium/DP/DominoAndTrominoTiling.java)
-
 - [Unique Binary Search Trees](java/src/Medium/DP/UniqueBinarySearchTrees.java)
 - [Unique Paths](java/src/Medium/DP/UniquePaths.java)
 - [Unique Paths 2](java/src/Medium/DP/UniquePathsII.java)
-
 - [Minimum Path Sum](java/src/Medium/DP/MinimumPathSum.java)
 - [Minimum ASCII Delete Sum For Two Strings](java/src/Medium/DP/MinimumASCIIDeleteSumForTwoStrings.java)
 - [Minimum Swaps To Make Sequences Increasing](java/src/Medium/DP/MinimumSwapsToMakeSequencesIncreasing.java)
 - [Cheapest Flights Within K Stops](java/src/Medium/Graph/CheapestFlightsWithinKStops.java)
 - [Edit Distance](java/src/Medium/DP/EditDistance.java)
-
 - [Longest Increasing Subsequence](java/src/Medium/DP/LongestIncreasingSubsequence.java)
+- [Can I Win](java/src/Medium/DP/CanIWin.java)
 
-##### Hard
+#### Hard
 
 - [Best Time to Buy and Sell Stock K Transactions](java/src/Hard/DP/BestTimetoBuyandSellStockIV.java)
 
 ### GRAPH
 
-##### Medium
+#### Medium
 
 - [Is Graph Bipartite](java/src/Medium/Graph/IsGraphBipartite.java) 
 - [Cheapest Flights Within K Stops](java/src/Medium/Graph/CheapestFlightsWithinKStops.java)
@@ -81,13 +77,19 @@
 
 ### LL
 
-##### Medium
+#### Medium
 
 - [Rotate List](java/src/Medium/LinkedList/RotateList.java)
 
 ### STRING
 
-##### Medium
+#### Medium
 
 - [Reverse Words In A String](java/src/Medium/String/ReverseWordsInAString.java)
 - [Longest Substring Without Repeating Characters](java/src/Medium/String/LongestSubstringWithoutRepeatingCharacters.java)
+
+### TREE
+
+#### Medium
+
+- [Count Complete Tree Nodes](java/src/Medium/Tree/CountCompleteTreeNodes.java)

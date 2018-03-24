@@ -93,7 +93,16 @@ public class FindEventualSafeStates {
         }
     }
 
+    private static boolean less(int max, int des) {
+        int i = 0;
+        for (int j = 1; j <= max; j++) i += j;
+        return i < des;
+    }
+
     public static void main(String[] args) {
+
+        System.out.println(less(10, 100));
+
 //        System.out.println(Arrays.toString(eventualSafeNodes(Helper.replaceBracets("[[1,2],[2,3],[5],[0],[5],[],[]]")).toArray()));
 
 //        System.out.println(Arrays.toString(eventualSafeNodes(Helper.replaceBracets("[[0],[2,3,4],[3,4],[0,4],[]]")).toArray()));

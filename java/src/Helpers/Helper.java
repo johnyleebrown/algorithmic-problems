@@ -1,6 +1,8 @@
 package Helpers;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Helper methods
@@ -12,11 +14,13 @@ public class Helper {
         int x = k[0].length - 1;
 
         int spaceN = 1;
+
         for (int i = 0; i <= y; i++) {
             for (int j = 0; j <= x; j++) {
                 spaceN = Math.max(spaceN, String.valueOf(k[i][j]).length());
             }
         }
+
         for (int i = 0; i <= y; i++) {
             for (int j = 0; j <= x; j++) {
                 int len = String.valueOf(k[i][j]).length();
@@ -35,20 +39,15 @@ public class Helper {
                 .replaceAll("]]", "");
 
 //        System.out.println("======================");
-
         String[] strings = input.split("],\\[");
         int[][] out = new int[strings.length][];
         for (int i = 0 ; i < strings.length ; i++) {
             out[i] = new int[strings[i].length()];
             if (strings[i].equals(" ")) out[i] = new int[]{};
             else out[i] = Arrays.stream(strings[i].split(",")).mapToInt(Integer::valueOf).toArray();
-
 //            System.out.println(Arrays.toString(out[i]));
-
         }
-
 //        System.out.println("======================");
-
         return out;
     }
 
@@ -59,6 +58,50 @@ public class Helper {
             head = head.next;
         }
     }
+
+    // balanced
+    public static TreeNode genTree(int n) {
+        Queue<TreeNode> q = new LinkedList<>();
+        TreeNode root = new TreeNode(1);
+        q.add(root);
+        int c = 2;
+
+        while (c != n + 1) {
+            TreeNode x = q.poll();
+            x.left = new TreeNode(c++);
+            if (c == n + 1) break;
+            q.add(x.left);
+            x.right = new TreeNode(c++);
+            q.add(x.right);
+        }
+
+        return root;
+    }
+
+    public static void printTree(TreeNode root) {
+        if (root == null) return;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        System.out.print(root.val);
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            System.out.println();
+            while (size != 0) {
+                TreeNode x = q.poll();
+                if (x.left != null) {
+                    System.out.print(x.left.val + " ");
+                    q.add(x.left);
+                } else System.out.print("o ");
+                if (x.right != null) {
+                    System.out.print(x.right.val + " ");
+                    q.add(x.right);
+                } else System.out.print("o ");
+                size--;
+            }
+        }
+    }
+
 
     public static void trackTime(){
         long startTime = System.nanoTime();

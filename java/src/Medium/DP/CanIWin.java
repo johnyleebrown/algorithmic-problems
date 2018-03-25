@@ -16,9 +16,13 @@ import java.util.HashMap;
  * determine if the first player to move can force a win, assuming both
  * players play optimally. You can always assume that maxChoosableInteger
  * will not be larger than 20 and desiredTotal will not be larger than 300.
+ *
+ * Reference:
+ * https://www.geeksforgeeks.org/dynamic-programming-set-31-optimal-strategy-for-a-game/
  */
 public class CanIWin {
     /**
+     * Top Down
      * Time complexity: O(2^n)
      * Space complexity: O(n)
      */

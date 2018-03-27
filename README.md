@@ -1,6 +1,6 @@
 ## Leetcode Problems
 
-**Total Count: 204 / 781** 
+**Total Count: 206 / 781** 
 
 - [Array](#array)
 - [Bit Manipulation]()
@@ -27,6 +27,9 @@
 ### DP
 
 #### Easy
+
+[Fibonacci](java/src/Medium/DP/Fibonacci.java)
+[Tiling Problem](java/src/Easy/DP/TilingProblem.java)
 
 - [Fibonacci](java/src/Medium/DP/Fibonacci.java)
 - [Tiling Problem](java/src/Easy/DP/TilingProblem.java)

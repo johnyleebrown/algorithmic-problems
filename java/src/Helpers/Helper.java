@@ -3,6 +3,7 @@ package Helpers;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 
 /**
  * Helper methods
@@ -102,6 +103,28 @@ public class Helper {
         }
     }
 
+    public static int[] genArray(int min, int max, int size) {
+        int[] arr = new int[size];
+        for (int i = 0; i < arr.length; i++) {
+            final Random random = new Random();
+            int r = min - 1;
+            while (r < min) r = random.nextInt(max + 1);
+            arr[i] = r;
+        }
+        return arr;
+    }
+
+    public static void exch(int[] a, int i, int j) {
+        int swap = a[i];
+        a[i] = a[j];
+        a[j] = swap;
+    }
+
+    public static void exch(Object[] a, int i, int j) {
+        Object swap = a[i];
+        a[i] = a[j];
+        a[j] = swap;
+    }
 
     public static void trackTime(){
         long startTime = System.nanoTime();

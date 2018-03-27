@@ -1,4 +1,4 @@
-package Easy.BitManipulation;
+package Easy.Math;
 
 /**
  * 67
@@ -8,6 +8,9 @@ package Easy.BitManipulation;
  */
 public class AddBinary {
     /**
+     * 0 0 1  1
+     * 0 1 0  1
+     * 0 1 1 10
      * Time complexity: O(n)
      * Space complexity: O(n)
      */

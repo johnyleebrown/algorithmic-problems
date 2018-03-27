@@ -1,4 +1,4 @@
-package Hard.Array;
+package Hard.DP;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -30,9 +30,9 @@ public class SplitArrayWithSameAverage {
         boolean dp[][] = new boolean[sum + 1][a.length + 1];
         dp[0][0] = true;
 
-        for (int i = 0; i < a.length; ++i)
-            for (int j = sum - a[i]; j >= 0; --j)
-                for (int k = 0; k < a.length - 1; ++k)
+        for (int i = 1; i < a.length; i++)
+            for (int j = sum - a[i] - 1; j >= 0; j--)
+                for (int k = 1; k < a.length - 1; k++)
                     if (dp[j][k]) {
                         dp[j + a[i]][k + 1] = true;
 

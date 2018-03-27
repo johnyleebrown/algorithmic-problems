@@ -32,8 +32,8 @@ public class Helper {
         }
     }
 
-    // [[3,4,6],[3,6],[3,6],[0,1,2,5],[0,7,8],[3],[0,1,2,7],[4,6],[4],[]]
     public static int[][] replaceBracets(String input) {
+        // [[3,4,6],[3,6],[3,6],[0,1,2,5],[0,7,8],[3],[0,1,2,7],[4,6],[4],[]]
         input = input.replaceAll(" ", "")
                 .replace("[]","[ ]")
                 .replace("[[", "")
@@ -60,8 +60,8 @@ public class Helper {
         }
     }
 
-    // balanced
     public static TreeNode genTree(int n) {
+        // balanced
         Queue<TreeNode> q = new LinkedList<>();
         TreeNode root = new TreeNode(1);
         q.add(root);

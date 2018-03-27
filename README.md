@@ -67,6 +67,7 @@
 #### Hard
 
 - [Best Time to Buy and Sell Stock K Transactions](java/src/Hard/DP/BestTimetoBuyandSellStockIV.java)
+- [Split Array With Same Average](java/src/Hard/DP/SplitArrayWithSameAverage.java)
 
 ### GRAPH
 

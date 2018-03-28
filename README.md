@@ -1,6 +1,6 @@
 ## Leetcode Problems
 
-**Total Count: 206 / 781** 
+**Total Count: 206 / 781**
 
 - [Array](#array)
 - [Bit Manipulation]()
@@ -23,6 +23,7 @@
 - [Three Sum Closest](java/src/Medium/Array/ThreeSumClosest.java)
 - [Four Sum](java/src/Medium/Array/FourSum.java)
 - [Find The Duplicate Number](java/src/Medium/Array/FindTheDuplicateNumber.java)
+- [Task Scheduler](java/src/Medium/Array/TaskScheduler.java)
 
 ### DP
 

@@ -18,17 +18,35 @@ import java.util.Arrays;
  */
 public class TaskScheduler {
     /**
-     * Time complexity: O(n)
+     * Time complexity: O(time)
      * Space complexity: O(1)
      */
-    public class Solution {
+    public class Solution1 {
         public int leastInterval(char[] tasks, int n) {
-            int[] c = new int[26];
-            for (char t : tasks) c[t - 'A']++;
-            Arrays.sort(c);
-            int i = 25;
-            while (i >= 0 && c[i] == c[25]) i--;
-            return Math.max(tasks.length, (c[25] - 1) * (n + 1) + 25 - i);
+            int[] map = new int[26];
+            // count the number of instances
+            for (char c : tasks) map[c - 'A']++;
+            Arrays.sort(map);
+            int time = 0;
+
+            while (map[25] > 0) {
+                int i = 0;
+
+                while (i <= n) {
+                    if (map[25] == 0) break;
+                    // For every task executed, we update the pending number
+                    // of instances of the current task.
+                    if (i < 26 && map[25 - i] > 0) map[25 - i]--;
+                    time++;
+                    i++;
+                }
+
+                // if i's value exceeds the cooling time, consider
+                // the task with the largest number of pending instances.
+                Arrays.sort(map);
+            }
+
+            return time;
         }
     }
 }

@@ -40,8 +40,9 @@ import java.util.Queue;
  */
 public class ExpressiveWords {
     /**
-     * Time complexity: O()
-     * Space complexity: O()
+     * LC 16ms
+     * Time complexity: O(n*m)
+     * Space complexity: O(n)
      */
     static class Solution {
         public static int expressiveWords(String S, String[] words) {
@@ -52,66 +53,86 @@ public class ExpressiveWords {
                 q.add(a);
             }
 
-            for (int[] a : q) {
-                System.out.println((char)a[0] + " " + a[1]);
-            }
-
             int count = 0;
-            for (int i = 0 ; i < words.length ; i++) {
-                String w = words[i];
-                int j = 0;
-                boolean flag = true;
-                for (int[] a : q) {
-                    if (j >= w.length()) {flag = false; break;}
-                    if (a[1] == 1) {
-                        // check if the sub strings are equals
-                        if (j < w.length() && w.charAt(j) != a[0]) {flag = false; break;}
+            for (String w : words)
+                if (helper(w, q))
+                    count++;
+
+            return count;
+        }
+
+        private static boolean helper(String w, Queue<int[]> q) {
+            int j = 0;
+
+            for (int[] a : q) {
+                if (j >= w.length()) return false;
+                if (a[1] <= 2) { // check if the sub strings are equals
+                    if (w.charAt(j) != a[0]) return false;
+                    if (a[1] == 2) {
+                        if (w.charAt(j + 1) != a[0]) return false;
                         j++;
-                    } else if (a[1] == 2) {
-                        // check if the sub strings are equals
-                        if (j < w.length() && (w.charAt(j) != a[0] || w.charAt(j + 1) != a[0])) {flag = false; break;}
-                        j++;
-                        j++;
-                    } else {
-                        // move to the next letter in w
-                        int k = j;
-                        while (j < w.length() && w.charAt(j) == a[0]) j++;
-                        if (j - k > a[1]) {flag = false; break;}
                     }
+                    j++;
+                } else { // move to the next letter in w
+                    int k = j;
+                    while (j < w.length() && w.charAt(j) == a[0]) j++;
+                    if (j - k > a[1]) return false;
                 }
-                if (flag && j >= w.length()) count++;
             }
 
-            System.out.println(count);
-            return count;
+            return j >= w.length();
         }
     }
 
+    /**
+     * LC 8ms
+     * Time complexity: O(n*m)
+     * Space complexity: O(n)
+     */
     static class Solution2 {
         public static int expressiveWords(String S, String[] words) {
-            Queue<int[]> q = new LinkedList<>();
-            for (int i = 0 ; i < S.length() ; i++) {
-                int[] a = new int[]{S.charAt(i), 1};
-                while (i < S.length() - 1 && S.charAt(i) == S.charAt(i + 1)) { i++; a[1]++;}
-                q.add(a);
+            int ans = 0;
+
+            for (String word : words)
+                if (isok(S, word))
+                    ans++;
+
+            return ans;
+        }
+
+        static boolean isok(String a, String b) {
+            int i = 0;
+            int j = 0;
+
+            while (i < a.length() && j < b.length()) {
+                int ii = i + 1;
+                int jj = j + 1;
+
+                while (ii < a.length() && a.charAt(ii) == a.charAt(i)) ii++;
+                while (jj < b.length() && b.charAt(jj) == b.charAt(j)) jj++;
+
+                int cnt1 = ii - i;
+                int cnt2 = jj - j;
+                if (cnt1 < 3 && cnt1 != cnt2) return false;
+                if (cnt1 >= 3 && cnt1 < cnt2) return false;
+
+                i = ii;
+                j = jj;
             }
 
-            for (int[] a : q) {
-                System.out.println((char)a[0] + " " + a[1]);
-            }
-
-            int count = 0;
-
-
-            System.out.println(count);
-            return count;
+            return i >= a.length() && j >= b.length();
         }
     }
 
     public static void main(String[] args) {
+        Solution.expressiveWords("heeellooo", new String[]{"hello", "hi", "helo"});
+        Solution.expressiveWords("hellooo", new String[]{"hello", "hi", "helo"});
+        Solution.expressiveWords("heeell", new String[]{"hello", "hi", "helo"});
+        Solution.expressiveWords("heeellooo", new String[]{"heeeello", "hi", "helo"});
         Solution.expressiveWords("abcd", new String[]{"abc"});
     }
-    /*
+
+        /*
 "heeellooo"
 ["hello", "hi", "helo"]
 "hellooo"

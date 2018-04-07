@@ -64,6 +64,7 @@
 - [Edit Distance](java/src/Medium/DP/EditDistance.java)
 - [Longest Increasing Subsequence](java/src/Medium/DP/LongestIncreasingSubsequence.java)
 - [Can I Win](java/src/Medium/DP/CanIWin.java)
+- [Soup Servings](java/src/Medium/DP/SoupServings.java)
 
 #### Hard
 

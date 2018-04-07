@@ -1,6 +1,6 @@
 package Easy.String;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -11,36 +11,41 @@ import java.util.List;
  */
 public class LetterCasePermutation {
     /**
-     * Time complexity: O(N*2^N)
-     * Space complexity: O(N*2^N)
+     * Time complexity: O(n^2)
+     * Space complexity: O(1)
      */
     public static List<String> letterCasePermutation(String S) {
-        List<StringBuilder> ans = new ArrayList<>();
-        ans.add(new StringBuilder());
+        LinkedList<String> q = new LinkedList<>();
+        q.add(S);
+        int i = 0;
 
-        for (char c: S.toCharArray()) {
-            int n = ans.size();
-            if (Character.isLetter(c)) {
-                for (int i = 0; i < n; ++i) {
-                    ans.add(new StringBuilder(ans.get(i)));
-                    ans.get(i).append(Character.toLowerCase(c));
-                    ans.get(n+i).append(Character.toUpperCase(c));
-                }
-            } else {
-                for (int i = 0; i < n; ++i)
-                    ans.get(i).append(c);
+        while (i < S.length()) {
+            while (i < S.length() && !Character.isLetter(S.charAt(i))) i++;
+            int size = q.size();
+            while (size > 0 && i < S.length()) {
+                String x = q.removeFirst();
+                String a = x.substring(0, i);
+                String b = x.substring(i + 1);
+                char c = x.charAt(i);
+                q.add(a + Character.toLowerCase(c) + b);
+                q.add(a + Character.toUpperCase(c) + b);
+                size--;
             }
+            i++;
         }
 
-        List<String> res = new ArrayList<>();
-        for (StringBuilder sb: ans)
-            res.add(sb.toString());
-        return res;
+        for (String s : q) {
+            System.out.println(s);
+        }
+
+        return q;
     }
 
     public static void main(String[] args) {
-        letterCasePermutation("a2b");
+//        letterCasePermutation("");
+//        letterCasePermutation("a");
+//        letterCasePermutation("2");
+//        letterCasePermutation("22");
+        letterCasePermutation("a2bc3");
     }
-
-
 }

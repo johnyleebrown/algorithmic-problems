@@ -17,8 +17,8 @@ public class MeetingRoomsII {
     /**
      * Simply: find the max number of overlapping intervals
      *
-     * Time complexity: O()
-     * Space complexity: O()
+     * Time complexity: O(nlogn)
+     * Space complexity: O(n)
      */
     public static int solution(Interval[] intervals) {
         if (intervals.length == 0) return 0;
@@ -34,7 +34,6 @@ public class MeetingRoomsII {
             boolean one = false;
             Integer ceilingKey = mapStartTimes.ceilingKey(start);
             if (ceilingKey != null) {
-                Integer ceilingKeyEnd = mapStartTimes.get(ceilingKey);
                 one = !(end <= ceilingKey && start < ceilingKey);
             }
 

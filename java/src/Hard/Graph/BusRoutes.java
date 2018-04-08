@@ -24,7 +24,7 @@ public class BusRoutes {
      * Time complexity: O(n^2)
      * Space complexity: O(n)
      */
-    public int numBusesToDestination(int[][] routes, int S, int T) {
+    public static int numBusesToDestination(int[][] routes, int S, int T) {
         HashSet<Integer> marked = new HashSet<>();// could use an array but we need to know the size
         Queue<Integer> q = new LinkedList<>();
         HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();// each vertex mapped to the route it is placed on (let's name them i)
@@ -50,11 +50,12 @@ public class BusRoutes {
                 int cur = q.poll();
                 ArrayList<Integer> routeNums = map.get(cur);
 
-                for (int r : routeNums) {
+                // add all the bus stops that are reachable by all the bus routes
+                for (int r : routeNums) { // routes
                     if (marked.contains(r)) continue;
                     marked.add(r);
 
-                    for (int j = 0; j < routes[r].length; j++) {
+                    for (int j = 0; j < routes[r].length; j++) { // route stops
                         if (routes[r][j] == T) return count;
                         q.offer(routes[r][j]);
                     }
@@ -64,14 +65,18 @@ public class BusRoutes {
 
         return -1;
     }
+
+    public static void main(String[] args) {
+        int[][] a = new int[][] {
+                {1, 2, 7},
+                {3, 6, 7}
+        };
+        numBusesToDestination(a, 1, 6);
+    }
 /*
-
-
 [[7,12],[4,5,15],[6],[15,19],[9,12,13]]
 15
 12
-
-
  */
 
 }

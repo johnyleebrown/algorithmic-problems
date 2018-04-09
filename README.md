@@ -65,6 +65,7 @@
 - [Longest Increasing Subsequence](java/src/Medium/DP/LongestIncreasingSubsequence.java)
 - [Can I Win](java/src/Medium/DP/CanIWin.java)
 - [Soup Servings](java/src/Medium/DP/SoupServings.java)
+- [Largest Sum Of Averages](java/src/Medium/DP/LargestSumOfAverages.java)
 
 #### Hard
 

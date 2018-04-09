@@ -16,7 +16,9 @@ public class SubsetSum {
     // we can always make 0 with an empty set
     public static boolean solution(int[] set, int n) {
         boolean[][] temp = new boolean[set.length + 1][n + 1];
-        for (int i = 0 ; i <= set.length ; i++) temp[i][0] = true;
+        for (int i = 0 ; i <= set.length ; i++)
+            temp[i][0] = true;
+
         for (int i = 1 ; i <= set.length ; i++) {
             for (int j = 1 ; j <= n ; j++) {
                 if (j < set[i - 1])
@@ -25,6 +27,7 @@ public class SubsetSum {
                     temp[i][j] = temp[i - 1][j] || temp[i - 1][j - set[i - 1]];
             }
         }
+
         return temp[set.length][n];
     }
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * 523
+ *
  * Given a list of non-negative numbers and a target integer k,
  * write a function to check if the array has a continuous
  * subarray of size at least 2 that sums up to the multiple of k,
@@ -20,6 +21,7 @@ public class ContinuousSubarraySum {
         Map<Integer, Integer> map = new HashMap<>();
         map.put(0, -1);
         int runningSum = 0;
+
         for (int i = 0; i < nums.length; i++) {
             runningSum += nums[i];
             if (k != 0)
@@ -31,6 +33,7 @@ public class ContinuousSubarraySum {
             else
                 map.put(runningSum, i);
         }
+
         return false;
     }
 }

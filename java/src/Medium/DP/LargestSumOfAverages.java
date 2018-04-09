@@ -1,4 +1,4 @@
-package Medium.Dhelper;
+package Medium.DP;
 
 /**
  * 813
@@ -18,22 +18,64 @@ package Medium.Dhelper;
  */
 public class LargestSumOfAverages {
     /**
-     * Time complexity: O(k * n^2)
+     * Recurrence: dp(i, k) = max(average(i, N), max_{j > i}(average(i, j) + dp(j, k-1))).
+     * <p>
+     * BU
+     * Time complexity: O(n^3), max(k) = n
      * Space complexity: O(n)
      */
     public static double solution(int[] A, int K) {
         int n = A.length;
         double[] helper = new double[n + 1];
-        for (int i = 0; i < n; ++i) helper[i + 1] = helper[i] + A[i];
+        for (int i = 0; i < n; i++) // running sum
+            helper[i + 1] = helper[i] + A[i];
 
         double[] dp = new double[n];
-        for (int i = 0; i < n; ++i) dp[i] = (helper[n] - helper[i]) / (n - i);
+        for (int i = 0; i < n; i++) // running average
+            dp[i] = (helper[n] - helper[i]) / (n - i);
 
-        for (int k = 0; k < K - 1; ++k)
-            for (int i = 0; i < n; ++i)
-                for (int j = i + 1; j < n; ++j)
+        for (int k = 0; k < K - 1; k++)
+            for (int i = 0; i < n; i++)
+                for (int j = i + 1; j < n; j++)
                     dp[i] = Math.max(dp[i], (helper[j] - helper[i]) / (j - i) + dp[j]);
 
+
         return dp[0];
+    }
+    /*
+    helper: [0.0, 9.0, 10.0, 12.0, 15.0, 24.0]
+    dp:     [4.8, 3.75, 4.666666666666667, 6.0, 9.0]
+     */
+
+    /**
+     * Recurrence: dp(i, k) = max(average(i, N), max_{j > i}(average(i, j) + dp(j, k-1))).
+     * <p>
+     * TD
+     * Time complexity: O(n^3), max(k) = n
+     * Space complexity: O(n^2)
+     */
+    public double largestSumOfAverages(int[] A, int K) {
+        int N = A.length;
+        double[][] memo = new double[N + 1][N + 1];
+        double cur = 0;
+
+        for (int i = 0; i < N; ++i) {
+            cur += A[i];
+            memo[i + 1][1] = cur / (i + 1);
+        }
+
+        return search(N, K, A, memo);
+    }
+
+    public double search(int N, int K, int[] A, double[][] memo) {
+        if (memo[N][K] > 0) return memo[N][K];
+        double cur = 0;
+
+        for (int i = N - 1; i > 0; i--) {
+            cur += A[i];
+            memo[N][K] = Math.max(memo[N][K], search(i, K - 1, A, memo) + cur / (N - i));
+        }
+
+        return memo[N][K];
     }
 }

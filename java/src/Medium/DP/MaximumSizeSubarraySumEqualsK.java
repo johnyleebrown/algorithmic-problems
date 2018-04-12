@@ -31,8 +31,7 @@ public class MaximumSizeSubarraySumEqualsK {
 
         for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
-
-            if (map.containsKey(sum - k))
+            if (map.containsKey(sum - k)) // sum - k = the entry where the list should start
                 res = Math.max(res, i - map.get(sum - k));
             else
                 map.put(sum, i);

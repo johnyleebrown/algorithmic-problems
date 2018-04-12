@@ -66,6 +66,7 @@
 - [Can I Win](java/src/Medium/DP/CanIWin.java)
 - [Soup Servings](java/src/Medium/DP/SoupServings.java)
 - [Largest Sum Of Averages](java/src/Medium/DP/LargestSumOfAverages.java)
+- [Maximum Size Subarray Sum Equals K](java/src/Medium/DP/MaximumSizeSubarraySumEqualsK.java)
 
 #### Hard
 

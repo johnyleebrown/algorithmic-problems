@@ -60,8 +60,7 @@ public class Helper {
         }
     }
 
-    public static TreeNode genTree(int n) {
-        // balanced
+    public static TreeNode genTree(int n) { // balanced
         Queue<TreeNode> q = new LinkedList<>();
         TreeNode root = new TreeNode(1);
         q.add(root);
@@ -81,26 +80,61 @@ public class Helper {
 
     public static void printTree(TreeNode root) {
         if (root == null) return;
+        int height = getTreeHeight(root);
+
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
+
+        int lastLevelNumberOfNodes = (int) Math.pow(2, height);
+        int totalNodes = (int) Math.pow(2, height + 1) - 1;
+        lastLevelNumberOfNodes*=2;
+
+        printEmpty(lastLevelNumberOfNodes - 2);
         System.out.print(root.val);
+
+        int offset = -2;
 
         while (!q.isEmpty()) {
             int size = q.size();
+            int nextLevelLength = size * 2;
+
             System.out.println();
+            printEmpty(lastLevelNumberOfNodes - (nextLevelLength / 2) + offset);
+            offset = Math.abs(offset) * (-2);
+
             while (size != 0) {
                 TreeNode x = q.poll();
+
                 if (x.left != null) {
                     System.out.print(x.left.val + " ");
                     q.add(x.left);
-                } else System.out.print("o ");
+                } else
+                    System.out.print("o ");
+
                 if (x.right != null) {
                     System.out.print(x.right.val + " ");
                     q.add(x.right);
-                } else System.out.print("o ");
+                } else
+                    System.out.print("o ");
+
                 size--;
             }
         }
+    }
+
+    private static int getTreeHeight(TreeNode root) {
+        if (root == null) return -1;
+        return getTreeHeight(root.left) + 1;
+    }
+
+    private static void printEmpty(int num) {
+        int i = 0;
+        while (i++ != Math.abs(num)) System.out.print(" ");
+    }
+
+    public static int log2n(int bits) {
+        if (bits == 0) return 0;
+        return 31 - Integer.numberOfLeadingZeros(bits);
     }
 
     public static int[] genArray(int min, int max, int size) {

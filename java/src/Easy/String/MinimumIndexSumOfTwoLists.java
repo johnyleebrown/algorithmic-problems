@@ -32,10 +32,4 @@ public class MinimumIndexSumOfTwoLists {
 
         return map2.get(min).toArray(new String[0]);
     }
-
-    public static void main(String[] args) {
-        String s = "";
-
-        System.out.println(s.trim().equals(""));
-    }
 }

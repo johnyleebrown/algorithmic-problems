@@ -30,15 +30,14 @@ public class LoudAndRich {
             }
 
             int[] answer = new int[quiet.length];
-            for (int i = 0 ; i < quiet.length; i++) {
-                int[] x = helper(map, quiet, i, quiet[i]);
-                answer[i] = x[0];
-            }
+            for (int i = 0 ; i < quiet.length; i++)
+                answer[i] = helper(map, quiet, i, quiet[i])[0];
 
             return answer;
         }
 
-        int[] helper(HashMap<Integer, LinkedList<Integer>> map, int[] quiet, int i, int minQuite) {
+        int[] helper(HashMap<Integer, LinkedList<Integer>> map,
+                     int[] quiet, int i, int minQuite) {
             int[] m = new int[]{i, minQuite};
 
             for (int k : map.getOrDefault(i, new LinkedList<>())) {
@@ -49,9 +48,7 @@ public class LoudAndRich {
 
                 if (map.containsKey(k)) {
                     int[] x = helper(map, quiet, k, m[1]);
-                    if (m[1] > x[1]) {
-                        m = x;
-                    }
+                    if (m[1] > x[1]) m = x;
                 }
             }
 
@@ -74,10 +71,8 @@ public class LoudAndRich {
             }
 
             int[] answer = new int[quiet.length];
-            for (int i = 0 ; i < quiet.length; i++) {
-                int[] x = helper(map, quiet, i, quiet[i], new boolean[quiet.length]);
-                answer[i] = x[0];
-            }
+            for (int i = 0 ; i < quiet.length; i++)
+                answer[i] = helper(map, quiet, i, quiet[i], new boolean[quiet.length])[0];
 
             return answer;
         }
@@ -94,9 +89,7 @@ public class LoudAndRich {
 
                 if (map.containsKey(k) && !marked[k]) {
                     int[] x = helper(map, quiet, k, minQuite[1], marked);
-                    if (minQuite[1] > x[1]) {
-                        minQuite = x;
-                    }
+                    if (minQuite[1] > x[1]) minQuite = x;
                 }
             }
 

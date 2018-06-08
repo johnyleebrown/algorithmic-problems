@@ -1,0 +1,10 @@
+===== hashset <int, linkedlist> =====
+
+        for (int i: map.keySet()) {
+            for (int k : map.get(i)) {
+                System.out.print(k + " ");
+            }
+            System.out.println();
+        }
+
+=====

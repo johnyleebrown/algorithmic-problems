@@ -17,6 +17,7 @@ import java.util.LinkedList;
 public class LoudAndRich {
     /**
      * TLE
+     *
      * Time complexity: O(n)
      * Space complexity: O(n)
      */
@@ -55,6 +56,51 @@ public class LoudAndRich {
             }
 
             return m;
+        }
+    }
+
+    /**
+     * Using memoization
+     *
+     * Time complexity: O(n)
+     * Space complexity: O(n)
+     */
+    class SolutionMEMO {
+        public int[] loudAndRich(int[][] richer, int[] quiet) {
+            HashMap<Integer, LinkedList<Integer>> map = new HashMap<>();
+            for (int[] r : richer) {
+                map.putIfAbsent(r[1], new LinkedList<>());
+                map.get(r[1]).add(r[0]);
+            }
+
+            int[] answer = new int[quiet.length];
+            for (int i = 0 ; i < quiet.length; i++) {
+                int[] x = helper(map, quiet, i, quiet[i], new boolean[quiet.length]);
+                answer[i] = x[0];
+            }
+
+            return answer;
+        }
+
+        int[] helper(HashMap<Integer, LinkedList<Integer>> map,
+                     int[] quiet, int i, int min, boolean[] marked) {
+            int[] minQuite = new int[]{i, min};
+
+            for (int k : map.getOrDefault(i, new LinkedList<>())) {
+                if (minQuite[1] > quiet[k]) {
+                    minQuite[0] = k;
+                    minQuite[1] = quiet[k];
+                }
+
+                if (map.containsKey(k) && !marked[k]) {
+                    int[] x = helper(map, quiet, k, minQuite[1], marked);
+                    if (minQuite[1] > x[1]) {
+                        minQuite = x;
+                    }
+                }
+            }
+
+            return minQuite;
         }
     }
 }

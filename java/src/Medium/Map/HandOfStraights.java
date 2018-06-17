@@ -15,7 +15,7 @@ public class HandOfStraights {
      * Time complexity: O(n)
      * Space complexity: O(n)
      */
-    public boolean isNStraightHand(int[] hand, int W) {
+    public boolean solution(int[] hand, int W) {
         if (hand.length < W || hand.length % W != 0) return false;
         TreeMap<Integer, Integer> map = new TreeMap<>();
         for (int i : hand) map.put(i, map.getOrDefault(i, 0) + 1);

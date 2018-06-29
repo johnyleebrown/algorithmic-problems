@@ -1,5 +1,7 @@
 package Medium.LinkedList;
 
+import Helpers.ListNode;
+
 /**
  * 86
  *
@@ -8,10 +10,33 @@ package Medium.LinkedList;
  */
 public class PartitionList {
     /**
-     * Time complexity: O()
-     * Space complexity: O()
+     * Time complexity: O(n)
+     * Space complexity: O(1)
      */
-    public static int solution() {
+    class Solution {
+        public ListNode partition(ListNode head, int x) {
+            ListNode first = new ListNode(0);
+            ListNode firstHead = first;
+            ListNode second = new ListNode(0);
+            ListNode secondHead = second;
+            ListNode p = head;
 
+            while (p != null) {
+                if (p.val < x) {
+                    first.next = p;
+                    first = first.next;
+                } else {
+                    second.next = p;
+                    second = second.next;
+                }
+                p = p.next;
+            }
+
+            second.next = null;
+            first.next = null;
+
+            first.next = secondHead.next;
+            return firstHead.next;
+        }
     }
 }

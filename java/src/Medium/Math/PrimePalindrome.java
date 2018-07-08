@@ -12,10 +12,10 @@ package Medium.Math;
  * For example, 12321 is a palindrome.
  */
 public class PrimePalindrome {
+    /**
+     * Brute force
+     */
     class Solution1 {
-        /**
-         * Brute force
-         */
         public int primePalindrome(int N) {
             if (N == 1 || N == 2) return 2;
             int x = N;
@@ -62,11 +62,9 @@ public class PrimePalindrome {
          */
         public int primePalindrome(int N) {
             while (true) {
-                if (N == reverse(N) && isPrime(N))
-                    return N;
+                if (N == reverse(N) && isPrime(N)) return N;
                 N++;
-                if (10_000_000 < N && N < 100_000_000)
-                    N = 100_000_000;
+                if (10_000_000 < N && N < 100_000_000) N = 100_000_000;
             }
         }
 

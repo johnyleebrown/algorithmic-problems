@@ -18,15 +18,15 @@ import Helpers.TreeNode;
  */
 public class SmallestSubtreeWithAllTheDeepestNodes {
     /**
-     * Time complexity: O()
-     * Space complexity: O()
+     * Time complexity: O(n)
+     * Space complexity: O(n)
      */
     public TreeNode subtreeWithAllDeepest(TreeNode root) {
         return helper(root).root;
     }
 
-    // in order traversal
-    // int[]{ height, deepest node, actual parent }
+    // post order traversal
+    // int[]{ height, actual parent }
     IntAndTreeNode helper(TreeNode root) {
         if (root == null) return new IntAndTreeNode(-1, root);
 

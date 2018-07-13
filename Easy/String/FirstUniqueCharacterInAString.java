@@ -1,7 +1,5 @@
 package String;
 
-import java.util.HashMap;
-
 /**
  * 387
  * Given a string, find the first non-repeating character

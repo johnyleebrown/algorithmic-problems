@@ -1,8 +1,6 @@
 package Medium.Array;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -41,15 +39,8 @@ public class ImageOverlap {
                     max = Math.max(max, localMax);
                 }
             }
-            StringBuilder sb = new StringBuilder();
-            String s = "a" + 'c';
-            List<String> list = new ArrayList<>();
-            list.add("a");
+
             return max;
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println("a" + 'c');
     }
 }

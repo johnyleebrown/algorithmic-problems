@@ -23,7 +23,7 @@ public class MinimumNumberOfRefuelingStops {
      * Time complexity: O(n^2)
      * Space complexity: O(n)
      */
-    class Solution1{
+    class Solution1 {
         public int minRefuelStops(int target, int startFuel, int[][] stations) {
             long[] dp = new long[stations.length + 1];
             dp[0] = startFuel;
@@ -72,24 +72,4 @@ public class MinimumNumberOfRefuelingStops {
             return res;
         }
     }
-/*
-100
-1
-[[10,100]]
-1
-1
-[]
-1000
-83
-[[47,220],[65,1],[98,113],[126,196],[186,218],[320,205],[686,317],[707,325],[754,104],[781,105]]
-100
-10
-[[10,60],[20,30],[30,30],[60,40]]
-1000
-83
-[[25,27],[36,187],[140,186],[378,6],[492,202],[517,89],[579,234],[673,86],[808,53],[954,49]]
-100
-50
-[[50,50]]
-*/
 }

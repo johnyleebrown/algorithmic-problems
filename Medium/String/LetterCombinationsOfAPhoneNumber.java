@@ -12,7 +12,7 @@ import java.util.List;
 public class LetterCombinationsOfAPhoneNumber {
     /**
      * Time complexity: O(n * (4^n))
-     * Space complexity: O(1)
+     * Space complexity: O(n)
      */
     public List<String> letterCombinations(String digits) {
         List<String> list = new LinkedList<>();

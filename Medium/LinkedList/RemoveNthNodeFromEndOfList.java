@@ -42,4 +42,52 @@ public class RemoveNthNodeFromEndOfList {
             return head;
         }
     }
+
+    /**
+     * One pass
+     * Idea is super simple: keep the distance btw
+     * 2 pointers n and get the faster one to the end
+     *
+     * Time complexity: O(n)
+     * Space complexity: O(1)
+     */
+    class Solution2 {
+        public ListNode removeNthFromEnd(ListNode head, int n) {
+            ListNode headNode = new ListNode(0);
+            headNode.next = head;
+            ListNode fast = headNode;
+            ListNode slow = headNode;
+
+            while (fast.next != null) {
+                if (n <= 0) slow = slow.next;
+                fast = fast.next;
+                n--;
+            }
+            if (slow.next != null) slow.next = slow.next.next;
+
+            return headNode.next;
+        }
+    }
 }
+/*
+[1,2,3,4,5]
+1
+[1,2,3,4,5]
+2
+[1,2,3,4,5]
+3
+[1,2,3,4,5]
+4
+[1,2,3,4,5]
+5
+[1,2,3,4]
+1
+[1,2,3,4]
+2
+[1,2,3,4]
+3
+[1,2,3,4]
+4
+[1,2,3,4]
+5
+ */

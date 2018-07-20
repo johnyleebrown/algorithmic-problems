@@ -2,7 +2,6 @@ package Medium.String;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -32,22 +31,18 @@ public class GenerateParentheses {
         }
 
         void helper(LinkedList<String> list, Set<String> set, int level) {
-
             int size = list.size();
             while (size-- != 0) {
                 String base = list.poll();
                 for (int i = 0; i < base.length(); i++) {
                     StringBuilder sb = new StringBuilder(base);
                     sb.insert(i, "()");
-                    if (set.add(sb.toString())) list.addLast(sb.toString());
+                    String x = sb.toString();
+                    if (set.add(x)) list.addLast(x);
                 }
-
             }
-
             if (level != 0) helper(list, set, level - 1);
         }
-
-
     }
 
     /**
@@ -73,12 +68,5 @@ public class GenerateParentheses {
             if (open < max) backtrack(list, str + "(", open + 1, close, max);
             if (close < open) backtrack(list, str + ")", open, close + 1, max);
         }
-    }
-
-    public static void main(String[] args) {
-        HashSet<StringBuilder> set = new HashSet<>();
-        set.add(new StringBuilder("2"));
-        set.add(new StringBuilder("2"));
-        System.out.println(set.size());
     }
 }

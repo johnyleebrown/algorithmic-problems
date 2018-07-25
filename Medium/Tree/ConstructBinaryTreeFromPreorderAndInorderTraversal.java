@@ -14,8 +14,8 @@ import Helpers.TreeNode;
  */
 public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
     /**
-     * Time complexity: O()
-     * Space complexity: O()
+     * Time complexity: O(n)
+     * Space complexity: O(n)
      */
     class Solution {
         public TreeNode buildTree(int[] preorder, int[] inorder) {
@@ -33,6 +33,42 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
             if (root_ind + 1 <= hi) {
                 int next_root_right = pre[map_pre.get(root) + (root_ind - lo) + 1]; //plus length of left subtree
                 r.right = helper(next_root_right, map_pre, map_in, pre, root_ind + 1, hi);
+            }
+            return r;
+        }
+
+        Map<Integer, Integer> getMap(int[] ar) {
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < ar.length; i++) {
+                map.put(ar[i], i);
+            }
+            return map;
+        }
+    }
+
+    /**
+     * Optimized beating 96%
+     * Time complexity: O(n)
+     * Space complexity: O(n)
+     */
+    class Solution2 {
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            if (preorder.length != inorder.length || preorder.length == 0) return null;
+            return helper(0, getMap(inorder), preorder, 0, preorder.length - 1);
+        }
+
+        TreeNode helper(int pre_ind, Map<Integer, Integer> map_in, int[] pre, int lo, int hi) {
+            int root = pre[pre_ind];
+            int root_ind = map_in.get(root);
+            TreeNode r = new TreeNode(root);
+
+            if (root_ind - 1 >= lo) {
+                int ind = pre_ind + 1;
+                r.left = helper(ind, map_in, pre, lo, root_ind - 1);
+            }
+            if (root_ind + 1 <= hi) {
+                int ind = pre_ind + (root_ind - lo) + 1; //plus length of left subtree
+                r.right = helper(ind, map_in, pre, root_ind + 1, hi);
             }
             return r;
         }

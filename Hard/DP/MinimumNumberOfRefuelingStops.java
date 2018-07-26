@@ -44,7 +44,7 @@ public class MinimumNumberOfRefuelingStops {
     /**
      * PQ solution
      *
-     * Greedy solution (approx 2 times faster)
+     * Greedy solution
      *
      * Time complexity: O(n)
      * Space complexity: O(n)

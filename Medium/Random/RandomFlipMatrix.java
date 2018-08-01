@@ -16,6 +16,9 @@ import java.util.Random;
  */
 public class RandomFlipMatrix {
     /**
+     * modern method of the Fisher–Yates shuffle
+     * idea is to gen random from 0 to n: m, then swap m and n, and then decrease n, repeat until n == 0
+     *
      * Time complexity: O(n)
      * Space complexity: O(n)
      */
@@ -33,9 +36,9 @@ public class RandomFlipMatrix {
         }
 
         public int[] flip() {
-            int r = rand.nextInt(total--);
-            int x = map.getOrDefault(r, r);
-            map.put(r, map.getOrDefault(total, total));
+            int r = rand.nextInt(total--); // supposedly generated index
+            int x = map.getOrDefault(r, r); // check if we have already put something at this index
+            map.put(r, map.getOrDefault(total, total)); // swap - put total at index that we generated
             return new int[]{x / cols, x % cols};
         }
 

@@ -36,6 +36,7 @@ public class PartitionList {
             first.next = null;
 
             first.next = secondHead.next;
+
             return firstHead.next;
         }
     }

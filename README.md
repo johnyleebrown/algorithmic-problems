@@ -1,6 +1,4 @@
-## Leetcode Problems
-
-**Total Count: 295**
+## Leetcode Problems (Total Count: 295)
 
 - [Array](#array)
 - [Bit Manipulation](#bit)
@@ -22,3 +20,4 @@
 | Acceptance | Name | Tags |
 | :-------- | :------------- | :---------------- |
 | 40.5% | [Number of Islands](java/src/Medium/DFS/NumberofIslands.java) | DFS, BFS, UnionFind |
+#todo

@@ -11,7 +11,7 @@ package Medium.DFS;
  *
  *
  * Similar Idea:
- * {@link SurroundedRegions}
+ * {@link SurroundedRegions}, {@link MaxAreaOfIsland}
  */
 public class NumberofIslands {
 

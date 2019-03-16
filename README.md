@@ -17,7 +17,8 @@
 
 ### DFS
 #### medium
-| Acceptance | Name | Tags |
-| :-------- | :------------- | :---------------- |
-| 40.5% | [Number of Islands](java/src/Medium/DFS/NumberofIslands.java) | DFS, BFS, UnionFind |
-#todo
+| Topic | Problems |
+| :-------- | :---------------- |
+| DFS on the grid | [Max Area of Island](Medium/DFS/MaxAreaOfIsland.java) |
+|  | [Number of Islands](Medium/DFS/NumberofIslands.java) |
+|  | [Surrounded Regions](Medium/DFS/SurroundedRegions.java) |

@@ -17,8 +17,9 @@
 
 ### DFS
 #### medium
-| Topic | Problems |
-| :-------- | :---------------- |
-| DFS on the grid | [Max Area of Island](Medium/DFS/MaxAreaOfIsland.java) |
-|  | [Number of Islands](Medium/DFS/NumberofIslands.java) |
-|  | [Surrounded Regions](Medium/DFS/SurroundedRegions.java) |
+| Topic | Difficulty | Problems | Additional Topics | 
+| :--------  | :----------------  | :---------------- | :------ |
+| DFS on the grid | Medium | [Max Area of Island](Medium/DFS/MaxAreaOfIsland.java) | | 
+| | | [Number of Islands](Medium/DFS/NumberofIslands.java) | |
+| | | [Surrounded Regions](Medium/DFS/SurroundedRegions.java) | |
+| | | [Number of Distinct Islands](Medium/DFS/NumberOfDistinctIslands.java) | Hashing |

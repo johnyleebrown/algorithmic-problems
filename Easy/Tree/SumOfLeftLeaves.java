@@ -2,7 +2,7 @@ package Easy.Tree;
 
 import java.util.Stack;
 
-import Helpers.TreeNode;
+import util.TreeNode;
 
 /**
  * 404

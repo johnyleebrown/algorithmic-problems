@@ -1,4 +1,4 @@
-package Helpers;
+package util;
 
 public class TreeNode {
     public int val;

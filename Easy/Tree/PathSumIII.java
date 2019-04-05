@@ -3,7 +3,7 @@ package Easy.Tree;
 import java.util.HashMap;
 import java.util.Map;
 
-import Helpers.TreeNode;
+import util.TreeNode;
 
 /**
  * 437

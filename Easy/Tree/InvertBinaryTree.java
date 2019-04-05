@@ -3,7 +3,7 @@ package Easy.Tree;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import Helpers.TreeNode;
+import util.TreeNode;
 
 /**
  * 226

@@ -1,6 +1,6 @@
 package Easy.Tree;
 
-import Helpers.TreeNode;
+import util.TreeNode;
 
 /**
  * 563

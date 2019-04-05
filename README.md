@@ -1,4 +1,4 @@
-## Leetcode Problems (Total Count: 295)
+## Problems
 
 - [Array](#array)
 - [Bit Manipulation](#bit)
@@ -15,11 +15,24 @@
 - [String](#string)
 - [Tree](#tree)
 
+
+### BFS
+#### medium
+| Topic | Problems | 
+| :-------- | :---------------- |
+|Regular|[NumberOfIslands](medium/bfs/NumberOfIslands.java) |
+||[OpenTheLock](medium/bfs/OpenTheLock.java) |
+||[PerfectSquares](medium/bfs/PerfectSquares.java) |
+|Leaf-Prunning|[PacificAtlanticWaterFlow](medium/bfs/PacificAtlanticWaterFlow.java) |
+| | [MinimumHeightTrees](medium/bfs/MinimumHeightTrees.java) |
+
+
 ### DFS
 #### medium
-| Topic | Difficulty | Problems | Additional Topics | 
-| :--------  | :----------------  | :---------------- | :------ |
-| DFS on the grid | Medium | [Max Area of Island](Medium/DFS/MaxAreaOfIsland.java) | | 
-| | | [Number of Islands](Medium/DFS/NumberofIslands.java) | |
-| | | [Surrounded Regions](Medium/DFS/SurroundedRegions.java) | |
-| | | [Number of Distinct Islands](Medium/DFS/NumberOfDistinctIslands.java) | Hashing |
+| Topic | Problems | Additional Topics | 
+| :-------- | :---------------- | :------ |
+| Grid | [Max Area of Island](medium/DFS/MaxAreaOfIsland.java) | 
+| | [Number of Islands](medium/DFS/NumberofIslands.java) |
+| | [Surrounded Regions](medium/DFS/SurroundedRegions.java) |
+| | [Number of Distinct Islands](medium/DFS/NumberOfDistinctIslands.java) |
+| ? | [Reconstruct Itinerary](medium/DFS/ReconstructItinerary.java) |

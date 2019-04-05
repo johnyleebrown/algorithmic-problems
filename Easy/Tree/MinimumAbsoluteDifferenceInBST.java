@@ -2,7 +2,7 @@ package Easy.Tree;
 
 import java.util.TreeSet;
 
-import Helpers.TreeNode;
+import util.TreeNode;
 
 /**
  * 530

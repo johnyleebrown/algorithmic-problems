@@ -1,4 +1,4 @@
-package Medium.Array;
+package medium.array;
 
 import java.util.TreeMap;
 

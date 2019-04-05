@@ -1,4 +1,4 @@
-package Helpers;
+package util;
 
 public class ListNode {
     public int val;

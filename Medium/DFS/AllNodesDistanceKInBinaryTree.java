@@ -1,11 +1,11 @@
-package Medium.DFS;
+package medium.dfs;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import Helpers.TreeNode;
+import util.TreeNode;
 
 /**
  * 863

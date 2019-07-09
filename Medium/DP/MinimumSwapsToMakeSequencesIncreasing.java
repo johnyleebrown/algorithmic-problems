@@ -1,4 +1,4 @@
-package Medium.DP;
+package medium.dp;
 
 /**
  * 801

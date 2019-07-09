@@ -1,4 +1,4 @@
-package Medium.DP;
+package medium.dp;
 
 /**
  * A robot is located at the top-left corner of a m x n grid.

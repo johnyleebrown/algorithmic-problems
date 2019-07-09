@@ -1,4 +1,4 @@
-package Medium.DFS;
+package medium.dfs;
 
 import java.util.HashSet;
 import java.util.Set;

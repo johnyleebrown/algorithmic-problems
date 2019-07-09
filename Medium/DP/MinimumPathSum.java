@@ -1,4 +1,4 @@
-package Medium.DP;
+package medium.dp;
 
 /**
  * Given a m x n grid filled with non-negative numbers,

@@ -1,4 +1,4 @@
-package Medium.DFS;
+package medium.dfs;
 
 /**
  * 200

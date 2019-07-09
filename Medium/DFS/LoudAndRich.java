@@ -1,4 +1,4 @@
-package Medium.DFS;
+package medium.dfs;
 
 import java.util.HashMap;
 import java.util.LinkedList;

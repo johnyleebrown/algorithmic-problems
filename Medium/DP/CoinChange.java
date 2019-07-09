@@ -1,4 +1,4 @@
-package Medium.DP;
+package medium.dp;
 
 import java.util.Arrays;
 import java.util.Map;

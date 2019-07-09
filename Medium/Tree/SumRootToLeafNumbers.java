@@ -1,6 +1,6 @@
 package Medium.Tree;
 
-import Helpers.TreeNode;
+import util.TreeNode;
 
 /**
  * 129

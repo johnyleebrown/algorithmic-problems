@@ -1,4 +1,4 @@
-package Medium.BinarySearch;
+package medium.binarySearch;
 
 /**
  * 33

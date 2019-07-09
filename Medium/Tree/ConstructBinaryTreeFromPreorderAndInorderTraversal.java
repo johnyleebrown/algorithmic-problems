@@ -3,7 +3,7 @@ package Medium.Tree;
 import java.util.HashMap;
 import java.util.Map;
 
-import Helpers.TreeNode;
+import util.TreeNode;
 
 /**
  * 105

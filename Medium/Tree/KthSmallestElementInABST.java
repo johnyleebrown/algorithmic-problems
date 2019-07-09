@@ -2,7 +2,7 @@ package Medium.Tree;
 
 import java.util.Stack;
 
-import Helpers.TreeNode;
+import util.TreeNode;
 
 /**
  * 230

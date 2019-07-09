@@ -25,6 +25,7 @@
 ||[PerfectSquares](medium/bfs/PerfectSquares.java) |
 |Leaf-Prunning|[PacificAtlanticWaterFlow](medium/bfs/PacificAtlanticWaterFlow.java) |
 | | [MinimumHeightTrees](medium/bfs/MinimumHeightTrees.java) |
+| Two-End BFS | [WordLadder](medium/bfs/WordLadder.java) |
 
 
 ### DFS

@@ -1,4 +1,4 @@
-package Medium.Tree;
+package medium.Tree;
 
 import java.util.Stack;
 
@@ -8,15 +8,19 @@ import util.TreeNode;
  * 98
  * Given a binary tree, determine if it is a valid binary search tree (BST).
  */
-public class ValidateBinarySearchTree {
+public class ValidateBinarySearchTree
+{
 
     // O(n), O(n)
-    class Solution {
-        public boolean isValidBST(TreeNode root) {
+    class Solution
+    {
+        public boolean isValidBST(TreeNode root)
+        {
             return isBST(root, null, null);
         }
 
-        private boolean isBST(TreeNode root, Integer min, Integer max) {
+        private boolean isBST(TreeNode root, Integer min, Integer max)
+        {
             if (root == null) return true;
             if (min != null && root.val <= min) return false;
             if (max != null && root.val >= max) return false;
@@ -25,17 +29,19 @@ public class ValidateBinarySearchTree {
     }
 
     /**
-     * Iterative solution, for similar algorithm:
-     * @see KthSmallestElementInABST.Solution4
-     * @see BinaryTreeInorderTraversal
+     * Iterative solution
      */
-    class Solution2 {
-        public boolean isValidBST(TreeNode root) {
+    class Solution2
+    {
+        public boolean isValidBST(TreeNode root)
+        {
             if (root == null) return true;
             Stack<TreeNode> stack = new Stack<>();
             TreeNode pre = null;
-            while (root != null || !stack.isEmpty()) {
-                while (root != null) {
+            while (root != null || !stack.isEmpty())
+            {
+                while (root != null)
+                {
                     stack.push(root);
                     root = root.left;
                 }

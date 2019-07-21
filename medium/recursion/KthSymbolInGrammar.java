@@ -1,4 +1,4 @@
-package Medium.Recursion;
+package medium.recursion;
 
 public class KthSymbolInGrammar
 {
@@ -11,7 +11,8 @@ public class KthSymbolInGrammar
         public int kthGrammar(int N, int K)
         {
             if (N == 1) return 0;
-            // K + 1 because we want to be placed at the right location, since 1/2 is 0, but we need it to be 1
+            // K + 1 because we want to be placed at the right location
+			// since 1/2 is 0, but we need it to be 1
             int parent = kthGrammar(N - 1, (K + 1) / 2);
             // this part is from the task
             return calculateCurrent(parent, K);
@@ -24,7 +25,19 @@ public class KthSymbolInGrammar
             // equivalent of ktGrammar() == K % 2 ? 1 : 0;
             return 1;
         }
-    }
+
+	}
+
+	class Solution2 {
+		public int kthGrammar(int N, int K) {
+			// base case
+			if (K == 1) return 0;
+			// there are basically 4 cases, this is reduced version
+			if (K % 2 == kthGrammar(N - 1, (K + 1) / 2)) return 1;
+			else return 0;
+		}
+	}
+}
 /*
 3
 2
@@ -35,4 +48,4 @@ public class KthSymbolInGrammar
 4
 2
 */
-}
+

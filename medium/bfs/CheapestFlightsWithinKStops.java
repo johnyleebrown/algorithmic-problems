@@ -1,3 +1,0 @@
-package medium.bfs.dijkstra;
-
-// 

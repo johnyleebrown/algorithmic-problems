@@ -1,71 +1,53 @@
 package medium.bfs;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class NumberOfIslands
 {
-    class Solution {
-        public int numIslands(char[][] grid) {
-            if (grid.length == 0 || grid[0].length == 0) return 0;
+	/*
+	 * BFS
+	 */
+	class Solution {
+		public int numIslands(char[][] grid) {
+			if (grid == null || grid.length == 0 || grid[0].length == 0) return 0;
+			int count = 0, n = grid.length, m = grid[0].length;
+			int[][] dirs = new int[][]{{-1,0},{0,-1},{1,0},{0,1}};
+			boolean[][] seen = new boolean[n][m];
 
-            boolean[][] seen = new boolean[grid.length][grid[0].length];
-            int numOfIslands = 0;
+			for (int i = 0; i < n; i++) for (int j = 0; j < m; j++) 
+			{
+				if (!isValid(i, j, n, m, seen, grid)) continue;
+				
+				count++;
+				
+				Queue<int[]> queue = new LinkedList<>();
+				queue.add(new int[]{i, j});
+				
+				while (!queue.isEmpty())
+				{
+					// pealing dosn't matter here
+					int[] cell = queue.poll();
+					for (int[] dir: dirs)
+					{
+						int newI = cell[0] + dir[0], newJ = cell[1] + dir[1];
+						if (!isValid(newI, newJ, n, m, seen, grid)) continue;
+						seen[newI][newJ] = true;
+						queue.add(new int[]{newI, newJ});
+					}
+				}
+			}
 
-            for (int i = 0; i < grid.length; i++)
-            {
-                for (int j = 0; j < grid[i].length; j++)
-                {
-                    if (canBeSeen(i, j, seen, grid))
-                    {
-                        Queue<int[]> q = new LinkedList<>();
-                        q.add(new int[]{i, j});
-                        seen[i][j] = true;
+			return count;
+		}
+	}
 
-                        while (!q.isEmpty())
-                        {
-                            populateQueue(q, seen, grid);
-                        }
+	private boolean isValid(int i, int j, int n, int m, boolean[][] seen, char[][] grid)
+	{
+		return isInBounds(i, j, n, m) && !seen[i][j] && grid[i][j] == '1';
+	}
 
-                        numOfIslands++;
-                    }
-                }
-            }
+	private boolean isInBounds(int i, int j, int n, int m)
+	{
+		return i >= 0 && j >= 0 && i < n && j < m;
+	}
 
-            return numOfIslands;
-        }
-
-        private void populateQueue(Queue<int[]> q, boolean[][] seen, char[][] grid)
-        {
-            int[] cell = q.poll();
-            int base_i = cell[0], base_j = cell[1];
-            int[][] directions = new int[][]{{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
-
-            for (int[] direction: directions)
-            {
-                int i = direction[0] + base_i, j = direction[1] + base_j;
-                if (canAddToQueue(i, j, seen, grid))
-                {
-                    seen[i][j] = true;
-                    q.add(new int[]{i, j});
-                }
-            }
-        }
-
-        private boolean canAddToQueue(int i, int j, boolean[][] seen, char[][] grid)
-        {
-            return isInArrayBounds(i, j, seen[0].length, seen.length) && canBeSeen(i, j, seen, grid);
-        }
-
-        private boolean canBeSeen(int i, int j, boolean[][] seen, char[][] grid)
-        {
-            return !seen[i][j] && grid[i][j] != '0';
-        }
-
-        private boolean isInArrayBounds(int i, int j, int width, int height)
-        {
-            return i >= 0 && i < height && j >= 0 && j < width;
-        }
-
-    }
 }
+

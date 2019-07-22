@@ -33,4 +33,19 @@ public class ReverseLinkedList {
         head.next = null;
         return p;
     }
+
+	class Solution {
+	    public ListNode reverseList(ListNode head) {
+			return helper(head, null);
+		}
+
+		// the idea is to always send to the recursion already ready 'next node'
+		private ListNode helper(ListNode head, ListNode newNext)
+		{
+			if (head == null) return newNext;
+			ListNode temp = head.next;
+			head.next = newNext;
+			return helper(temp, head);
+		}
+	}
 }

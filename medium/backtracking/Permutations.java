@@ -9,7 +9,11 @@ public class Permutations
 {
 	/*
 	 * Given a collection of distinct integers return all possible permutations
-	 * Optimization I = keep the list of possible nums to try in a sepaarate list so you don;t check for contains every time
+	 * 
+	 * O(n!) 
+	 *
+	 * Optimization I = keep the list of possible nums 
+	 * to try in a sepaarate list so you don;t check for contains every time
 	 */
 	class Solution {
 		private List<List<Integer>> answer = new LinkedList<>();

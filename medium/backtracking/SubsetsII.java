@@ -49,6 +49,7 @@ public class SubsetsII
 		
 		public List<List<Integer>> subsetsWithDup(int[] nums) {
 			if (nums == null || nums.length == 0) return new LinkedList<>();
+			// sorting to find dups easier later
 			Arrays.sort(nums);
 			generate(0, new LinkedList<>(), nums);
 			return combinations;
@@ -59,6 +60,9 @@ public class SubsetsII
 			combinations.add(new LinkedList<>(combination));
 			for (int i = start; i < nums.length; i++)
 			{
+				// so we don't start again with the same number
+				// we are alright to be getting this number in the combinations
+				// but don't want dups
 				if (i != start && nums[i] == nums[i - 1]) continue; 
 				combination.add(nums[i]);
 				generate(i + 1, combination, nums);

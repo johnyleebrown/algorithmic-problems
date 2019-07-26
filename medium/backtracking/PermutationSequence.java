@@ -9,6 +9,8 @@ public class PermutationSequence
 	 * going iteratively from 1 untill we seen kth combination
 	 *
 	 * O(n!)
+	 *
+	 * optimized with solution in math package: count the exact place of this permutation
 	 */
 	class Solution {
 		

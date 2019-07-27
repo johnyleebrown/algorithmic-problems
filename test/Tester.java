@@ -1,9 +1,10 @@
-package test;
+package alg.test;
+
+import alg.test.Out;
 
 /*
  * Do a solution call
  */
-
 public class Tester
 {
 	public static void check(Object source, String target)
@@ -14,7 +15,7 @@ public class Tester
 		}
 		catch(java.lang.AssertionError a)
 		{
-			System.out.print("NOK. ");
+			//sout("NOK. ");
 			return;
 		}
 		

@@ -1,5 +1,4 @@
 ## todo
-	- 526
 	- 1079
 
 ## lots of conditions

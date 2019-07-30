@@ -57,7 +57,7 @@ public class KSimilarStrings
                         char c2 = sb.charAt(j);
 
                         // the main idea of the optimization
-                        // looking for chars that are the same as the chart in target
+                        // looking for chars that are the same as the char in target
                         // but not the chars that are already in the right place
                         if (c2 != B.charAt(i) || c2 == B.charAt(j)) continue;
 

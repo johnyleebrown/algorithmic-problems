@@ -43,11 +43,8 @@ public class ShortestPathInBinaryMatrix
                     for (int[] dir: dirs)
                     {
                         int newI = dir[0] + i, newJ = dir[1] + j;
-
-
                         if (!isInBounds(newI, newJ, n, m) || seen[newI][newJ] == 1 || grid[newI][newJ] == 1) continue;
                         if (seen[newI][newJ] == 2) return path1Length + path2Length + 1;
-
                         seen[newI][newJ] = 1;
                         q1.add(new int[]{newI, newJ});
                     }

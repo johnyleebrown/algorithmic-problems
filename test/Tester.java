@@ -1,6 +1,6 @@
-package alg.test;
+package test;
 
-import alg.test.Out;
+import static test.Out.sout;
 
 /*
  * Do a solution call
@@ -15,19 +15,19 @@ public class Tester
 		}
 		catch(java.lang.AssertionError a)
 		{
-			//sout("NOK. ");
+			sout("NOK. ");
 			return;
 		}
-		
 
-		System.out.println("OK. " +  source + " = " + target);
+
+        sout("OK. " +  source + " = " + target);
 	}
 
 	private static boolean evaluate(String source, String target)
 	{
 		if (source == null) 
 		{
-			System.out.println("Source is null. ");
+            sout("Source is null.");
 			return false;
 		}
 
@@ -36,7 +36,7 @@ public class Tester
 
 	public static void main(String[] args)
 	{
-		System.out.println("[ ===== Tester ===== ]");
+        sout("[ ===== Tester ===== ]");
 	}
 }
 

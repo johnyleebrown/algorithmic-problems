@@ -1,4 +1,4 @@
-package alg.test;
+package test;
 
 public class Out
 {

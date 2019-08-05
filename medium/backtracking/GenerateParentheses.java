@@ -1,42 +1,46 @@
 package medium.backtracking;
 
-/*
- * 22
- *
- * generate well-formed parentheses
- */
+import java.util.List;
+import java.util.ArrayList;
+
+// 22
 public class GenerateParentheses
 {
-	class Solution {
-		
-		private final static char OP= '(', CP=')';
-		private final static char[] ps = new char[]{OP, CP};
+	private static class Solution
+	{
+		private List<String> answerList = new ArrayList<>();
 
-		public List<String> generateParenthesis(int n) {
-			List<String> answerList = new LinkedList<>();
+		public List<String> generateParenthesis(int n)
+		{
 			if (n < 1) return answerList;
-			generateCombinations(n, n, answerList, "", n * 2);
-			return answerList;			
+			generate(n, 0, 0, 0, "");
+			return answerList;
 		}
 
-		private void generateCombinations(int leftCount, int rightCount, 
-				List<String> list, String combination, int n)
+		private void generate(int n, int k, int left, int right, String comb)
 		{
-			if (n == 0) list.add(combination);
-			else 
+			if (left == right && k == n*2) answerList.add(comb);
+			else
 			{
-				if (rightCount > leftCount)
-				{
-					generateCombinations(leftCount, rightCount - 1, 
-							list, combination + CP, n - 1);
-				}
-				if (leftCount != 0)
-				{
-					generateCombinations(leftCount - 1, rightCount, 
-							list, combination + OP, n - 1);
-				}
+				// we can add a right par when the n of left is more then right
+				if (right < left) generate(n, k + 1, left, right + 1, comb + ')');
+				// we can keep adding left untill the num of them is less then n/2
+				if (left <= n) generate(n, k + 1, left + 1, right, comb + '(');
 			}
 		}
+
+		public List<String> getAns()
+		{
+			return answerList;
+		}
 	}
+
+	public static void main(String[] args)
+	{
+		Solution s = new Solution();
+		s.generateParenthesis(3);
+		System.out.println(s.getAns());
+	}
+
 }
 

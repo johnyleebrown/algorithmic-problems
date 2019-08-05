@@ -25,6 +25,7 @@
 ||[BinaryTreeZigzagLevelOrderTraversal](medium/bfs/BinaryTreeZigzagLevelOrderTraversal.java) |
 ||[O1Matrix](medium/bfs/O1Matrix.java) |
 ||[ShortestBridge](medium/bfs/ShortestBridge.java) |
+||[CountCompleteTreeNodes](medium/tree/CountCompleteTreeNodes.java) |
 |Two-End BFS|[WordLadder](medium/bfs/WordLadder.java) |
 ||[ShortestPathInBinaryMatrix](medium/bfs/ShortestPathInBinaryMatrix.java) |
 |Leaf-Prunning|[PacificAtlanticWaterFlow](medium/bfs/PacificAtlanticWaterFlow.java) |

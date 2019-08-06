@@ -32,9 +32,10 @@ public class LetterCombinationsOfAPhoneNumber
 			if (combination.length() == s.length()) combinations.add(combination);
 			else
 			{
-				for (int i = 0; i < letters[getInt(s, j + 1)].length; i++)
+				char[] row = letters[getInt(s, j + 1)];
+				for (int i = 0; i < row.length; i++)
 				{
-					generate(combination + letters[getInt(s, j + 1)][i], j + 1, s);
+					generate(combination + row[i], j + 1, s);
 				}
 			}
 		}

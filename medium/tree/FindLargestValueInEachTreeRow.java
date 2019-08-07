@@ -7,30 +7,36 @@ import java.util.Queue;
 
 import util.TreeNode;
 
-/**
- * 515
- * You need to find the largest value in each row of a binary tree.
- */
+// 515
 public class FindLargestValueInEachTreeRow {
 
     // O(n)
-    class Solution {
-        public List<Integer> largestValues(TreeNode root) {
+	// keep local maximum for each row
+    class Solution 
+	{
+        public List<Integer> largestValues(TreeNode root) 
+		{
             if (root == null) return new ArrayList<>();
-            List<Integer> res = new ArrayList<>();
+            
+			List<Integer> res = new ArrayList<>();
             Queue<TreeNode> queue = new LinkedList<>();
             queue.offer(root);
-            while (!queue.isEmpty()) {
+            
+			while (!queue.isEmpty()) 
+			{
                 int size = queue.size();
                 int max = queue.peek().val;
-                for (int i = 0; i < size; i++) {
+                for (int i = 0; i < size; i++) 
+				{
                     TreeNode curr = queue.poll();
                     max = Math.max(max, curr.val);
                     if (curr.left != null) queue.offer(curr.left);
                     if (curr.right != null) queue.offer(curr.right);
                 }
+
                 res.add(max);
             }
+
             return res;
         }
     }

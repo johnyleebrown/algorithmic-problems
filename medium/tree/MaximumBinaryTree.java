@@ -2,31 +2,38 @@ package Medium.Tree;
 
 import util.TreeNode;
 
-/**
- * 654
- * Given an integer array with no duplicates. A maximum tree building on this array is defined as follow:
- * The root is the maximum number in the array.
- * The left subtree is the maximum tree constructed from left part subarray divided by the maximum number.
- * The right subtree is the maximum tree constructed from right part subarray divided by the maximum number.
- * Construct the maximum tree by the given array and output the root node of this tree.
- */
-public class MaximumBinaryTree {
+// 654
+public class MaximumBinaryTree 
+{
+	{
+		public TreeNode constructMaximumBinaryTree(int[] nums) 
+		{
+			if (nums == null || nums.length == 0) return null;
+			return subtreeSearch(0, nums.length - 1, nums);
+		}
+		
+		private TreeNode subtreeSearch(int i, int j, int[] nums)
+		{
+			if (j < i) return null;
+			
+			int maxInd = i;
+			int maxNum = nums[i];
+			for (int k = i + 1; k <= j; k++)
+			{
+				if (maxNum < nums[k])
+				{
+					maxNum = nums[k];
+					maxInd = k;
+				}
+			}
+			
+			TreeNode root = new TreeNode(maxNum);
+			root.left = subtreeSearch(i, maxInd - 1, nums);
+			root.right = subtreeSearch(maxInd + 1, j, nums);
+			
+			return root;
+		}
+	}
 
-    // O(n^2)
-    // O(n)
-    class Solution {
-        public TreeNode constructMaximumBinaryTree(int[] nums) {
-            return helper(nums, 0, nums.length);
-        }
-
-        private TreeNode helper(int[] nums, int l, int r) {
-            if (l == r) return null;
-            int max = l;
-            for (int i = l + 1; i < r; i++) if (nums[max] < nums[i]) max = i;
-            TreeNode root = new TreeNode(nums[max]);
-            root.left = helper(nums, l, max);
-            root.right = helper(nums, max + 1, r);
-            return root;
-        }
-    }
 }
+

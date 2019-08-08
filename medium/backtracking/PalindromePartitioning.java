@@ -1,5 +1,6 @@
 package medium.backtracking;
 
+// 131
 public class PalindromePartitioning
 {
 	/*
@@ -44,6 +45,7 @@ public class PalindromePartitioning
 			}
 		}
 		
+		// could send here just the indexes
 		private boolean isPalindrome(String s)
 		{
 			int n = s.length();

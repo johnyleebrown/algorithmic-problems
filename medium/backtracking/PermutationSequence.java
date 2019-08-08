@@ -1,23 +1,23 @@
 package medium.backtracking;
 
-/*
- * 60
- */
+// 60
 public class PermutationSequence
 {
 	/*
-	 * going iteratively from 1 untill we seen kth combination
+	 * going iteratively from 1 until we seen kth combination
 	 *
 	 * O(n!)
 	 *
-	 * optimized with solution in math package: count the exact place of this permutation
+	 * optimized with solution in math package: count 
+	 * the exact place of this permutation
 	 */
-	class Solution {
-		
+	class Solution 
+	{	
 		private int limit;
 		private String result = null;
 		
-		public String getPermutation(int n, int k) {
+		public String getPermutation(int n, int k) 
+		{
 			limit = k;
 			generate(new boolean[n + 1], "", n);
 			return result;

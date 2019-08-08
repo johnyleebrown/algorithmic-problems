@@ -2,9 +2,8 @@ package medium.backtracking;
 
 import java.util.LinkedList;
 import java.util.List;
-/*
- * 46
- */
+
+// 46
 public class Permutations
 {
 	/*

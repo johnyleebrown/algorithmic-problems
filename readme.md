@@ -15,6 +15,10 @@
 - [String](#string)
 - [Tree](#tree)
 
+### LL
+2 runners 
+876
+
 ### BFS
 | Topic | Problems |
 | :-------- | :---------------- |

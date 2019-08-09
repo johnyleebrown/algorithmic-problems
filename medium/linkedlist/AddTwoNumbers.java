@@ -2,38 +2,65 @@ package Medium.LinkedList;
 
 import Helpers.ListNode;
 
-/**
- * 2. Add Two Numbers. Medium.
- *
- * You are given two non-empty linked lists representing two non-negative integers.
- * The digits are stored in reverse order and each of their nodes contain a single digit.
- * Add the two numbers and return it as a linked list.
- *
- * You may assume the two numbers do not contain any leading zero, except the number 0 itself.
- *
- * Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
- * Output: 7 -> 0 -> 8
- */
+// 2
+public class AddTwoNumbers 
+{
+	// sum up reversed digits, cuz otherwise we would have to find the len
+	// we can collect the digits, add, do a list creation, but we can do better
+	//
+	// we will iterate through the list creating a new list as we go
+	// but keeping the link to the prev element, so if we could add a leftover there
+	class Solution {
+		public ListNode addTwoNumbers(ListNode l1, ListNode l2) 
+		{
+			int leftOver = 0;
+			ListNode prev = null;
+			ListNode root = null;
 
-public class AddTwoNumbers {
+			while (l1 != null || l2 != null || leftOver != 0)
+			{
+				int one = 0;
+				if (l1 != null)
+				{
+					one = l1.val;
+					l1 = l1.next;
+				}
+				
+				int two = 0;
+				if (l2 != null)
+				{
+					two = l2.val;
+					l2 = l2.next;
+				}
+				
+				int sum = one + two + leftOver;
+				int res = sum % 10;
+				
+				ListNode cur = new ListNode(res);
+				if (root == null) root = cur;
+				if (prev != null) prev.next = cur;
+				prev = cur;
 
-    // Time complexity : O(max(m, n))
-    // Space complexity: O(max(m, n))
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode newHead = new ListNode(0);
-        ListNode p = l1, q = l2, curr = newHead;
-        int carry = 0;
-        while (p != null || q != null) {
-            int x = (p != null) ? p.val : 0;
-            int y = (q != null) ? q.val : 0;
-            int sum = carry + x + y;
-            carry = sum / 10;
-            curr.next = new ListNode(sum % 10);
-            curr = curr.next;
-            if (p != null) p = p.next;
-            if (q != null) q = q.next;
-        }
-        if (carry > 0) curr.next = new ListNode(carry);
-        return newHead.next;
-    }
+				leftOver = sum / 10;
+			}
+				
+			return root;	
+		}
+	}
 }
+
+/*
+[9,9]
+[9,9]
+[1]
+[]
+[1,2]
+[]
+[1,2]
+[3]
+[]
+[]
+[1]
+[9,9]
+*/
+

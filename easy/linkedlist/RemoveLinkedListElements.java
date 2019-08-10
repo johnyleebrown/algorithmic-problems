@@ -6,7 +6,6 @@ public class RemoveLinkedListElements
         ListNode prev = head;
         while (head != null)
         {
-            // System.out.println(head.val);
             while (head != null && head.val == val)
             {
                 head = head.next;

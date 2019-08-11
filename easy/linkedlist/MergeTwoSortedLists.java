@@ -2,11 +2,7 @@ package easy.linkedlist;
 
 import Helpers.ListNode;
 
-/**
- * 21
- * Merge two sorted linked lists and return it as a new list.
- * The new list should be made by splicing together the nodes of the first two lists.
- */
+// 21
 public class MergeTwoSortedLists {
     class Solution {
         public ListNode mergeTwoLists(ListNode l1, ListNode l2) {

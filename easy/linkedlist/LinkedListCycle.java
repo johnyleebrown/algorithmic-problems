@@ -5,12 +5,9 @@ import java.util.Set;
 
 import Helpers.ListNode;
 
-/**
- * 141
- * Given a linked list, determine if it has a cycle in it.
- */
-public class LinkedListCycle {
-
+// 141
+public class LinkedListCycle 
+{
     // O(n) ; O(n)
     class Solution1 {
         public boolean hasCycle(ListNode head) {
@@ -25,17 +22,19 @@ public class LinkedListCycle {
     }
 
     // O(n) ; O(1)
-    public class Solution {
-        public boolean hasCycle(ListNode head) {
-            if (head == null || head.next == null) return false;
-            ListNode fast = head.next;
-            ListNode slow = head;
-            while (fast != null && fast.next != null) {
-                if (fast == slow) return true;
-                fast = fast.next.next;
-                slow = slow.next;
-            }
-            return false;
+    public class Solution 
+	{
+        public boolean hasCycle(ListNode head) 
+		{
+			if (head == null) return false;
+			ListNode fast = head;
+			while (head != null && fast.next != null)
+			{
+				if (fast.val == head.val) return true;
+				head = head.next;
+				fast = fast.next.next;
+			}
+			return false;
         }
     }
 }

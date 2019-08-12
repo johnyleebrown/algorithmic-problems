@@ -2,25 +2,30 @@ package Medium.LinkedList;
 
 import Helpers.ListNode;
 
-/**
- * 82
- *
- * Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.
- */
-public class RemoveDuplicatesFromSortedListII {
-    /**
-     * Time complexity: O(n)
-     * Space complexity: O(1)
-     */
-    public ListNode deleteDuplicates(ListNode head) {
-        if (head == null) return null;
-        if (head.next != null && head.val == head.next.val) return helper(head.val, head);
-        else return helper(null, head);
-    }
+// 82
+public class RemoveDuplicatesFromSortedListII 
+{
+	class Solution 
+	{
+		public ListNode deleteDuplicates(ListNode head) 
+		{
+			return helper(head, null);
+		}
 
-    ListNode helper(Integer prev, ListNode head) {
-        boolean flag = head.next != null && head.val == head.next.val;
-        if (head.next != null) head.next = helper(head.val, head.next);
-        return prev != null && head.val == prev || flag ? head.next : head;
-    }
+		private ListNode helper(ListNode head, ListNode prev)
+		{
+			if (head == null) return null;
+			head.next = helper(head.next, head);
+			if (head.next != null)
+			{
+				if (head.val == head.next.val)
+				{
+					if ((prev == null) ||
+							(prev != null && prev.val != head.val)) return head.next.next;
+					else return head.next;
+				}
+			}
+			return head;
+		}
+	}
 }

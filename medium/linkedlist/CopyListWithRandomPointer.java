@@ -4,52 +4,51 @@ import java.util.HashMap;
 import java.util.Map;
 
 // 138
-public class CopyListWithRandomPointer {
-	// 1st solution - use map
-	// 2nd sol, but there we change origin next links, so this don't count
-	// 3nd mod - next pointer of the or node is the new node
+public class CopyListWithRandomPointer 
+{
 	class Solution 
 	{
-		public Node copyRandomList(Node head) 
+		public Node copyRandomList(Node head)
 		{
-			// go through the list, set origin nexts to new nodes, set new nodes rands to origins
+			ListNode oldhead = head;
+			ListNode newhead = null;
 			
-			Node newHead = null;
-			Node newPrev = null;
-			
-			Node x = head;
-			while (x != null)
+			// 1 step link old nodes to new nodes
+			while (head != null)
 			{
-				// saved the next so we could go there
-				Node temp = x.next;
+				Node newnode = new Node(head.val);
 				
-				// create a new node
-				Node newNode = new Node(x.val);
-				// if there is a prev defined, link it to a new node
-				if (newPrev != null) newPrev.next = newNode;
-				// if there is no head yet, assign one
-				if (newHead == null) newHead = newNode;
+				if (newhead == null) newhead = newnode;
 				
-				// origin next is new node
-				x.next = newNode;
-				// new rand is origin node
-				newNode.random = x;
-				
-				// going there
-				x = temp;
+				newnode.random = head;
+				newnode.next = head.next;
+				head.next = newnode;
+				head = newnode.next;
 			}
-			
-			// go throught the origin again and use rands
-			x = newHead;
-			while (x != null)
-			{   
-				Node newN = x.random.random.next;
-				x.random = newN;
-				x = x.next;
+
+			// 2 step link rand of new nodes
+			head = oldhead; // at the new node right away
+			while (head != null)
+			{
+				if (head.random != null) head.next.random = head.random.random.next;
+				if (head.next != null) head = head.next.next;	
 			}
-			
-			return newHead;
+
+			// 3 step unlink all
+			// 1 - 1' - 2 - 2' - 3 - 3'
+			// 1 - 2 - 3! 
+			// 1' - 2' - 3'! 
+			Node x = null;
+			head = oldhead;
+			while (head != null && head.next != null)
+			{
+				x = head.next;
+				head.next = x.next;
+				head = head.next;
+				if (head != null) x.next = head.next;	
+			}
+
+			return newhead;
 		}
-		
 	}
 }

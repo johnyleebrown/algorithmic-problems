@@ -2,42 +2,39 @@ package Medium.LinkedList;
 
 import Helpers.ListNode;
 
-/**
- * 86
- *
- * Given a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
- * You should preserve the original relative order of the nodes in each of the two partitions.
- */
-public class PartitionList {
-    /**
-     * Time complexity: O(n)
-     * Space complexity: O(1)
-     */
-    class Solution {
-        public ListNode partition(ListNode head, int x) {
-            ListNode first = new ListNode(0);
-            ListNode firstHead = first;
-            ListNode second = new ListNode(0);
-            ListNode secondHead = second;
-            ListNode p = head;
+// 86
+public class PartitionList 
+{
+	// keep dragging all the needed numbers and connecting them together
+	// and keep connecting old numbers as well
+	class Solution 
+	{
+		private ListNode next = null;
+		private ListNode lastnext = null;
 
-            while (p != null) {
-                if (p.val < x) {
-                    first.next = p;
-                    first = first.next;
-                } else {
-                    second.next = p;
-                    second = second.next;
-                }
-                p = p.next;
-            }
+		public ListNode partition(ListNode head, int x)
+		{
+			ListNode otherhead = h(head, x);
+			if (lastnext != null) lastnext.next = otherhead;
+			return next == null ? otherhead : next;
+		}
 
-            second.next = null;
-            first.next = null;
+		public ListNode h(ListNode head, int x)
+		{
+			if (head == null) return null;
 
-            first.next = secondHead.next;
+			ListNode res = h(head.next, x);
 
-            return firstHead.next;
-        }
-    }
+			if (head.val < x)
+			{
+				head.next = next;
+				if (lastnext == null) lastnext = head;
+				next = head;
+				return res;
+			}
+
+			head.next = res;
+			return head;
+		}
+	}
 }

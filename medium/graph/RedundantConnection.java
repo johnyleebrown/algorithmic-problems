@@ -7,7 +7,7 @@ public class RedundantConnection
 	   connected components won't change if it is in the cycle
 	   by using union find, we will union all the edges, the first one 
 	   that will have verteces that have the same parent is the answer
-	   */
+   	*/
 	class Solution1 
 	{
 		public int[] findRedundantConnection(int[][] edges) 

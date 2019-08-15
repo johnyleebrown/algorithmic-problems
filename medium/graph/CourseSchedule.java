@@ -2,59 +2,54 @@ package Medium.Graph;
 
 import java.util.ArrayList;
 
-/**
- * 207
- *
- * There are a total of n courses you have to take, labeled from 0 to n - 1.
- * Some courses may have prerequisites, for example to take course 0 you have
- * to first take course 1, which is expressed as a pair: [0,1] Given the total
- * number of courses and a list of prerequisite pairs, is it possible for you
- * to finish all courses?
- */
-public class CourseSchedule {
-    /**
-     * Topological sort, if has cycle return false
-     *
-     * Mark in three colors:
-     * 0 - unvisited (initial)
-     * 1 - visiting (the vertex is on the current path)
-     * 2 - visited
-     *
-     * Time complexity: O(E+V)
-     * Space complexity: O(V)
-     */
-    public class Solution1 {
-        boolean canFinish(int numCourses, int[][] prerequisites) {
-            ArrayList<Integer>[] graph = new ArrayList[numCourses];
+// 207
+public class CourseSchedule 
+{
+	// detect if there is a cycle in DAG
+	class Solution 
+	{
+		private boolean[] seen;
+		private boolean[] recursionStack;
+		private Map<Integer, List<Integer>> g;
 
-            for (int i = 0; i < numCourses; i++)    graph[i] = new ArrayList<>();
-            for (int[] edge : prerequisites)        graph[edge[1]].add(edge[0]);
+		public boolean canFinish(int numCourses, int[][] prerequisites) 
+		{
+			init(numCourses);
 
-            int[] marked = new int[numCourses];
+			for (int[] p: prerequisites) 
+				g.putIfAbsent(p[1], new ArrayList<>()); g.get(p[1]).add(p[0]);
 
-            for (int v = 0; v < graph.length; v++) {
-                if (hasCycle(graph, marked, v)) return false;
-            }
+			return !hasCycle();
+		}
 
-            return true;
-        }
+		private boolean hasCycle()
+		{
+			for (int v: g.keySet()) if (dfs(v)) return true;
+			return false;
+		}
 
-        boolean hasCycle(ArrayList<Integer>[] graph, int[] marked, int v) {
-            if (marked[v] == 1) return true;
-            marked[v] = 1;
+		private boolean dfs(int v)
+		{
+			if (recursionStack[v]) return true;
+			if (seen[v]) return false;
 
-            for (int w : graph[v]) {
-                if (marked[v] != 2 && hasCycle(graph, marked, w)) return true;
-            }
+			recursionStack[v] = true;
+			seen[v] = true;
 
-            marked[v] = 2;
-            return false;
-        }
-    }
+			for (int w: g.getOrDefault(v, new ArrayList<>())) 
+				if (dfs(w)) return true;
 
-    public static void main(String[] args) {
-        String s = "[[0,1],[1,3],[2,3]]";
-        String s2 = "[[1,0],[0,1]]";
-        String s3 = "[[1,0]]";
-    }
+			recursionStack[v] = false;
+			return false;
+		}
+
+		private void init(int n)
+		{
+			seen = new boolean[n];
+			recursionStack = new boolean[n];
+			g = new HashMap<>();
+		}
+	}
+
 }
+

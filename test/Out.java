@@ -8,5 +8,15 @@ public class Out
 	{
 		System.out.println(o.toString());
 	}
+	
+	public static void sout()
+	{
+		System.out.println();
+	}
+
+	public static void sou(Object o)
+	{
+		System.out.print(o.toString());
+	}
 }
 

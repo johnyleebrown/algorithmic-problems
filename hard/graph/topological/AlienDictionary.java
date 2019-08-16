@@ -8,6 +8,7 @@ import java.lang.StringBuilder;
 
 import static test.Out.sout;
 import static test.Out.sou;
+import static test.Tester.check;
 
 // 269
 public class AlienDictionary
@@ -23,8 +24,14 @@ public class AlienDictionary
 
 	public static void main(String[] args)
 	{
-		String[] words = new String[]{"wrt", "wrf", "er", "ett", "rftt"};
-		sout(alienOrder(words));
+		check(alienOrder(new String[]{"wrt", "wrf", "er", "ett", "rftt"}), "wertf");
+		check(alienOrder(new String[]{"z","x"}), "zx");
+		check(alienOrder(new String[]{"z","x","z"}), "");
+		check(alienOrder(new String[]{"caa","aaa","aab"}), "cab");
+		check(alienOrder(new String[]{"z","z"}), "z");
+		check(alienOrder(new String[]{"ab","adc"}), "cbda");
+		check(alienOrder(new String[]{"ri","xz","qxf","jhsguaw","dztqrbwbm","dhdqfb","jdv","fcgfsilnb","ooby"}), "");
+		check(alienOrder(new String[]{"bsusz","rhn","gfbrwec","kuw","qvpxbexnhx","gnp","laxutz","qzxccww"}), "");
 	}
 
 	public static String alienOrder(String[] words) 
@@ -50,9 +57,9 @@ public class AlienDictionary
 	{
 		int v = getInt(v0);
 		if (seenInRecStack[v]) return true;
-		if (seen[v]) return false;
-		seenInRecStack[v] = seen[v] = true;
-		for (char w: g.getOrDefault(v, new HashSet<>())) 
+		if (seenCycle[v]) return false;
+		seenInRecStack[v] = seenCycle[v] = true;
+		for (char w: g.getOrDefault(v0, new HashSet<>())) 
 			if (searchForCycle(w)) return true;
 		seenInRecStack[v] = false;
 		return false;
@@ -67,30 +74,18 @@ public class AlienDictionary
 	private static void postOrderTraverse(char v0)
 	{
 		int v = getInt(v0);
-		//sout(v0);
 		if (seen[v]) return;
 		seen[v] = true;
-		for (char w: g.getOrDefault(v, new HashSet<>())) postOrderTraverse(w);
-		//sout(v0);
+		for (char w: g.getOrDefault(v0, new HashSet<>())) postOrderTraverse(w);
 		charr[c--] = v0; 
 	}
 
 	private static void init(String[] words)
 	{
 		initGraph(words);
-/*
-		for (char c: g.keySet())
-		{
-			sout(c+" : ");
-			for (char x: g.get(c))
-			{
-				sou(x+" ");
-			}
-		}		
-*/
-		seenCycle = new boolean[25];
-		seen = new boolean[25];
-		seenInRecStack = new boolean[25];
+		seenCycle = new boolean[26];
+		seen = new boolean[26];
+		seenInRecStack = new boolean[26];
 		charr = new char[g.size()];
 		c = g.size() - 1;
 	}
@@ -98,7 +93,6 @@ public class AlienDictionary
 	private static void initGraph(String[] words)
 	{
 		g = new HashMap<>();
-		// comparing two conseq words
 		for (int i = 0; i < words.length - 1; i++)
 		{
 			String s1 = words[i], s2 = words[i + 1];
@@ -106,9 +100,7 @@ public class AlienDictionary
 			for (int j = 0; j < len; j++)
 			{
 				char c1 = s1.charAt(j), c2 = s2.charAt(j);
-				g.putIfAbsent(c1, new HashSet<>());
-				g.putIfAbsent(c2, new HashSet<>());
-				//sout(c1);sout(c2);
+				g.putIfAbsent(c1, new HashSet<>());g.putIfAbsent(c2, new HashSet<>());
 				if (c1 == c2) continue;
 				g.get(c1).add(c2);
 			}

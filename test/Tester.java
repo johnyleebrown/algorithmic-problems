@@ -2,25 +2,19 @@ package test;
 
 import static test.Out.sout;
 
-/*
- * Do a solution call
- */
 public class Tester
 {
 	public static void check(Object source, String target)
 	{
-		try
+		final String s = source.toString();
+		if (target.equals(s))
 		{
-			assert evaluate(source.toString(), target);
+        	sout("OK. " +  s + " = " + target);
 		}
-		catch(java.lang.AssertionError a)
+		else
 		{
-			sout("NOK. ");
-			return;
+			sout("NOK. " + s + " != " + target);
 		}
-
-
-        sout("OK. " +  source + " = " + target);
 	}
 
 	private static boolean evaluate(String source, String target)

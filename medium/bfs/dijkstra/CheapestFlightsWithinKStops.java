@@ -1,104 +1,103 @@
-package medium.bfs.dijkstra;
+package Medium.Graph;
+
+import static Helpers.Helper.replaceBracets;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 // 787
-public class CheapestFlightsWithinKStops
+public class CheapestFlightsWithinKStops 
 {
-	class Solution {
-		public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
-			if (src < 0 || src >= n || dst < 0 || dst >= n) return -1;
-
-			// construct directed graph
-			Map<Integer, Map<Integer, Integer>> graph = createGraph(flights);
-			
-			// construct queue for costs {target, cost to get there}
-			Queue<int[]> costs = new LinkedList<>(); costs.add(new int[]{src, 0});
-			
-			// keep the costs (distances) to each target - it will be the minimum
-			int[] distances = new int[n];
-			for (int i = 0; i < n; i++) distances[i] = Integer.MAX_VALUE;
-			distances[src] = 0;
-			
-			
-			// while we haven't traversed all the costs and we haven't used all the stops we are allowed to make
-			while (!costs.isEmpty() && K >= 0)
-			{
-				int verteces = costs.size();
-				while (--verteces >= 0)
-				{
-					int[] cost = costs.poll();
-					int source = cost[0], price = cost[1];
-	 
-					// get all vertices 
-					Map<Integer, Integer> map = graph.get(source);
-
-					if (map == null) continue;
-					for (int v: map.keySet())
-					{
-						// price = what it cost us to get to the source
-						// map.get(v) = what it will cost us to get to v from source
-						// if this price is less then what is in v then we add it to queue
-						int newPrice = price + map.get(v);
-
-						if (distances[v] > newPrice)
-						{
-							distances[v] = newPrice;
-							costs.add(new int[]{v, newPrice});
-						}
-					}
-				}
-				
-				K--;
-			}
-
-			return distances[dst] == Integer.MAX_VALUE ? -1 : distances[dst];
-		}
-
-		private Map<Integer, Map<Integer, Integer>> createGraph(int[][] flights)
+    // Dijkstras
+    public static class Solution2 
+	{
+        public static int solution2(int n, int[][] flights, int src, int dst, int K) 
 		{
-			Map<Integer, Map<Integer, Integer>> graph = new HashMap<>();
-			for (int[] flight: flights)
-			{
-				int source = flight[0];
-				int destination = flight[1];
-				int cost = flight[2];
-				
-				graph.putIfAbsent(source, new HashMap<>());
-				// believe there is no duplicate costs
-				graph.get(source).put(destination, cost);
-			}
-			return graph;
-		}
-	}
+            Map<Integer, Map<Integer, Integer>> graph = new HashMap<>();
+            for (int[] weightedEdge : flights) {
+                graph.put(weightedEdge[0], 
+						graph.getOrDefault(weightedEdge[0], new HashMap<>()));
+                graph.put(weightedEdge[1], 
+						graph.getOrDefault(weightedEdge[1], new HashMap<>()));
+                graph.get(weightedEdge[0]).put(weightedEdge[1], weightedEdge[2]);
+            }
+
+            /*
+              pq : cost, vertex, stops (k + 1 - max)
+            */
+            Queue<int[]> pq = new PriorityQueue<>((a, b) -> (a[0] - b[0]));
+            pq.add(new int[]{0, src, K + 1});
+
+            while (!pq.isEmpty()) {
+                int[] minCostEntry = pq.remove();
+                int cost = minCostEntry[0], from = minCostEntry[1], k
+				   	= minCostEntry[2];
+
+                if (from == dst)
+                    return cost;
+
+                if (k > 0) {
+                    Map<Integer, Integer> adj = graph.get(from);
+                    for (int to : adj.keySet())
+                        pq.add(new int[]{cost + adj.get(to), to, k - 1});
+                }
+            }
+            return -1;
+        }
+    }
+
+    public static class Solution1 
+	{
+        public static int dp(int n, int[][] flights, int src, int dst, int K) {
+            int INF = Integer.MAX_VALUE / 2;
+            int[][] dp = new int[K + 2][n];
+            for (int i = 0; i < dp.length; i++)
+                Arrays.fill(dp[i], INF);
+            dp[0][src] = 0;
+
+            // loop K + 1 times to fill the path from src to dst
+            for (int i = 1; i < dp.length; i++) {
+                dp[i][src] = 0;
+                for (int[] flight : flights)
+                    dp[i][flight[1]] = Math.min(dp[i][flight[1]], 
+							dp[i - 1][flight[0]] + flight[2]);
+            }
+
+            return dp[K + 1][dst] >= INF / 2 ? -1 : dp[K + 1][dst];
+        }
+
+        // space O(n) optimized
+        public static int dpOptimized(int n, int[][] flights, int src, 
+				int dst, int K) {
+            int INF = Integer.MAX_VALUE / 2;
+            int[][] dp = new int[2][n];
+            Arrays.fill(dp[0], INF);
+            Arrays.fill(dp[1], INF);
+            dp[0][src] = 0;
+            dp[1][src] = 0;
+
+            int x = 0;
+            for (int i = 0; i <= K; i++) {
+                for (int[] f : flights)
+                    dp[1 - x][f[1]] = Math.min(dp[1 - x][f[1]], dp[x][f[0]] + f[2]);
+                x = 1 - x;
+            }
+
+            return dp[(K + 1) % 2][dst] >= INF / 2 ? -1 : dp[(K + 1) % 2][dst];
+        }
+    }
+
+    public static void main(String[] args) {
+        String s1 = "[[4,1,1],[1,2,3],[0,3,2],[0,4,10],[3,1,1],[1,4,3]]";
+        System.out.println(solution1.dp(5, replaceBracets(s1), 2, 1,1));
+        System.out.println("=========");
+        String s2 = "[[0,1,2],[1,2,1],[2,0,10]]";
+        System.out.println(solution1.dp(3, replaceBracets(s2), 1, 2,1));
+        System.out.println("=========");
+        String s3 = "[[0,1,1],[0,2,5],[1,2,1],[2,3,1]]";
+        System.out.println(solution1.dpOptimized(4, replaceBracets(s3), 0, 3,1));
+    }
 }
-/*
-3
-[[0,1,100],[1,2,100],[0,2,500]]
-0
-2
-1
-3
-[[0,1,100],[1,2,100],[0,2,500]]
-0
-2
-0
-4
-[[0,1,1],[0,2,5],[1,2,1],[2,3,1]]
-0
-3
-1
-7
-[[0,3,7],[4,5,3],[6,4,8],[2,0,10],[6,5,6],[1,2,2],[2,5,9],[2,6,8],[3,6,3],[4,0,10],[4,6,8],[5,2,6],[1,4,3],[4,1,6],[0,5,10],[3,1,5],[4,3,1],[5,4,10],[0,1,6]]
-2
-4
-1
-4
-[[0,1,1],[0,2,5],[1,2,1],[2,3,1]]
-0
-3
-1
-5
-[[0,1,5],[1,2,5],[0,3,2],[3,1,2],[1,4,1],[4,2,1]]
-0
-2
-2
-*/

@@ -12,15 +12,15 @@ public class PossibleBipartition
 	{
 		public static boolean possibleBipartition(int N, int[][] dislikes) 
 		{
-			if (N == 1 || (dislikes.length == 0 || dislikes[0].length == 0)) return true;
-
 			boolean[] seen = new boolean[N + 1], colors = new boolean[N + 1];
 			Queue<Integer> q = new LinkedList<>();
 			int i = 0, n = 0, prevqsize = 0, size = dislikes.length;
 
 			while (i < dislikes.length || !q.isEmpty())
 			{
-				if (prevqsize == q.size()) seen[dislikes[!q.isEmpty() ? q.peek() : 0][0]] = true;
+				if (prevqsize == q.size()) 
+					seen[dislikes[!q.isEmpty() ? q.peek() : 0][0]] = true;
+				
 				prevqsize = q.size();
 
 				while (--size >= 0)
@@ -31,8 +31,10 @@ public class PossibleBipartition
 					int a = dislikes[n][0], b = dislikes[n][1];
 
 					if (!seen[a] && !seen[b]) { q.add(n); continue; }
-					else if (seen[a] && seen[b] && colors[a] == colors[b]) return false;
-					else if (seen[a] && seen[b] && colors[a] != colors[b]) continue;
+					else if (seen[a] && seen[b] && colors[a] == colors[b]) 
+						return false;
+					else if (seen[a] && seen[b] && colors[a] != colors[b]) 
+						continue;
 					else
 					{
 						if (!seen[a]) colors[a] = !colors[b];

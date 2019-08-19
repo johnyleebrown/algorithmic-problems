@@ -1,2 +1,2 @@
 ## todo
-	- 743. Network Delay Time (Dijkstra)
+- 743. Network Delay Time (Dijkstra)

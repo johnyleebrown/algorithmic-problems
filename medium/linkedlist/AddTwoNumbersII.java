@@ -1,87 +1,54 @@
-package Medium.LinkedList;
+// 445
+public class AddTwoNumbersII
+{
+	class Solution 
+	{
+		private int leftOver = 0;
 
-import Helpers.ListNode;
+		public ListNode addTwoNumbers(ListNode l1, ListNode l2) 
+		{
+			int c1 = getLen(l1), c2 = getLen(l2);
+			if (c1 == 0) return l2; if (c2 == 0) return l1;
+			ListNode ans = sum1(c1 > c2 ? l1 : l2, c1 > c2 ? l2 : l1, Math.abs(c1-c2));
+			if (leftOver != 0) 
+			{
+				ListNode head = new ListNode(1);
+				head.next = ans;
+				return head;
+			}
+			return ans;
+		}
 
-/**
- * 445
- *
- * You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
- * You may assume the two numbers do not contain any leading zero, except the number 0 itself.
- * Follow up:
- * What if you cannot modify the input lists? In other words, reversing the lists is not allowed.
- */
-public class AddTwoNumbersII {
-    /**
-     * Solution 1: modifying
-     * Time complexity: O(n)
-     * Space complexity: O(n)
-     */
-    class Solution1 {
-        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-            return reverse(addLists(reverse(l1), reverse(l2)));
-        }
+		// for parts where we have either l1 or l2 elements
+		private ListNode sum1(ListNode lx, ListNode lother, int c)
+		{
+			if (lx == null) return null;
+			if (c == 0) return sum2(lx, lother);
+			ListNode y = sum1(lx.next, lother, c - 1);
+			int x = lx.val + leftOver;
+			leftOver = x / 10;
+			ListNode head = new ListNode(x % 10);
+			head.next = y;
+			return head;
+		}
 
-        ListNode reverse(ListNode l) {
-            ListNode prev = null;
-            ListNode cur = l;
-            ListNode next = null;
-            while (cur != null) {
-                next = cur.next;
-                cur.next = prev;
-                prev = cur;
-                cur = next;
-            }
-            return prev;
-        }
-    }
+		// for parts where we have l1 and l2 elements
+		private ListNode sum2(ListNode l1, ListNode l2)
+		{
+			if (l1 == null && l2 == null) return null;
+			ListNode y = sum2(l1.next, l2.next);
+			int x = l1.val + l2.val + leftOver;
+			leftOver = x / 10;
+			ListNode head = new ListNode(x % 10);
+			head.next = y;
+			return head;
+		}
 
-    /**
-     * Solution 2: w/o modifying
-     * Changed : creation of new ListNode
-     * Beats 99,89%
-     * Time complexity: O(n)
-     * Space complexity: O(n)
-     */
-    class Solution2 {
-        public  ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-            return reverse(addLists(reverse(l1), reverse(l2)));
-        }
+		private int getLen(ListNode l1)
+		{
+			int c = 0; while (l1!=null) { c++; l1 = l1.next; } return c;
+		}
+	}
 
-        ListNode reverse(ListNode l){
-            ListNode prev = null;
-            ListNode cur = new ListNode(l.val);
-            ListNode pointer = l;
-            ListNode next = null;
-            while (cur != null) {
-                if (pointer.next != null) {
-                    cur.next = new ListNode(pointer.next.val);
-                    pointer = pointer.next;
-                }
-                next = cur.next;
-                cur.next = prev;
-                prev = cur;
-                cur = next;
-            }
-            return prev;
-        }
-    }
-
-    ListNode addLists(ListNode l1, ListNode l2){
-        ListNode result = new ListNode(0);
-        ListNode head = result;
-        int carry = 0;
-        ListNode i = l1, j = l2;
-        while (i != null || j != null) {
-            int i1 = (i != null) ? i.val : 0;
-            int j1 = (j != null) ? j.val : 0;
-            int res = carry + i1 + j1;
-            result.next = new ListNode(res % 10);
-            result = result.next;
-            carry = res/10;
-            if (i != null) i = i.next;
-            if (j != null) j = j.next;
-        }
-        if (carry > 0) result.next = new ListNode(carry);
-        return head.next;
-    }
 }
+

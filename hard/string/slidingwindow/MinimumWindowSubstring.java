@@ -1,83 +1,50 @@
 // 76
 public class MinimumWindowSubstring
 {
+	// optimize with 256 size array
 	class Solution 
 	{
 		public String minWindow(String s, String t) 
 		{
-			if (s.length() == 0 || t.length() == 0 
-					|| t.length() > s.length()) return "";
+			if (s.length() == 0 || t.length() == 0 || t.length() > s.length()) return "";
 			if (t.equals(s)) return s;
-			
-			int n = s.length();
-			int tcount = t.length();
-			int rescount = Integer.MAX_VALUE;
-			int i = 0, j = 0;
-			int res = "";
 
+			int tcount = t.length(), i = 0, j = 0, mini = 0, minj = 0, minlen = Integer.MAX_VALUE;
 			Map<Character, Integer> m = new HashMap<>();
-			for (char c: t.toCharArray())
-			{
-				m.put(c, m.getOrDefault(c, 0) + 1);
-			}
+			for (char c: t.toCharArray()) m.put(c, m.getOrDefault(c, 0) + 1);
 
-			while (j < n)
+			while (j < s.length())
 			{
-				// decr count of letter if exists
-				char cur = s.charAt(j);
-				if (m.containsKey(cur))
+				char cj = s.charAt(j);
+				if (m.containsKey(cj))
 				{
-					m.put(cur, m.get(cur) - 1);
-					if (m.get(cur) >= 0) tcount--;
+					if (m.get(cj) > 0) tcount--;
+					m.put(cj, m.get(cj) - 1);
 				}
 
 				j++;
-				
-				// if found all letters
-				// start to move i looking for a better min
-				// but first capture substring
-				// then move i
-				// and check the letters	
-				if (tcount == 0)
+
+				while (tcount == 0)
 				{
-					if (j - i < res.length())
+					if (j - i < minlen)
 					{
-						res = s.substring(i, j);
+						minlen = j - i;
+						minj = j; mini = i;
 					}
 
-					char cur2 = s.charAt(i);
-					if (m.contains(cur2))
+					char ci = s.charAt(i);
+					if (m.containsKey(ci))
 					{
-						m.put(cur, m.get(cur) + 1);
-						if (m.get(cur) >= 0) tcount++;
+						if (m.get(ci) == 0) tcount++;
+						m.put(ci, m.get(ci) + 1);
 					}
 
 					i++;
 				}
 			}
-			// 7
-			// 0
-			//  i    j
-			// ADOBECODEBANC		
-			// A 1 |0| |1| |0|
-			// B 1 |0| |-1| |0|
-			// C 1 |0|	
-			return res;
+
+			return s.substring(mini, minj);
 		}
 	}
 }
-/*
-Given a string S and a string T, find the minimum window in S 
-which will contain all the characters in T in complexity O(n).
 
-Example:
-
-Input: S = "ADOBECODEBANC", T = "ABC"
-Output: "BANC"
-Note:
-
-If there is no such window in S that covers all characters in T, 
-return the empty string "".
-If there is such window, you are guaranteed that there will 
-always be only one unique minimum window in S.
-*/

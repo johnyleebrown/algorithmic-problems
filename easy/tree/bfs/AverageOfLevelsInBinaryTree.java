@@ -1,4 +1,4 @@
-package Easy.Tree;
+package easy.tree;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -7,14 +7,12 @@ import java.util.Queue;
 
 import util.TreeNode;
 
-/**
- * 637
- * Given a non-empty binary tree, return the average value of the nodes on each level in the form of an array.
- */
-public class AverageOfLevelsInBinaryTree {
-
+// 637
+public class AverageOfLevelsInBinaryTree 
+{
     // DFS
-    class Solution {
+    class Solution 
+	{
         public List<Double> averageOfLevels(TreeNode root) {
             int d = getDepth(root, 1);
             long[] sums = new long[d + 1];

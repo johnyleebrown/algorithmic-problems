@@ -1,36 +1,45 @@
 package test;
 
 import static test.Out.sout;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tester
 {
-	public static void check(Object source, String target)
+	private static final String NEW_LINE = "\n";
+	private static final String TESTER_START = 	"[============== Tester ==============]";
+	private static final String TESTER_SEP = 	"--------------------------------------";
+
+	public static void check(Object source, String... targets)
 	{
 		final String s = source.toString();
-		if (target.equals(s))
+		boolean successFlag = true;
+		final List<String> unmatched = new ArrayList<>();
+
+		for (String target: targets)
 		{
-        	sout("OK. " +  s + " = " + target);
+			if (target.equals(s))
+			{
+				sout("OK. " +  s + " = " + target);
+				break;
+			}
+			else
+			{
+				successFlag = false;
+			   	unmatched.add(target);	
+			}
 		}
-		else
+		if (!successFlag)
 		{
-			sout("NOK. " + s + " != " + target);
+			sout("NOK. " + s + " does not match none of these answers: " + unmatched + ".");
 		}
+
+		sout(TESTER_SEP);
 	}
 
-	private static boolean evaluate(String source, String target)
+	public Tester()
 	{
-		if (source == null) 
-		{
-            sout("Source is null.");
-			return false;
-		}
-
-		return target.equals(source);
-	}
-
-	public static void main(String[] args)
-	{
-        sout("[ ===== Tester ===== ]");
+		sout(NEW_LINE + TESTER_START);
 	}
 }
 

@@ -3,53 +3,48 @@ package medium.tree;
 // 106
 public class ConstructBinaryTreeFromInorderAndPostorderTraversal
 {
-	/*
-	 * inorder = [9,3,15,20,7]
-	 * postorder = [9,15,7,20,3]
-	 *
-	 * 1 we have postorder so the root always will be the most right item
-	 * 2 find it in inorder (i, j) and remember position = k
-	 * 3 (i,k) - left subtree, (k, j) - right subtree
-	 */
 	class Solution 
 	{
-		private Map<Integer, Integer> in = new HashMap<>();
-		private Map<Integer, Integer> post = new HashMap<>();
-
-		private int[] iAr;
-		private int[] pAr;
+		private Map<Integer, Integer> inorderMap = new HashMap<>();
+		private int[] inorderArray;
+		private int[] postorderArray;
 
 		public TreeNode buildTree(int[] inorder, int[] postorder) 
 		{
+			if (inorder.length != postorder.length || inorder.length == 0) return null;
 			init(inorder, postorder);
-			return buildTreeChildByChildStrategy(0, inorder.length - 1);
+			return createTree(inorder.length - 1, 0, inorder.length - 1);
 		}
 
-		private TreeNode buildTreeChildByChildStrategy(int i, int j)
+		private TreeNode createTree(int postorderRootIndex, int lo, int hi)
 		{
-			int rootPostInd = findRootVal(i, j);
-			int rootVal = pAr[rootPostInd];
-			int rootInInd = in.get(rootVal);
+			if (lo < 0 || lo > hi) return null;
+			
+			int rootValue = postorderArray[postorderRootIndex];
+			int inorderRootIndex = inorderMap.get(rootValue);
+			
+			TreeNode root = new TreeNode(rootValue);
 
-			TreeNode root = new TreeNode(rootVal);
-			root.left = rootInInd - 1 >= i ? buildTreeChildByChildStrategy(i, rootInInd - 1) : null;
-			root.right = rootInInd + 1 <= j ? buildTreeChildByChildStrategy(rootInInd + 1, j) : null;
-
-			return root;	
-		}
-
-		private int findRootVal(int i, int j)
-		{
-			int closest = post.get(iAr[i]);
-			for (int k = i; k <= j; k++) closest = Math.max(closest, post.get(iAr[k]));
-			return closest;
+			root.left = createTree(postorderRootIndex - 1 - (hi - inorderRootIndex), 
+					lo, inorderRootIndex - 1);
+			
+			root.right = createTree(postorderRootIndex - 1, 
+					inorderRootIndex + 1, hi);
+			
+			return root;
 		}
 
 		private void init(int[] inorder, int[] postorder)
 		{
-			iAr = inorder; pAr = postorder;
-			for (int i = 0; i < inorder.length; i++) in.put(inorder[i], i);
-			for (int i = 0; i < postorder.length; i++) post.put(postorder[i], i);
+			this.inorderArray = inorder;
+			this.postorderArray = postorder;
+
+			fillInorderMap();
+		}
+
+		private void fillInorderMap()
+		{
+			for (int i = 0; i < inorderArray.length; i++) inorderMap.put(inorderArray[i], i);
 		}
 	}
 }

@@ -1,49 +1,57 @@
 // 76
 public class MinimumWindowSubstring
 {
-	// optimize with 256 size array
 	class Solution 
 	{
 		public String minWindow(String s, String t) 
 		{
-			if (s.length() == 0 || t.length() == 0 || t.length() > s.length()) return "";
-			if (t.equals(s)) return s;
+			if (t.length() > s.length()) return "";
 
-			int tcount = t.length(), i = 0, j = 0, mini = 0, minj = 0, minlen = Integer.MAX_VALUE;
-			Map<Character, Integer> m = new HashMap<>();
-			for (char c: t.toCharArray()) m.put(c, m.getOrDefault(c, 0) + 1);
+			int start = 0, end = 0, resultstart = 0;
+			int minlen = Integer.MAX_VALUE;
+			int leftOver = t.length();
 
-			while (j < s.length())
+			int[] map = new int[256];
+			for (int i = 0; i < t.length(); i++) map[t.charAt(i)]++;
+
+			while (end < s.length())
 			{
-				char cj = s.charAt(j);
-				if (m.containsKey(cj))
+				char charAtEnd = s.charAt(end++);
+				
+				// if we encounter the char from t
+				// we want to decrease the counter of target chars
+				if (map[charAtEnd] > 0) leftOver--;
+
+				// decrease counter as we reached the letter
+				map[charAtEnd]--;
+
+				// if the substring contains all the target chars
+				while (leftOver == 0)
 				{
-					if (m.get(cj) > 0) tcount--;
-					m.put(cj, m.get(cj) - 1);
-				}
-
-				j++;
-
-				while (tcount == 0)
-				{
-					if (j - i < minlen)
+					// if the length of suitable string is less than min
+					if (end - start < minlen)
 					{
-						minlen = j - i;
-						minj = j; mini = i;
+						// update minlen
+						minlen = end - start;
+						
+						// remember the start of the suitable string
+						resultstart = start;
 					}
-
-					char ci = s.charAt(i);
-					if (m.containsKey(ci))
-					{
-						if (m.get(ci) == 0) tcount++;
-						m.put(ci, m.get(ci) + 1);
-					}
-
-					i++;
+					
+					char charAtStart = s.charAt(start++);
+					
+					// if the letter at start is used in s the
+					// exact amount as we have in t
+					if (map[charAtStart] == 0) leftOver++;
+					
+					// used it and we move further so increment count
+					map[charAtStart]++;
 				}
 			}
 
-			return s.substring(mini, minj);
+			return minlen == Integer.MAX_VALUE 
+				? "" 
+				: s.substring(resultstart, resultstart + minlen);
 		}
 	}
 }

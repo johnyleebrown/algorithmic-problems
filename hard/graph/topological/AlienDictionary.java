@@ -25,6 +25,7 @@ public class AlienDictionary
 	public static void main(String[] args)
 	{
 		check(alienOrder(new String[]{"wrt", "wrf", "er", "ett", "rftt"}), "wertf");
+		check(alienOrder(new String[]{"za","zb","ca","cb"}), "abzc");
 		check(alienOrder(new String[]{"z","x"}), "zx");
 		check(alienOrder(new String[]{"z","x","z"}), "");
 		check(alienOrder(new String[]{"caa","aaa","aab"}), "cab");

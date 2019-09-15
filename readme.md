@@ -23,4 +23,8 @@ Subject
 Two Pointers, Sliding Window
 
 Problems
+https://leetcode.com/problems/subarrays-with-k-different-integers/
+https://leetcode.com/problems/longest-valid-parentheses/
+https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/
+
 

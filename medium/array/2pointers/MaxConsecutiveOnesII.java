@@ -4,7 +4,7 @@ class Solution
 {
     public int findMaxConsecutiveOnes(int[] nums) 
 	{
-        int start = 0, end = 0, ones = 0, zeros = 0, maxlen = Integer.MIN_VALUE;
+        int start = 0, end = 0, zeros = 0, maxlen = Integer.MIN_VALUE;
         
 		while (end < nums.length)
         {

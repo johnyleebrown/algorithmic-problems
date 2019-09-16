@@ -1,24 +1,6 @@
 // 3
 class Solution 
 {
-<<<<<<< HEAD
-	public int lengthOfLongestSubstring(String s) 
-	{
-		int start = 0, end = 0, count = 0, maxlen = Integer.MIN_VALUE;
-		int[] chars = new int[256];
-
-		while (end < s.length())
-		{
-			if (chars[s.charAt(end++)]++ > 0) count++;
-			while (count > 0) if (chars[s.charAt(start++)]-- > 1) count--;
-			maxlen = Math.max(maxlen, end - start);
-		}
-
-		return maxlen;
-	}
-}
-
-=======
     public int lengthOfLongestSubstring(String s) 
     {
         int start = 0, end = 0; // start and end of the sliding window
@@ -43,4 +25,4 @@ class Solution
         return maxlen == Integer.MIN_VALUE ? 0 : maxlen;
     }
 }
->>>>>>> 8483fdf8f3144f42c4c67223dc2cbf7d296f2a23
+

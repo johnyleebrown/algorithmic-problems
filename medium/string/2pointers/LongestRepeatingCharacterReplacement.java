@@ -1,7 +1,15 @@
 /*
  * 424
  *
- * Let's assume we don't have k, then min number of changes is 
+ * Given a string s that consists of only uppercase English letters, 
+ * you can perform at most k operations on that string. In one operation, 
+ * you can choose any character of the string and change it to any other 
+ * uppercase English character. Find the length of the longest sub-string 
+ * containing all repeating letters you can get after performing the above operations.
+ * Note: Both the string's length and k will not exceed 104.
+ *
+ * Solution.
+ * Let's assume we don't have k, then min number of changes is a
  * length of the entire string - number of times of the maximum occurring character in the string.
  * Given this we can apply most k changes constraint like so:
  * we want to find max(end - start + 1) when (end - start + 1) - maxNumberOfSameChars <= k.

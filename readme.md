@@ -27,4 +27,14 @@ https://leetcode.com/problems/subarrays-with-k-different-integers/
 https://leetcode.com/problems/longest-valid-parentheses/
 https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/
 
+#### 3
+
+algorithms
+heap 
+http://ruslanledesma.com/2016/06/17/why-does-heap-work.html
+
+optimization
+bfs
+https://www.snellman.net/blog/archive/2018-07-23-optimizing-breadth-first-search/
+
 

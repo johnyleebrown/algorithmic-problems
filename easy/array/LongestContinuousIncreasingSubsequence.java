@@ -1,19 +1,31 @@
-package Easy.Array;
+package easy.array;
 
-/**
- * 674
- * Given an unsorted array of integers, find the length of longest continuous increasing subsequence.
- */
-public class LongestContinuousIncreasingSubsequence {
-    // O(n)
-    class Solution {
-        public int findLengthOfLCIS(int[] nums) {
-            int res = 0, cnt = 0;
-            for (int i = 0; i < nums.length; i++) {
-                if (i == 0 || nums[i - 1] < nums[i]) res = Math.max(res, ++cnt);
-                else cnt = 1;
-            }
-            return res;
-        }
-    }
+// 674
+public class LongestContinuousIncreasingSubsequence 
+{
+	class Solution
+	{
+		public int findLengthOfLCIS(int[] nums)
+		{
+			if (nums.length == 0) return 0;
+
+			int res = 1, cnt = 1;
+			for (int i = 0; i < nums.length - 1; i++)
+			{
+				if (nums[i] < nums[i + 1])
+				{
+					cnt++;
+				}
+				else
+				{
+					cnt = 1;
+				}
+
+				res = Math.max(res, cnt);
+			}
+
+			return res;
+		}
+	}
 }
+

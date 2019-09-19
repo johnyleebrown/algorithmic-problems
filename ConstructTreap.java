@@ -14,6 +14,9 @@ public class ConstructTreap
 	 * TODO
 	 * Sort by j, then construct as bst.
 	 *
+	 * PriorityQueue or array sort -> nlogn.
+	 * Insertion -> nlogn.
+	 *
 	 * Possible solution.
 	 */
 	public class S1()

@@ -25,21 +25,29 @@ public class CourseScheduleII
 
 		private int[] getTopologicalOrder()
 		{
-			for (int v: g.keySet()) dfs2(v);
+			for (int v: g.keySet()) 
+				dfs2(v);
+			
 			return postOrder;
 		}
 
 		private void dfs2(int v)
 		{
 			if (postOrderSeen[v]) return;
+			
 			postOrderSeen[v] = true;
-			for (int w: g.getOrDefault(v, new ArrayList<>())) dfs2(w);
+			
+			for (int w: g.getOrDefault(v, new ArrayList<>())) 
+				dfs2(w);
+			
 			postOrder[c--] = v;
 		}
 
 		private boolean graphHasCycle()
 		{
-			for (int v: g.keySet()) if (dfs(v)) return true;
+			for (int v: g.keySet()) 
+				if (dfs(v)) return true;
+			
 			return false;
 		}
 
@@ -47,8 +55,12 @@ public class CourseScheduleII
 		{
 			if (isInRecursion[v]) return true;
 			if (seen[v]) return false;
+			
 			isInRecursion[v] = seen[v] = true;
-			for (int w: g.getOrDefault(v, new ArrayList<>())) if (dfs(w)) return true;
+			
+			for (int w: g.getOrDefault(v, new ArrayList<>())) 
+				if (dfs(w)) return true;
+			
 			isInRecursion[v] = false;
 			return false;    
 		}

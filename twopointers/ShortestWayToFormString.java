@@ -1,5 +1,10 @@
-// 1055
-// google
+/*
+ * 1055
+ * google
+ *
+ * O(m*n) 		current
+ * O(n) 	 	create 2d array to keep indexes of chars.
+ */
 class Solution 
 {
 	public int shortestWay(String source, String target) 

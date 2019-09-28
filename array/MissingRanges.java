@@ -1,56 +1,91 @@
-// 163
+/*
+ * 163
+ *
+ * Companies:google
+ * Explanation:statight-forward checking all the cases.
+ */
 class Solution 
 {
-    public List<String> findMissingRanges(int[] nums, int lower, int upper) 
-    {
-		String s = "->";
+	private String sep = "->";
+	private List<String> ans = new ArrayList<>();
+
+	public List<String> findMissingRanges(int[] nums, int lower, int upper) 
+	{
 		int n = nums.length;
-		List<String> li = new ArrayList<>();
-		int l = lower, r = 0;
-		for (int i = 0; i <= n; i++)
+
+		// just for cases of substraction of big numbers
+		long lo = lower, up = upper;
+
+		// special case
+		if (n == 0)
 		{
-			if (l == upper)
-			{
-				break;
-			}
-
-			if (i != n)
-			{
-				r = nums[i];
-			}
-			else
-			{
-				r = upper;
-			}
-
-			if (((r - 1) == (l + 1)))
-			{
-				int x = r == upper ? upper : r - 1;
-				li.add(String.valueOf(x));
-			}
-			else if (r - l > 1)
-			{
-				int y = l == lower ? lower : l + 1;
-                int x = r == upper ? upper : r - 1;
-				li.add((y) + s + (x));
-			}
-
-			if (i != n)
-			{
-				l = nums[i];
-			}
+			checkEmptyCase(lo, up);
+			return ans;
 		}
-		return li;
-    }
+
+		// other special case
+		if (n == 2 && nums[0] == lower && nums[1] == upper)
+		{
+			checkRegularCase(lo, up);
+			return ans;
+		}
+
+		// start case
+		if (nums[0] != lower)
+		{
+			checkEdgeCase(lo, nums[0], lo, nums[0] - 1, lo);
+		}
+
+		// regular case
+		for (int i = 0; i < n - 1; i++)
+		{
+			checkRegularCase(nums[i], nums[i + 1]);
+		}
+
+		// end case
+		if (nums[n - 1] != upper)
+		{
+			checkEdgeCase(nums[n - 1], up, nums[n - 1] + 1, up, up);
+		}
+
+		return ans;
+	}
+
+	private void checkRegularCase(long l, long r)
+	{
+		if (r - l == 2)
+		{
+			ans.add(String.valueOf(r - 1));
+		}
+		else if (r - l > 2)
+		{
+			ans.add(String.valueOf((l + 1) + sep + (r - 1)));
+		}
+	}
+
+	private void checkEmptyCase(long l, long r)
+	{
+		if (l == r)
+		{
+			ans.add(String.valueOf(l));
+		}
+		else
+		{
+			ans.add(String.valueOf(l + sep + r));
+		}
+	}
+
+	private void checkEdgeCase(long l, long r, long lToAdd, long rToAdd, long extra)
+	{
+		if (r - l == 1)
+		{
+			ans.add(String.valueOf(extra));
+		}
+		else
+		{
+			ans.add(String.valueOf(lToAdd + sep + rToAdd));
+		}
+	}
+
 }
-/*
 
-[99]
-0
-100
-
-["1->98"]
-
-["0->98","100"]
-
-*/

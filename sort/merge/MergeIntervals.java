@@ -22,21 +22,19 @@ class Solution
         return listToArray(l);
     }
 
-	private void sortArray(int[] intervals)
+	private void sortArray(int[][] intervals)
 	{
         Arrays.sort(intervals, ((a, b) -> a[0] - b[0]));
 	}
 
-	private void mergeIntervals(List<int[]> l, int[] intervals, int n)
+	private void mergeIntervals(List<int[]> l, int[][] intervals, int n)
 	{
 		int i = 0;
-		int[] curpair = intervals[0];
-		int end = curpair[1];    
 
         while (i < n)
         {
-            curpair = intervals[i];
-            end = curpair[1];    
+            int curpair = intervals[i];
+            int end = curpair[1];    
             i++;
             
 			// if intervals overlap, end_A >= start_B, update end with end_B
@@ -46,7 +44,7 @@ class Solution
                 i++;
             }
             
-			l.add(new int[]{curpair[0], end});
+			l.add(new int[]{ curpair[0], end });
         }
 	}
 

@@ -2,43 +2,49 @@
  * 616
  * Company:Google
  */
-class Solution 
+class Solution
 {
-	public String addBoldTag(String s, String[] dict) 
+	public String addBoldTag(String s, String[] dict)
 	{
 		// create intervals of indexes
-		List<Interval> ar = new ArrayList<>();
-		for (int i = 0; i < dict.length; i++)
-		{
-			// System.out.println(i);
-			int k = -1;
-			int ind = s.indexOf(dict[i], k);
-			while (ind != -1)
-			{   
-				// System.out.println(ind + " " + (ind + dict[i].length()) + " " + dict[i]);
-				ar.add(new Interval(ind, ind + dict[i].length()));
-				k = ind + dict[i].length();
-				ind = s.indexOf(dict[i], k);
-			}
-		}
+		List<int[]> ar = new ArrayList<>();
+		createIntervals(ar, s, dict);
 
 		// sort and merge intervals
-		Map<Integer, Integer> m = merge(ar);
+		Map<Integer, Integer> m = new HashMap<>();
+		merge(ar, m);
 
 		// combine intervals with bold tags
 		return generateString(m, s, dict);
+	}
+
+	private void createIntervals(List<int[]> ar, String s, String[] dict)
+	{
+		for (int i = 0; i < dict.length; i++)
+		{
+			int k = -1;
+			int ind = s.indexOf(dict[i], k);
+
+			while (ind != -1)
+			{
+				ar.add(new int[]{ ind, ind + dict[i].length() });
+				k++;
+				ind = s.indexOf(dict[i], k);
+			}
+		}
 	}
 
 	private String generateString(Map<Integer, Integer> m, String s, String[] dict)
 	{
 		String ans = "";
 		int i = 0;
+
 		while (i < s.length())
 		{
 			if (m.containsKey(i))
 			{
 				ans += "<b>" + s.substring(i, m.get(i)) + "</b>";
-				i += m.get(i) + 1;
+				i = m.get(i);
 			}
 			else
 			{
@@ -49,60 +55,36 @@ class Solution
 
 		return ans;
 	}
-	private Map<Integer, Integer> merge(List<Interval> ar)
+
+	private void merge(List<int[]> ar, Map<Integer, Integer> m)
 	{
 		sortArray(ar);
-		return mergeIntervals(ar);
+		mergeIntervals(ar, m);
 	}
 
-	private Map<Integer, Integer> mergeIntervals(List<Interval> ar)
+	private void mergeIntervals(List<int[]> ar, Map<Integer, Integer> m)
 	{
-		Map<Integer, Integer> ans= new HashMap<>();
-
 		int i = 0;
+
 		while (i < ar.size())
 		{
-			Interval cur = ar.get(i);
-			int end = cur.getEnd();
+			int[] cur = ar.get(i);
+			int end = cur[1];
 			i++;
 
-			while (i < ar.size() && end >= ar.get(i).getStart())
+			while (i < ar.size() && end >= ar.get(i)[0])
 			{
-				end = Math.max(end, cur.getEnd());
+				end = Math.max(end, ar.get(i)[1]);
 				i++;
 			}
 
-			ans.put(cur.getStart(), end);
+			m.put(cur[0], end);
 		}
-
-		// System.out.println(1);
-
-		return ans;
 	}
 
-	private void sortArray(List<Interval> ar)
+	private void sortArray(List<int[]> ar)
 	{
-		Collections.sort(ar, (a, b) -> a.getStart() - b.getStart());
-	}
-
-	private class Interval
-	{
-		private int start;
-		private int end;
-
-		public Interval(int i, int j)
-		{
-			start = i; end = j;
-		}
-
-		private int getStart()
-		{
-			return start;
-		}
-
-		private int getEnd()
-		{
-			return start;
-		}
+		Collections.sort(ar, (a, b) -> a[0] - b[0]);
 	}
 }
+

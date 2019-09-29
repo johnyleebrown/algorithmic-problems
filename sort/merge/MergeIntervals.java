@@ -1,4 +1,7 @@
-// 56
+/*
+ * 56
+ * Company:Google
+ */
 class Solution 
 {
     public int[][] merge(int[][] intervals) 

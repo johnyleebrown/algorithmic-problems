@@ -3,7 +3,9 @@ package iterator;
 import java.util.*;
 import static test.Out.sout;
 
-// Company=Google
+/*
+ * Company: Google
+ */
 public class SkipIterator implements Iterator<Integer>
 {
 	// map to count collection integers

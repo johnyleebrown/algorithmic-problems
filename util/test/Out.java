@@ -1,4 +1,4 @@
-package test;
+package util.test;
 
 public class Out
 {

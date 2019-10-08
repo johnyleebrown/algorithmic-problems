@@ -1,13 +1,17 @@
 /*
  * 1087
  * Company: Google
+ *
+ * Optimization.
+ * Use pq to remove sort at the end.
+ * Or iterate  without aux ds as data.
  */
 class Solution 
 {
 	private List<String> temp = new ArrayList<>();
 	private List<List<Character>> data = new ArrayList<>();
 
-    public String[] expand(String S) 
+	public String[] expand(String S) 
 	{
 		// pre-processing
 		int i = 0;
@@ -20,11 +24,11 @@ class Solution
 				i++;
 				while (S.charAt(i) != '}')
 				{
-                    if (S.charAt(i) != ',')
-                    {
-                        local.add(S.charAt(i));
-                    }
-					
+					if (S.charAt(i) != ',')
+					{
+						local.add(S.charAt(i));
+					}
+
 					i++;
 				}
 			}
@@ -36,8 +40,8 @@ class Solution
 			data.add(local);
 		}	
 
-        generate("", 0, 0);
-            
+		generate("", 0, 0);
+
 		// place to the array	    
 		String[] ans = new String[temp.size()];
 		for (int j = 0; j < temp.size(); j++)
@@ -45,9 +49,9 @@ class Solution
 			ans[j] = temp.get(j);
 		}
 
-        Arrays.sort(ans);
+		Arrays.sort(ans);
 		return ans;
-    }
+	}
 
 	private void generate(String cur, int c, int start)
 	{

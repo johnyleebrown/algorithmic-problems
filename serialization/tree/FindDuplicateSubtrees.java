@@ -11,14 +11,22 @@ public class FindDuplicateSubtrees
 		
 		public List<TreeNode> findDuplicateSubtrees(TreeNode root) 
 		{
-			if (root == null) return ans;
+			if (root == null) 
+			{
+				return ans;
+			}
+
 			findDups(root);
+			
 			return ans;
 		}
 		
 		private String findDups(TreeNode root)
 		{
-			if (root == null) return "";
+			if (root == null) 
+			{
+				return "";
+			}
 			else
 			{
 				String left = findDups(root.left);

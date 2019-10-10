@@ -1,24 +1,10 @@
-package hard.bfs;
-
 /* 
- * 773 Sliding Puzzle
- *
- * Similar to: Word Ladder, Perfect Squares
+ * 773
  */
 public class SlidingPuzzle
 {
-	/*
-	 * BFS
-	 *
-	 * we have an ending state of the board,
-	 * we want to return the minimum number of moves to get to that state.
-	 * ofc we can use bfs. each time we will generate a board with moved 4 variants of shift.
-	 *
-	 * could be optimized with strings.
-	 */
-
-	class Solution {
-
+	class Solution 
+	{
 		private String toStr(int[][] arr)
 		{
 			return Arrays.deepToString(arr);
@@ -95,9 +81,4 @@ public class SlidingPuzzle
 	}
 
 }
-
-	/*
-	 * [[1,2,3],
-	 *  [4,0,5]]
-	 */
 

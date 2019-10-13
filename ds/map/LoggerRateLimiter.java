@@ -1,20 +1,21 @@
 // 359
 public class Logger 
 {
-    private Map<String, Integer> ok = new HashMap<>();
+    private Map<String, Integer> printSchedule;
     
-    public Logger() {
-        
+    public Logger() 
+	{
+        printSchedule = new HashMap<>();
     }
     
     public boolean shouldPrintMessage(int timestamp, String message) 
     {
-        if (timestamp < ok.getOrDefault(message, 0))
+        if (timestamp < printSchedule.getOrDefault(message, 0))
         {
             return false;
         }
             
-        ok.put(message, timestamp + 10);
+        printSchedule.put(message, timestamp + 10);
         return true;
     }
 }

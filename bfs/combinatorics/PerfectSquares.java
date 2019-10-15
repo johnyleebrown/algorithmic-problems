@@ -1,11 +1,3 @@
-package medium.bfs;
-
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Set;
-
 public class PerfectSquares
 {
     /**
@@ -22,9 +14,10 @@ public class PerfectSquares
      11 9+1+1
      12 9+1+1+1 = 4+4+4
      */
-    class Solution {
-        public int numSquares(int n) {
-
+    class Solution 
+	{
+        public int numSquares(int n) 
+		{
             // a set for optimization
             Set<Integer> seen = new HashSet<>();
 
@@ -41,25 +34,34 @@ public class PerfectSquares
                 q.add(pow);
             }
 
-            //System.out.println(powers.size());
-            //System.out.println(q.size());
-
             int counter = 0;
 
             while (!q.isEmpty())
             {
                 counter++;
                 int size = q.size();
+
                 for (int i = 0; i < size; i++)
                 {
                     int num = q.poll();
-                    if (num == n) return counter;
+                    if (num == n)
+					{
+						return counter;
+					}
 
                     for (int pow: powers)
                     {
                         int sum = num + pow;
-                        if (sum > n) continue;
-                        if (!seen.add(sum)) continue;
+                        
+						if (sum > n)
+						{
+							continue;
+						}
+                        if (!seen.add(sum)) 
+						{
+							continue;
+						}
+
                         q.add(sum);
                     }
                 }
@@ -67,6 +69,6 @@ public class PerfectSquares
 
             return counter;
         }
-
     }
 }
+

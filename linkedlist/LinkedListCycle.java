@@ -26,15 +26,25 @@ public class LinkedListCycle
 	{
         public boolean hasCycle(ListNode head) 
 		{
-			if (head == null) return false;
-			ListNode fast = head;
-			while (head != null && fast.next != null)
+			if (head == null) 
 			{
-				if (fast.val == head.val) return true;
+				return false;
+			}
+
+			ListNode fast = head;
+			while (fast != null && fast.next != null)
+			{
+				if (fast.val == head.val) 
+				{
+					return true;
+				}
+
 				head = head.next;
 				fast = fast.next.next;
 			}
+
 			return false;
         }
     }
 }
+

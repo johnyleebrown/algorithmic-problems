@@ -3,7 +3,7 @@
  * Google
  *
  * Dp, keep aux array for max count at each cell, keep a global max var as well.
- * The value at cache cell is minimum across top, left and right cells.
+ * The value at cache cell is minimum across top, left and diag left cells.
  * If zero, there can't be any square so no action.
  */
 class Solution

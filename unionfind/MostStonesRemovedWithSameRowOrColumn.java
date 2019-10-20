@@ -5,60 +5,76 @@
  * In another words, we want to find a number of items we can remove so only unique cc's
  * are left. So we find number of connected componenets. This number is the number of
  * unique parents, to count that we use a set size.
+ * We choose i th coordinate as a key for components identification.
  */
 class Solution
 {
+	private int c;
+	private Map<String, String> p = new HashMap<>();
+
 	public int removeStones(int[][] stones)
 	{
-		Map<String, String> parents = new HashMap<>();
-		Set<String> components = new HashSet<>(1000);
-
 		for (int[] stone: stones)
 		{
 			String i = "i" + stone[0];
 			String j = "j" + stone[1];
 
-			if (parents.containsKey(i) && parents.containsKey(j))
+			// merging components and decreasing number of them
+			if (p.containsKey(i) && p.containsKey(j))
 			{
-				String jParent = findParent(j, p);
-				String iParent = findParent(i, p);
-
-				// replace parent of j with parent of i
-				p.put(jParent, iParent);
-
-				// remove prev parent of j, since we replace it with i
-				components.remove(jParent);
+				unionExistingComponents(i, j);
 			}
-			if (p.containsKey(i))
+			// no need to increment number of components as we are adding
+			// to existing one
+			else if (p.containsKey(i))
 			{
-				String iParent = findParent(i, p);
-				p.put(j, iParent);
-				components.add(iParent);
+				addToComponent(j, i);
 			}
+			// no need to increment number of components as we are adding
+			// to existing one
 			else if (p.containsKey(j))
 			{
-				String jParent = findParent(j, p);
-				p.put(i, jParent);
-				components.add(jParent);
+				addToComponent(i, j);
 			}
+			// adding a cell to a new component
 			else
 			{
 				p.put(i, i);
 				p.put(j, i);
 
-				components.add(i);
+				c++;
 			}
 		}
 
-		return stones.length - set.size();
+		return stones.length - c;
 	}
 
-	private String findParent(String x, Map<String, String> parents)
+	private void addToComponent(String what, String where)
 	{
-		while (parents.get(x) != x)
+		String parent = find(where);
+		p.put(what, parent);
+	}
+
+	private void unionExistingComponents(String i, String j)
+	{
+		String pi = find(i);
+		String pj = find(j);
+
+		// if components are different we will merge them
+		if (!pi.equals(pj))
 		{
-			x = parents.get(x);
+			p.put(p.get(pi), pj);
+			c--;
 		}
+	}
+
+	private String find(String x)
+	{
+		while (p.get(x) != x)
+		{
+			x = p.get(x);
+		}
+
 		return x;
 	}
 }

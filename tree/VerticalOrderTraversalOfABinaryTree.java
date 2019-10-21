@@ -58,6 +58,7 @@ class Solution
                 }
                 if (a.x == b.x)
                 {
+					// because we decrease y as we go deeper
                     return b.y - a.y;
                 }
                 return a.x - b.x;

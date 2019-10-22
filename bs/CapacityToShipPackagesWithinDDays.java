@@ -4,6 +4,8 @@
  *
  * Binary search solution, so we are trying to pick the right value.
  * After the pick we check if all weights fit, if they don't, we increase the lower bound.
+ *
+ * Optimization: if (D >= weights.length) return lo;
  */
 class Solution
 {
@@ -27,15 +29,17 @@ class Solution
 			if (!calculateFitOffset(weights, D, mid))
 			{
 				lo = mid + 1;
+
+				// take lo because in the end hi will be the wrong answer
+				mid = lo;
 			}
 			else
 			{
 				hi = mid - 1;
-				mid = hi;
 			}
 		}
 
-		return mid + 1;
+		return mid;
 	}
 	private boolean calculateFitOffset(int[] weights, int D, int mid)
 	{

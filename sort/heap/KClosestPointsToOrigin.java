@@ -10,11 +10,9 @@ public class ClosestPointsToOrigin
 		public int[][] kClosest(int[][] points, int K) 
 		{
 			int lo = 0, hi = points.length - 1;
-
 			while (lo < hi)
 			{
 				int p = findPartition(lo, hi, points);
-
 				if (p > K)
 				{
 					hi = p - 1;
@@ -35,12 +33,10 @@ public class ClosestPointsToOrigin
 		private int[][] convertListToArray(int[][] ar, int K)
 		{
 			int[][] ans = new int[K][2];
-
 			for (int i = 0; i < K; i++)
 			{
 				ans[i] = ar[i];
 			}
-
 			return ans;
 		}
 
@@ -82,12 +78,7 @@ public class ClosestPointsToOrigin
 
 		private boolean less(int[] a, int[] b)
 		{
-			int distA = Math.abs(a[0]) * Math.abs(a[0]) + 
-				Math.abs(a[1]) * Math.abs(a[1]);
-			int distB = Math.abs(b[0]) * Math.abs(b[0]) + 
-				Math.abs(b[1]) * Math.abs(b[1]);
-
-			return distA < distB;
+			return a[0] * a[0] + a[1] * a[1] < b[0] * b[0] + b[1] * b[1];
 		}
 
 		private void exch(int[][] a, int i, int j)
@@ -99,10 +90,10 @@ public class ClosestPointsToOrigin
 	}
 
 	/*
-	 * Max heap
+	 * Heap
 	 * O(n*logk)
 	 */
-	public class Solution2
+	public class Solution
 	{
 		public int[][] kClosest(int[][] points, int K) 
 		{
@@ -130,16 +121,16 @@ public class ClosestPointsToOrigin
 		// min heap - using greater instead of less
 		private void sink(int[][] a, int k, int n)
 		{
-			while (2 * k <= n)
+			while (2 * k < n)
 			{
 				int j = 2 * k;
 
-				if (j + 1 < n && greater(a[j], a[j + 1]))
+				if (j + 1 < n && greater(a[j + 1], a[j]))
 				{
 					j++;
 				}
 
-				if (!greater(a[k], a[j]))
+				if (!greater(a[j],a[k]))
 				{
 					break;
 				}
@@ -153,7 +144,7 @@ public class ClosestPointsToOrigin
 		// moving element up, towards the start of the array
 		private void swim(int[][] a, int k)
 		{
-			while (k > 1 && greater(a[k/2], a[k]))
+			while (k > 0 && greater(a[k], a[k/2]))
 			{
 				exch(a, k, k/2);
 				k /= 2;
@@ -162,12 +153,7 @@ public class ClosestPointsToOrigin
 
 		private boolean greater(int[] a, int[] b)
 		{
-			int distA = Math.abs(a[0]) * Math.abs(a[0]) + 
-				Math.abs(a[1]) * Math.abs(a[1]);
-			int distB = Math.abs(b[0]) * Math.abs(b[0]) + 
-				Math.abs(b[1]) * Math.abs(b[1]);
-
-			return distA > distB;
+			return a[0]*a[0]+a[1]*a[1] > b[0]*b[0]+b[1]*b[1];
 		}
 
 		private void exch(int[][] a, int i, int j)
@@ -177,7 +163,6 @@ public class ClosestPointsToOrigin
 			a[j] = temp;
 		}
 	}
-
 }
 /*
    [[1,3],[-2,2]]
@@ -186,5 +171,5 @@ public class ClosestPointsToOrigin
    2
    [[-2,10],[-4,-8],[10,7],[-4,-7]]
    3
-   */
+*/
 

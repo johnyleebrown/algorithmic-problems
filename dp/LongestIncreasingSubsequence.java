@@ -1,66 +1,41 @@
-package medium.dp;
-
-import java.util.Arrays;
-
-/**
+/*
  * 300
- *
- * Given an unsorted array of integers, find the length of longest increasing subsequence.
- * For example, Given [10, 9, 2, 5, 3, 7, 101, 18],
- * The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4.
- * Note that there may be more than one LIS combination, it is only necessary for you to return the length.
+ * Google
  */
-public class LongestIncreasingSubsequence {
-    /**
-     * For each of the elements count the lis
-     * Time complexity: O(n^2)
-     * Space complexity: O(n)
-     */
-    public static int solution(int[] nums) {
-        int[] memo = new int[nums.length];
-        Arrays.fill(memo, 1); // the lis of arrays of length 1 is 1
-        int maxInd = 0;
-        int max = Integer.MIN_VALUE;
+public class LongestIncreasingSubsequence 
+{
+	class Solution 
+	{
+		public int lengthOfLIS(int[] nums) 
+		{
+			int n = nums.length;
+			if (n == 0)
+			{
+				return 0;
+			}
 
-        for (int i = 1; i < nums.length; i++) {
-            for (int j = 0; j < i; j++) {
-                if (nums[j] < nums[i]) {
-                    memo[i] = Math.max(memo[i], memo[j] + 1);
+			int[] dp = new int[n + 1];
+			Arrays.fill(dp, 1);
+			int max = -1, ind = 0;
 
-                    // find max
-                    if (max < memo[i]) {
-                        max = memo[i];
-                        maxInd = i;
-                    }
-                }
-            }
-        }
+			for (int i = 1; i <= n; i++)
+			{
+				for (int j = i - 1; j >= 1; j--)
+				{
+					if (nums[j - 1] < nums[i - 1])
+					{
+						dp[i] = Math.max(dp[i], dp[j] + 1);
+						if (max < dp[i])
+						{
+							max = dp[i];
+							ind = i;
+						}
+					}
+				}
+			}
 
-        return memo[maxInd];
-    }
-
-    // binary search
-    public int solution2(int[] nums) {
-        int[] dp = new int[nums.length];
-        int len = 0;
-
-        for (int num : nums) {
-            int i = Arrays.binarySearch(dp, 0, len, num);
-
-            if (i < 0)
-                i = -(i + 1);
-
-            dp[i] = num;
-
-            if (i == len)
-                len++;
-        }
-
-        return len;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(solution(new int[]{3,4,-1,0,6,2,3}));
-        System.out.println(solution(new int[]{1,3,6,7,9,4,10,5,6}));
-    }
+			return dp[ind];
+		}
+	}
 }
+

@@ -1,6 +1,9 @@
 /*
  * 53
  * Google
+ *
+ * Either we take a new element and continue or we start from the
+ * current element.
  */
 class Solution
 {

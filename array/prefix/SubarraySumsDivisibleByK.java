@@ -1,6 +1,13 @@
-// 974
+/*
+ * 974
+ * Yandex, Amazon
+ */
 public class SubarraySumsDivisibleByK
 {
+	/*
+	 * O(n)
+	 * 
+	 */
 	class Solution 
 	{
 		public int subarraysDivByK(int[] A, int K) 

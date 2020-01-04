@@ -5,15 +5,15 @@
  */
 class MaxConsecutiveOnesIII
 {
-	class Solution 
+	static class Solution
 	{
-		public int longestOnes(int[] A, int K) 
+		public int longestOnes(int[] A, int K)
 		{
 			int l = 0;
 			int result = 0;
 
 			// count zeros because we need to replace them
-			int zerosCount = 0; 
+			int zerosCount = 0;
 
 			for (int r = 0; r < A.length; r++)
 			{

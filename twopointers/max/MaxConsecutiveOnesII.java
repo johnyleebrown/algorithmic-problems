@@ -1,6 +1,5 @@
 // 487
-// Series=2pointers
-class Solution 
+class Solution
 {
     public int findMaxConsecutiveOnes(int[] nums) 
 	{

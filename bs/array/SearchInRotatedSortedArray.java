@@ -1,4 +1,4 @@
-package medium.array.bs;
+package array;
 
 // 33
 public class SearchInRotatedSortedArray 

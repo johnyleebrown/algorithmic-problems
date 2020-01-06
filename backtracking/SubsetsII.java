@@ -12,7 +12,7 @@ import java.util.Set;
 public class SubsetsII
 {
 	/*
-	 * Solution with seen set
+	 * min.Solution with seen set
 	 */
 	class Solution1 {
 		
@@ -41,7 +41,7 @@ public class SubsetsII
 	}
 
 	/*
-	 * Solution with checking for dups in array
+	 * min.Solution with checking for dups in array
 	 */
 	class Solution {
 

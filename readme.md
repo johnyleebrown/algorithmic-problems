@@ -17,10 +17,5 @@ https://leetcode.com/problems/insert-interval/description/
 https://leetcode.com/problems/merge-intervals/description/
 https://leetcode.com/discuss/interview-question/367064/Google-or-Phone-Screen-or-Exclusive-Time-of-Processes
 
-#### 2
-
-optimization
-bfs
-https://www.snellman.net/blog/archive/2018-07-23-optimizing-breadth-first-search/
-
-
+#### Revisit
+- 395

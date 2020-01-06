@@ -6,38 +6,27 @@ import java.util.regex.Pattern;
 
 /**
  * 395
+ *
  * ============
+ *
  * Task.
  *
  * Find the length of the longest substring T of a given string (consists of lowercase letters only) such that every
  * character in T appears no less than k times.
+ *
  * ============
+ *
  * Solution.
  *
  * Recursively split on characters that appear less than k times, there can not be any answer containing these chars.
+ *
  * ============
+ *
  * Test cases.
  *
- * "aaabb"
- * 3
- * "ababbc"
- * 2
- * "cababb"
- * 2
- * "abcabb"
- * 2
- * "cababbbc"
- * 3
- * "abcabbbc"
- * 3
- * "cabcabbb"
- * 3
- * "cabcabbbbc"
- * 4
- * "cabccabccc"
- * 4
- * "cccaaaaaaaabccabccc"
- * 8
+ * "aaabb" 3 "ababbc" 2 "cababb" 2 "abcabb" 2 "cababbbc" 3 "abcabbbc" 3 "cabcabbb" 3 "cabcabbbbc" 4 "cabccabccc" 4
+ * "cccaaaaaaaabccabccc" 8
+ *
  * ============
  */
 public class LongestSubstringWithAtLeastKRepeatingCharacters

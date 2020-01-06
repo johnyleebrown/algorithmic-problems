@@ -1,4 +1,4 @@
-package medium.array;
+package slidingwindow.min.max;
 
 // 11
 public class ContainerWithMostWater 

@@ -47,8 +47,8 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 
 			for (int i = 0; i < s.length(); i++)
 			{
-				map[getIntFromCharAt(s, i)]++;
-				if (map[getIntFromCharAt(s, i)] == 1)
+				map['z' - s.charAt(i)]++;
+				if (map['z' - s.charAt(i)] == 1)
 				{
 					uniqueCharsCount++;
 				}
@@ -67,31 +67,31 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 
 			for (int r = 0; r < s.length(); r++)
 			{
-				map[getIntFromCharAt(s, r)]++;
+				map['z' - s.charAt(r)]++;
 
 				// became 1 and was 0 => counts as unique
-				if (map[getIntFromCharAt(s, r)] == 1)
+				if (map['z' - s.charAt(r)] == 1)
 				{
 					uniqueCharsCount++;
 				}
 
-				if (map[getIntFromCharAt(s, r)] == k)
+				if (map['z' - s.charAt(r)] == k)
 				{
 					numOfCharsRepeatedKTimes++;
 				}
 
 				while (uniqueCharsCount > uniqueCharsCountTarget)
 				{
-					map[getIntFromCharAt(s, l)]--;
+					map['z' - s.charAt(l)]--;
 
 					// was 1 and became 0
-					if (map[getIntFromCharAt(s, l)] == 0)
+					if (map['z' - s.charAt(l)] == 0)
 					{
 						uniqueCharsCount--;
 					}
 
 					// was k and became k - 1
-					if (map[getIntFromCharAt(s, l)] == k - 1)
+					if (map['z' - s.charAt(l)] == k - 1)
 					{
 						numOfCharsRepeatedKTimes--;
 					}
@@ -108,11 +108,6 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 			}
 
 			return localResult;
-		}
-
-		private int getIntFromCharAt(String s, int pos)
-		{
-			return 'z' - s.charAt(pos);
 		}
 	}
 }

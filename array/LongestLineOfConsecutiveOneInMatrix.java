@@ -90,7 +90,7 @@ class LongestLineOfConsecutiveOneInMatrix
 					if (M[x[0]][x[1]] == 1)
 					{
 						local++;
-						slidingwindow.min.max = Math.max(slidingwindow.min.max, local);
+						slidingWindow.min.max = Math.max(slidingWindow.min.max, local);
 					}
 					else
 					{

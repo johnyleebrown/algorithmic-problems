@@ -1,4 +1,4 @@
-package slidingwindow.min.max;
+package slidingWindow.min.max;
 
 // 11
 public class ContainerWithMostWater 

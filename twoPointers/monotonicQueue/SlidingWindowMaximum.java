@@ -1,4 +1,4 @@
-import java.util.PriorityQueue;
+import monotonicQueue.DecreasingMonotonicQueue;
 
 /**
  * 239
@@ -11,10 +11,7 @@ import java.util.PriorityQueue;
  */
 public class SlidingWindowMaximum
 {
-	/**
-	 * Priority queue.
-	 */
-	class Solution1
+	class Solution
 	{
 		public int[] maxSlidingWindow(int[] nums, int k)
 		{
@@ -23,21 +20,22 @@ public class SlidingWindowMaximum
 				return new int[]{};
 			}
 
-			PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
-			int r = 0;
-			for (; r < k - 1; r++)
+			DecreasingMonotonicQueue q = new DecreasingMonotonicQueue();
+
+			int i = 0;
+			for (; i < k - 1; i++)
 			{
-				pq.add(nums[r]);
+				q.push(nums[i]);
 			}
-			int l = 0;
+
 			int[] result = new int[nums.length - k + 1];
-			for (; r < nums.length; r++)
+			for (; i < nums.length; i++)
 			{
-				pq.add(nums[r]);
-				result[l] = pq.peek();
-				pq.remove(new Integer(nums[l]));
-				l++;
+				q.push(nums[i]);
+				result[i - k + 1] = q.getMax();
+				q.removeFirst();
 			}
+
 			return result;
 		}
 	}

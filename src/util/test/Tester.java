@@ -1,8 +1,9 @@
-package test;
+package util.test;
 
-import static test.Out.sout;
 import java.util.ArrayList;
 import java.util.List;
+
+import static util.test.Out.sout;
 
 public class Tester
 {

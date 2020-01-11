@@ -1,8 +1,11 @@
-package util.codeForces;
+package util.codeforces;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
+/**
+ * Codeforces template
+ */
 public class Main
 {
 	public static void main(String[] args)
@@ -21,30 +24,9 @@ public class Main
 		public void solve(int testNumber, InputReader in, PrintWriter out)
 		{
 			int n = in.nextInt();
-			int t = in.nextInt();
-			int[] times = new int[n];
-			for (int i = 0; i < n; i++)
-			{
-				times[i] = in.nextInt();
-			}
-			int l = 0;
-			int count = 0;
+
 			int result = 0;
-			for (int r = 0; r < n; r++)
-			{
-				// use right window boundary
-				count += times[r];
 
-				while (count > t)
-				{
-					// use left window boundary
-					count -= times[l];
-
-					l++;
-				}
-
-				result = Math.max(result, r - l + 1);
-			}
 			out.println(result);
 		}
 	}
@@ -73,12 +55,18 @@ public class Main
 					throw new RuntimeException(e);
 				}
 			}
+
 			return tokenizer.nextToken();
 		}
 
 		public int nextInt()
 		{
 			return Integer.parseInt(next());
+		}
+
+		public Long nextLong()
+		{
+			return Long.parseLong(next());
 		}
 	}
 }

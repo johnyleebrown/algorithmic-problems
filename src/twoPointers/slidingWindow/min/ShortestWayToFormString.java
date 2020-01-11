@@ -1,50 +1,54 @@
-/*
+package twoPointers.slidingWindow.min;
+
+/**
  * 1055
- * google
  *
- * O(m*n) 		current
- * O(n) 	 	create 2d array to keep indexes of chars.
+ * ======
+ *
+ * Companies: Google.
  */
-class Solution 
+class ShortestWayToFormString
 {
-	public int shortestWay(String source, String target) 
+	class Solution
 	{
-		int sourceLen = source.length(), targetLen = target.length();
-		int sourcePointer, targetPointer = 0;
-		int subsequencesCount = 0;
-		boolean foundSameChar = false;
-
-		while (targetPointer < targetLen)
+		public int shortestWay(String source, String target)
 		{
-			sourcePointer = 0;
+			int sourceLen = source.length(), targetLen = target.length();
+			int sourcePointer, targetPointer = 0;
+			int subsequencesCount = 0;
+			boolean foundSameChar = false;
 
-			while (sourcePointer < sourceLen && targetPointer < targetLen)
+			while (targetPointer < targetLen)
 			{
-				if (source.charAt(sourcePointer) == target.charAt(targetPointer))
+				sourcePointer = 0;
+
+				while (sourcePointer < sourceLen && targetPointer < targetLen)
 				{
-					foundSameChar = true;
-					sourcePointer++;
-					targetPointer++;
+					if (source.charAt(sourcePointer) == target.charAt(targetPointer))
+					{
+						foundSameChar = true;
+						sourcePointer++;
+						targetPointer++;
+					}
+					else
+					{
+						sourcePointer++;
+					}
+				}
+
+				if (!foundSameChar)
+				{
+					return -1;
 				}
 				else
 				{
-					sourcePointer++;
+					foundSameChar = false;
 				}
+
+				subsequencesCount++;
 			}
 
-			if (!foundSameChar)
-			{
-				return -1;
-			}
-			else
-			{
-				foundSameChar = false;
-			}
-
-			subsequencesCount++;
+			return subsequencesCount;
 		}
-
-		return subsequencesCount;
 	}
 }
-

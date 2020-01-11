@@ -1,27 +1,33 @@
-// 159
-class Solution 
+package twoPointers.slidingWindow.max;
+
+/**
+ * 159
+ */
+class LongestSubstringWithAtMostTwoDistinctCharacters
 {
-	public int lengthOfLongestSubstringTwoDistinct(String s) 
+	class Solution
 	{
-		int start = 0, end = 0;
-		int maxLength = Integer.MIN_VALUE;
-		int twoDistinctCharCounter = 0;
-		int[] map = new int[256];
-
-		while (end < s.length())
+		public int lengthOfLongestSubstringTwoDistinct(String s)
 		{
-			// found a distinct/different char
-			if (map[s.charAt(end++)]++ == 0) 
-				twoDistinctCharCounter++;
+			int start = 0, end = 0;
+			int maxLength = Integer.MIN_VALUE;
+			int twoDistinctCharCounter = 0;
+			int[] map = new int[256];
 
-			while (twoDistinctCharCounter > 2)
-				if (map[s.charAt(start++)]-- == 1)
-					twoDistinctCharCounter--;
+			while (end < s.length())
+			{
+				// found a distinct/different char
+				if (map[s.charAt(end++)]++ == 0)
+					twoDistinctCharCounter++;
 
-			maxLength = Math.max(maxLength, end - start);
+				while (twoDistinctCharCounter > 2)
+					if (map[s.charAt(start++)]-- == 1)
+						twoDistinctCharCounter--;
+
+				maxLength = Math.max(maxLength, end - start);
+			}
+
+			return maxLength == Integer.MIN_VALUE ? 0 : maxLength;
 		}
-
-		return maxLength == Integer.MIN_VALUE ? 0 : maxLength;
 	}
 }
-

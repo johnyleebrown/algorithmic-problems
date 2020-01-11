@@ -1,17 +1,20 @@
+package twoPointers.slidingWindow.min;
+
 /**
  * 76
+ *
+ * ======
  *
  * Task.
  *
  * Given a string S and a string T, find the minimum window in S which will contain all the characters in T in
  * complexity O(n).
- *
- * Solution.
- *
- * Classic sliding window.
  */
 public class MinimumWindowSubstring
 {
+	/**
+	 * Classic sliding window.
+	 */
 	class Solution
 	{
 		public String minWindow(String s, String t)

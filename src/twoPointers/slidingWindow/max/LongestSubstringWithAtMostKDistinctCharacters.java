@@ -1,26 +1,34 @@
-// 340
-class Solution 
+package twoPointers.slidingWindow.max;
+
+/**
+ * 340
+ */
+class LongestSubstringWithAtMostKDistinctCharacters
 {
-    public int lengthOfLongestSubstringKDistinct(String s, int k) 
+	class Solution
 	{
-        int start = 0, end = 0;
-		int maxLength = Integer.MIN_VALUE;
-		int twoDistinctCharCounter = 0;
-		int[] map = new int[256];
-
-		while (end < s.length())
+		public int lengthOfLongestSubstringKDistinct(String s, int k)
 		{
-			if (map[s.charAt(end++)]++ == 0) 
-				twoDistinctCharCounter++;
+			int start = 0, end = 0;
+			int maxLength = Integer.MIN_VALUE;
+			int twoDistinctCharCounter = 0;
+			int[] map = new int[256];
 
-			while (twoDistinctCharCounter > k)
-				if (map[s.charAt(start++)]-- == 1)
-					twoDistinctCharCounter--;
+			while (end < s.length())
+			{
+				if (map[s.charAt(end++)]++ == 0)
+					twoDistinctCharCounter++;
 
-			maxLength = Math.max(maxLength, end - start);
+				while (twoDistinctCharCounter > k)
+					if (map[s.charAt(start++)]-- == 1)
+						twoDistinctCharCounter--;
+
+				maxLength = Math.max(maxLength, end - start);
+			}
+
+			return maxLength == Integer.MIN_VALUE ? 0 : maxLength;
 		}
-
-		return maxLength == Integer.MIN_VALUE ? 0 : maxLength;
-    }
+	}
 }
+
 

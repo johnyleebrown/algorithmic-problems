@@ -1,4 +1,4 @@
-package medium.bits;
+package bits;
 
 /**
  * 477

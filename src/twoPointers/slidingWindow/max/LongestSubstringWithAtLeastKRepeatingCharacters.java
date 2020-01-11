@@ -1,20 +1,24 @@
+package twoPointers.slidingWindow.max;
+
 /**
  * 395
+ *
+ * ======
  *
  * Task.
  *
  * Find the length of the longest substring T of a given string (consists of lowercase letters only) such that every
  * character in T appears no less than k times.
- *
- * Solution.
- *
- * Using sliding window technique for a number(from 1 to 26) of unique characters. Updating result only when ensured
- * that all chars in the window are repeated k times. In this case not enough variables in a window to shorten it,
- * because it is unknown whether a bigger window could be an answer too, this is why there needed to be another variable
- * to link to the window, like number if unique characters in it.
  */
 public class LongestSubstringWithAtLeastKRepeatingCharacters
 {
+
+	/**
+	 * Using sliding window technique for a number(from 1 to 26) of unique characters. Updating result only when ensured
+	 * that all chars in the window are repeated k times. In this case not enough variables in a window to shorten it,
+	 * because it is unknown whether a bigger window could be an answer too, this is why there needed to be another
+	 * variable to link to the window, like number if unique characters in it.
+	 */
 	class Solution
 	{
 		public int longestSubstring(String s, int k)

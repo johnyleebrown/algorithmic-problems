@@ -1,10 +1,17 @@
 package twoPointers.slidingWindow.max;
 
-import util.codeForces.Main.InputReader;
+import util.codeforces.Main.InputReader;
 
 import java.io.PrintWriter;
 
-public class TaskA_256854
+/**
+ * Task A 256854
+ *
+ * ======
+ *
+ * Source: Codeforces
+ */
+public class MaxBooksToRead
 {
 	class Solution
 	{

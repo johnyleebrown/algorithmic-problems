@@ -1,27 +1,46 @@
-// 209
-class Solution 
+package twoPointers.slidingWindow.min;
+
+/**
+ * 209
+ *
+ * ======
+ *
+ * Task.
+ *
+ * Given an array of n positive integers and a positive integer s, find the minimal length of a contiguous subarray of
+ * which the sum ≥ s. If there isn't one, return 0 instead.
+ */
+class MinimumSizeSubarraySum
 {
-	public int minSubArrayLen(int s, int[] nums) 
+	class Solution
 	{
-		if (nums.length == 0) return 0;
-		int n = nums.length, i = 0, j = 0, sum = 0, count = Integer.MAX_VALUE;
-		while (j < n)
+		public int minSubArrayLen(int s, int[] nums)
 		{
-			sum += nums[j++];
+			int l = 0;
+			int minLen = nums.length;
+			int sum = 0;
 
-			// if sum is larger lets find the minimum 
-			// of count of numbers by moving the i index
-			while (sum >= s)
+			for (int r = 0; r < nums.length; r++)
 			{
-				// j - i = th elength of current window
-				count = Math.min(count, j - i);
+				// use right window boundary
+				sum += nums[r];
 
-				// this is where we get greedy, decrease 
-				// the sum because we left the element
-				sum -= nums[i++];
+				while (sum >= s)
+				{
+					// use left window boundary
+					sum -= nums[l];
+
+					l++;
+				}
+
+				// update result
+				if (l > 0)
+				{
+					minLen = Math.min(minLen, r - l + 2);
+				}
 			}
+
+			return l > 0 ? minLen : 0;
 		}
-		return count != Integer.MAX_VALUE ? count : 0;
 	}
 }
-

@@ -4,3 +4,4 @@ todo.md
 .DS_Store
 .hushlogin
 /other/classes/
+*.class

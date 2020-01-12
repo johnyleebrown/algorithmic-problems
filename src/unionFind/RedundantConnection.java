@@ -1,23 +1,26 @@
-// 684
+package unionFind;
+
+/**
+ * 684
+ */
 public class RedundantConnection
 {
-	/*
-	   we want to find a connection that is the last one in the cycle
-	   because we know that edge could be removed so the number of 
-	   connected components won't change if it is in the cycle
-	   by using union find, we will union all the edges, the first one 
-	   that will have verteces that have the same parent is the answer
-   	*/
-	class Solution1 
+	/**
+	 * We want to find a connection that is the last one in the cycle because we know that edge could be removed so the
+	 * number of connected components won't change if it is in the cycle by using union find, we will union all the
+	 * edges, the first one that will have vertices that have the same parent is the answer.
+	 */
+	static class Solution1
 	{
-		public int[] findRedundantConnection(int[][] edges) 
+		public int[] findRedundantConnection(int[][] edges)
 		{
 			// we dont know the exact size, +1 for 1-indexation   
 			UF uf = new UF(1000 + 1);
-			for (int[] edge: edges)
+			for (int[] edge : edges)
 			{
 				if (!uf.union(edge[0], edge[1])) return edge;
 			}
+
 			return new int[]{};
 		}
 
@@ -28,19 +31,31 @@ public class RedundantConnection
 
 			UF(int size)
 			{
-				parents = new int[size];
-				for (int i = 0; i < size; i++) parents[i] = i;
 				ranks = new int[size];
+				parents = new int[size];
+
+				for (int i = 0; i < size; i++)
+				{
+					parents[i] = i;
+				}
 			}
 
 			public boolean union(int p, int q)
 			{
-				int pP = find(p), pQ = find(q);
-				if (pP == pQ) return false;
+				int pP = find(p);
+				int pQ = find(q);
+
+				if (pP == pQ)
+				{
+					return false;
+				}
 
 				// using rank to balance out the tree of connections
-				if (ranks[pP] > ranks[pQ]) parents[pQ] = pP;
-				else 
+				if (ranks[pP] > ranks[pQ])
+				{
+					parents[pQ] = pP;
+				}
+				else
 				{
 					parents[pP] = pQ;
 					ranks[pQ]++;
@@ -51,7 +66,11 @@ public class RedundantConnection
 
 			private int find(int p)
 			{
-				if (p == parents[p]) return p;
+				if (p == parents[p])
+				{
+					return p;
+				}
+
 				return find(parents[p]);
 			}
 		}

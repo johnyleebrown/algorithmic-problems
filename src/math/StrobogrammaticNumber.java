@@ -1,35 +1,46 @@
-/*
+package math;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
  * 246
- * Company: Google
+ *
+ * ======
+ *
+ * Companies: Google
  */
-class Solution 
+class StrobogrammaticNumber
 {
-	public boolean isStrobogrammatic(String num) 
+	static class Solution
 	{
-		Map<Character, Character> map = new HashMap<Character, Character>();
-		map.put('6', '9');
-		map.put('9', '6');
-		map.put('0', '0');
-		map.put('1', '1');
-		map.put('8', '8');
-
-		int l = 0, r = num.length() - 1;
-		while (l <= r) 
+		public boolean isStrobogrammatic(String num)
 		{
-			if (!map.containsKey(num.charAt(l))) 
+			Map<Character, Character> map = new HashMap<>();
+			map.put('6', '9');
+			map.put('9', '6');
+			map.put('0', '0');
+			map.put('1', '1');
+			map.put('8', '8');
+
+			int l = 0, r = num.length() - 1;
+			while (l <= r)
 			{
-				return false;
+				if (!map.containsKey(num.charAt(l)))
+				{
+					return false;
+				}
+
+				if (map.get(num.charAt(l)) != num.charAt(r))
+				{
+					return false;
+				}
+
+				l++;
+				r--;
 			}
 
-			if (map.get(num.charAt(l)) != num.charAt(r))
-			{
-				return false;
-			}
-
-			l++;
-			r--;
+			return true;
 		}
-
-		return true;
 	}
 }

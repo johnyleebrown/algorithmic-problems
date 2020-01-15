@@ -12,7 +12,6 @@ package twoPointers.slidingWindow.max;
  */
 public class LongestSubstringWithAtLeastKRepeatingCharacters
 {
-
 	/**
 	 * Using sliding window technique for a number(from 1 to 26) of unique characters. Updating result only when ensured
 	 * that all chars in the window are repeated k times. In this case not enough variables in a window to shorten it,
@@ -51,8 +50,10 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 
 			for (int i = 0; i < s.length(); i++)
 			{
-				map['z' - s.charAt(i)]++;
-				if (map['z' - s.charAt(i)] == 1)
+				int charIndex = s.charAt(i) - 'a';
+
+				map[charIndex]++;
+				if (map[charIndex] == 1)
 				{
 					uniqueCharsCount++;
 				}
@@ -71,31 +72,35 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 
 			for (int r = 0; r < s.length(); r++)
 			{
-				map['z' - s.charAt(r)]++;
+				int charIndex = s.charAt(r) - 'a';
+
+				map[s.charAt(r) - 'a']++;
 
 				// became 1 and was 0 => counts as unique
-				if (map['z' - s.charAt(r)] == 1)
+				if (map[charIndex] == 1)
 				{
 					uniqueCharsCount++;
 				}
 
-				if (map['z' - s.charAt(r)] == k)
+				if (map[charIndex] == k)
 				{
 					numOfCharsRepeatedKTimes++;
 				}
 
 				while (uniqueCharsCount > uniqueCharsCountTarget)
 				{
-					map['z' - s.charAt(l)]--;
+					charIndex = s.charAt(l) - 'a';
+
+					map[charIndex]--;
 
 					// was 1 and became 0
-					if (map['z' - s.charAt(l)] == 0)
+					if (map[charIndex] == 0)
 					{
 						uniqueCharsCount--;
 					}
 
 					// was k and became k - 1
-					if (map['z' - s.charAt(l)] == k - 1)
+					if (map[charIndex] == k - 1)
 					{
 						numOfCharsRepeatedKTimes--;
 					}

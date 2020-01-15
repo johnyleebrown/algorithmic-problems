@@ -1,4 +1,4 @@
-package twoPointers.slidingWindow.max;
+package twoPointers.slidingWindow.none;
 
 /**
  * 992
@@ -12,10 +12,13 @@ package twoPointers.slidingWindow.max;
  *
  * ======
  *
- * Similar: 340
+ * Similar: 1248
  */
 public class SubarraysWithKDifferentIntegers
 {
+	/**
+	 * Solved as subproblem of max type of problem - LongestSubstringWithAtMostKDistinctCharacters.
+	 */
 	static class Solution
 	{
 		public int subarraysWithKDistinct(int[] A, int K)

@@ -16,7 +16,7 @@ package twoPointers.slidingWindow.other;
  */
 public class PermutationInString
 {
-	class Solution
+	static class Solution
 	{
 		public boolean checkInclusion(String s1, String s2)
 		{
@@ -32,8 +32,8 @@ public class PermutationInString
 			}
 
 			int matchedLettersCount = 0;
-
 			int l = 0;
+
 			for (int r = 0; r < s2.length(); r++)
 			{
 				map[s2.charAt(r) - 'a']--;

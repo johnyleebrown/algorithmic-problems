@@ -23,7 +23,7 @@ public class FindAllAnagramsInAString
 	/**
 	 * Using the sliding window template.
 	 */
-	class Solution1
+	static class Solution
 	{
 		public List<Integer> findAnagrams(String s, String p)
 		{

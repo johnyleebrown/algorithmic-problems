@@ -1,4 +1,4 @@
-package twoPointers.slidingWindow.other;
+package twoPointers.slidingWindow.count;
 
 /**
  * 992
@@ -9,10 +9,6 @@ package twoPointers.slidingWindow.other;
  *
  * Given an array A of positive integers, call a (contiguous, not necessarily distinct) subarray of A good if the number
  * of different integers in that subarray is exactly K. Return the number of good subarrays of A.
- *
- * ======
- *
- * Similar: 1248
  */
 public class SubarraysWithKDifferentIntegers
 {

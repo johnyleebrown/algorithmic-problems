@@ -1,4 +1,4 @@
-package twoPointers.slidingWindow.other;
+package twoPointers.slidingWindow.count;
 
 /**
  * 1248
@@ -9,10 +9,6 @@ package twoPointers.slidingWindow.other;
  *
  * Given an array of integers nums and an integer k. A subarray is called nice if there are k odd numbers on it. Return
  * the number of nice sub-arrays.
- *
- * ======
- *
- * Similar: 992
  */
 public class CountNumberOfNiceSubarrays
 {

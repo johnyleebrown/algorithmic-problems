@@ -1,4 +1,4 @@
-package twoPointers.slidingWindow.other;
+package twoPointers.slidingWindow.count;
 
 /**
  * 713
@@ -9,10 +9,6 @@ package twoPointers.slidingWindow.other;
  *
  * Your are given an array of positive integers nums. Count and print the number of (contiguous) subarrays where the
  * product of all the elements in the subarray is less than k.
- *
- * ======
- *
- * Similar: 340, 992
  */
 public class SubarrayProductLessThanK
 {
@@ -20,7 +16,6 @@ public class SubarrayProductLessThanK
 	{
 		public int numSubarrayProductLessThanK(int[] nums, int k)
 		{
-			// edge case
 			if (k <= 1)
 			{
 				return 0;

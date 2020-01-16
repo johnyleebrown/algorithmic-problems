@@ -1,4 +1,4 @@
-package twoPointers.slidingWindow.none;
+package twoPointers.slidingWindow.other;
 
 import java.util.ArrayList;
 import java.util.List;

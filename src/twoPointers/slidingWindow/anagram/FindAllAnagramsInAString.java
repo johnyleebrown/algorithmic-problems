@@ -74,7 +74,7 @@ public class FindAllAnagramsInAString
 	 * Since it is needed to have all the letters from p string, fixed window size is used to add and remove counts on
 	 * the chars inside the window. If the count is right, the left pointer is added to the result.
 	 */
-	class Solution2
+	static class Solution2
 	{
 		public List<Integer> findAnagrams(String s, String p)
 		{

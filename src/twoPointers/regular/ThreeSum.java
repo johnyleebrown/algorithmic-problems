@@ -1,3 +1,5 @@
+package twoPointers.regular;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

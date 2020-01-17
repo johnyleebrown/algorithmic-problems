@@ -1,3 +1,5 @@
+package twoPointers.regular;
+
 /*
  * 42
  * Google

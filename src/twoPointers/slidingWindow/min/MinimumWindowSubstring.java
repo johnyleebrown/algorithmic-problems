@@ -15,7 +15,7 @@ public class MinimumWindowSubstring
 	/**
 	 * Classic sliding window.
 	 */
-	class Solution
+	static class Solution
 	{
 		public String minWindow(String s, String t)
 		{
@@ -28,71 +28,49 @@ public class MinimumWindowSubstring
 				return s;
 			}
 
-			// get counts of chars in t string
-			Integer[] mapT = new Integer[256];
+			int[] tCharsMap = new int[256];
 			for (int i = 0; i < t.length(); i++)
 			{
-				// the chars that are not in t will be marked as null
-				// so we could identify them later
-				if (mapT[t.charAt(i)] == null)
-				{
-					mapT[t.charAt(i)] = 0;
-				}
-
-				mapT[t.charAt(i)]++;
+				tCharsMap[t.charAt(i)]++;
 			}
 
 			int l = 0;
 			int allCharsFromTInWindowCount = 0;
-			int minL = 0, minR = 0;
-			int minLen = Integer.MAX_VALUE;
+			int minLeftPointer = 0;
+			int minLength = Integer.MAX_VALUE;
 
 			for (int r = 0; r < s.length(); r++)
 			{
-				// if the char at pos r counts as seen
-				if (mapT[s.charAt(r)] != null)
+				tCharsMap[s.charAt(r)]--;
+				if (tCharsMap[s.charAt(r)] >= 0)
 				{
-					mapT[s.charAt(r)]--;
-
-					if (mapT[s.charAt(r)] >= 0)
-					{
-						allCharsFromTInWindowCount++;
-					}
+					allCharsFromTInWindowCount++;
 				}
 
 				// when we covered all chars from t string
 				while (allCharsFromTInWindowCount == t.length())
 				{
-					if (mapT[s.charAt(l)] != null)
+					tCharsMap[s.charAt(l)]++;
+					if (tCharsMap[s.charAt(l)] >= 1)
 					{
-						// returning the count
-						mapT[s.charAt(l)]++;
-
-						// the count became 1 means that we moved from the char at l
-						// the char at l is no longer a part of the window
-						// and we can not longer minimize the window
-						if (mapT[s.charAt(l)] == 1)
-						{
-							allCharsFromTInWindowCount--;
-						}
+						allCharsFromTInWindowCount--;
 					}
 
 					l++;
 				}
 
-				// if l was ever changed
+				// if l was changed
 				if (l > 0)
 				{
-					if (r - l < minLen)
+					if (r - l < minLength)
 					{
-						minL = l;
-						minR = r;
-						minLen = r - l;
+						minLeftPointer = l;
+						minLength = r - l;
 					}
 				}
 			}
 
-			return minLen == Integer.MAX_VALUE ? "" : s.substring(minL - 1, minR + 1);
+			return minLength == Integer.MAX_VALUE ? "" : s.substring(minLeftPointer - 1, minLeftPointer + minLength + 1);
 		}
 	}
 }

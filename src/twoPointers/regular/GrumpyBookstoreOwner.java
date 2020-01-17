@@ -1,4 +1,4 @@
-package twoPointers.slidingWindow.other;
+package twoPointers.regular;
 
 /**
  * 1052

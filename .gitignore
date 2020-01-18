@@ -5,3 +5,4 @@ todo.md
 .hushlogin
 /other/classes/
 *.class
+/src/util/other/

@@ -22,18 +22,14 @@ class MinimumSizeSubarraySum
 
 			for (int r = 0; r < nums.length; r++)
 			{
-				// use right window boundary
 				sum += nums[r];
 
 				while (sum >= s)
 				{
-					// use left window boundary
 					sum -= nums[l];
-
 					l++;
 				}
 
-				// update result
 				if (l > 0)
 				{
 					minLen = Math.min(minLen, r - l + 2);

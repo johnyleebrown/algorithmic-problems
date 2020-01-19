@@ -1,4 +1,4 @@
-package util;
+package util.ds;
 
 import java.util.List;
 
@@ -6,11 +6,10 @@ public class Node
 {
 	public int val;
 	public List<Node> children;
-	public Node() {}
-	
-	public Node(final int _val, final List<Node> _children)
+
+	public Node(int val, List<Node> children)
 	{
-		val = _val;
-		children = _children;
+		this.val = val;
+		this.children = children;
 	}
 }

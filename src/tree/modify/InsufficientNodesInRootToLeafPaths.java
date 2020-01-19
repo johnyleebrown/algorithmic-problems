@@ -1,27 +1,32 @@
-/*
+package tree.modify;
+
+import util.ds.TreeNode;
+
+/**
  * 1080
- * Company: Amazon
  */
-class Solution
+class InsufficientNodesInRootToLeafPaths
 {
-	public TreeNode sufficientSubset(TreeNode root, int limit)
+	class Solution
 	{
-		if (root == null)
+		public TreeNode sufficientSubset(TreeNode root, int limit)
 		{
-			return null;
+			if (root == null)
+			{
+				return null;
+			}
+
+			if (root.left == null && root.right == null)
+			{
+				// if limit covers the value
+				return root.val >= limit ? root : null;
+			}
+
+			int x = limit - root.val;
+			root.left = sufficientSubset(root.left, x);
+			root.right = sufficientSubset(root.right, x);
+
+			return root.left == null && root.right == null ? null : root;
 		}
-
-		if (root.left == null && root.right == null)
-		{
-			// if limit covers the value
-			return root.val >= limit ? root : null;
-		}
-
-		int x = limit - root.val;
-		root.left = sufficientSubset(root.left, x);
-		root.right = sufficientSubset(root.right, x);
-
-		return root.left == null && root.right == null ? null : root;
 	}
 }
-

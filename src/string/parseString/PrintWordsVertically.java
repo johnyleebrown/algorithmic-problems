@@ -16,6 +16,9 @@ import java.util.List;
  */
 public class PrintWordsVertically
 {
+	/**
+	 * Straightforward.
+	 */
 	class Solution
 	{
 		public List<String> printVertically(String s)

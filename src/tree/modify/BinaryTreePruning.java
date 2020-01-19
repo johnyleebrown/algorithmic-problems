@@ -1,7 +1,13 @@
-// 814
-public class BinaryTreePruning 
+package tree.modify;
+
+import util.ds.TreeNode;
+
+/**
+ * 814
+ */
+public class BinaryTreePruning
 {
-	public TreeNode pruneTree(TreeNode root) 
+	public TreeNode pruneTree(TreeNode root)
 	{
 		if (root == null) return null;
 		root.left = pruneTree(root.left);

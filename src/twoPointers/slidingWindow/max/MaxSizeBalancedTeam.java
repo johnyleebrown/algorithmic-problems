@@ -25,7 +25,7 @@ import java.util.Arrays;
  */
 public class MaxSizeBalancedTeam
 {
-	class Solution
+	static class Solution
 	{
 		public void solve(int testNumber, InputReader in, PrintWriter out)
 		{

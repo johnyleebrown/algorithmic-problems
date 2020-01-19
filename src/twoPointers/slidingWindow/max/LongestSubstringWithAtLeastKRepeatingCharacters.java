@@ -18,7 +18,7 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 	 * because it is unknown whether a bigger window could be an answer too, this is why there needed to be another
 	 * variable to link to the window, like number if unique characters in it.
 	 */
-	class Solution
+	static class Solution
 	{
 		public int longestSubstring(String s, int k)
 		{
@@ -65,7 +65,7 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 		private int getLongestSubstringForNumberOfUniqueChars(String s, int k, int uniqueCharsCountTarget)
 		{
 			int l = 0;
-			int localResult = 0;
+			int result = 0;
 			int[] map = new int[26];
 			int uniqueCharsCount = 0;
 			int numOfCharsRepeatedKTimes = 0;
@@ -112,11 +112,11 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 				// taking a snapshot of result before stepping on a bad char
 				if (numOfCharsRepeatedKTimes == uniqueCharsCount)
 				{
-					localResult = Math.max(localResult, r - l + 1);
+					result = Math.max(result, r - l + 1);
 				}
 			}
 
-			return localResult;
+			return result;
 		}
 	}
 }

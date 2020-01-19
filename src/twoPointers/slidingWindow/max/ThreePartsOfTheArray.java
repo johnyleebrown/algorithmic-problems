@@ -33,7 +33,7 @@ import java.io.PrintWriter;
  */
 public class ThreePartsOfTheArray
 {
-	class Solution
+	static class Solution
 	{
 		public void solve(int testNumber, Main.InputReader in, PrintWriter out)
 		{
@@ -56,8 +56,6 @@ public class ThreePartsOfTheArray
 			{
 				// use left pointer
 				sum1 += nums[l];
-
-//				System.out.println("sum1: " + sum1 + " l: " + l + " r: " + r);
 
 				// while bad condition move other pointer
 				while (sum2 < sum1)

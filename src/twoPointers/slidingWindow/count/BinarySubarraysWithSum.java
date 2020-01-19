@@ -24,19 +24,24 @@ public class BinarySubarraysWithSum
 			{
 				return 0;
 			}
+
 			int l = 0;
 			int sum = 0;
 			int result = 0;
+
 			for (int r = 0; r < A.length; r++)
 			{
 				sum += A[r];
+
 				while (sum > S)
 				{
 					sum -= A[l];
 					l++;
 				}
+
 				result += r - l + 1;
 			}
+
 			return result;
 		}
 	}

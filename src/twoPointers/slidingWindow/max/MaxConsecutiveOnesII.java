@@ -5,7 +5,7 @@ package twoPointers.slidingWindow.max;
  */
 class MaxConsecutiveOnesII
 {
-	class Solution
+	static class Solution
 	{
 		public int findMaxConsecutiveOnes(int[] nums)
 		{

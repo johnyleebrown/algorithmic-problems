@@ -60,6 +60,7 @@ public class FruitIntoBaskets
 
 					l++;
 				}
+
 				result = Math.max(result, r - l + 1);
 			}
 

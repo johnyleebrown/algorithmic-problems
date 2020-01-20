@@ -1,4 +1,4 @@
-package monotonicQueue;
+package queue.monotonicQueue.ds;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -33,9 +33,15 @@ public class DecreasingMonotonicQueue implements MonotonicQueue
 		q.addLast(new Pair<>(newPairValue, removedFromQueueCount));
 	}
 
-	public int getMax()
+	@Override
+	public int getFirst()
 	{
 		return q.getFirst().value;
+	}
+
+	public int getMax()
+	{
+		return getFirst();
 	}
 
 	public void removeFirst()

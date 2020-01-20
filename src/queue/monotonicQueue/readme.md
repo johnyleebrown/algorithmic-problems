@@ -10,3 +10,4 @@ todo:
 - LC891. Sum of Subsequence Widths
 - LC828. Unique Letter String
 - LC503. Next Greater Element II
+- https://leetcode.com/problems/trapping-rain-water/

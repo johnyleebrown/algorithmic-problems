@@ -1,3 +1,5 @@
+package other.scripts.create_solution;
+
 /**
  * $INSERT_PROBLEM_NUMBER
  *

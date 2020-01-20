@@ -1,4 +1,4 @@
-package monotonicQueue;
+package queue.monotonicQueue.ds;
 
 /**
  * Queue with strictly increasing or decreasing values.
@@ -14,12 +14,9 @@ public interface MonotonicQueue
 	void push(int newValue);
 
 	/**
-	 * @return the first value of the queue, which is the maximum.
+	 * @return the first value of the queue, which is the maximum or minimum.
 	 */
-	int getMax();
+	int getFirst();
 
-	/**
-	 *
-	 */
 	void removeFirst();
 }

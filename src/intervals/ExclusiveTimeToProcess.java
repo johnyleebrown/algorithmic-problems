@@ -1,27 +1,11 @@
-package medium.array.intervals;
+package intervals;
 
-import static test.Out.sout;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
-// todo
-// https://leetcode.com/playground/jJGiUDdU
 public class ExclusiveTimeToProcess
 {
-	public static void main(String[] args)
-	{
-		int[][] ps = new int[][]{
-			{1, 150, 300},
-			{2, 100, 200},
-			{3, 300, 350}
-		};
-		ExclusiveTimeToProcess e = new ExclusiveTimeToProcess();
-		int[][] times = e.calculateExclusiveTime(ps);
-		for (int[] t: times)
-		{
-			sout(t[0], t[1]);
-		}
-	}
-
 	private static int[][] calculateExclusiveTime(int[][] processes)
 	{
 		// treemap for events
@@ -56,8 +40,6 @@ public class ExclusiveTimeToProcess
 		{
 			int[] val = map.get(curDuration);
 			int curInd = val[0], start = val[1], c = val[2];
-
-			sout(curInd, start, c);
 
 			count+=c;
 

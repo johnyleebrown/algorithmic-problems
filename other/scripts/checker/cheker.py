@@ -24,19 +24,41 @@ import random
 folders_to_exclude = ['ds']
 file_types = ['.java']
 
-def read_from_file(file_name):
-    file = open(file_name, 'r', encoding='utf-8')
+def read_from_file(file_path):
+    file = open(file_path, 'r', encoding='utf-8')
     params = file.read().splitlines()
     file.close()
     return params
 
-def collect_files(from_dir):
-    result = []
-    for root, dirs, files in os.walk(from_dir,topdown=True):
-        dirs[:] = [d for d in dirs if d not in folders_to_exclude]
-        local = [file for file in files if os.path.splitext(file)[1] in file_types]
-        result.extend(local)
+def create_files_map(from_dir):
+    result = {}
+    for dirpath, subdirs, files in os.walk(from_dir,topdown=True):
+        for x in files:
+            if x.endswith(".java"):
+                path = os.path.join(dirpath, x)
+                num = find_problem_number_in_file(path)
+                result[num] = {'path': path, 'name': x}
+
+        # dirs[:] = [d for d in dirs if d not in folders_to_exclude]
+        # local = [file for file in files if os.path.splitext(file)[1] in file_types]
+        # for a in local:
+        #     print(a)
+        # for b in dirs:
+        #     print(b)
+        # result.extend(local)
     return result
+
+def find_problem_number_in_file(file_path):
+    file = open(file_path, 'r', encoding='utf-8')
+    line = file.readline()
+    next_line = False
+    while line:
+        if next_line:
+            return line.split(" * ")[1].split('\n')[0]
+        if line.startswith('/**'):
+            next_line = True
+        line = file.readline()
+    file.close()
 
 def random_select(n):
     return random.randint(0, n - 1)
@@ -53,12 +75,13 @@ if __name__ == "__main__":
     topics_map = { x[0] : x[1] for x in [topic.split(",") for topic in topics] }
     #print(topics_map)
     
-    rand_ind = random_select(len(topics_map))
-    rand_key = list(topics_map)[rand_ind]
-    rand_dir = main_dir + topics_map[rand_key]
+    rand_topic_ind = random_select(len(topics_map))
+    rand_topic_key = list(topics_map)[rand_topic_ind]
+    rand_topic_dir = main_dir + topics_map[rand_topic_key]
 
-    result = collect_files(rand_dir)
-    for f in result:
-        print(f)
+    result = create_files_map(rand_topic_dir)
 
-    
+    rand_problem_ind = random_select(len(topics_map))
+    rand_problem = list(result)[rand_problem_ind]
+
+    print(rand_topic_key + ': ' + rand_problem)

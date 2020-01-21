@@ -1,25 +1,31 @@
 #!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#### features:
-## timer
-## record best result, display percentage
-## calculate weekly overall across all subjects
-## display which subject requires more attention (bad results)
-## give more problems for subjects which require more attention
-## set countdown to the interviews
-## smh use restrictions in the stats calculations -
-# easy solved < 5 min, med < 10 min, hard < 15 min -
-# these are the problems that already ve been solved so it s ok
-
-#### func
-# parse java files in folders rec
-# parse problem number from the top of the file
-# randomly generate a number
+### snippets
+# dirs[:] = [d for d in dirs if d not in folders_to_exclude]
+# local = [file for file in files if os.path.splitext(file)[1] in file_types]
+    
+### features:
+# > create session
+# enter button - session starts - first problem
+# enter btn - starts timer
+# button to exit exists always - click - session is removed
+# 
+# running timer
+# display percentage
+# > create plan
+# use subjects that require more attention(more often / more problems)
+# set program (set countdown to the interviews)
+# > stats
+# calculate weekly overall across all subjects
+# display which subject requires more attention (bad results)
 
 import os
-
 import random
+import curses
+import time
+import npyscreen
 
 folders_to_exclude = ['ds']
 file_types = ['.java']
@@ -39,13 +45,6 @@ def create_files_map(from_dir):
                 num = find_problem_number_in_file(path)
                 result[num] = {'path': path, 'name': x}
 
-        # dirs[:] = [d for d in dirs if d not in folders_to_exclude]
-        # local = [file for file in files if os.path.splitext(file)[1] in file_types]
-        # for a in local:
-        #     print(a)
-        # for b in dirs:
-        #     print(b)
-        # result.extend(local)
     return result
 
 def find_problem_number_in_file(file_path):
@@ -63,25 +62,66 @@ def find_problem_number_in_file(file_path):
 def random_select(n):
     return random.randint(0, n - 1)
 
-if __name__ == "__main__":
+def get_random_problem():
     params = read_from_file('parameters.txt')
     params_map = { x[0] : x[1] for x in [param.split(",") for param in params] }
-    #print(params_map)
     
     main_dir = params_map['main_dir']
-    #print(main_dir)
     
     topics = read_from_file('input.txt')
     topics_map = { x[0] : x[1] for x in [topic.split(",") for topic in topics] }
-    #print(topics_map)
     
     rand_topic_ind = random_select(len(topics_map))
     rand_topic_key = list(topics_map)[rand_topic_ind]
     rand_topic_dir = main_dir + topics_map[rand_topic_key]
 
-    result = create_files_map(rand_topic_dir)
+    result_map = create_files_map(rand_topic_dir)
 
-    rand_problem_ind = random_select(len(topics_map))
-    rand_problem = list(result)[rand_problem_ind]
+    rand_problem_ind = random_select(len(result_map))
+    rand_problem = list(result_map)[rand_problem_ind]
 
-    print(rand_topic_key + ': ' + rand_problem)
+    return rand_topic_key + ': ' + rand_problem
+
+class InSessionBox(npyscreen.BoxTitle):
+    _contained_widget = npyscreen.TitleText
+
+# class SessionBox(npyscreen.BoxTitle):
+
+
+class BoxWithSelects(npyscreen.BoxTitle):
+    _contained_widget = npyscreen.SelectOne
+
+class MainForm(npyscreen.FormBaseNew):
+    controls_1 = ["start","exit"]
+    def create(self):
+        self.y, self.x = self.useable_space()
+        self.control_box = self.add(BoxWithSelects, values=self.controls_1, max_height=5, max_width=15)
+        self.control_box.value_changed_callback = self.select_control
+
+    def select_control(self, widget):
+        selected_values = self.control_box.get_value()
+        if len(selected_values):
+            selected_value = self.control_box.get_value()[0]
+            if selected_value == 0:
+                self.session_box = self.add(npyscreen.BoxTitle, relx=20, rely=2, max_height=15, max_width=30)
+                self.session_box.values = ["a"]
+                self.session_box.display()
+            else:
+                self.exit_app()
+
+    def exit_app(self):
+        curses.beep()
+        self.parentApp.setNextForm(None)
+        self.editing = False
+        self.parentApp.switchFormNow()
+
+class App(npyscreen.StandardApp):
+    def onStart(self):
+        self.addForm("MAIN", MainForm, name="Checker")
+
+def start():
+    MyApp = App()
+    MyApp.run()
+
+if __name__ == "__main__":
+    start()

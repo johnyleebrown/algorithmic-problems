@@ -1,4 +1,4 @@
-package util.codeforces;
+//package util.codeforces;
 
 import java.io.*;
 import java.util.StringTokenizer;
@@ -8,6 +8,14 @@ import java.util.StringTokenizer;
  */
 public class Main
 {
+	static class Task
+	{
+		public void solve(int testNumber, InputReader in, PrintWriter out)
+		{
+
+		}
+	}
+
 	public static void main(String[] args)
 	{
 		InputStream inputStream = System.in;
@@ -17,15 +25,6 @@ public class Main
 		Task solver = new Task();
 		solver.solve(1, in, out);
 		out.close();
-	}
-
-	static class Task
-	{
-		public void solve(int testNumber, InputReader in, PrintWriter out)
-		{
-			int n = in.nextInt();
-			out.println();
-		}
 	}
 
 	public static class InputReader

@@ -106,7 +106,7 @@ class MainForm(npyscreen.FormBaseNew):
 
     def create(self):
         self.y, self.x = self.useable_space()
-        self.controls = self.add(BoxWithSelects, values=self.controls, max_height=5, max_width=25)
+        self.controls = self.add(BoxWithSelects, values=self.controls, max_height=5, max_width=30)
         self.controls.value_changed_callback = self.select_control
 
     def select_control(self, widget):
@@ -114,24 +114,24 @@ class MainForm(npyscreen.FormBaseNew):
         if len(selected_values):
             if selected_values[0] == self.text_controls_begin_session:
                 self.action_on_begin_session()
-            if selected_values[0] == self.text_controls_start_problem:
+            elif selected_values[0] == self.text_controls_start_problem:
                 self.action_on_start_problem()
-            if selected_values[0] == self.text_controls_done:
+            elif selected_values[0] == self.text_controls_done:
                 self.action_on_done()
-            if selected_values[0] == self.text_controls_exit:
+            elif selected_values[0] == self.text_controls_exit:
                 self.action_on_exit()
 
+
     def action_on_begin_session(self):
+        # self._clear_all_widgets()
+        
+        self.controls.value = None
+        self.controls.values = self.controls_on_begin_session
+        self.controls.display()
+        
         self.session_box = self.add(npyscreen.BoxTitle, relx=40, rely=2, max_height=15, max_width=30)
         self.session_box.values = [get_random_problem()]
         self.session_box.display()
-
-        # print(dir(self.controls.entry_widget._contained_widgets))
-        self.controls.edit()
-        self.controls.entry_widget.clear()
-        self.controls.values = self.controls_on_begin_session
-        # self.controls.update(clear=True)
-        self.controls.display()
 
     def action_on_start_problem(self):
         # self.session_box.values = [get_random_problem()]

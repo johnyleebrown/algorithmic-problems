@@ -85,23 +85,21 @@ def get_random_problem():
     return rand_topic_key + ': ' + rand_problem
 
 
-class InSessionBox(npyscreen.BoxTitle):
-    _contained_widget = npyscreen.TitleText
-
-
-class BoxWithSelects(npyscreen.BoxTitle):
-    _contained_widget = npyscreen.SelectOne
-
-
 class Action(npyscreen.MultiLineAction):
     text_controls_begin_session = 'begin session'
     text_controls_start_problem = 'start problem'
     text_controls_done = 'done'
+    text_controls_next = 'next'
     text_controls_exit = 'exit'
+
+    text_problems_in_progress = ' [In Progress]'
+    text_problems_done = ' [Done]'
 
     controls_on_begin_session = [text_controls_start_problem, text_controls_exit]
     controls_on_start_problem = [text_controls_done, text_controls_exit]
-    controls_on_done = [text_controls_start_problem, text_controls_exit]
+    controls_on_done = [text_controls_next, text_controls_exit]
+
+    current_problem_name = ''
 
     def actionHighlighted(self, act_on_this, key_press):
         if act_on_this == self.text_controls_begin_session:
@@ -110,6 +108,8 @@ class Action(npyscreen.MultiLineAction):
             self.action_on_start_problem()
         elif act_on_this == self.text_controls_done:
             self.action_on_done()
+        elif act_on_this == self.text_controls_next:
+            self.action_on_next()
         elif act_on_this == self.text_controls_exit:
             self.action_on_exit()
 
@@ -119,8 +119,11 @@ class Action(npyscreen.MultiLineAction):
         self.values = self.controls_on_begin_session
         self.display()
 
-        self.session_box = self.parent.add(npyscreen.BoxTitle, relx=40, rely=2, max_height=15, max_width=30)
-        self.session_box.values = [get_random_problem()]
+        self.session_box = self.parent.add(npyscreen.BoxTitle, relx=20, rely=2, max_height=15, max_width=50)
+
+        self.current_problem_name = get_random_problem()
+
+        self.session_box.values = [self.current_problem_name]
         self.session_box.display()
 
 
@@ -129,32 +132,41 @@ class Action(npyscreen.MultiLineAction):
         self.values = self.controls_on_start_problem
         self.display()
 
+        self.session_box.values[len(self.session_box.values) - 1] += self.text_problems_in_progress
+        self.session_box.display()
+
 
     def action_on_done(self):
         self.value = None
         self.values = self.controls_on_done
         self.display()
 
+        self.session_box.values[len(self.session_box.values) - 1] = self.current_problem_name + self.text_problems_done
+        self.session_box.display()
+
+
+    def action_on_next(self):
+        self.value = None
+        self.values = self.controls_on_begin_session
+        self.display()
+
+        self.current_problem_name = get_random_problem()
+
+        self.session_box.values.append(self.current_problem_name)
+        self.session_box.display()
+
 
     def action_on_exit(self):
         exit(0)
 
 
-class BoxWithSelects2(npyscreen.BoxTitle):
+class BoxWithSelects(npyscreen.BoxTitle):
     _contained_widget = Action
 
 
 class MainForm(npyscreen.FormBaseNew):
-    text_controls_begin_session = 'begin session'
-    text_controls_start_problem = 'start problem'
-    text_controls_done = 'done'
-    text_controls_exit = 'exit'
-    count = 1
-    controls_on = [text_controls_begin_session, text_controls_exit]
-
     def create(self):
-        self.y, self.x = self.useable_space()
-        self.add(BoxWithSelects2, values=self.controls_on, max_height=5, max_width=30)
+        self.add(BoxWithSelects, values=['begin session', 'exit'], max_height=4, max_width=18)
 
 
 class App(npyscreen.StandardApp):
@@ -169,3 +181,7 @@ def start():
 
 if __name__ == "__main__":
     start()
+
+# change right window size dynamic
+# get unique problems
+# get through all subjects

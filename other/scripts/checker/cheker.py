@@ -93,66 +93,68 @@ class BoxWithSelects(npyscreen.BoxTitle):
     _contained_widget = npyscreen.SelectOne
 
 
-class MainForm(npyscreen.FormBaseNew):
+class Action(npyscreen.MultiLineAction):
     text_controls_begin_session = 'begin session'
     text_controls_start_problem = 'start problem'
     text_controls_done = 'done'
     text_controls_exit = 'exit'
 
-    controls = [text_controls_begin_session, text_controls_exit]
     controls_on_begin_session = [text_controls_start_problem, text_controls_exit]
     controls_on_start_problem = [text_controls_done, text_controls_exit]
-    controls_on_done = controls_on_begin_session
+    controls_on_done = [text_controls_start_problem, text_controls_exit]
 
-    def create(self):
-        self.y, self.x = self.useable_space()
-        self.controls = self.add(BoxWithSelects, values=self.controls, max_height=5, max_width=30)
-        self.controls.value_changed_callback = self.select_control
-
-    def select_control(self, widget):
-        selected_values = self.controls.entry_widget.get_selected_objects()
-        if len(selected_values):
-            if selected_values[0] == self.text_controls_begin_session:
-                self.action_on_begin_session()
-            elif selected_values[0] == self.text_controls_start_problem:
-                self.action_on_start_problem()
-            elif selected_values[0] == self.text_controls_done:
-                self.action_on_done()
-            elif selected_values[0] == self.text_controls_exit:
-                self.action_on_exit()
+    def actionHighlighted(self, act_on_this, key_press):
+        if act_on_this == self.text_controls_begin_session:
+            self.action_on_begin_session()
+        elif act_on_this == self.text_controls_start_problem:
+            self.action_on_start_problem()
+        elif act_on_this == self.text_controls_done:
+            self.action_on_done()
+        elif act_on_this == self.text_controls_exit:
+            self.action_on_exit()
 
 
     def action_on_begin_session(self):
-        # self._clear_all_widgets()
-        
-        self.controls.value = None
-        self.controls.values = self.controls_on_begin_session
-        self.controls.display()
-        
-        self.session_box = self.add(npyscreen.BoxTitle, relx=40, rely=2, max_height=15, max_width=30)
+        self.value = None
+        self.values = self.controls_on_begin_session
+        self.display()
+
+        self.session_box = self.parent.add(npyscreen.BoxTitle, relx=40, rely=2, max_height=15, max_width=30)
         self.session_box.values = [get_random_problem()]
         self.session_box.display()
 
-    def action_on_start_problem(self):
-        # self.session_box.values = [get_random_problem()]
-        # self.session_box.display()
 
-        self.controls.values = self.controls_on_start_problem
-        self.controls.display()
+    def action_on_start_problem(self):
+        self.value = None
+        self.values = self.controls_on_start_problem
+        self.display()
+
 
     def action_on_done(self):
-        # self.session_box = self.add(npyscreen.BoxTitle, relx=20, rely=2, max_height=15, max_width=30)
-        # self.session_box.values = [get_random_problem()]
-        # self.session_box.display()
+        self.value = None
+        self.values = self.controls_on_done
+        self.display()
 
-        self.controls.values = self.controls_on_done
-        self.controls.display()
 
     def action_on_exit(self):
-        self.parentApp.setNextForm(None)
-        self.editing = False
-        self.parentApp.switchFormNow()
         exit(0)
+
+
+class BoxWithSelects2(npyscreen.BoxTitle):
+    _contained_widget = Action
+
+
+class MainForm(npyscreen.FormBaseNew):
+    text_controls_begin_session = 'begin session'
+    text_controls_start_problem = 'start problem'
+    text_controls_done = 'done'
+    text_controls_exit = 'exit'
+    count = 1
+    controls_on = [text_controls_begin_session, text_controls_exit]
+
+    def create(self):
+        self.y, self.x = self.useable_space()
+        self.add(BoxWithSelects2, values=self.controls_on, max_height=5, max_width=30)
 
 
 class App(npyscreen.StandardApp):

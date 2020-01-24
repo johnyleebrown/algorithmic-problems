@@ -23,6 +23,7 @@
 import os
 import random
 import npyscreen
+import time
 
 folders_to_exclude = ['ds']
 file_types = ['.java']
@@ -119,7 +120,7 @@ class Action(npyscreen.MultiLineAction):
         self.values = self.controls_on_begin_session
         self.display()
 
-        self.session_box = self.parent.add(npyscreen.BoxTitle, relx=20, rely=2, max_height=15, max_width=50)
+        self.session_box = self.parent.add(npyscreen.BoxTitle, relx=20, rely=2, max_height=15, max_width=70)
 
         self.current_problem_name = get_random_problem()
 
@@ -128,6 +129,8 @@ class Action(npyscreen.MultiLineAction):
 
 
     def action_on_start_problem(self):
+        self.timer_start = time.perf_counter()
+
         self.value = None
         self.values = self.controls_on_start_problem
         self.display()
@@ -137,11 +140,16 @@ class Action(npyscreen.MultiLineAction):
 
 
     def action_on_done(self):
+        self.timer_end = time.perf_counter()
+        time_spent_val = self.timer_end - self.timer_start
+        time_spent_text = f' [{time_spent_val :0.4f} seconds]'
+
         self.value = None
         self.values = self.controls_on_done
         self.display()
 
-        self.session_box.values[len(self.session_box.values) - 1] = self.current_problem_name + self.text_problems_done
+        self.session_box.values[len(self.session_box.values) - 1] = self.current_problem_name + time_spent_text
+        # self.session_box.values[len(self.session_box.values) - 1] = self.current_problem_name + self.text_problems_done
         self.session_box.display()
 
 
@@ -189,3 +197,5 @@ if __name__ == "__main__":
 # record a time to the file on done
 # record the best times on exit
 ## add idea setup to 'other' repository
+# possible format for result: "problem_number,time_spent,start_date_with_timezone"
+# 1 session = all subjects

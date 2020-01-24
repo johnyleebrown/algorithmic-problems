@@ -1,65 +1,77 @@
-/*
+package bs;
+
+/**
  * 1011
- * Google
  *
- * Binary search solution, so we are trying to pick the right value.
- * After the pick we check if all weights fit, if they don't, we increase the lower bound.
+ * ======
  *
- * Optimization: if (D >= weights.length) return lo;
+ * Task.
+ *
+ * Binary search solution, so we are trying to pick the right value. After the pick we check if all weights fit, if they
+ * don't, we increase the lower bound.
+ *
+ * ======
+ *
+ * Optimization.
+ *
+ * if (D >= weights.length) return lo;
  */
-class Solution
+class CapacityToShipPackagesWithinDDays
 {
-	public int shipWithinDays(int[] weights, int D)
+	class Solution
 	{
-		int lo = weights[0], hi = 0;
-		for (int i = 0; i < weights.length;i++)
+		public int shipWithinDays(int[] weights, int D)
 		{
-			if (weights[i] > lo)
+			int lo = weights[0], hi = 0;
+			for (int i = 0; i < weights.length; i++)
 			{
-				lo = weights[i];
+				if (weights[i] > lo)
+				{
+					lo = weights[i];
+				}
+
+				hi += weights[i];
 			}
 
-			hi += weights[i];
-		}
-
-		int mid = hi;
-		while (lo <= hi)
-		{
-			mid = lo + (hi - lo)/2;
-			if (!calculateFitOffset(weights, D, mid))
+			int mid = hi;
+			while (lo <= hi)
 			{
-				lo = mid + 1;
+				mid = lo + (hi - lo) / 2;
+				if (!calculateFitOffset(weights, D, mid))
+				{
+					lo = mid + 1;
 
-				// take lo because in the end hi will be the wrong answer
-				mid = lo;
+					// take lo because in the end hi will be the wrong answer
+					mid = lo;
+				}
+				else
+				{
+					hi = mid - 1;
+				}
 			}
-			else
-			{
-				hi = mid - 1;
-			}
+
+			return mid;
 		}
 
-		return mid;
-	}
-	private boolean calculateFitOffset(int[] weights, int D, int mid)
-	{
-		int i = 0, n = weights.length;
-
-		for (int k = 0; k < D; k++)
+		private boolean calculateFitOffset(int[] weights, int D, int mid)
 		{
-			int cur = 0;
-			while (i < n && cur + weights[i] <= mid)
+			int i = 0, n = weights.length;
+
+			for (int k = 0; k < D; k++)
 			{
-				cur += weights[i++];
+				int cur = 0;
+				while (i < n && cur + weights[i] <= mid)
+				{
+					cur += weights[i++];
+				}
 			}
-		}
 
-		if (i < n)
-		{
-			return false;
-		}
+			if (i < n)
+			{
+				return false;
+			}
 
-		return true;
+			return true;
+		}
 	}
 }
-

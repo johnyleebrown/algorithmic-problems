@@ -1,8 +1,16 @@
-// 719
-public class FindKthSmallestPairDistance 
+package bs;
+
+import java.util.Arrays;
+
+/**
+ * 719
+ */
+class FindKthSmallestPairDistance
 {
-    // O(NlogW + NlogN)
-    class Solution 
+	/**
+	 * O(NlogW + NlogN)
+	 */
+    static class Solution
 	{
         public int smallestDistancePair(int[] nums, int k) 
 		{

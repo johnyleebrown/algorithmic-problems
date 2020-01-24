@@ -20,17 +20,30 @@
 # calculate weekly overall across all subjects
 # display which subject requires more attention (bad results)
 
+# change right window size dynamic
+# get unique problems
+# get through all subjects
+# start timer on start
+# record a time to the file on done
+# record the best times on exit
+## add idea setup to 'other' repository
+# possible format for result: "problem_number,time_spent,start_date_with_timezone"
+# 1 session = all subjects
+
 import os
 import random
 import npyscreen
 import time
+from datetime import datetime
 
-folders_to_exclude = ['ds']
-file_types = ['.java']
+
+def touchopen(filename, *args, **kwargs):
+    open(filename, "a").close()
+    return open(filename, *args, **kwargs)
 
 
 def read_from_file(file_path):
-    file = open(file_path, 'r', encoding='utf-8')
+    file = touchopen(file_path, 'r+', encoding='utf-8')
     params = file.read().splitlines()
     file.close()
     return params
@@ -83,7 +96,30 @@ def get_random_problem():
     rand_problem_ind = random_select(len(result_map))
     rand_problem = list(result_map)[rand_problem_ind]
 
-    return rand_topic_key + ': ' + rand_problem
+    return rand_topic_key, rand_problem
+
+
+def get_best_result_for_problem(current_problem_number):
+    results = read_from_file('results.txt')
+    vals = []
+    for result in results:
+        result_data = result.split(",")
+        if result_data[0] == current_problem_number:
+            vals.append(float(result_data[1]))
+    if len(vals) == 0:
+        return -1
+    return min(vals)
+
+
+def get_comparison_to_best_result(current_problem_number, current_time):
+    best_result = get_best_result_for_problem(current_problem_number)
+    if best_result == -1:
+        return f' [NEW {current_time :.4f} sec.]'
+    increase = current_time - best_result
+    increase_percentage = increase/best_result * 100
+    if increase_percentage >= 0.0:
+        return ' [+{0:.2f}%]'.format(increase_percentage)
+    return ' [{0:.2f}%]'.format(increase_percentage)
 
 
 class Action(npyscreen.MultiLineAction):
@@ -120,12 +156,17 @@ class Action(npyscreen.MultiLineAction):
         self.values = self.controls_on_begin_session
         self.display()
 
-        self.session_box = self.parent.add(npyscreen.BoxTitle, relx=20, rely=2, max_height=15, max_width=70)
+        self.session_box = self.parent.add(npyscreen.BoxTitle, custom_highlighting=True,relx=20, rely=2, max_height=15, max_width=70)
+        color1 = self.parent.theme_manager.findPair(self, 'GOOD')
+        self.session_box.highlighting_arr_color_data = [color1]
+        self.current_problem_topic, self.current_problem_number = get_random_problem()
 
-        self.current_problem_name = get_random_problem()
-
-        self.session_box.values = [self.current_problem_name]
+        self.session_box.values = [self.get_current_problem_title()]
         self.session_box.display()
+
+
+    def get_current_problem_title(self):
+        return self.current_problem_topic + ": " + self.current_problem_number
 
 
     def action_on_start_problem(self):
@@ -142,15 +183,19 @@ class Action(npyscreen.MultiLineAction):
     def action_on_done(self):
         self.timer_end = time.perf_counter()
         time_spent_val = self.timer_end - self.timer_start
-        time_spent_text = f' [{time_spent_val :0.4f} seconds]'
 
         self.value = None
         self.values = self.controls_on_done
         self.display()
 
-        self.session_box.values[len(self.session_box.values) - 1] = self.current_problem_name + time_spent_text
-        # self.session_box.values[len(self.session_box.values) - 1] = self.current_problem_name + self.text_problems_done
+        comparison = get_comparison_to_best_result(self.current_problem_number, time_spent_val)
+        updated_current_line = self.get_current_problem_title() + comparison
+        self.session_box.values[len(self.session_box.values) - 1] = updated_current_line
         self.session_box.display()
+
+        newline = self.current_problem_number + "," + str(time_spent_val) + "," + str(datetime.utcnow())
+        with open("results.txt", "a+") as f:
+            f.write(newline + "\n")
 
 
     def action_on_next(self):
@@ -158,9 +203,9 @@ class Action(npyscreen.MultiLineAction):
         self.values = self.controls_on_begin_session
         self.display()
 
-        self.current_problem_name = get_random_problem()
+        self.current_problem_topic, self.current_problem_number = get_random_problem()
 
-        self.session_box.values.append(self.current_problem_name)
+        self.session_box.values.append(self.get_current_problem_title())
         self.session_box.display()
 
 
@@ -179,6 +224,7 @@ class MainForm(npyscreen.FormBaseNew):
 
 class App(npyscreen.StandardApp):
     def onStart(self):
+        npyscreen.setTheme(npyscreen.Themes.ColorfulTheme)
         self.addForm("MAIN", MainForm, name="Checker")
 
 
@@ -189,13 +235,3 @@ def start():
 
 if __name__ == "__main__":
     start()
-
-# change right window size dynamic
-# get unique problems
-# get through all subjects
-# start timer on start
-# record a time to the file on done
-# record the best times on exit
-## add idea setup to 'other' repository
-# possible format for result: "problem_number,time_spent,start_date_with_timezone"
-# 1 session = all subjects

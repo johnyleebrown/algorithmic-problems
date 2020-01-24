@@ -1,4 +1,4 @@
-//package util.codeforces;
+package util.codeforces;
 
 import java.io.*;
 import java.util.StringTokenizer;

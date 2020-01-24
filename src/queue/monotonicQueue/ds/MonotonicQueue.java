@@ -11,12 +11,5 @@ public interface MonotonicQueue
 	 *
 	 * @param newPairValue a new value to add to queue
 	 */
-	void push(int newPairValue);
-
-	/**
-	 * @return the first value of the queue, which is the maximum or minimum.
-	 */
-	int getFirst();
-
-	void removeFirst();
+	void push(int newPairValue, int index);
 }

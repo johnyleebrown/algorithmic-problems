@@ -1,6 +1,6 @@
 package twoPointers.slidingWindow.max;
 
-import util.codeforces.Main;
+import util.ds.InputReader;
 
 import java.io.PrintWriter;
 
@@ -35,7 +35,7 @@ public class ThreePartsOfTheArray
 {
 	static class Solution
 	{
-		public void solve(int testNumber, Main.InputReader in, PrintWriter out)
+		public void solve(int testNumber, InputReader in, PrintWriter out)
 		{
 			int n = in.nextInt();
 			Long[] nums = new Long[n];

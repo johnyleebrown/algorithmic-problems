@@ -1,6 +1,6 @@
 package twoPointers.slidingWindow.max;
 
-import util.codeforces.Main.InputReader;
+import util.ds.InputReader;
 
 import java.io.PrintWriter;
 import java.util.Arrays;

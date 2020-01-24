@@ -1,6 +1,6 @@
 package twoPointers.slidingWindow.max;
 
-import util.codeforces.Main.InputReader;
+import util.ds.InputReader;
 
 import java.io.PrintWriter;
 
@@ -13,7 +13,7 @@ import java.io.PrintWriter;
  */
 public class MaxBooksToRead
 {
-	class Solution
+	static class Solution
 	{
 		public void solve(int testNumber, InputReader in, PrintWriter out)
 		{

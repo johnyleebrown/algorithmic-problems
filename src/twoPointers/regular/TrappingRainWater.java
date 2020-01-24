@@ -1,11 +1,14 @@
 package twoPointers.regular;
 
-/*
+/**
  * 42
+ *
+ * ======
+ *
  * Google
  *
- * Find the highest elevation, then on the left and right
- * count the differences between highest and smaller elevations that go after it.
+ * Find the highest elevation, then on the left and right count the differences between highest and smaller elevations
+ * that go after it.
  */
 public class TrappingRainWater
 {

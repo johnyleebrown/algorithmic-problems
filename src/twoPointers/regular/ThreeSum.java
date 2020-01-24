@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// 15
-public class ThreeSum 
+/**
+ * 15
+ */
+public class ThreeSum
 {
 	/**
-	 * Three pointers. 
-	 * O(n^2), O(1).
+	 * Three pointers. O(n^2), O(1).
 	 */
-	class Solution
+	static class Solution
 	{
 		public List<List<Integer>> threeSum(int[] nums)
 		{

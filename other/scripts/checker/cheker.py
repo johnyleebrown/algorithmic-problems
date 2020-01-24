@@ -185,3 +185,7 @@ if __name__ == "__main__":
 # change right window size dynamic
 # get unique problems
 # get through all subjects
+# start timer on start
+# record a time to the file on done
+# record the best times on exit
+## add idea setup to 'other' repository

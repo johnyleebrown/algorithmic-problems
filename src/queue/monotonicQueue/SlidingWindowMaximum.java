@@ -1,6 +1,6 @@
 package queue.monotonicQueue;
 
-import queue.monotonicQueue.ds.DecreasingMonotonicQueue;
+import queue.monotonicQueue.ds.impl.DecreasingMonotonicQueueDefault;
 
 /**
  * 239
@@ -15,7 +15,7 @@ import queue.monotonicQueue.ds.DecreasingMonotonicQueue;
  */
 public class SlidingWindowMaximum
 {
-	class Solution
+	static class Solution
 	{
 		public int[] maxSlidingWindow(int[] nums, int k)
 		{
@@ -24,18 +24,18 @@ public class SlidingWindowMaximum
 				return new int[]{};
 			}
 
-			DecreasingMonotonicQueue q = new DecreasingMonotonicQueue();
+			DecreasingMonotonicQueueDefault q = new DecreasingMonotonicQueueDefault();
 
 			int i = 0;
 			for (; i < k - 1; i++)
 			{
-				q.push(nums[i]);
+				q.push(nums[i], i);
 			}
 
 			int[] result = new int[nums.length - k + 1];
 			for (; i < nums.length; i++)
 			{
-				q.push(nums[i]);
+				q.push(nums[i], i);
 				result[i - k + 1] = q.getMax();
 				q.removeFirst();
 			}

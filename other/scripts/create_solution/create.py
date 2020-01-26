@@ -30,7 +30,7 @@ def add_package_info_if_needed(path, new_data):
 def create_class_name():
     name = ''
     for arg in sys.argv[1:]:
-        name += arg.title()
+        name += arg[:1].upper() + arg[1:]
     if name == '':
         raise ValueError('ERROR. No args.')
     return name

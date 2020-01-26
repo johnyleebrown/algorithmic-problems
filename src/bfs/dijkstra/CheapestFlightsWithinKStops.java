@@ -1,10 +1,6 @@
-package medium.graph.dijkstra;
+package bfs.dijkstra;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 // 787
 public class CheapestFlightsWithinKStops 
@@ -23,7 +19,7 @@ public class CheapestFlightsWithinKStops
 			int[] ans = new int[n]; 
 			Arrays.fill(ans, Integer.MAX_VALUE); 
 			ans[src] = 0;
-			List<int[]> q = new ArrayList<>(); 
+			List<int[]> q = new ArrayList<>();
 			q.add(new int[]{0, src});
 			Map<Integer, Integer> m;
 

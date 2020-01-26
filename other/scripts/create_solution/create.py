@@ -27,13 +27,13 @@ def add_package_info_if_needed(path, new_data):
     return new_data
 
 
-def get_new_file_name():
-    new_file_name = ''
+def create_class_name():
+    name = ''
     for arg in sys.argv[1:]:
-        new_file_name += arg.title()
-    if new_file_name == '':
-        raise ValueError('No args.')
-    return new_file_name
+        name += arg.title()
+    if name == '':
+        raise ValueError('ERROR. No args.')
+    return name
 
 
 def insert_class_name(template, new_file_name):
@@ -46,8 +46,8 @@ def get_template(new_file_name):
 
 
 if __name__ == "__main__":
-    new_file_name = get_new_file_name()
-    new_data = get_template(new_file_name)
+    class_name = create_class_name()
+    new_file_data = get_template(class_name)
     path = os.getcwd()
-    new_data = add_package_info_if_needed(path, new_data)
-    write_to_file(path + '/' + new_file_name + '.java', new_data)
+    new_file_data = add_package_info_if_needed(path, new_file_data)
+    write_to_file(path + '/' + class_name + '.java', new_file_data)

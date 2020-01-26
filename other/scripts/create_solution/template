@@ -1,5 +1,3 @@
-package other.scripts.create_solution;
-
 /**
  * $INSERT_PROBLEM_NUMBER
  *
@@ -11,13 +9,9 @@ package other.scripts.create_solution;
  *
  * ======
  *
- * Companies: $INSERT_COMPANIES
- *
- * ======
- *
  * Source: $INSERT_SOURCE
  */
-class $INSERT_CLASS_NAME
+public class $INSERT_CLASS_NAME
 {
 	/**
 	 *

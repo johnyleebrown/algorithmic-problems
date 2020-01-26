@@ -41,6 +41,8 @@ public class OnlineStockSpan
 
 			public StockSpanner()
 			{
+				// default nearest value is -1
+				// so we could count the i-th bar itself
 				q = new DecreasingMonotonicQueueNearestValuesImpl(-1);
 				index = -1;
 			}

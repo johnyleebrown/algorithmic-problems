@@ -78,6 +78,9 @@ def random_select(n):
     return random.randint(0, n - 1)
 
 
+# new - create a list of all results for the specific subject
+#   > make sure that new random problem number is not in the last 'n' of the results
+#   > where n is the total number of problems for the topic
 def get_random_problem():
     params = read_from_file('parameters.txt')
     params_map = {x[0]: x[1] for x in [param.split(",") for param in params]}
@@ -155,12 +158,14 @@ class Action(npyscreen.MultiLineAction):
         self.value = None
         self.values = self.controls_on_begin_session
         self.display()
-
-        self.session_box = self.parent.add(npyscreen.BoxTitle, custom_highlighting=True,relx=20, rely=2, max_height=15, max_width=70)
-        color1 = self.parent.theme_manager.findPair(self, 'GOOD')
-        self.session_box.highlighting_arr_color_data = [color1]
+        # self.color = 'DANGER'self.BuyInput.color = "WARNING"
+        self.session_box = self.parent.add(npyscreen.BoxTitle,color='WARNING',relx=20, rely=2, max_height=15, max_width=70)
+        # self.session_box.color = 'DANGER'
+        self.session_box.display()
+        # color1 = self.parent.theme_manager.findPair(self, 'GOOD')
+        # self.session_box.highlighting_arr_color_data = [color1]
         self.current_problem_topic, self.current_problem_number = get_random_problem()
-
+        self.parent.add(npyscreen.FixedText, color='WARNING', max_height=15, max_width=20, value="Quantity:")
         self.session_box.values = [self.get_current_problem_title()]
         self.session_box.display()
 
@@ -219,12 +224,12 @@ class BoxWithSelects(npyscreen.BoxTitle):
 
 class MainForm(npyscreen.FormBaseNew):
     def create(self):
-        self.add(BoxWithSelects, values=['begin session', 'exit'], max_height=4, max_width=18)
+        self.add(BoxWithSelects, values=['begin session', 'exit'], max_height=5, max_width=18)
 
 
 class App(npyscreen.StandardApp):
     def onStart(self):
-        npyscreen.setTheme(npyscreen.Themes.ColorfulTheme)
+        # npyscreen.setTheme(npyscreen.Themes.ColorfulTheme)
         self.addForm("MAIN", MainForm, name="Checker")
 
 

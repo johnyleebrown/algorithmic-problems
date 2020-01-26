@@ -29,13 +29,13 @@ public class LargestRectangleInHistogram
 		{
 			int n = heights.length;
 
-			IncreasingMonotonicQueueNearestValues qIncreasingFromLeft = new IncreasingMonotonicQueueNearestValuesImpl(n, -1);
+			IncreasingMonotonicQueueNearestValues qIncreasingFromLeft = new IncreasingMonotonicQueueNearestValuesImpl(-1);
 			for (int i = 0; i < n; i++)
 			{
 				qIncreasingFromLeft.push(heights[i], i);
 			}
 
-			IncreasingMonotonicQueueNearestValues qIncreasingFromRight = new IncreasingMonotonicQueueNearestValuesImpl(n, n);
+			IncreasingMonotonicQueueNearestValues qIncreasingFromRight = new IncreasingMonotonicQueueNearestValuesImpl(n);
 			for (int i = n - 1; i >= 0; i--)
 			{
 				qIncreasingFromRight.push(heights[i], i);

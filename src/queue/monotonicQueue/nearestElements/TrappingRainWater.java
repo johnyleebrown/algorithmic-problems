@@ -1,17 +1,14 @@
-package twoPointers.regular;
+package queue.monotonicQueue.nearestElements;
 
 /**
  * 42
- *
- * ======
- *
- * Google
- *
- * Find the highest elevation, then on the left and right count the differences between highest and smaller elevations
- * that go after it.
  */
 public class TrappingRainWater
 {
+	/**
+	 * Find the highest elevation, then on the left and right count the differences between highest and smaller
+	 * elevations that go after it.
+	 */
 	public class Solution
 	{
 		public int trap(int[] height)
@@ -42,7 +39,7 @@ public class TrappingRainWater
 				{
 					leftMax = height[i];
 				}
-				// untill the next highest we will count the diff
+				// until the next highest we will count the diff
 				// compared to the previous highest
 				else
 				{

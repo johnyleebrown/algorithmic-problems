@@ -3,7 +3,7 @@ package twoPointers.regular;
 /**
  * 977
  */
-class SquaresOfASortedArray
+public class SquaresOfASortedArray
 {
 	static class Solution
 	{

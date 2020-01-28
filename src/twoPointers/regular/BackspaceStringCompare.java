@@ -10,7 +10,7 @@ package twoPointers.regular;
  * Given two strings S and T, return if they are equal when both are typed into empty text editors. # means a backspace
  * character.
  */
-class BackspaceStringCompare
+public class BackspaceStringCompare
 {
 	/**
 	 * Time complexity: O(n) Space complexity: O(1)

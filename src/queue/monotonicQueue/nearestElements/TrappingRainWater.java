@@ -1,15 +1,77 @@
 package queue.monotonicQueue.nearestElements;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * 42
  */
 public class TrappingRainWater
 {
 	/**
-	 * Find the highest elevation, then on the left and right count the differences between highest and smaller
-	 * elevations that go after it.
+	 * Nearest elements.
+	 *
+	 * The water can be trapped if the bars form a container. We need left, bottom and right; edges(left and right)
+	 * should be bigger than bottom. We will be using a decreasing monotone queue to keep indexes of bars.
 	 */
-	public class Solution
+	class Solution
+	{
+		public int trap(int[] height)
+		{
+			MQ q = new MQ();
+			for (int i = 0; i < height.length; i++)
+			{
+				q.push(new Item(height[i], i));
+			}
+			return q.totalTrappedWater;
+		}
+
+		private class MQ
+		{
+			private Deque<Item> q = new ArrayDeque<>();
+			public int totalTrappedWater;
+
+			public void push(Item newItem)
+			{
+				while (!q.isEmpty() && q.peekLast().val < newItem.val)
+				{
+					Item bottom = q.removeLast();
+					// we need a left barrier to compute area
+					// otherwise we can't form a container
+					if (!q.isEmpty())
+					{
+						int leftBarrierIndex = q.peekLast().ind;
+						int containerWidth = newItem.ind - leftBarrierIndex - 1;
+
+						int containerUpperBoundary = Math.min(q.peekLast().val, newItem.val);
+						int containerLowerBoundary = bottom.val;
+						int containerHeight = containerUpperBoundary - containerLowerBoundary;
+
+						int area = containerHeight * containerWidth;
+						totalTrappedWater += area;
+					}
+				}
+				q.addLast(newItem);
+			}
+		}
+
+		private class Item
+		{
+			int val, ind;
+
+			Item(int val, int ind)
+			{
+				this.val = val;
+				this.ind = ind;
+			}
+		}
+	}
+
+	/**
+	 * Nearest highest elements can hold water, so we need to find them. Find the highest elevation first. Then on the
+	 * left and right count the differences between highest and smaller elevations that go after it.
+	 */
+	public class Solution2
 	{
 		public int trap(int[] height)
 		{

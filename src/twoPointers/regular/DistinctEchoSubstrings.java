@@ -21,7 +21,6 @@ public class DistinctEchoSubstrings
 {
 	/**
 	 * Sliding window, rolling counter.
-	 *
 	 */
 	class Solution
 	{

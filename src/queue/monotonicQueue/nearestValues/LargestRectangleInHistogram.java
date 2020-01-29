@@ -1,7 +1,7 @@
-package queue.monotonicQueue;
+package queue.monotonicQueue.nearestValues;
 
-import queue.monotonicQueue.ds.IncreasingMonotonicQueueNearestValues;
-import queue.monotonicQueue.ds.impl.IncreasingMonotonicQueueNearestValuesImpl;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * 84
@@ -23,35 +23,53 @@ public class LargestRectangleInHistogram
 	 * Solution using queue. The biggest area involving a height at i is between nearest smallest value on the left, and
 	 * nearest smallest value on the right.
 	 */
-	static class Solution
+	class Solution
 	{
 		public int largestRectangleArea(int[] heights)
 		{
-			int n = heights.length;
-
-			IncreasingMonotonicQueueNearestValues qIncreasingFromLeft = new IncreasingMonotonicQueueNearestValuesImpl(-1);
-			for (int i = 0; i < n; i++)
+			MQ q = new MQ();
+			for (int i = 0; i <= heights.length; i++)
 			{
-				qIncreasingFromLeft.push(heights[i], i);
+				int currentValue = i != heights.length ? heights[i] : 0;
+				q.push(new Item(currentValue, i));
 			}
+			return q.maxArea;
+		}
 
-			IncreasingMonotonicQueueNearestValues qIncreasingFromRight = new IncreasingMonotonicQueueNearestValuesImpl(n);
-			for (int i = n - 1; i >= 0; i--)
+		private class MQ
+		{
+			private Deque<Item> q = new ArrayDeque<>();
+			private int maxArea;
+
+			public void push(Item newItem)
 			{
-				qIncreasingFromRight.push(heights[i], i);
-			}
+				while (!q.isEmpty() && newItem.val < q.peekLast().val)
+				{
+					Item upperBoundary = q.removeLast();
+					int leftBoundaryIndex = -1;
+					if (!q.isEmpty())
+					{
+						leftBoundaryIndex = q.peekLast().ind;
+					}
+					int width = newItem.ind - leftBoundaryIndex - 1;
+					int currentArea = width * upperBoundary.val;
 
-			int result = 0;
-			for (int i = 0; i < n; i++)
+					maxArea = Math.max(maxArea, currentArea);
+				}
+
+				q.addLast(newItem);
+			}
+		}
+
+		private class Item
+		{
+			int val, ind;
+
+			Item(int val, int ind)
 			{
-				int r = qIncreasingFromRight.getNearestValueLessThanAtIndex(i);
-				int l = qIncreasingFromLeft.getNearestValueLessThanAtIndex(i);
-				int width = r - l - 1;
-				int area = heights[i] * width;
-				result = Math.max(result, area);
+				this.val = val;
+				this.ind = ind;
 			}
-
-			return result;
 		}
 	}
 

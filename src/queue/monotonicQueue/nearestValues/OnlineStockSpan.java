@@ -1,4 +1,4 @@
-package queue.monotonicQueue;
+package queue.monotonicQueue.nearestValues;
 
 import queue.monotonicQueue.ds.DecreasingMonotonicQueueNearestValues;
 import queue.monotonicQueue.ds.impl.DecreasingMonotonicQueueNearestValuesImpl;

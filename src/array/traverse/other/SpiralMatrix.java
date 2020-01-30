@@ -1,14 +1,21 @@
-// 54
+package array.traverse.other;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 54
+ */
 public class SpiralMatrix
 {
-	class Solution 
+	static class Solution
 	{
 		private enum Dir
 		{
 			R, D, L, U;
 		}
 
-		public List<Integer> spiralOrder(int[][] matrix) 
+		public List<Integer> spiralOrder(int[][] matrix)
 		{
 			List<Integer> ans = new ArrayList<>();
 			if (matrix.length == 0 || matrix[0].length == 0) return ans;
@@ -53,7 +60,7 @@ public class SpiralMatrix
 					}
 					else j--;
 				}
-				else if (cur == Dir.U)
+				else
 				{
 					if (i == u) // going up until upper border 
 					{
@@ -69,4 +76,3 @@ public class SpiralMatrix
 		}
 	}	
 }
-

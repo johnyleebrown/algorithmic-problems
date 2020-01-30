@@ -3,7 +3,7 @@
 
 import os
 import sys
-
+import re
 
 def read_from_file(file_path):
     file = open(file_path, 'r', encoding='utf-8')
@@ -28,8 +28,10 @@ def add_package_info_if_needed(path, new_data):
 
 
 def create_class_name():
+    regex = re.compile('[^a-zA-Z0-9]')
     name = ''
     for arg in sys.argv[1:]:
+        arg = regex.sub('', arg)
         name += arg[:1].upper() + arg[1:]
     if name == '':
         raise ValueError('ERROR. No args.')

@@ -1,17 +1,21 @@
-// 498
+package array.traverse.diagonal;
+
+/**
+ * 498
+ */
 public class DiagonalTraverse
 {
-	class Solution 
+	class Solution
 	{
-		public int[] findDiagonalOrder(int[][] matrix) 
+		public int[] findDiagonalOrder(int[][] matrix)
 		{
 			if (matrix.length == 0 || matrix[0].length == 0) return new int[]{};
 			int n = matrix.length, m = matrix[0].length;
-			int[] ans = new int[n*m];
+			int[] ans = new int[n * m];
 			boolean up = true;
 			int c = 0;
 
-			for (int i = 0, j = 0; i < n && j < m;)
+			for (int i = 0, j = 0; i < n && j < m; )
 			{
 				ans[c++] = matrix[i][j];
 
@@ -42,7 +46,6 @@ public class DiagonalTraverse
 			}
 
 			return ans;
-		} 
+		}
 	}
 }
-

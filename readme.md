@@ -20,3 +20,11 @@ https://leetcode.com/discuss/interview-question/367064/Google-or-Phone-Screen-or
 #### Revisit
 - 395
 - VasyaAndRobot
+
+#### Leetcode posts
+- [739](https://leetcode.com/problems/daily-temperatures/discuss/493757/no-stack-barbay-algorithm)
+- [1316](https://leetcode.com/problems/distinct-echo-substrings/discuss/492704/sliding-window-rolling-counter)
+- [30](https://leetcode.com/problems/substring-with-concatenation-of-all-words/discuss/483112/sliding-window-pattern)
+- [1234](https://leetcode.com/problems/replace-the-substring-for-balanced-string/discuss/482118/sliding-window-pattern)
+- [424](https://leetcode.com/problems/longest-repeating-character-replacement/discuss/381117/sliding-window-pattern)
+- [519](https://leetcode.com/problems/random-flip-matrix/discuss/155341/Algorithm-Explanation-Step-By-Step)

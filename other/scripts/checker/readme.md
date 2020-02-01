@@ -1,0 +1,14 @@
+#### features:
+- running timer
+- display percentage
+- create plan
+- use subjects that require more attention(more often / more problems)
+- set program (set countdown to the interviews)
+- stats
+- calculate weekly overall across all subjects
+- display which subject requires more attention (bad results)
+-  add idea setup to 'other' repository
+-  new 
+    - create a list of all results for the specific subject
+    - make sure that new random problem number is not in the last 'n' of the results
+    - where n is the total number of problems for the topic

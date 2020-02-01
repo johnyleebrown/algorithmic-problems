@@ -21,6 +21,7 @@ https://leetcode.com/discuss/interview-question/367064/Google-or-Phone-Screen-or
 - 395
 - VasyaAndRobot
 - 1330
+- 862
 
 #### Leetcode posts
 - [739](https://leetcode.com/problems/daily-temperatures/discuss/493757/no-stack-barbay-algorithm)

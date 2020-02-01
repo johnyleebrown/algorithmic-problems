@@ -3,7 +3,7 @@ package math.parseNumber;
 import java.util.Stack;
 
 /**
- * 5315
+ * 1323
  *
  * ======
  *

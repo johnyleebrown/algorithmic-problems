@@ -30,6 +30,10 @@
 # possible format for result: "problem_number,time_spent,start_date_with_timezone"
 # 1 session = all subjects
 
+# new - create a list of all results for the specific subject
+#   > make sure that new random problem number is not in the last 'n' of the results
+#   > where n is the total number of problems for the topic
+
 import os
 import random
 import npyscreen
@@ -78,9 +82,6 @@ def random_select(n):
     return random.randint(0, n - 1)
 
 
-# new - create a list of all results for the specific subject
-#   > make sure that new random problem number is not in the last 'n' of the results
-#   > where n is the total number of problems for the topic
 def get_random_problem():
     params = read_from_file('parameters.txt')
     params_map = {x[0]: x[1] for x in [param.split(",") for param in params]}
@@ -99,7 +100,7 @@ def get_random_problem():
     rand_problem_ind = random_select(len(result_map))
     rand_problem = list(result_map)[rand_problem_ind]
 
-    return rand_topic_key, rand_problem
+    return str(rand_topic_key).strip(), str(rand_problem).strip()
 
 
 def get_best_result_for_problem(current_problem_number):
@@ -117,12 +118,12 @@ def get_best_result_for_problem(current_problem_number):
 def get_comparison_to_best_result(current_problem_number, current_time):
     best_result = get_best_result_for_problem(current_problem_number)
     if best_result == -1:
-        return f' [NEW {current_time :.4f} sec.]'
+        return f'[NEW {current_time :.4f}]', 'DEFAULT'
     increase = current_time - best_result
-    increase_percentage = increase/best_result * 100
+    increase_percentage = increase / best_result * 100
     if increase_percentage >= 0.0:
-        return ' [+{0:.2f}%]'.format(increase_percentage)
-    return ' [{0:.2f}%]'.format(increase_percentage)
+        return '[+{0:.2f}%]'.format(increase_percentage), 'DANGER'
+    return '[{0:.2f}%]'.format(increase_percentage), 'GOOD'
 
 
 class Action(npyscreen.MultiLineAction):
@@ -131,15 +132,27 @@ class Action(npyscreen.MultiLineAction):
     text_controls_done = 'done'
     text_controls_next = 'next'
     text_controls_exit = 'exit'
-
-    text_problems_in_progress = ' [In Progress]'
-    text_problems_done = ' [Done]'
+    text_problems_in_progress = '[In Progress]'
+    text_problems_done = '[Done]'
 
     controls_on_begin_session = [text_controls_start_problem, text_controls_exit]
     controls_on_start_problem = [text_controls_done, text_controls_exit]
     controls_on_done = [text_controls_next, text_controls_exit]
 
-    current_problem_name = ''
+    current_problem_title = ''
+
+    base_rel_x = 22
+    base_rel_y = 3
+    cur_rel_x = base_rel_x
+    cur_rel_y = base_rel_y
+
+    def get_current_problem_title(self):
+        return self.current_problem_topic + ": " + self.current_problem_number
+
+    def record_result(self, time_spent_val):
+        newline = self.current_problem_topic + ',' + self.current_problem_number + ',' + str(time_spent_val) + ',' + str(datetime.utcnow())
+        with open('results.txt', 'a+') as f:
+            f.write(newline + '\n')
 
     def actionHighlighted(self, act_on_this, key_press):
         if act_on_this == self.text_controls_begin_session:
@@ -153,66 +166,83 @@ class Action(npyscreen.MultiLineAction):
         elif act_on_this == self.text_controls_exit:
             self.action_on_exit()
 
-
     def action_on_begin_session(self):
+        # update controls
         self.value = None
         self.values = self.controls_on_begin_session
         self.display()
-        # self.color = 'DANGER'self.BuyInput.color = "WARNING"
-        self.session_box = self.parent.add(npyscreen.BoxTitle,color='WARNING',relx=20, rely=2, max_height=15, max_width=70)
-        # self.session_box.color = 'DANGER'
-        self.session_box.display()
-        # color1 = self.parent.theme_manager.findPair(self, 'GOOD')
-        # self.session_box.highlighting_arr_color_data = [color1]
+
+        # add new problem title
         self.current_problem_topic, self.current_problem_number = get_random_problem()
-        self.parent.add(npyscreen.FixedText, color='WARNING', max_height=15, max_width=20, value="Quantity:")
-        self.session_box.values = [self.get_current_problem_title()]
-        self.session_box.display()
+        self.current_problem_title = self.get_current_problem_title()
+        w = len(self.current_problem_title) + 1
+        self.t = self.parent.add(npyscreen.FixedText,
+                                 relx=self.cur_rel_x, rely=self.cur_rel_y,
+                                 max_height=5, max_width=w, value=self.current_problem_title)
 
-
-    def get_current_problem_title(self):
-        return self.current_problem_topic + ": " + self.current_problem_number
-
+        # update last rel x and rel y
+        self.cur_rel_x += w
 
     def action_on_start_problem(self):
+        # start timer for problem
         self.timer_start = time.perf_counter()
 
+        # update controls
         self.value = None
         self.values = self.controls_on_start_problem
         self.display()
 
-        self.session_box.values[len(self.session_box.values) - 1] += self.text_problems_in_progress
-        self.session_box.display()
-
+        # add problem title in white color
+        box_text = self.text_problems_in_progress
+        w = len(box_text) + 1
+        self.t = self.parent.add(npyscreen.FixedText,
+                                 color='WARNING', relx=self.cur_rel_x, rely=self.cur_rel_y,
+                                 max_height=5, max_width=w, value=box_text)
 
     def action_on_done(self):
+        # record time
         self.timer_end = time.perf_counter()
         time_spent_val = self.timer_end - self.timer_start
 
+        # update controls
         self.value = None
         self.values = self.controls_on_done
         self.display()
 
-        comparison = get_comparison_to_best_result(self.current_problem_number, time_spent_val)
-        updated_current_line = self.get_current_problem_title() + comparison
-        self.session_box.values[len(self.session_box.values) - 1] = updated_current_line
-        self.session_box.display()
+        # remove in progress text from problem title box
+        self.t.value = None
+        self.t.display()
 
-        newline = self.current_problem_number + "," + str(time_spent_val) + "," + str(datetime.utcnow())
-        with open("results.txt", "a+") as f:
-            f.write(newline + "\n")
+        # add result box next to problem title
+        box_text, color = get_comparison_to_best_result(self.current_problem_number, time_spent_val)
+        w = len(box_text) + 1
+        self.t = self.parent.add(npyscreen.FixedText,
+                                 color=color, relx=self.cur_rel_x, rely=self.cur_rel_y,
+                                 max_height=5, max_width=w, value=box_text)
 
+        # update last rel x and rel y
+        self.cur_rel_x = self.base_rel_x
+        self.cur_rel_y += 2
+
+        # record result
+        self.record_result(time_spent_val)
 
     def action_on_next(self):
+        # update controls
         self.value = None
         self.values = self.controls_on_begin_session
         self.display()
 
+        # add next problem title
         self.current_problem_topic, self.current_problem_number = get_random_problem()
+        self.current_problem_title = self.get_current_problem_title()
+        w = len(self.current_problem_title) + 1
+        self.t = self.parent.add(npyscreen.FixedText,
+                                 relx=self.cur_rel_x, rely=self.cur_rel_y,
+                                 max_height=5, max_width=w, value=self.current_problem_title)
 
-        self.session_box.values.append(self.get_current_problem_title())
-        self.session_box.display()
-
+        # update last rel x and rel y
+        self.cur_rel_x += w
 
     def action_on_exit(self):
         exit(0)
@@ -229,7 +259,6 @@ class MainForm(npyscreen.FormBaseNew):
 
 class App(npyscreen.StandardApp):
     def onStart(self):
-        # npyscreen.setTheme(npyscreen.Themes.ColorfulTheme)
         self.addForm("MAIN", MainForm, name="Checker")
 
 

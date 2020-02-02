@@ -51,7 +51,7 @@ class CustomWidget(npyscreen.MultiLineAction):
 
     def get_next_problem_title(self):
         self.current_problem_topic = core.get_next_topic()
-        self.current_problem_number = core.get_random_problem(self.current_problem_topic)
+        self.current_problem_number = core.get_random_problem(self.current_problem_topic, core.results)
         return self.current_problem_topic + ': ' + self.current_problem_number
 
     def record_result(self, time_spent_val):

@@ -8,7 +8,7 @@ import util as u
 
 
 class CoreService:
-    main_dir: str
+    main_dir = ''
 
     is_session_finished = False
 
@@ -26,11 +26,11 @@ class CoreService:
         next_line = False
         while line:
             if next_line:
+                file.close()
                 return line.split(" * ")[1].split('\n')[0]
             if line.startswith('/**'):
                 next_line = True
             line = file.readline()
-        file.close()
 
     @staticmethod
     def random_select(n):
@@ -56,20 +56,27 @@ class CoreService:
             self.is_session_finished = True
         return ret
 
-    def get_random_problem(self, t):
-        set_latest_problems = set()
-        problems_count = len(self.topic_to_problem_list_map[t])
+    def get_random_problem(self, t, results):
+        total_problem_count = len(self.topic_to_problem_list_map[t])
 
-        for result in self.results:
+        # create a list of all problems
+        all_problems = []
+        for result in results:
             result_data = result.split(",")
-            if result_data[0] == t and problems_count > 0:
-                set_latest_problems.add(result_data[1])
-                problems_count -= 1
+            if result_data[0] == t:
+                all_problems.append(result_data[1])
 
-        rand_problem_ind = self.random_select(problems_count)
+        # generate a set of problems to avoid
+        set_latest_problems = set()
+        x = len(all_problems)
+        if x != total_problem_count:
+            while x % total_problem_count > 0:
+                set_latest_problems.add(all_problems[x - 1])
+                x -= 1
+
+        rand_problem_ind = self.random_select(total_problem_count)
         while self.topic_to_problem_list_map[t][rand_problem_ind] in set_latest_problems:
-            print(rand_problem_ind)
-            rand_problem_ind = self.random_select(problems_count)
+            rand_problem_ind = self.random_select(total_problem_count)
 
         rand_problem = self.topic_to_problem_list_map[t][rand_problem_ind]
         return rand_problem.strip()
@@ -101,3 +108,9 @@ class CoreService:
         self.process_parameters()
         self.process_topics()
         self.process_results()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        pass

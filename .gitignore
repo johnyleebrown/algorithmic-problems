@@ -9,3 +9,4 @@ todo.md
 *.code-workspace
 other/scripts/checker/results.txt
 *__pycache__/
+*.pyc

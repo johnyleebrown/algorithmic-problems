@@ -17,3 +17,7 @@ def read_from_file(file_path):
 def add_line_to_file(file_name, text):
     with open(file_name, 'a+') as f:
         f.write(text + '\n')
+
+
+def clear_file(file_name):
+    open(file_name, 'w').close()

@@ -1,30 +1,29 @@
-package queue.monotonicQueue.nearestValues;
+package sort.monotonicQueue.nearestValues;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * 85
+ * 221
  *
  * ======
  *
  * Task.
  *
- * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its
- * area.
+ * Given a 2D binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
  *
  * ======
  *
  * Source: Leetcode
  */
-public class MaximalRectangle
+public class MaximalSquare
 {
 	/**
-	 * First solve nearest values, then solve 84, then draw example, then it's pretty obvious.
+	 * Same as 85.
 	 */
 	class Solution
 	{
-		public int maximalRectangle(char[][] matrix)
+		public int maximalSquare(char[][] matrix)
 		{
 			int n = matrix.length;
 			if (n == 0)
@@ -85,7 +84,8 @@ public class MaximalRectangle
 						leftBoundaryIndex = q.peekLast().ind;
 					}
 					int width = newItem.ind - leftBoundaryIndex - 1;
-					int currentArea = width * upperBoundary.val;
+					int side = Math.min(width, upperBoundary.val);
+					int currentArea = side * side;
 
 					maxArea = Math.max(maxArea, currentArea);
 				}

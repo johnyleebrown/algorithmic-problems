@@ -1,4 +1,4 @@
-package queue.monotonicQueue.ds;
+package sort.monotonicQueue.ds;
 
 /**
  * Queue with strictly increasing or decreasing values.

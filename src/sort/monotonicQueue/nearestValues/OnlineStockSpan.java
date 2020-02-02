@@ -1,7 +1,7 @@
-package queue.monotonicQueue.nearestValues;
+package sort.monotonicQueue.nearestValues;
 
-import queue.monotonicQueue.ds.DecreasingMonotonicQueueNearestValues;
-import queue.monotonicQueue.ds.impl.DecreasingMonotonicQueueNearestValuesImpl;
+import sort.monotonicQueue.ds.DecreasingMonotonicQueueNearestValues;
+import sort.monotonicQueue.ds.impl.DecreasingMonotonicQueueNearestValuesImpl;
 
 /**
  * 901

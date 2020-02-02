@@ -1,13 +1,13 @@
-package queue.monotonicQueue.ds.impl;
+package sort.monotonicQueue.ds.impl;
 
-import queue.monotonicQueue.ds.DecreasingMonotonicQueueNearestValues;
+import sort.monotonicQueue.ds.IncreasingMonotonicQueueNearestValues;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-public class DecreasingMonotonicQueueNearestValuesImpl implements DecreasingMonotonicQueueNearestValues
+public class IncreasingMonotonicQueueNearestValuesImpl implements IncreasingMonotonicQueueNearestValues
 {
 	private Deque<ItemWithIndex<Integer>> q;
 
@@ -15,7 +15,7 @@ public class DecreasingMonotonicQueueNearestValuesImpl implements DecreasingMono
 	private List<Integer> nearestValues;
 	private int defaultNearestValue;
 
-	public DecreasingMonotonicQueueNearestValuesImpl(int defaultNearestValue)
+	public IncreasingMonotonicQueueNearestValuesImpl(int defaultNearestValue)
 	{
 		this.q = new ArrayDeque<>();
 
@@ -24,7 +24,7 @@ public class DecreasingMonotonicQueueNearestValuesImpl implements DecreasingMono
 	}
 
 	@Override
-	public int getNearestValueBiggerThanAtIndex(int index)
+	public int getNearestValueLessThanAtIndex(int index)
 	{
 		return nearestValues.get(index);
 	}
@@ -32,18 +32,18 @@ public class DecreasingMonotonicQueueNearestValuesImpl implements DecreasingMono
 	@Override
 	public void push(int newPairValue, int index)
 	{
-		while (!q.isEmpty() && newPairValue >= q.peekLast().value)
+		while (!q.isEmpty() && newPairValue <= q.peekLast().value)
 		{
 			q.removeLast();
 		}
 
 		if (!q.isEmpty())
 		{
-			nearestValues.add(index, q.peekLast().index);
+			nearestValues.add(q.peekLast().index);
 		}
 		else
 		{
-			nearestValues.add(index, defaultNearestValue);
+			nearestValues.add(defaultNearestValue);
 		}
 
 		q.addLast(new ItemWithIndex<>(newPairValue, index));

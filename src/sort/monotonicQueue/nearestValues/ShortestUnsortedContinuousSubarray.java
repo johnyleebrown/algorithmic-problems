@@ -1,4 +1,4 @@
-package queue.monotonicQueue.nearestValues;
+package sort.monotonicQueue.nearestValues;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

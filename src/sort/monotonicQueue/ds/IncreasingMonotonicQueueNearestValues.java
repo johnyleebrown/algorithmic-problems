@@ -1,4 +1,4 @@
-package queue.monotonicQueue.ds;
+package sort.monotonicQueue.ds;
 
 public interface IncreasingMonotonicQueueNearestValues extends MonotonicQueue
 {

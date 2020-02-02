@@ -1,4 +1,4 @@
-package queue.monotonicQueue.ds.impl;
+package sort.monotonicQueue.ds.impl;
 
 public class Item<T>
 {

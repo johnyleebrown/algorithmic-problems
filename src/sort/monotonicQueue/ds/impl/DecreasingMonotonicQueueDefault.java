@@ -1,6 +1,6 @@
-package queue.monotonicQueue.ds.impl;
+package sort.monotonicQueue.ds.impl;
 
-import queue.monotonicQueue.ds.DecreasingMonotonicQueue;
+import sort.monotonicQueue.ds.DecreasingMonotonicQueue;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

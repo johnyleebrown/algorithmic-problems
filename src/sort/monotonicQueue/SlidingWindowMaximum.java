@@ -1,6 +1,6 @@
-package queue.monotonicQueue;
+package sort.monotonicQueue;
 
-import queue.monotonicQueue.ds.impl.DecreasingMonotonicQueueDefault;
+import sort.monotonicQueue.ds.impl.DecreasingMonotonicQueueDefault;
 
 /**
  * 239

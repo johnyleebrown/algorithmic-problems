@@ -1,4 +1,4 @@
-package sort;
+package sort.heap;
 
 import sun.jvm.hotspot.utilities.Interval;
 

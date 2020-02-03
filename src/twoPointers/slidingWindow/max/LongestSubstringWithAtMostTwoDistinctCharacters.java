@@ -3,7 +3,7 @@ package twoPointers.slidingWindow.max;
 /**
  * 159
  */
-class LongestSubstringWithAtMostTwoDistinctCharacters
+public class LongestSubstringWithAtMostTwoDistinctCharacters
 {
 	static class Solution
 	{

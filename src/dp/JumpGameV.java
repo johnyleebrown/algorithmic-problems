@@ -25,7 +25,7 @@ package dp;
 public class JumpGameV
 {
 	/**
-	 * Similar to frog jump, either we jump to position (+1) and finish or we jump to position (+1) and jump somewhere
+	 * Straightforward. Similar to frog jump, either we jump to position (+1) and finish or we jump to position (+1) and jump somewhere
 	 * else as well (+dfs).
 	 */
 	class Solution

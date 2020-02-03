@@ -1,4 +1,4 @@
-package sort.monotonicQueue;
+package sort.monotonicQueue.fixedSize;
 
 import sort.monotonicQueue.ds.impl.DecreasingMonotonicQueueDefault;
 

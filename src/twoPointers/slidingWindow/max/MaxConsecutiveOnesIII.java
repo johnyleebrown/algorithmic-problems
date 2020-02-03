@@ -14,7 +14,7 @@ package twoPointers.slidingWindow.max;
  *
  * Similar: 424
  */
-class MaxConsecutiveOnesIII
+public class MaxConsecutiveOnesIII
 {
 	static class Solution
 	{

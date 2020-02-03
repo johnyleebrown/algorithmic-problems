@@ -21,9 +21,11 @@ class CoreService:
 
     @staticmethod
     def find_problem_number_in_file(file_path):
+
         file = open(file_path, 'r', encoding='utf-8')
         line = file.readline()
         next_line = False
+
         while line:
             if next_line:
                 file.close()
@@ -37,10 +39,14 @@ class CoreService:
         return random.randint(0, n - 1)
 
     def create_problems_map_and_list(self, from_dir):
+
         problems_list = []
         problems_map = {}
+
         for dirpath, subdirs, files in os.walk(from_dir, topdown=True):
+            subdirs[:] = [d for d in subdirs if d not in ['ds']]
             for x in files:
+                print(x)
                 if x.endswith(".java"):
                     path = os.path.join(dirpath, x)
                     num = self.find_problem_number_in_file(path)
@@ -50,13 +56,17 @@ class CoreService:
         return problems_map, problems_list
 
     def get_next_topic(self):
+
         ret = self.topics_name_list[self.current_topic_ind]
+
         self.current_topic_ind += 1
         if self.current_topic_ind == len(self.topics_name_list):
             self.is_session_finished = True
+
         return ret
 
     def get_random_problem(self, t, results):
+
         total_problem_count = len(self.topic_to_problem_list_map[t])
 
         # create a list of all problems
@@ -85,7 +95,9 @@ class CoreService:
         self.results = u.read_from_file('results.txt')
 
     def process_topics(self):
+
         topics = u.read_from_file('input.txt')
+
         for x in [topic.split(",") for topic in topics]:
             topic_name = x[0]
             topic_path = x[1]
@@ -114,3 +126,8 @@ class CoreService:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
+
+# if __name__ == "__main__":
+#     c = CoreService()
+#     print(c.topic_to_problem_list_map)
+

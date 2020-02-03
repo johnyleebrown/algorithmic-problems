@@ -1,4 +1,4 @@
-package medium.sort;
+package sort.heap;
 
 import java.util.*;
 import static test.Out.sout;
@@ -91,18 +91,4 @@ public class SortArrayOfSortedArrays
 			a[newI][newJ] = temp;
 		}
 	}
-
-	public static void main(String[] a)
-	{
-		int[][] ar = new int[][]{
-			{5,12,17,21,23},
-			{1,2,4,6,8},
-			{12,14,18,19,27},
-			{3,7,9,15,25}
-		};
-		Solution2 s1 = new Solution2();
-		s1.sort(ar);
-		sout(ar);	
-	}
 }
-

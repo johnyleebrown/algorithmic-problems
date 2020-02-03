@@ -12,7 +12,7 @@ package twoPointers.slidingWindow.max;
  * character. Find the length of the longest sub-string containing all repeating letters you can get after performing
  * the above operations.
  */
-class LongestRepeatingCharacterReplacement
+public class LongestRepeatingCharacterReplacement
 {
 	/**
 	 * Let's assume we don't have k, then min number of changes is a length of the entire string - number of times of

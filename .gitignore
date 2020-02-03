@@ -7,6 +7,5 @@ todo.md
 *.class
 /src/util/other/
 *.code-workspace
-other/scripts/checker/results.txt
 *__pycache__/
 *.pyc

@@ -50,6 +50,11 @@ public class ShortestSubarrayWithSumAtLeastK
 
 			private void push(Item newItem)
 			{
+				while (!q.isEmpty() && newItem.val < q.peekLast().val)
+				{
+					q.removeLast();
+				}
+
 				// sliding window (minimum) part - bigger subarray satisfies our condition
 				// that's why we can short it (move left pointer)
 				// prefixSum[j] - prefixSum[i] >= K => prefixSum[i] <= prefixSum[j] - K
@@ -58,11 +63,6 @@ public class ShortestSubarrayWithSumAtLeastK
 				{
 					min = Math.min(min, newItem.ind - q.peekFirst().ind);
 					q.removeFirst();
-				}
-
-				while (!q.isEmpty() && newItem.val < q.peekLast().val)
-				{
-					q.removeLast();
 				}
 
 				q.addLast(newItem);

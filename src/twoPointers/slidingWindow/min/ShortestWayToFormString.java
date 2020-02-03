@@ -7,7 +7,7 @@ package twoPointers.slidingWindow.min;
  *
  * Companies: Google.
  */
-class ShortestWayToFormString
+public class ShortestWayToFormString
 {
 	class Solution
 	{

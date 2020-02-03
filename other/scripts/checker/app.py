@@ -68,26 +68,35 @@ class CustomWidget(npyscreen.MultiLineAction):
         return len(text) + 1
 
     def actionHighlighted(self, act_on_this, key_press):
+
         if act_on_this == self.text_controls_begin_session:
             self.action_on_begin_session()
+
         elif act_on_this == self.text_controls_start_problem:
             self.action_on_start_problem()
+
         elif act_on_this == self.text_controls_done:
             self.action_on_done()
+
         elif act_on_this == self.text_controls_next:
             self.action_on_next()
+
         elif act_on_this == self.text_controls_exit:
             self.action_on_exit()
 
     def update_controls(self, controls):
+
         self.value = None
+
         if core.is_session_finished and controls == self.controls_on_done:
             self.values = self.controls_on_session_finished
         else:
             self.values = controls
+
         self.display()
 
     def action_on_begin_session(self):
+
         # update controls
         self.update_controls(self.controls_on_begin_session)
 
@@ -99,6 +108,7 @@ class CustomWidget(npyscreen.MultiLineAction):
         self.cur_rel_x += self.get_text_box_len(title)
 
     def action_on_start_problem(self):
+
         # start timer for problem
         self.timer_start = time.perf_counter()
         self.current_problem_start_time = str(datetime.utcnow())
@@ -111,6 +121,7 @@ class CustomWidget(npyscreen.MultiLineAction):
         self.current_text_box = self.add_text(title)
 
     def action_on_done(self):
+
         # record end time
         self.timer_end = time.perf_counter()
         time_spent_val = self.timer_end - self.timer_start
@@ -138,6 +149,7 @@ class CustomWidget(npyscreen.MultiLineAction):
             self.add_text(self.text_session_finished, self.color_y)
 
     def action_on_next(self):
+
         # update controls
         self.update_controls(self.controls_on_begin_session)
 

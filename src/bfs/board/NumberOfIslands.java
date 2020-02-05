@@ -1,5 +1,11 @@
-package medium.bfs;
+package bfs.board;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
+/**
+ * 200
+ */
 public class NumberOfIslands
 {
 	/*

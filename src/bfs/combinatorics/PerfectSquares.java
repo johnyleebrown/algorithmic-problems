@@ -1,3 +1,10 @@
+package bfs.combinatorics;
+
+import java.util.*;
+
+/**
+ * 279
+ */
 public class PerfectSquares
 {
     /**

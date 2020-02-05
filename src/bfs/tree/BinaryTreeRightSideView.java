@@ -1,6 +1,14 @@
-package medium.bfs;
+package bfs.tree;
 
-// 199
+import util.ds.TreeNode;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+/**
+ * 199
+ */
 public class BinaryTreeRightSideView
 {
 	/* 
@@ -9,22 +17,22 @@ public class BinaryTreeRightSideView
 	 */
 	class Solution 
 	{
-		public List<Integer> rightSideView(TreeNode root) 
+		public List<Integer> rightSideView(TreeNode root)
 		{
 			List<Integer> resultList = new LinkedList<>();
 			if (root == null) return resultList;
 
-			Queue<TreeNode> queue = new LinkedList<>();
-			queue.add(root);
+			Queue<TreeNode> q = new LinkedList<>();
+			q.add(root);
 
-			while (!queue.isEmpty())
+			while (!q.isEmpty())
 			{
 				resultList.add(q.peek().val);
 
-				int size = queue.size();
+				int size = q.size();
 				while (--size >= 0)
 				{
-					TreeNode node = queue.poll();
+					TreeNode node = q.poll();
 					if (node == null) continue;
 
 					if (node.right != null) q.add(node.right);

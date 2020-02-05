@@ -18,16 +18,19 @@ class CustomWidget(npyscreen.MultiLineAction):
     text_controls_done = 'done'
     text_controls_next = 'next'
     text_controls_exit = 'exit'
+    text_controls_weekly_stats = 'weekly stats'
+    text_controls_overall_stats = 'overall stats'
     text_session_finished = '==== session is finished ===='
     text_problems_in_progress = '[In Progress]'
     text_problems_done = '[Done]'
 
     color_y = 'WARNING'
 
-    controls_on_begin_session = [text_controls_start_problem, text_controls_exit]
-    controls_on_start_problem = [text_controls_done, text_controls_exit]
-    controls_on_done = [text_controls_next, text_controls_exit]
-    controls_on_session_finished = [text_controls_exit]
+    controls_on_begin_session = [text_controls_start_problem, text_controls_exit, text_controls_weekly_stats]
+    controls_on_start_problem = [text_controls_done, text_controls_exit, text_controls_weekly_stats]
+    controls_on_done = [text_controls_next, text_controls_exit, text_controls_weekly_stats]
+    controls_on_session_finished = [text_controls_exit, text_controls_weekly_stats]
+    controls_on_stats = [text_controls_exit]
 
     current_problem_title = ''
 
@@ -44,7 +47,17 @@ class CustomWidget(npyscreen.MultiLineAction):
     current_problem_number = ''
 
     def __init__(self, *args, **keywords):
+
         super().__init__(*args, **keywords)
+
+        self.action_switcher = {
+            self.text_controls_begin_session: self.action_on_begin_session,
+            self.text_controls_start_problem: self.action_on_start_problem,
+            self.text_controls_done: self.action_on_done,
+            self.text_controls_next: self.action_on_next,
+            self.text_controls_exit: self.action_on_exit,
+            self.text_controls_weekly_stats: self.action_on_weekly_stats
+        }
 
     def get_current_problem_title(self):
         return self.current_problem_topic + ',' + self.current_problem_number
@@ -58,31 +71,18 @@ class CustomWidget(npyscreen.MultiLineAction):
         new_line_words = [self.get_current_problem_title(), time_spent_val, self.current_problem_start_time]
         u.add_line_to_file('results.txt', ','.join(new_line_words))
 
-    def add_text(self, title, color='DEFAULT'):
+    def create_text_box_new_line(self, title, color='DEFAULT'):
         text_box = self.parent.add(npyscreen.FixedText,
                                    color=color, relx=self.cur_rel_x, rely=self.cur_rel_y,
                                    max_height=5, max_width=self.get_text_box_len(title), value=title)
         return text_box
 
-    def get_text_box_len(self, text):
+    @staticmethod
+    def get_text_box_len(text):
         return len(text) + 1
 
     def actionHighlighted(self, act_on_this, key_press):
-
-        if act_on_this == self.text_controls_begin_session:
-            self.action_on_begin_session()
-
-        elif act_on_this == self.text_controls_start_problem:
-            self.action_on_start_problem()
-
-        elif act_on_this == self.text_controls_done:
-            self.action_on_done()
-
-        elif act_on_this == self.text_controls_next:
-            self.action_on_next()
-
-        elif act_on_this == self.text_controls_exit:
-            self.action_on_exit()
+        return self.action_switcher.get(act_on_this, "nothing")()
 
     def update_controls(self, controls):
 
@@ -102,7 +102,7 @@ class CustomWidget(npyscreen.MultiLineAction):
 
         # add new problem title
         title = self.get_next_problem_title()
-        self.current_text_box = self.add_text(title)
+        self.current_text_box = self.create_text_box_new_line(title)
 
         # update x margin
         self.cur_rel_x += self.get_text_box_len(title)
@@ -118,7 +118,7 @@ class CustomWidget(npyscreen.MultiLineAction):
 
         # add problem title in white color
         title = self.text_problems_in_progress
-        self.current_text_box = self.add_text(title)
+        self.current_text_box = self.create_text_box_new_line(title)
 
     def action_on_done(self):
 
@@ -135,7 +135,7 @@ class CustomWidget(npyscreen.MultiLineAction):
 
         # add result box next to problem title
         title, color = stats.get_comparison_to_best_result(self.current_problem_number, time_spent_val, core.results)
-        self.current_text_box = self.add_text(title, color)
+        self.current_text_box = self.create_text_box_new_line(title, color)
 
         # update x,y margin
         self.cur_rel_x = self.base_rel_x
@@ -146,7 +146,7 @@ class CustomWidget(npyscreen.MultiLineAction):
 
         # action if session finished
         if core.is_session_finished:
-            self.add_text(self.text_session_finished, self.color_y)
+            self.create_text_box_new_line(self.text_session_finished, self.color_y)
 
     def action_on_next(self):
 
@@ -155,10 +155,25 @@ class CustomWidget(npyscreen.MultiLineAction):
 
         # add next problem title
         title = self.get_next_problem_title()
-        self.current_text_box = self.add_text(title)
+        self.current_text_box = self.create_text_box_new_line(title)
 
         # update x margin
         self.cur_rel_x += self.get_text_box_len(title)
+
+    def action_on_weekly_stats(self):
+
+        # update controls
+        self.update_controls(self.controls_on_stats)
+
+        # clear
+        for x in self.parent._widgets__[1:]:
+            x.value = None
+            x.display()
+
+        self.cur_rel_x = self.base_rel_x
+        self.cur_rel_y = self.base_rel_y
+        self.current_text_box = self.create_text_box_new_line("Stats")
+
 
     def action_on_exit(self):
         exit(0)

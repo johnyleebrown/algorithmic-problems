@@ -1,16 +1,10 @@
-package medium.bfs;
+package bfs.board;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-/*
- * 542. 01 Matrix
- *
- * the goal is to find the shortest dist from every 1 to a 0
- * since we don't know the target cell in the beginning we can use a regular bfs
- *
- * optimization: idea similar to dijkstra, check if there is already counted a length for cells that are on the way
- * if the length counted on the other cells is becoming bigger then drop them
+/**
+ * 542
  */
 public class O1Matrix
 {

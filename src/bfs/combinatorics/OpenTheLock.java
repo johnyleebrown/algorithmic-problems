@@ -1,4 +1,4 @@
-package medium.bfs;
+package bfs.combinatorics;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
+/**
+ * 752
+ */
 public class OpenTheLock
 {
     /**

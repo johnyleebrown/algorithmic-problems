@@ -1,17 +1,10 @@
-package medium.bfs;
+package bfs.board;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-/*
- * 934. Shortest Bridge
- *
- * we have an array with 1s and 0s
- * we want to find a shortest path between two islands
- * to do that i will use dfs to find a perimeter of the 1st
- * island and with bfs to find a pth
- *
- * the other way around is to find a path between any 2 cells from both islands
+/**
+ * 934
  */
 public class ShortestBridge
 {

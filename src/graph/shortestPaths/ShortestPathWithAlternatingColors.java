@@ -1,3 +1,5 @@
+package graph.shortestPaths;
+
 // 1129
 public class ShortestPathWithAlternatingColors
 {

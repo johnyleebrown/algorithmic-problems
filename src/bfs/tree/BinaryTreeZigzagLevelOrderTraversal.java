@@ -1,18 +1,11 @@
-package medium.bfs;
+package bfs.tree;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import util.ds.TreeNode;
 
-import util.TreeNode;
+import java.util.*;
 
-/*
+/**
  * 103
- *
- * traverse the tree by levels
- * traverse regularly but add depending on the level
  */
 public class BinaryTreeZigzagLevelOrderTraversal
 {

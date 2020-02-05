@@ -1,4 +1,4 @@
-package bfs.dijkstra;
+package graph.shortestPaths.dijkstra;
 
 import java.util.*;
 

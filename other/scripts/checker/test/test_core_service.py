@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 # pp -m unittest test_core_service -v
 
 from unittest import TestCase

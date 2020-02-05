@@ -1,4 +1,4 @@
-package medium.bfs;
+package bfs.board;
 
 import java.util.LinkedList;
 import java.util.ArrayList;
@@ -6,14 +6,15 @@ import java.util.Queue;
 import java.util.List;
 import java.util.Arrays;
 
-// we add all the perimeter cells into 2 queues
-// one queue for pacific and the other for atlantic
-// we will do a bfs for each of those queues
-// in the result we will check if each cell is in both of those queues
+/**
+ * 417
+ */
 public class PacificAtlanticWaterFlow
 {
-	public static void main(String[] args) {}
-
+	// we add all the perimeter cells into 2 queues
+	// one queue for pacific and the other for atlantic
+	// we will do a bfs for each of those queues
+	// in the result we will check if each cell is in both of those queues
 	public static List<List<Integer>> solution(int[][] matrix)
 	{
 		final List<List<Integer>> resultList = new ArrayList<>();

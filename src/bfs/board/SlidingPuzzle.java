@@ -1,25 +1,29 @@
-/* 
+package bfs.board;
+
+import java.util.*;
+
+/**
  * 773
  */
 public class SlidingPuzzle
 {
-	class Solution 
+	class Solution
 	{
 		private String toStr(int[][] arr)
 		{
 			return Arrays.deepToString(arr);
 		}
 
-		public int slidingPuzzle(int[][] board) 
+		public int slidingPuzzle(int[][] board)
 		{
 			// edge cases
 			if (board == null || board.length == 0 || board[0].length == 0) return -1;
-			int[][] targetBoard = new int[][]{{1,2,3},{4,5,0}};
+			int[][] targetBoard = new int[][]{{1, 2, 3}, {4, 5, 0}};
 			if (Arrays.deepEquals(board, targetBoard)) return 0;
 
 			// essentials
 			int n = board.length, m = board[0].length;
-			int[][] dirs = new int[][]{{-1,0},{0,-1},{1,0},{0,1}};
+			int[][] dirs = new int[][]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 			Set<String> seen = new HashSet<>();
 			seen.add(toStr(board));
 
@@ -27,9 +31,11 @@ public class SlidingPuzzle
 			Queue<int[][]> q = new LinkedList<>();
 			q.add(board);
 			Queue<int[]> cellsWithZero = new LinkedList<>();
-			for (int i = 0; i < n; i++) for (int j = 0; j < m; j++) {
-				if (board[i][j] == 0) cellsWithZero.add(new int[]{i, j});
-			}
+			for (int i = 0; i < n; i++)
+				for (int j = 0; j < m; j++)
+				{
+					if (board[i][j] == 0) cellsWithZero.add(new int[]{i, j});
+				}
 
 			int moves = 0;
 			while (!q.isEmpty())
@@ -41,7 +47,7 @@ public class SlidingPuzzle
 					int[] baseCell = cellsWithZero.poll();
 					int i = baseCell[0], j = baseCell[1];
 					int[][] newBoard = q.poll();
-					for (int[] dir: dirs)
+					for (int[] dir : dirs)
 					{
 						// coordinates of possible move
 						int newI = i + dir[0], newJ = j + dir[1];
@@ -56,7 +62,7 @@ public class SlidingPuzzle
 
 						q.add(possibleMatch);
 						cellsWithZero.add(new int[]{newI, newJ});
-					}		
+					}
 				}
 			}
 
@@ -71,14 +77,14 @@ public class SlidingPuzzle
 		private int[][] copyArr(int[][] board, int n, int m, int oldI, int oldJ, int newI, int newJ)
 		{
 			int[][] newArray = new int[n][m];
-			for (int i = 0; i < n; i++) for (int j = 0; j < m; j++) {
-				newArray[i][j] = board[i][j];
-			}
+			for (int i = 0; i < n; i++)
+				for (int j = 0; j < m; j++)
+				{
+					newArray[i][j] = board[i][j];
+				}
 			newArray[newI][newJ] = board[oldI][oldJ];
 			newArray[oldI][oldJ] = board[newI][newJ];
 			return newArray;
 		}
 	}
-
 }
-

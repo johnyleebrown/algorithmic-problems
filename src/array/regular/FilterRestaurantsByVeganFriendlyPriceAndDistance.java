@@ -1,4 +1,4 @@
-package array.other;
+package array.regular;
 
 import java.util.Arrays;
 import java.util.List;

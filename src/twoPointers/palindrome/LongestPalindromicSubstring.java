@@ -9,7 +9,7 @@ package twoPointers.palindrome;
  *
  * Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
  */
-class LongestPalindromicSubstring
+public class LongestPalindromicSubstring
 {
 	/**
 	 * The idea is to explore each character in both directions, we could have 2 cases, if the palindrome length is odd

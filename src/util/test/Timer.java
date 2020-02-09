@@ -2,15 +2,22 @@ package util.test;
 
 public class Timer
 {
-	final long startTime;
+	private long startTime, endTime;
 
-	public Timer()
+	public Timer start()
 	{
-		startTime = System.currentTimeMillis();
+		startTime = System.nanoTime();
+		return this;
 	}
 
-	public long getTotalTime()
+	public Timer end()
 	{
-		return System.currentTimeMillis() - startTime;
+		endTime = System.nanoTime();
+		return this;
+	}
+
+	public double getTotal()
+	{
+		return (endTime - startTime)/1e6;
 	}
 }

@@ -44,4 +44,27 @@ public class MaxChunksToMakeSorted
 			return count;
 		}
 	}
+
+	class Solution2
+	{
+		public int maxChunksToSorted(int[] a)
+		{
+			int res = 0;
+			int currentSum = 0;
+			int expectedSum = 0;
+
+			for (int i = 0; i < a.length; i++)
+			{
+				currentSum += a[i];
+				expectedSum += i;
+
+				if (currentSum == expectedSum)
+				{
+					res++;
+				}
+			}
+
+			return res;
+		}
+	}
 }

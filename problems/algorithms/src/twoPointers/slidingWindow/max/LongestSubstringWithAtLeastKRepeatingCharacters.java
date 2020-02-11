@@ -73,9 +73,7 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 			for (int r = 0; r < s.length(); r++)
 			{
 				int charIndex = s.charAt(r) - 'a';
-
 				map[s.charAt(r) - 'a']++;
-
 				// became 1 and was 0 => counts as unique
 				if (map[charIndex] == 1)
 				{
@@ -90,9 +88,7 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 				while (uniqueCharsCount > uniqueCharsCountTarget)
 				{
 					charIndex = s.charAt(l) - 'a';
-
 					map[charIndex]--;
-
 					// was 1 and became 0
 					if (map[charIndex] == 0)
 					{

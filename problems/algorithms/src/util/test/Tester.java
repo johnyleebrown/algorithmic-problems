@@ -100,22 +100,28 @@ public class Tester
 	public void run(Object... expectations)
 	{
 		sout(TESTER_S);
+		boolean nok = false;
 		for (int i = 0; i < expectations.length; i++)
 		{
 			boolean x = results.get(i).equals(expectations[i]);
 			String ind = String.valueOf(i + 1) + ". ";
 			if (x)
 			{
-				sout(ind + "OK");
+//				sout(ind + "OK");
 			}
 			else
 			{
+				nok = true;
 				sou(ind + "NOK");
 			}
 		}
+		if (!nok)
+		{
+			sout("Verdict: " + "Accepted");
+		}
 		sout(TESTER_SEP);
 		sout("Execution: " + getAvgExecTimes());
-		sout(TESTER_SEP);
+		sout(TESTER_S);
 	}
 
 	private Double getAvgExecTimes()

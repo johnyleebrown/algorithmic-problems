@@ -12,10 +12,12 @@ import java.util.Map;
  *
  * Task.
  *
- * Suppose you have a string, haystack, and a set of characters which may or may not appear in that string, alphabet.
- * (No characters appear in alphabet more than once, because it's a set.) How many non-empty sub-strings of haystack do
- * not contain every character in alphabet? Write a function that accepts haystack and alphabet as input and returns an
- * answer to this question as an integer.
+ * Suppose you have a string, haystack, and a set of characters which may or may
+ * not appear in that string, alphabet. (No characters appear in alphabet more
+ * than once, because it's a set.) How many non-empty sub-strings of haystack do
+ * not contain every character in alphabet? Write a function that accepts
+ * haystack and alphabet as input and returns an answer to this question as an
+ * integer.
  *
  * ======
  *
@@ -81,10 +83,10 @@ public class SubarraysWithoutLettersFromAlphabet
 	public static void main(String[] args)
 	{
 		new Tester(new Solution())
-				.add("cab", new char[]{'a', 'c'})
-				.add("albuquerque", new char[]{'a', 'b', 'q'})
-				.add("baculum", new char[]{'a', 'b', 'c'})
-				.add("abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc", new char[]{'a', 'b', 'c'})
-				.run(4, 59, 23, 107);
+				.add("cab", new char[]{'a', 'c'}).expect(4)
+				.add("albuquerque", new char[]{'a', 'b', 'q'}).expect(59)
+				.add("baculum", new char[]{'a', 'b', 'c'}).expect(23)
+				.add("abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc", new char[]{'a', 'b', 'c'}).expect(107)
+				.run();
 	}
 }

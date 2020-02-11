@@ -1,4 +1,4 @@
-package bfs.string;
+package graph.shortestPaths.bfs.string;
 
 import java.util.*;
 

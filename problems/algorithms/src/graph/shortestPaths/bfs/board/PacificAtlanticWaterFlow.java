@@ -1,4 +1,4 @@
-package bfs.board;
+package graph.shortestPaths.bfs.board;
 
 import java.util.LinkedList;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class PacificAtlanticWaterFlow
 {
 	// we add all the perimeter cells into 2 queues
 	// one queue for pacific and the other for atlantic
-	// we will do a bfs for each of those queues
+	// we will do a graph.shortestPaths.bfs for each of those queues
 	// in the result we will check if each cell is in both of those queues
 	public static List<List<Integer>> solution(int[][] matrix)
 	{

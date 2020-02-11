@@ -1,4 +1,4 @@
-package bfs.board;
+package graph.shortestPaths.bfs.board;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -22,7 +22,7 @@ public class ShortestBridge
         // directions for the navigation
         int[][] dirs = new int[][]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 
-        // put the perimeter of the first island to the queue for bfs
+        // put the perimeter of the first island to the queue for graph.shortestPaths.bfs
         boolean foundIsland = false;
         for (int i = 0; i < n; i++)
         {
@@ -44,7 +44,7 @@ public class ShortestBridge
 
         int path = 0;
 
-        // bfs
+        // graph.shortestPaths.bfs
         while (!q.isEmpty())
         {
             path++;
@@ -77,7 +77,7 @@ public class ShortestBridge
     private void dfs(int i, int j, int[][] A, Queue<int[]> q, int[][] dirs, boolean[][] seen, int n, int m)
     {
         // if we have reached the water cells, we will add them to the perimeter queue
-        // thus decreasing the rounds of bfs by 1
+        // thus decreasing the rounds of graph.shortestPaths.bfs by 1
         if (A[i][j] == 0)
         {
             q.add(new int[]{i, j});

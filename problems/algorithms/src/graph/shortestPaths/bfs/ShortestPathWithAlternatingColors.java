@@ -1,27 +1,31 @@
-package graph.shortestPaths;
+package graph.shortestPaths.bfs;
 
-// 1129
+import java.util.*;
+
+/**
+ * 1129
+ */
 public class ShortestPathWithAlternatingColors
 {
-
-	class Solution 
+	class Solution
 	{
-		public int[] shortestAlternatingPaths(int n, 
-				int[][] red_edges, int[][] blue_edges) 
+		public int[] shortestAlternatingPaths(int n, int[][] red_edges, int[][] blue_edges)
 		{
 			// 2 maps for diff colors
-			Map<Integer, List<Integer>> rm = new HashMap<>(); 
+			Map<Integer, List<Integer>> rm = new HashMap<>();
 			fillMap(rm, red_edges);
-			Map<Integer, List<Integer>> bm = new HashMap<>(); 
+			Map<Integer, List<Integer>> bm = new HashMap<>();
 			fillMap(bm, blue_edges);
 
 			// fill answer with -1 because we might not get to those nodes
-			int[] ans = new int[n]; Arrays.fill(ans, Integer.MAX_VALUE);
+			int[] ans = new int[n];
+			Arrays.fill(ans, Integer.MAX_VALUE);
 
 			// classique
-			List<int[]> q = new ArrayList<>(); 
+			List<int[]> q = new ArrayList<>();
 			// we add two variants of 0, for red and for blue
-			q.add(new int[]{0, 0}); q.add(new int[]{0, 1});
+			q.add(new int[]{0, 0});
+			q.add(new int[]{0, 1});
 
 			// temp map with base value
 			Map<Integer, List<Integer>> m = rm;
@@ -49,7 +53,7 @@ public class ShortestPathWithAlternatingColors
 					// if its blue take red map, if red - take blue
 					m = b == 1 ? rm : bm;
 
-					for (int w: m.getOrDefault(a, new ArrayList<>()))
+					for (int w : m.getOrDefault(a, new ArrayList<>()))
 					{
 						q.add(new int[]{w, 1 - b});
 					}
@@ -58,24 +62,20 @@ public class ShortestPathWithAlternatingColors
 				c++;
 			}
 
-			for (int i = 0; i < n; i++) if (ans[i] == Integer.MAX_VALUE) 
-				ans[i] = -1;
+			for (int i = 0; i < n; i++)
+				if (ans[i] == Integer.MAX_VALUE)
+					ans[i] = -1;
 
 			return ans;
 		}
 
 		private void fillMap(Map<Integer, List<Integer>> g, int[][] ars)
 		{
-			for (int[] ar: ars) 
+			for (int[] ar : ars)
 			{
 				g.putIfAbsent(ar[0], new ArrayList<>());
 				g.get(ar[0]).add(ar[1]);
 			}
 		}
 	}
-
-
-
-
 }
-

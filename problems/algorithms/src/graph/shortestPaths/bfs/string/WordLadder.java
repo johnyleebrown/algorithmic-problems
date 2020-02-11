@@ -1,4 +1,4 @@
-package bfs.string;
+package graph.shortestPaths.bfs.string;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -20,7 +20,7 @@ public class WordLadder
 	 *
 	 * 2 gen a letter we will use charAt -> letter + 1
 	 *
-	 * HINT : if there is an end condition we can try to use two-end bfs
+	 * HINT : if there is an end condition we can try to use two-end graph.shortestPaths.bfs
 	 */
 	class Solution
 	{

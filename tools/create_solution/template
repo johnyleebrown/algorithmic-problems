@@ -9,6 +9,12 @@
  *
  * ======
  *
+ * Tests.
+ *
+ * $INSERT_TEST_CASES
+ *
+ * ======
+ *
  * Source: Leetcode
  */
 public class $INSERT_CLASS_NAME

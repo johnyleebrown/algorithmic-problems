@@ -1,4 +1,4 @@
-package bfs.combinatorics;
+package graph.shortestPaths.bfs.combinatorics;
 
 import java.util.LinkedList;
 import java.util.Queue;

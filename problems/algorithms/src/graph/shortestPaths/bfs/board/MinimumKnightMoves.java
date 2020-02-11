@@ -1,4 +1,4 @@
-package bfs.board;
+package graph.shortestPaths.bfs.board;
 
 import java.util.ArrayList;
 import java.util.List;

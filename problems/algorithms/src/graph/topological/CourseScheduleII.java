@@ -1,8 +1,19 @@
-// 210
+package graph.topological;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 210
+ */
 public class CourseScheduleII
 {
-	// Regular Topological Order
-	class Solution 
+	/**
+	 * Regular Topological Order.
+	 */
+	class Solution
 	{
 		private Map<Integer, List<Integer>> g;
 		private boolean[] seen;
@@ -11,7 +22,7 @@ public class CourseScheduleII
 		private int c;
 		private boolean[] postOrderSeen;
 
-		public int[] findOrder(int numCourses, int[][] prerequisites) 
+		public int[] findOrder(int numCourses, int[][] prerequisites)
 		{
 			if (numCourses == 0) return new int[]{};
 
@@ -25,29 +36,29 @@ public class CourseScheduleII
 
 		private int[] getTopologicalOrder()
 		{
-			for (int v: g.keySet()) 
+			for (int v : g.keySet())
 				dfs2(v);
-			
+
 			return postOrder;
 		}
 
 		private void dfs2(int v)
 		{
 			if (postOrderSeen[v]) return;
-			
+
 			postOrderSeen[v] = true;
-			
-			for (int w: g.getOrDefault(v, new ArrayList<>())) 
+
+			for (int w : g.getOrDefault(v, new ArrayList<>()))
 				dfs2(w);
-			
+
 			postOrder[c--] = v;
 		}
 
 		private boolean graphHasCycle()
 		{
-			for (int v: g.keySet()) 
+			for (int v : g.keySet())
 				if (dfs(v)) return true;
-			
+
 			return false;
 		}
 
@@ -55,20 +66,20 @@ public class CourseScheduleII
 		{
 			if (isInRecursion[v]) return true;
 			if (seen[v]) return false;
-			
+
 			isInRecursion[v] = seen[v] = true;
-			
-			for (int w: g.getOrDefault(v, new ArrayList<>())) 
+
+			for (int w : g.getOrDefault(v, new ArrayList<>()))
 				if (dfs(w)) return true;
-			
+
 			isInRecursion[v] = false;
-			return false;    
+			return false;
 		}
 
 		private void fillTheGraph(int[][] prerequisites, int n)
 		{
 			for (int i = 0; i < n; i++) g.put(i, new ArrayList<>());
-			for (int[] p: prerequisites) g.get(p[1]).add(p[0]);
+			for (int[] p : prerequisites) g.get(p[1]).add(p[0]);
 		}
 
 		private void init(int n)

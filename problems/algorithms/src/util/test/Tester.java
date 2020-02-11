@@ -12,13 +12,14 @@ import static util.test.Out.sout;
 
 public class Tester
 {
-//	private static final String NEW_LINE = "\n";
+	private static final String NEW_LINE = "\n";
 //	private static final String TESTER_START = "[============== Tester ==============]";
 	private static final String TESTER_S   = "======================================";
 	private static final String TESTER_SEP = "--------------------------------------";
 
 	private final Method method;
 	private final List<Object> results;
+	private final List<Object> expectations;
 	private final Object classObject;
 //	private final Class<?> methodReturnType;
 	private final List<Double> execTimes;
@@ -54,15 +55,22 @@ public class Tester
 	public Tester(Object obj)
 	{
 		classObject = obj;
-		method = obj.getClass().getDeclaredMethods()[0];
+//		for (Method m : obj.getClass().getMethods())
+//		{
+//			System.out.println(m.getName());
+//		}
+		method = obj.getClass().getMethods()[0];
 		AccessController.doPrivileged((PrivilegedAction) () ->
 		{
 			method.setAccessible(true);
 			return null;
 		});
+
 //		methodParamsLength = method.getParameterTypes().length;
 //		methodReturnType = method.getReturnType();
+
 		results = new ArrayList<>();
+		expectations = new ArrayList<>();
 		execTimes = new ArrayList<>();
 	}
 
@@ -82,6 +90,18 @@ public class Tester
 		return this;
 	}
 
+	public Tester add(String[] param)
+	{
+		results.add(exec((Object) param));
+		return this;
+	}
+
+	public Tester expect(Object param)
+	{
+		expectations.add(param);
+		return this;
+	}
+
 	private Object exec(Object... o)
 	{
 		try
@@ -97,13 +117,13 @@ public class Tester
 		}
 	}
 
-	public void run(Object... expectations)
+	public void run()
 	{
 		sout(TESTER_S);
 		boolean nok = false;
-		for (int i = 0; i < expectations.length; i++)
+		for (int i = 0; i < expectations.size(); i++)
 		{
-			boolean x = results.get(i).equals(expectations[i]);
+			boolean x = results.get(i).equals(expectations.get(i));
 			String ind = String.valueOf(i + 1) + ". ";
 			if (x)
 			{
@@ -113,13 +133,14 @@ public class Tester
 			{
 				nok = true;
 				sou(ind + "NOK");
+				sout(NEW_LINE + TESTER_SEP);
 			}
 		}
 		if (!nok)
 		{
-			sout("Verdict: " + "Accepted");
+			sout("Verdict:   " + "Accepted");
+			sout(TESTER_SEP);
 		}
-		sout(TESTER_SEP);
 		sout("Execution: " + getAvgExecTimes());
 		sout(TESTER_S);
 	}
@@ -129,4 +150,3 @@ public class Tester
 		return execTimes.stream().mapToDouble(Double::valueOf).average().orElse(Double.NaN);
 	}
 }
-

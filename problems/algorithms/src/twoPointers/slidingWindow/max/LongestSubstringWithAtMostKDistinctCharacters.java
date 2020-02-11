@@ -82,12 +82,12 @@ public class LongestSubstringWithAtMostKDistinctCharacters
 	public static void main(String[] args)
 	{
 		new Tester(new SolutionTest())
-				.add("eceba", 2)
-				.add("", 0)
-				.add("bacc", 2)
-				.add("aa", 1)
-				.add("a", 2)
-				.add("aakaaaaaa", 2)
-				.run(3,0,3,2,1,9);
+				.add("eceba", 2).expect(3)
+				.add("", 0).expect(0)
+				.add("bacc", 2).expect(3)
+				.add("aa", 1).expect(2)
+				.add("a", 2).expect(1)
+				.add("aakaaaaaa", 2).expect(9)
+				.run();
 	}
 }

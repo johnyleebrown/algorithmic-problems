@@ -1,4 +1,4 @@
-package bfs.board;
+package graph.shortestPaths.bfs.board;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -35,7 +35,7 @@ public class ShortestPathInBinaryMatrix
 
 			while (!q1.isEmpty() && !q2.isEmpty())
 			{
-				// we want to do a two end bfs and we want to return a sum of lengths when two bfs's meet
+				// we want to do a two end graph.shortestPaths.bfs and we want to return a sum of lengths when two graph.shortestPaths.bfs's meet
 				path1Length++;
 				int size1 = q1.size();
 				while (--size1 >= 0)

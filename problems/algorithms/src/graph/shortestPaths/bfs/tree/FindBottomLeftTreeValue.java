@@ -1,4 +1,4 @@
-package bfs.tree;
+package graph.shortestPaths.bfs.tree;
 
 import util.ds.TreeNode;
 

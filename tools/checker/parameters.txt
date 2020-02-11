@@ -1,0 +1,1 @@
+main_dir,/Volumes/Greg/projects/algorithmic-problems/problems/algorithms/src

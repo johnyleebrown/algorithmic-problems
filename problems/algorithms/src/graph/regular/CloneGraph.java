@@ -1,26 +1,31 @@
-package Medium.Graph;
+package graph.regular;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-// 133
-public class CloneGraph 
+/**
+ * 133
+ */
+public class CloneGraph
 {
-	public UndirectedGraphNode solution(UndirectedGraphNode node) 
+	public UndirectedGraphNode solution(UndirectedGraphNode node)
 	{
 		if (node == null) return null;
 		return dfs(node, new HashMap<>());
 	}
 
-	private UndirectedGraphNode dfs(UndirectedGraphNode node, HashMap<Integer, 
-			UndirectedGraphNode> map) 
+	private UndirectedGraphNode dfs(UndirectedGraphNode node, HashMap<Integer,
+			UndirectedGraphNode> map)
 	{
 		if (node == null) return null;
-		if (map.containsKey(node.label)) {
+		if (map.containsKey(node.label))
+		{
 			// wont go where already been, marked analogy
 			return map.get(node.label);
-		} else {
+		}
+		else
+		{
 			UndirectedGraphNode clone = new UndirectedGraphNode(node.label);
 			map.put(node.label, clone);
 			for (UndirectedGraphNode n : node.neighbors)
@@ -29,11 +34,13 @@ public class CloneGraph
 		}
 	}
 
-	static class UndirectedGraphNode {
+	static class UndirectedGraphNode
+	{
 		int label;
 		List<UndirectedGraphNode> neighbors;
 
-		UndirectedGraphNode(int x) {
+		UndirectedGraphNode(int x)
+		{
 			label = x;
 			neighbors = new ArrayList<>();
 		}

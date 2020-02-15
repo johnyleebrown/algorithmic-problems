@@ -1,4 +1,4 @@
-package graph.shortestPaths.bfs;
+package graph.shortestPaths.bfs.board;
 
 import java.util.*;
 

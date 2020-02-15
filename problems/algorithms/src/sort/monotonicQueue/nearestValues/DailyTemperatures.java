@@ -10,11 +10,13 @@ import java.util.Deque;
  *
  * Task.
  *
- * Given a list of daily temperatures T, return a list such that, for each day in the input, tells you how many days you
- * would have to wait until a warmer temperature. If there is no future day for which this is possible, put 0 instead.
+ * Given a list of daily temperatures T, return a list such that, for each day
+ * in the input, tells you how many days you would have to wait until a warmer
+ * temperature. If there is no future day for which this is possible, put 0
+ * instead.
  *
- * For example, given the list of temperatures T = [73, 74, 75, 71, 69, 72, 76, 73], your output should be [1, 1, 4, 2,
- * 1, 1, 0, 0].
+ * For example, given the list of temperatures T = [73, 74, 75, 71, 69, 72, 76,
+ * 73], your output should be [1, 1, 4, 2, 1, 1, 0, 0].
  *
  * ======
  *
@@ -22,55 +24,67 @@ import java.util.Deque;
  */
 public class DailyTemperatures
 {
-	/**
-	 * Same as 496.
-	 */
 	class Solution
 	{
 		public int[] dailyTemperatures(int[] T)
 		{
-			DMQ q = new DMQ();
-			int n = T.length;
-			int[] result = new int[n];
+			DMQ q = new DMQ(T.length, 0);
 
-			for (int i = n - 1; i >= 0; i--)
+			for (int i = T.length - 1; i >= 0; i--)
 			{
-				result[i] = q.push(new Item(T[i], i));
+				q.push(new Item(T[i], i));
 			}
 
-			return result;
+			return q.getNearestValues();
 		}
 
 		public class DMQ
 		{
 			private Deque<Item> q = new ArrayDeque<>();
+			private int[] nearestValues;
+			private int defaultValue;
 
-			public int push(Item newItem)
+			public DMQ(int size, int defaultValue)
 			{
-				while (!q.isEmpty() && newItem.val >= q.peekLast().val)
+				this.nearestValues = new int[size];
+				this.defaultValue = defaultValue;
+			}
+
+			public void push(Item currentItem)
+			{
+				while (!q.isEmpty() && currentItem.value >= q.peekLast().value)
 				{
 					q.removeLast();
 				}
 
-				int diff = 0;
+				setNearestValue(currentItem.index);
+
+				q.addLast(currentItem);
+			}
+
+			private void setNearestValue(int currentItemIndex)
+			{
+				nearestValues[currentItemIndex] = defaultValue;
 				if (!q.isEmpty())
 				{
-					diff = q.peekLast().ind - newItem.ind;
+					nearestValues[currentItemIndex] = q.peekLast().index - currentItemIndex;
 				}
+			}
 
-				q.addLast(newItem);
-				return diff;
+			public int[] getNearestValues()
+			{
+				return nearestValues;
 			}
 		}
 
 		private class Item
 		{
-			int val, ind;
+			int value, index;
 
 			Item(int val, int ind)
 			{
-				this.val = val;
-				this.ind = ind;
+				this.value = val;
+				this.index = ind;
 			}
 		}
 	}

@@ -1,14 +1,16 @@
-package graph;
+package graph.regular;
 
-// 997
+/**
+ * 997
+ */
 public class FindTheTownJudge
 {
-	class Solution 
+	class Solution
 	{
-		public int findJudge(int N, int[][] trust) 
+		public int findJudge(int N, int[][] trust)
 		{
 			int[] degree = new int[N + 1];
-			for (int[] t: trust)
+			for (int[] t : trust)
 			{
 				degree[t[0]]--;
 				degree[t[1]]++;

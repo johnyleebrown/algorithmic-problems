@@ -69,7 +69,7 @@ class CustomWidget(npyscreen.MultiLineAction):
 
     def record_result(self, time_spent_val):
         new_line_words = [self.get_current_problem_title(), time_spent_val, self.current_problem_start_time]
-        u.add_line_to_file('results.txt', ','.join(new_line_words))
+        u.add_line_to_file(core.root_path+'results.txt', ','.join(new_line_words))
 
     def create_text_box_new_line(self, title, color='DEFAULT'):
         text_box = self.parent.add(npyscreen.FixedText,

@@ -1,23 +1,21 @@
-package Medium.Graph;
+package graph.coloring;
 
-import static Helpers.Helper.replaceBracets;
-
-import java.util.Arrays;
-import java.util.Stack;
-
-// 785
-public class IsGraphBipartite 
+/**
+ * 785
+ */
+public class IsGraphBipartite
 {
-	class Solution 
+	class Solution
 	{
 		private boolean[] seen;
 		private boolean[] colors;
 
-		public boolean isBipartite(int[][] graph) 
+		public boolean isBipartite(int[][] graph)
 		{
 			seen = new boolean[graph.length];
 			colors = new boolean[graph.length];
-			for (int i = 0; i < graph.length; i++) if (!dfs(i, graph)) return false;
+			for (int i = 0; i < graph.length; i++)
+				if (!dfs(i, graph)) return false;
 			return true;
 		}
 
@@ -25,7 +23,7 @@ public class IsGraphBipartite
 		{
 			if (seen[v]) return true;
 			seen[v] = true;
-			for (int w: graph[v]) 
+			for (int w : graph[v])
 			{
 				if (seen[w] && colors[w] == colors[v]) return false;
 				colors[w] = !colors[v];
@@ -35,4 +33,3 @@ public class IsGraphBipartite
 		}
 	}
 }
-

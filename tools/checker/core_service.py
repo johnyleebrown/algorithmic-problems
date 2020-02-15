@@ -3,13 +3,13 @@
 
 import os
 import random
+from pathlib import Path
 
 import util as u
 
 
 class CoreService:
-    main_dir = ''
-
+    root_path=str(Path(__file__).parent.absolute())+'/'
     is_session_finished = False
 
     topics_name_list = []
@@ -92,11 +92,11 @@ class CoreService:
         return rand_problem.strip()
 
     def process_results(self):
-        self.results = u.read_from_file('results.txt')
+        self.results = u.read_from_file(self.root_path + 'results.txt')
 
     def process_topics(self):
 
-        topics = u.read_from_file('input.txt')
+        topics = u.read_from_file(self.root_path + 'input.txt')
 
         for x in [topic.split(",") for topic in topics]:
             topic_name = x[0]
@@ -112,7 +112,7 @@ class CoreService:
             self.topic_to_problem_list_map[topic_name] = pl
 
     def process_parameters(self):
-        params = u.read_from_file('parameters.txt')
+        params = u.read_from_file(self.root_path + 'parameters.txt')
         params_map = {x[0]: x[1] for x in [param.split(",") for param in params]}
         self.main_dir = params_map['main_dir']
 
@@ -127,7 +127,6 @@ class CoreService:
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
 
-# if __name__ == "__main__":
-#     c = CoreService()
-#     print(c.topic_to_problem_list_map)
+#if __name__ == "__main__":
+#    c = CoreService()
 

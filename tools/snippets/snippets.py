@@ -41,7 +41,6 @@ def main(win):
     win.addstr("")
     cur_line = 0
     cur_key = datas[0]
-
     while 1:
         try:
             k = win.getkey()
@@ -55,9 +54,11 @@ def main(win):
                 cur_line -= 1
             elif k == 'KEY_DOWN':
                 cur_line += 1
-            else:
+            elif k.isalpha() and len(k) == 1:
                 cur_line = 0
                 key += k
+            else:
+                continue
 
             win.clear()
             win.addstr(str(key))

@@ -65,11 +65,13 @@ class NumberOfIslandsII
 				this.parents = new int[n][m][2];
 
 				for (int i = 0; i < n; i++)
+				{
 					for (int j = 0; j < m; j++)
 					{
 						this.parents[i][j][0] = i;
 						this.parents[i][j][1] = j;
 					}
+				}
 			}
 
 			public void union(int exI, int exJ, int newI, int newJ)

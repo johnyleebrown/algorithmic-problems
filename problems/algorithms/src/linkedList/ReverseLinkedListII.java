@@ -1,4 +1,10 @@
-// 92
+package linkedList;
+
+import util.ds.ListNode;
+
+/**
+ * 92
+ */
 public class ReverseLinkedListII
 {
 	class Solution
@@ -38,4 +44,3 @@ public class ReverseLinkedListII
 		}
 	}
 }
-

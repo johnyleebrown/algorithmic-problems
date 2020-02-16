@@ -3,3 +3,6 @@ Monotonic Queue,sort/monotonicQueue
 BFS,graph/shortestPaths/bfs
 Backtracking,backtracking
 Topological Sort,graph/topological
+Binary Search,bs
+Linked List,linkedList
+Heap Sort,sort/heap

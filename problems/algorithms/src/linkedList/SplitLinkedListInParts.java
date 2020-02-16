@@ -1,15 +1,21 @@
-// 725
-public class SplitLinkedListInParts 
+package linkedList;
+
+import util.ds.ListNode;
+
+/**
+ * 725
+ */
+public class SplitLinkedListInParts
 {
-	class Solution 
+	class Solution
 	{
-		public ListNode[] splitListToParts(ListNode root, int k) 
+		public ListNode[] splitListToParts(ListNode root, int k)
 		{
 			ListNode[] arr = new ListNode[k];
 			if (root == null) return arr;
 			int len = getLen(root);
-			int x = len <= k ? 1 : len/k;
-			int leftOver = len <= k ? 0 : len%k;
+			int x = len <= k ? 1 : len / k;
+			int leftOver = len <= k ? 0 : len % k;
 
 			for (int i = 0; i < k && root != null; i++)
 			{
@@ -26,9 +32,13 @@ public class SplitLinkedListInParts
 
 		private int getLen(ListNode root)
 		{
-			int c = 0; while (root != null) { c++; root = root.next; } return c;
+			int c = 0;
+			while (root != null)
+			{
+				c++;
+				root = root.next;
+			}
+			return c;
 		}
 	}
-
 }
-

@@ -1,17 +1,19 @@
+package sort.heap;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
-/*
+/**
  * 1057
- * Google
  */
 public class CampusBikes
 {
-	/*
-	 * Using counting sort. For all possible distances place pairs to the array of lists.
-	 * And loop through workers and innerly through bikes. This way we will always eliminate 
-	 * workers in ASC order and the bikes to assign will be approached in ASC order as well.
+	/**
+	 * Using counting sort. For all possible distances place pairs to the array
+	 * of lists. And loop through workers and innerly through bikes. This way we
+	 * will always eliminate workers in ASC order and the bikes to assign will
+	 * be approached in ASC order as well.
 	 *
 	 * O(nk), where k = 2000.
 	 */
@@ -34,14 +36,14 @@ public class CampusBikes
 				for (int b = 0; b < blen; b++)
 				{
 					int d = Math.abs(workers[w][0] - bikes[b][0]) +
-						Math.abs(workers[w][1] - bikes[b][1]);
+							Math.abs(workers[w][1] - bikes[b][1]);
 
 					if (dist[d] == null)
 					{
 						dist[d] = new ArrayList();
 					}
 
-					dist[d].add(new int[] {b, w});
+					dist[d].add(new int[]{b, w});
 				}
 			}
 
@@ -54,7 +56,7 @@ public class CampusBikes
 					break;
 				}
 
-				if (dist[d] == null) 
+				if (dist[d] == null)
 				{
 					continue;
 				}
@@ -81,11 +83,10 @@ public class CampusBikes
 		}
 	}
 
-	/*
-	 * Using priority queue with the conditions
-	 * from the problem statement.
-	 * Then we add all possible pairs of bikes and workers.
-	 * Then we fill workers.length positions.
+	/**
+	 * Using priority queue with the conditions from the problem statement. Then
+	 * we add all possible pairs of bikes and workers. Then we fill
+	 * workers.length positions.
 	 *
 	 * O(n*m*log(n*m) + n*log(n)).
 	 */
@@ -93,7 +94,8 @@ public class CampusBikes
 	{
 		public int[] assignBikes(int[][] workers, int[][] bikes)
 		{
-			PriorityQueue<BikeWorkerPair> pq = new PriorityQueue<>((a, b) -> {
+			PriorityQueue<BikeWorkerPair> pq = new PriorityQueue<>((a, b) ->
+			{
 				if (a.dist == b.dist)
 				{
 					if (a.worker.ind == b.worker.ind)
@@ -157,9 +159,11 @@ public class CampusBikes
 			Bike bike;
 			Worker worker;
 			int dist;
+
 			BikeWorkerPair(Bike b, Worker w)
 			{
-				bike = b; worker = w;
+				bike = b;
+				worker = w;
 				dist = countD(b, w);
 			}
 		}
@@ -169,6 +173,7 @@ public class CampusBikes
 			int x;
 			int y;
 			int ind;
+
 			Obj(int x, int y, int ind)
 			{
 				this.x = x;
@@ -194,4 +199,3 @@ public class CampusBikes
 		}
 	}
 }
-

@@ -1,10 +1,16 @@
-// 203
+package linkedList;
+
+import util.ds.ListNode;
+
+/**
+ * 203
+ */
 public class RemoveLinkedListElements
 {
 	// recursive
-	class Solution 
+	class Solution
 	{
-		public ListNode removeElements(ListNode head, int val) 
+		public ListNode removeElements(ListNode head, int val)
 		{
 			if (head == null) return null;
 			head.next = removeElements(head.next, val);
@@ -15,11 +21,11 @@ public class RemoveLinkedListElements
 	// iterative
 	class Solution2
 	{
-		public ListNode removeElements(ListNode head, int val) 
+		public ListNode removeElements(ListNode head, int val)
 		{
 			ListNode newhead = null;
 			ListNode prev = head;
-			
+
 			while (head != null)
 			{
 				while (head != null && head.val == val)
@@ -27,19 +33,19 @@ public class RemoveLinkedListElements
 					head = head.next;
 				}
 
-				if (newhead == null) 
+				if (newhead == null)
 				{
 					newhead = head;
 				}
 
-				if (prev.val != val && prev != head) 
+				if (prev.val != val && prev != head)
 				{
 					prev.next = head;
 				}
 
 				prev = head;
-				
-				if (head != null) 
+
+				if (head != null)
 				{
 					head = head.next;
 				}
@@ -49,4 +55,3 @@ public class RemoveLinkedListElements
 		}
 	}
 }
-

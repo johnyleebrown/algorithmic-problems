@@ -1,21 +1,22 @@
+package sort.heap;
+
 import java.util.*;
 
-/*
+/**
  * 692
- * Google
  */
 class TopKFrequentWords
 {
-	/*
+	/**
 	 * Bucket sort.
 	 */
-	class Solution 
+	class Solution
 	{
-		public List<String> topKFrequent(String[] words, int k) 
+		public List<String> topKFrequent(String[] words, int k)
 		{
 			Map<String, Integer> map = new HashMap<>();
 			int max = 0, min = words.length;
-			for (String w: words)
+			for (String w : words)
 			{
 				int x = map.getOrDefault(w, 0) + 1;
 				map.put(w, x);
@@ -30,7 +31,7 @@ class TopKFrequentWords
 			}
 			int range = max - min + 1;
 			PriorityQueue<String>[] pqa = new PriorityQueue[range];
-			for (String s: map.keySet())
+			for (String s : map.keySet())
 			{
 				int count = map.get(s);
 				int pos = count - min;
@@ -55,15 +56,17 @@ class TopKFrequentWords
 			return ans;
 		}
 	}
-	/*
+
+	/**
 	 * PriorityQueue solution.
 	 */
-	class Solution
+	class Solution2
 	{
 		private class Element
 		{
 			int freq;
 			String word;
+
 			Element(int freq, String word)
 			{
 				this.freq = freq;
@@ -74,11 +77,12 @@ class TopKFrequentWords
 		public List<String> topKFrequent(String[] words, int k)
 		{
 			Map<String, Integer> m = new HashMap<>();
-			for (String w: words)
+			for (String w : words)
 			{
 				m.put(w, m.getOrDefault(w, 0) + 1);
 			}
-			PriorityQueue<Element> pq = new PriorityQueue<>((a, b) -> {
+			PriorityQueue<Element> pq = new PriorityQueue<>((a, b) ->
+			{
 				if (a.freq == b.freq)
 				{
 					return a.word.compareTo(b.word);
@@ -86,7 +90,7 @@ class TopKFrequentWords
 
 				return b.freq - a.freq;
 			});
-			for (String w: m.keySet())
+			for (String w : m.keySet())
 			{
 				pq.add(new Element(m.get(w), w));
 			}
@@ -99,5 +103,3 @@ class TopKFrequentWords
 		}
 	}
 }
-
-

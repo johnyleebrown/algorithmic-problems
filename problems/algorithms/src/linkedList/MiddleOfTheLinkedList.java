@@ -1,9 +1,15 @@
-// 876
+package linkedList;
+
+import util.ds.ListNode;
+
+/**
+ * 876
+ */
 public class MiddleOfTheLinkedList
 {
-	class Solution 
+	class Solution
 	{
-		public ListNode middleNode(ListNode head) 
+		public ListNode middleNode(ListNode head)
 		{
 			ListNode runner = head;
 			while (runner != null && runner.next != null)
@@ -11,10 +17,8 @@ public class MiddleOfTheLinkedList
 				head = head.next;
 				runner = runner.next.next;
 			}
-			
+
 			return head;
 		}
 	}
-
 }
-

@@ -1,12 +1,15 @@
-package Medium.LinkedList;
+package linkedList;
 
-import Helpers.ListNode;
+import util.ds.ListNode;
 
-public class SwapNodesInPairs 
+/**
+ * 24
+ */
+public class SwapNodesInPairs
 {
-	class Solution 
+	class Solution
 	{
-		public ListNode swapPairs(ListNode head) 
+		public ListNode swapPairs(ListNode head)
 		{
 			if (head == null) return null;
 			if (head.next == null) return head;
@@ -16,8 +19,7 @@ public class SwapNodesInPairs
 			head.next.next = head;
 			head.next = swapPairs(y);
 
-			return x;  
+			return x;
 		}
 	}
 }
-

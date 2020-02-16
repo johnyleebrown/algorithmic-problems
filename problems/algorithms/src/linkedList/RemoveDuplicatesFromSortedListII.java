@@ -1,13 +1,15 @@
-package Medium.LinkedList;
+package linkedList;
 
-import Helpers.ListNode;
+import util.ds.ListNode;
 
-// 82
-public class RemoveDuplicatesFromSortedListII 
+/**
+ * 82
+ */
+public class RemoveDuplicatesFromSortedListII
 {
-	class Solution 
+	class Solution
 	{
-		public ListNode deleteDuplicates(ListNode head) 
+		public ListNode deleteDuplicates(ListNode head)
 		{
 			return helper(head, null);
 		}
@@ -21,7 +23,8 @@ public class RemoveDuplicatesFromSortedListII
 				if (head.val == head.next.val)
 				{
 					if ((prev == null) ||
-							(prev != null && prev.val != head.val)) return head.next.next;
+							(prev != null && prev.val != head.val))
+						return head.next.next;
 					else return head.next;
 				}
 			}

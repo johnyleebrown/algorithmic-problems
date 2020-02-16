@@ -1,13 +1,13 @@
-package Medium.LinkedList;
+package linkedList;
 
-import Helpers.ListNode;
+import util.ds.ListNode;
 
-// 86
-public class PartitionList 
+/**
+ * 86
+ */
+public class PartitionList
 {
-	// keep dragging all the needed numbers and connecting them together
-	// and keep connecting old numbers as well
-	class Solution 
+	class Solution
 	{
 		private ListNode next = null;
 		private ListNode lastnext = null;
@@ -15,20 +15,23 @@ public class PartitionList
 		public ListNode partition(ListNode head, int x)
 		{
 			ListNode otherhead = h(head, x);
-			if (lastnext != null) lastnext.next = otherhead;
+			if (lastnext != null)
+				lastnext.next = otherhead;
 			return next == null ? otherhead : next;
 		}
 
 		public ListNode h(ListNode head, int x)
 		{
-			if (head == null) return null;
+			if (head == null)
+				return null;
 
 			ListNode res = h(head.next, x);
 
 			if (head.val < x)
 			{
 				head.next = next;
-				if (lastnext == null) lastnext = head;
+				if (lastnext == null)
+					lastnext = head;
 				next = head;
 				return res;
 			}

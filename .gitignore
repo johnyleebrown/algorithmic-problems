@@ -1,12 +1,10 @@
 *.png
 *.iml
 .idea/
-todo.md
+*todo.md
 .DS_Store
 .hushlogin
-/other/classes/
 *.class
-/src/util/other/
 *.code-workspace
 *__pycache__/
 *.pyc

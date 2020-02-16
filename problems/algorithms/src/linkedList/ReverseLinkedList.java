@@ -1,14 +1,15 @@
-package Easy.LinkedList;
+package linkedList;
 
-import Helpers.ListNode;
+import util.ds.ListNode;
 
-// 206
-public class ReverseLinkedList 
+/**
+ * 206
+ */
+public class ReverseLinkedList
 {
-	// Recursive
-	class Solution1 
+	class Solution1
 	{
-		public ListNode reverseList(ListNode head) 
+		public ListNode reverseList(ListNode head)
 		{
 			if (head == null || head.next == null) return head;
 			ListNode temp = head.next;
@@ -19,10 +20,9 @@ public class ReverseLinkedList
 		}
 	}
 
-	// Iterative
-	class Solution2 
+	class Solution2
 	{
-		public ListNode reverseList(ListNode head) 
+		public ListNode reverseList(ListNode head)
 		{
 			ListNode prev = null;
 			ListNode cur = head;
@@ -36,6 +36,5 @@ public class ReverseLinkedList
 			}
 			return prev;
 		}
-	}	
+	}
 }
-

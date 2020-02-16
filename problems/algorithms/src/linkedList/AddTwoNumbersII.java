@@ -1,16 +1,23 @@
-// 445
+package linkedList;
+
+import util.ds.ListNode;
+
+/**
+ * 445
+ */
 public class AddTwoNumbersII
 {
-	class Solution 
+	class Solution
 	{
 		private int leftOver = 0;
 
-		public ListNode addTwoNumbers(ListNode l1, ListNode l2) 
+		public ListNode addTwoNumbers(ListNode l1, ListNode l2)
 		{
 			int c1 = getLen(l1), c2 = getLen(l2);
-			if (c1 == 0) return l2; if (c2 == 0) return l1;
-			ListNode ans = sum1(c1 > c2 ? l1 : l2, c1 > c2 ? l2 : l1, Math.abs(c1-c2));
-			if (leftOver != 0) 
+			if (c1 == 0) return l2;
+			if (c2 == 0) return l1;
+			ListNode ans = sum1(c1 > c2 ? l1 : l2, c1 > c2 ? l2 : l1, Math.abs(c1 - c2));
+			if (leftOver != 0)
 			{
 				ListNode head = new ListNode(1);
 				head.next = ans;
@@ -46,9 +53,13 @@ public class AddTwoNumbersII
 
 		private int getLen(ListNode l1)
 		{
-			int c = 0; while (l1!=null) { c++; l1 = l1.next; } return c;
+			int c = 0;
+			while (l1 != null)
+			{
+				c++;
+				l1 = l1.next;
+			}
+			return c;
 		}
 	}
-
 }
-

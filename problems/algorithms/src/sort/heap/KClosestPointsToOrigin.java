@@ -1,13 +1,22 @@
-// 973
-public class ClosestPointsToOrigin
+package sort.heap;
+
+/**
+ * 973
+ *
+ * =====
+ *
+ * Test.
+ *
+ * [[1,3],[-2,2]] 1 [[3,3],[5,-1],[-2,4]] 2 [[-2,10],[-4,-8],[10,7],[-4,-7]] 3
+ */
+public class KClosestPointsToOrigin
 {
-	/*
-	 * Quick sort partitioning
-	 * O(n), O(1)
+	/**
+	 * Quick sort partitioning O(n), O(1)
 	 */
-	class Solution 
+	class Solution
 	{
-		public int[][] kClosest(int[][] points, int K) 
+		public int[][] kClosest(int[][] points, int K)
 		{
 			int lo = 0, hi = points.length - 1;
 			while (lo < hi)
@@ -59,12 +68,12 @@ public class ClosestPointsToOrigin
 				while (less(v, a[--j]))
 				{
 					if (j == lo)
-					{	
+					{
 						break;
 					}
 				}
 
-				if (i >= j) 
+				if (i >= j)
 				{
 					break;
 				}
@@ -89,13 +98,12 @@ public class ClosestPointsToOrigin
 		}
 	}
 
-	/*
-	 * Heap
-	 * O(n*logk)
+	/**
+	 * Heap O(n*logk)
 	 */
-	public class Solution
+	public class Solution2
 	{
-		public int[][] kClosest(int[][] points, int K) 
+		public int[][] kClosest(int[][] points, int K)
 		{
 			int n = points.length;
 			int[][] x = new int[K][2];
@@ -130,7 +138,7 @@ public class ClosestPointsToOrigin
 					j++;
 				}
 
-				if (!greater(a[j],a[k]))
+				if (!greater(a[j], a[k]))
 				{
 					break;
 				}
@@ -144,16 +152,16 @@ public class ClosestPointsToOrigin
 		// moving element up, towards the start of the array
 		private void swim(int[][] a, int k)
 		{
-			while (k > 0 && greater(a[k], a[k/2]))
+			while (k > 0 && greater(a[k], a[k / 2]))
 			{
-				exch(a, k, k/2);
+				exch(a, k, k / 2);
 				k /= 2;
 			}
 		}
 
 		private boolean greater(int[] a, int[] b)
 		{
-			return a[0]*a[0]+a[1]*a[1] > b[0]*b[0]+b[1]*b[1];
+			return a[0] * a[0] + a[1] * a[1] > b[0] * b[0] + b[1] * b[1];
 		}
 
 		private void exch(int[][] a, int i, int j)
@@ -164,12 +172,3 @@ public class ClosestPointsToOrigin
 		}
 	}
 }
-/*
-   [[1,3],[-2,2]]
-   1
-   [[3,3],[5,-1],[-2,4]]
-   2
-   [[-2,10],[-4,-8],[10,7],[-4,-7]]
-   3
-*/
-

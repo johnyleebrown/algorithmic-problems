@@ -1,24 +1,34 @@
-// 143
+package linkedList;
+
+import util.ds.ListNode;
+
+/**
+ * 143
+ */
 public class ReorderList
 {
-	class Solution 
+	class Solution
 	{
 		private boolean even = true;
 
-		public void reorderList(ListNode head) 
+		public void reorderList(ListNode head)
 		{
 			if (head == null) return;
 			// find the length
 			int len = getLen(head);
-			int n = len/2;
-			if (len%2 != 0) { even = false; n = len/2 + 1; }
+			int n = len / 2;
+			if (len % 2 != 0)
+			{
+				even = false;
+				n = len / 2 + 1;
+			}
 			helper(head, n - 1);
 		}
 
 		private ListNode helper(ListNode head, int n)
 		{
 			// base - return the next when we reached the middle of the list
-			if (n == 0) 
+			if (n == 0)
 			{
 				if (even)
 				{
@@ -41,11 +51,11 @@ public class ReorderList
 			head.next = x;
 			return y;
 		}
-		
+
 		private int getLen(ListNode head)
 		{
 			int c = 0;
-			while (head != null) 
+			while (head != null)
 			{
 				c++;
 				head = head.next;
@@ -53,7 +63,4 @@ public class ReorderList
 			return c;
 		}
 	}
-
 }
-
-

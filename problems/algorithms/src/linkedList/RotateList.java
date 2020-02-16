@@ -1,15 +1,19 @@
-package Medium.LinkedList;
+package linkedList;
 
-import Helpers.Helper;
-import Helpers.ListNode;
+import util.ds.ListNode;
 
-// 61
-public class RotateList 
+/**
+ * 61
+ */
+public class RotateList
 {
-	// we need to connect the end to the first, return the new head, remove the cycle
-	class Solution 
+	/**
+	 * we need to connect the end to the first, return the new head, remove the
+	 * cycle
+	 */
+	class Solution
 	{
-		public ListNode rotateRight(ListNode head, int k) 
+		public ListNode rotateRight(ListNode head, int k)
 		{
 			if (head == null) return null;
 			// find length
@@ -19,7 +23,7 @@ public class RotateList
 			{
 				len++;
 				// connect end to head
-				if (x.next == null) 
+				if (x.next == null)
 				{
 					x.next = head;
 					x = x.next;
@@ -40,4 +44,3 @@ public class RotateList
 		}
 	}
 }
-

@@ -1,4 +1,4 @@
-package bs;
+package bs.shift;
 
 /**
  * 1011
@@ -7,8 +7,9 @@ package bs;
  *
  * Task.
  *
- * Binary search solution, so we are trying to pick the right value. After the pick we check if all weights fit, if they
- * don't, we increase the lower bound.
+ * Binary search solution, so we are trying to pick the right value. After the
+ * pick we check if all weights fit, if they don't, we increase the lower
+ * bound.
  *
  * ======
  *
@@ -16,7 +17,7 @@ package bs;
  *
  * if (D >= weights.length) return lo;
  */
-class CapacityToShipPackagesWithinDDays
+public class CapacityToShipPackagesWithinDDays
 {
 	class Solution
 	{

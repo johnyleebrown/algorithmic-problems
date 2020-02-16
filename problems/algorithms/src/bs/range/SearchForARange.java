@@ -1,9 +1,9 @@
-package bs;
+package bs.range;
 
 /**
- *
+ * Google_Interview_3
  */
-class SearchForARange
+public class SearchForARange
 {
 	static class Solution
 	{
@@ -23,10 +23,11 @@ class SearchForARange
 		private int bs(int target, int[] nums, Dir dir)
 		{
 			int ans = -1;
-			int lo = 0, hi = nums.length - 1;
+			int lo = 0;
+			int hi = nums.length - 1;
 			while (lo <= hi)
 			{
-				int mid = lo + (hi - lo)/2;
+				int mid = lo + (hi - lo) / 2;
 				if (target < nums[mid])
 				{
 					hi = mid - 1;

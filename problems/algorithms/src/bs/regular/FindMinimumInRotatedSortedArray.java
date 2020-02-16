@@ -1,33 +1,37 @@
-package array;
+package bs.regular;
 
-// 153
-class Solution 
+/**
+ * 153
+ */
+public class FindMinimumInRotatedSortedArray
 {
-	public int findMin(int[] nums) 
+	class Solution
 	{
-		int lo = 0, hi = nums.length - 1, ans = nums[lo];
-
-		while (lo <= hi)
+		public int findMin(int[] nums)
 		{
-			int mid = lo + (hi-lo) / 2;
+			int lo = 0, hi = nums.length - 1, ans = nums[lo];
 
-			if (nums[lo] > nums[mid])
+			while (lo <= hi)
 			{
-				if (mid + 1 < nums.length && nums[mid + 1] < nums[mid]) 
-					return nums[mid + 1];
+				int mid = lo + (hi - lo) / 2;
 
-				hi = mid - 1;
+				if (nums[lo] > nums[mid])
+				{
+					if (mid + 1 < nums.length && nums[mid + 1] < nums[mid])
+						return nums[mid + 1];
+
+					hi = mid - 1;
+				}
+				else
+				{
+					if (mid + 1 < nums.length && nums[mid + 1] < nums[mid])
+						return nums[mid + 1];
+
+					lo = mid + 1;
+				}
 			}
-			else
-			{
-				if (mid + 1 < nums.length && nums[mid + 1] < nums[mid]) 
-					return nums[mid + 1];
 
-				lo = mid + 1;
-			}    
+			return ans;
 		}
-
-		return ans;
 	}
 }
-

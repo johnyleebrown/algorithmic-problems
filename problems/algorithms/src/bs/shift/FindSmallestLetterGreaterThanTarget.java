@@ -1,9 +1,9 @@
-package bs;
+package bs.shift;
 
 /**
  * 744
  */
-class FindSmallestLetterGreaterThanTarget
+public class FindSmallestLetterGreaterThanTarget
 {
 	static class Solution
 	{

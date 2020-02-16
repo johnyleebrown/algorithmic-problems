@@ -1,11 +1,11 @@
-package bs;
+package bs.regular;
 
 /**
  * 69
  */
-class Sqrt
+public class Sqrt
 {
-	static class Solution
+	class Solution
 	{
 		public int mySqrt(int x)
 		{

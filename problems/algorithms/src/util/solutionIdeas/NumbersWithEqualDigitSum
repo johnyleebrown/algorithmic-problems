@@ -1,0 +1,4 @@
+https://leetcode.com/discuss/interview-question/365872/
+- function to calc sum of digits
+- loop for all elements, call function, add to map {sum:reverse pq}
+- loop through keys of map, check if size > 1, poll twice, record max

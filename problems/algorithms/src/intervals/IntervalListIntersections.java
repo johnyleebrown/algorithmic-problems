@@ -3,7 +3,10 @@ package intervals;
 import java.util.ArrayList;
 import java.util.List;
 
-class IntervalListIntersections
+/**
+ * 986
+ */
+public class IntervalListIntersections
 {
     class Solution
     {

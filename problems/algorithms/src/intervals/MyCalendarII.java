@@ -5,7 +5,7 @@ import java.util.TreeMap;
 /**
  * 731
  */
-class MyCalendarII
+public class MyCalendarII
 {
 	class Solution
 	{

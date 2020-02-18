@@ -1,0 +1,1 @@
+Deque<Integer> q = new ArrayDeque<>();

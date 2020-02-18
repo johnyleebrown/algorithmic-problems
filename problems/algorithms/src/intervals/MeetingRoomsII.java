@@ -8,19 +8,19 @@ import java.util.TreeMap;
  */
 public class MeetingRoomsII
 {
-	class Solution 
+	class Solution
 	{
-		public int minMeetingRooms(int[][] intervals) 
+		public int minMeetingRooms(int[][] intervals)
 		{
 			Map<Integer, Integer> map = new TreeMap<>();
-			for (int[] i: intervals)
+			for (int[] i : intervals)
 			{
 				map.put(i[0], map.getOrDefault(i[0], 0) + 1);
 				map.put(i[1], map.getOrDefault(i[1], 0) - 1);
 			}
 
 			int maxRooms = 0, currentRoomCount = 0;
-			for (int c: map.values())
+			for (int c : map.values())
 			{
 				maxRooms = Math.max(maxRooms, currentRoomCount += c);
 			}
@@ -29,4 +29,3 @@ public class MeetingRoomsII
 		}
 	}
 }
-

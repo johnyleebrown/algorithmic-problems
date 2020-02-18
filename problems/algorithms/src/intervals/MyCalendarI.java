@@ -7,31 +7,31 @@ import java.util.TreeMap;
  */
 public class MyCalendarI
 {
-    class MyCalendar 
+	class MyCalendar
 	{
-        private TreeMap<Integer, Integer> calendar;
+		private TreeMap<Integer, Integer> calendar;
 
-        public MyCalendar() 
+		public MyCalendar()
 		{
-            calendar = new TreeMap<>();
-        }
+			calendar = new TreeMap<>();
+		}
 
-        public boolean book(int start, int end) 
+		public boolean book(int start, int end)
 		{
-            Integer floorKey = calendar.floorKey(start);
-            if (floorKey != null && calendar.get(floorKey) > start)
+			Integer floorKey = calendar.floorKey(start);
+			if (floorKey != null && calendar.get(floorKey) > start)
 			{
 				return false;
 			}
-            
+
 			Integer ceilingKey = calendar.ceilingKey(start);
-            if (ceilingKey != null && ceilingKey < end) 
+			if (ceilingKey != null && ceilingKey < end)
 			{
 				return false;
 			}
 
-            calendar.put(start, end);
-            return true;
-        }
-    }
+			calendar.put(start, end);
+			return true;
+		}
+	}
 }

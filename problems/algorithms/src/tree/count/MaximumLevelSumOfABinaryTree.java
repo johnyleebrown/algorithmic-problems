@@ -1,46 +1,54 @@
-/*
+package tree.count;
+
+import util.ds.TreeNode;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+/**
  * 1161
- * Google, Amazon
  */
-class Solution
+public class MaximumLevelSumOfABinaryTree
 {
-	public int maxLevelSum(TreeNode root)
+	class Solution
 	{
-		int max = Integer.MIN_VALUE;
-		Queue<TreeNode> q = new LinkedList<>();
-		q.add(root);
-		int level = 0;
-		int ret = 1;
-
-		while(!q.isEmpty())
+		public int maxLevelSum(TreeNode root)
 		{
-			level++;
-			int localsum = 0;
-			int size = q.size();
+			int max = Integer.MIN_VALUE;
+			Queue<TreeNode> q = new LinkedList<>();
+			q.add(root);
+			int level = 0;
+			int ret = 1;
 
-			while (--size >= 0)
+			while (!q.isEmpty())
 			{
-				TreeNode t = q.poll();
-				localsum += t.val;
+				level++;
+				int localsum = 0;
+				int size = q.size();
 
-				if (t.left != null)
+				while (--size >= 0)
 				{
-					q.add(t.left);
+					TreeNode t = q.poll();
+					localsum += t.val;
+
+					if (t.left != null)
+					{
+						q.add(t.left);
+					}
+					if (t.right != null)
+					{
+						q.add(t.right);
+					}
 				}
-				if (t.right != null)
+
+				if (localsum > max)
 				{
-					q.add(t.right);
+					max = localsum;
+					ret = level;
 				}
 			}
 
-			if (localsum > max)
-			{
-				max = localsum;
-				ret = level;
-			}
+			return ret;
 		}
-
-		return ret;
 	}
 }
-

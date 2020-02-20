@@ -1,10 +1,12 @@
-// 765
-/*
-   [1,4,0,5,8,7,6,3,2,9]
-   [11,4,0,5,8,10,6,3,2,9,7,1]
-   [0,2,1,3]
-   [3,2,0,1]
-*/
+package unionFind;
+
+/**
+ * 765
+ *
+ * Tests.
+ *
+ * [1,4,0,5,8,7,6,3,2,9] [11,4,0,5,8,10,6,3,2,9,7,1] [0,2,1,3] [3,2,0,1]
+ */
 public class CouplesHoldingHands
 {
 	class Solution
@@ -63,7 +65,3 @@ public class CouplesHoldingHands
 		}
 	}
 }
-
-
-
-

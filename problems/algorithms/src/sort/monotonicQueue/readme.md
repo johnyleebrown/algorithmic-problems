@@ -10,7 +10,7 @@ https://leetcode.com/problems/sum-of-subarray-minimums/
 
 https://leetcode.com/problems/create-maximum-number/
 https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/discuss/339959/One-Pass-O(N)-Time-and-Space
-https://leetcode.com/problems/sum-of-subarray-minimums/discuss/170750/C++JavaPython-Stack-Solution
+https://leetcode.com/problems/sum-of-subarray-minimums/discuss/170750/C++JavaPython-Stack-hashtable.regular.string.regular.tree.regular.Solution
 https://leetcode.com/problems/score-of-parentheses/
 https://leetcode.com/problems/132-pattern/
 

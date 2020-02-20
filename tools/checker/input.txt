@@ -1,8 +1,9 @@
 Sliding Window,twoPointers/slidingWindow
 Monotonic Queue,sort/monotonicQueue
-BFS,graph/shortestPaths/bfs
 Backtracking,backtracking
-Topological Sort,graph/topological
 Binary Search,bs
 Linked List,linkedList
 Heap Sort,sort/heap
+Union Find,unionFind
+Graph,graph
+Hash Table,hashtable

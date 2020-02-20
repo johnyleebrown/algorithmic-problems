@@ -1,12 +1,16 @@
-// 547
+package unionFind;
+
+/**
+ * 547
+ */
 public class FriendCircles
 {
-	class Solution 
+	class Solution
 	{
 		private int circles;
 		private int[] parents, rank;
 
-		public int findCircleNum(int[][] M) 
+		public int findCircleNum(int[][] M)
 		{
 			int n = M.length, m = M[0].length;
 			if (n == 0 || m == 0) return 0;
@@ -15,12 +19,13 @@ public class FriendCircles
 			rank = new int[n];
 			for (int i = 0; i < n; i++) parents[i] = i;
 
-			for (int i = 0; i < n; i++) for (int j = 0; j < m; j++)
-			{
-				if (j == i) continue;
-				if (M[i][i] == M[i][j] && M[i][i] == 1) union(i, j);
-			}
-		
+			for (int i = 0; i < n; i++)
+				for (int j = 0; j < m; j++)
+				{
+					if (j == i) continue;
+					if (M[i][i] == M[i][j] && M[i][i] == 1) union(i, j);
+				}
+
 			return circles;
 		}
 
@@ -45,4 +50,3 @@ public class FriendCircles
 		}
 	}
 }
-

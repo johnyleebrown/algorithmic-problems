@@ -6,9 +6,11 @@ package unionFind;
 public class RedundantConnection
 {
 	/**
-	 * We want to find a connection that is the last one in the cycle because we know that edge could be removed so the
-	 * number of connected components won't change if it is in the cycle by using union find, we will union all the
-	 * edges, the first one that will have vertices that have the same parent is the answer.
+	 * We want to find a connection that is the last one in the cycle because we
+	 * know that edge could be removed so the number of connected components
+	 * won't change if it is in the cycle by using union find, we will union all
+	 * the edges, the first one that will have vertices that have the same
+	 * parent is the answer.
 	 */
 	static class Solution1
 	{
@@ -79,4 +81,3 @@ public class RedundantConnection
 	// other solution is O(N(N+M)), we check if the number of CCs hasn't
 	// if we remove any vertex
 }
-

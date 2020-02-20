@@ -1,17 +1,19 @@
+package unionFind;
+
 import java.util.HashMap;
 import java.util.Map;
 
-/*
+/**
  * 947
- * Google
- *
- * In another words, we want to find a number of items we can remove so only unique cc's
- * are left. So we find number of connected componenets. This number is the number of
- * unique parents, to count that we use a set size.
- * We choose i th coordinate as a key for components identification.
  */
 public class MostStonesRemovedWithSameRowOrColumn
 {
+	/**
+	 * In another words, we want to find a number of items we can remove so only
+	 * unique cc's are left. So we find number of connected componenets. This
+	 * number is the number of unique parents, to count that we use a set size.
+	 * We choose i th coordinate as a key for components identification.
+	 */
 	class Solution
 	{
 		private int c;

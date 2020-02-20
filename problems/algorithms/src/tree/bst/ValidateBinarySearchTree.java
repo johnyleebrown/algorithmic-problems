@@ -1,11 +1,15 @@
-package medium.tree.bst;
+package tree.bst;
 
-// 98
+import util.ds.TreeNode;
+
+/**
+ * 98
+ */
 public class ValidateBinarySearchTree
 {
-	class Solution 
+	class Solution
 	{
-		public boolean isValidBST(TreeNode root) 
+		public boolean isValidBST(TreeNode root)
 		{
 			return f(root, null, null);
 		}
@@ -13,9 +17,9 @@ public class ValidateBinarySearchTree
 		private boolean f(TreeNode root, Integer min, Integer max)
 		{
 			if (root == null) return true;
-			if ((min != null && root.val <= min) || (max != null && root.val >= max)) return false;
-			return f(root.left, min, root.val) && f(root.right, root.val, max);	
+			if ((min != null && root.val <= min) || (max != null && root.val >= max))
+				return false;
+			return f(root.left, min, root.val) && f(root.right, root.val, max);
 		}
 	}
 }
-

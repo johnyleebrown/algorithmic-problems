@@ -5,12 +5,8 @@ import java.util.List;
 
 /**
  * 305
- *
- * ======
- *
- * Companies: Google
  */
-class NumberOfIslandsII
+public class NumberOfIslandsII
 {
 	class Solution
 	{

@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * Companies: Google
  */
-class SentenceSimilarityII
+public class SentenceSimilarityII
 {
 	class Solution
 	{

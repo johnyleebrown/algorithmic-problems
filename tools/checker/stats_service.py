@@ -1,6 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import sys
+from datetime import *
+
 
 def get_best_result_for_problem(current_problem_number, results):
     vals = []
@@ -22,3 +25,74 @@ def get_comparison_to_best_result(current_problem_number, current_time, results)
     if increase_percentage >= 0.0:
         return '[+{0:.2f}%]'.format(increase_percentage), 'DANGER'
     return '[{0:.2f}%]'.format(increase_percentage), 'GOOD'
+
+
+def get_title(s):
+    tot=30
+    l='='*3
+    empt=' '
+    leftover='='*(tot-len(l)-len(s))
+    return l + empt + s + empt + leftover
+
+def get_fastest_solved_problem(results):
+    res_seconds=sys.float_info.max
+    res_title=''
+    for r in results:
+        res_data=r.split(",")
+        cur=float(res_data[2])
+        if cur < res_seconds:
+            res_seconds=cur
+            res_title=res_data[0] + ', ' + res_data[1]
+    res_minutes = res_seconds/60
+    s=f'[{res_minutes :.2f}]'
+    return [get_title('FASTEST'), s + ' ' + res_title]
+
+
+def get_slowest_solved_problem(results):
+    res_seconds=sys.float_info.min
+    res_title=''
+    for r in results:
+        res_data=r.split(",")
+        cur=float(res_data[2])
+        if cur > res_seconds:
+            res_seconds=cur
+            res_title=res_data[0] + ', ' + res_data[1]
+    res_minutes = res_seconds/60
+    s=f'[{res_minutes :.2f}]'
+    return [get_title('SLOWEST'), s + ' ' + res_title]
+
+
+def get_date(s):
+    return datetime.strptime(s, '%Y-%m-%d %H:%M:%S.%f')
+
+
+def get_(n,results):
+    now=datetime.utcnow()
+    newd=now+timedelta(days=-n)
+    topics={}
+    for r in results:
+        res_data=r.split(",")
+        dt=get_date(res_data[3])
+        if (dt>=newd):
+            if res_data[0] in topics:
+                topics[res_data[0]] += 1
+            else:
+                topics[res_data[0]] = 1
+    return topics
+
+def get_topics_problems_count(n,results):
+    topics=get_(n,results)
+    res=[get_title('WEEK')]
+    for k, v in sorted(topics.items(), key=lambda item: item[1], reverse=True):
+        res.append(str(v) + ' ' + k)
+    return res
+
+def get_all_stats(results):
+    res = []
+    res.extend(get_fastest_solved_problem(results))
+    res.extend(get_slowest_solved_problem(results))
+    res.extend(get_topics_problems_count(7,results))
+    return res
+
+# add good or bad stats
+# for each topic it should be 7 solves per week

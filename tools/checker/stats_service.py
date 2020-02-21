@@ -31,9 +31,11 @@ def get_comparison_to_best_result(current_problem_number, current_time, results)
 
 def get_title(s):
     tot=30
+    if s=='':
+        return '='*tot
     l='='*3
     empt=' '
-    leftover='='*(tot-len(l)-len(s))
+    leftover='='*(tot-len(l)-len(s)-2)
     return l + empt + s + empt + leftover
 
 
@@ -96,17 +98,26 @@ def get_(n,results):
 
 def get_topics_problems_count(n, results):
     topics=get_(n,results)
-    res=[get_title('WEEK')]
+    res=[get_title(get_n_title_map(n))]
     for k, v in sorted(topics.items(), key=lambda item: item[1], reverse=True):
         res.append(str(v) + ' ' + k)
     return res
 
+
+def get_n_title_map(n):
+    if n == 7:
+        return 'WEEK'
+    elif n == 30:
+        return 'MONTH'
+    else:
+        return 'ALL'
 
 def get_for_period(n, results):
     res = []
     res.extend(get_fastest_solved_problem(n, results))
     res.extend(get_slowest_solved_problem(n, results))
     res.extend(get_topics_problems_count(n, results))
+    res.extend([get_title('')])
     return res
 
 

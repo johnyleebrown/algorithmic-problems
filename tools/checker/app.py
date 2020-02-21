@@ -33,6 +33,7 @@ class CustomWidget(npyscreen.MultiLineAction):
     controls_on_done = [text_controls_next, text_controls_stats, text_controls_exit]
     controls_on_session_finished = [text_controls_stats, text_controls_exit]
     controls_on_stats = [text_controls_back_to_main_menu, text_controls_exit]
+    controls_on_start=[text_controls_begin_session, text_controls_stats, text_controls_exit]
 
     current_problem_title = ''
 
@@ -59,7 +60,8 @@ class CustomWidget(npyscreen.MultiLineAction):
             self.text_controls_done: self.action_on_done,
             self.text_controls_next: self.action_on_next,
             self.text_controls_exit: self.action_on_exit,
-            self.text_controls_stats: self.action_on_stats
+            self.text_controls_stats: self.action_on_stats,
+            self.text_controls_back_to_main_menu: self.action_on_start
         }
 
     def get_current_problem_title(self):
@@ -106,6 +108,18 @@ class CustomWidget(npyscreen.MultiLineAction):
 
         self.display()
 
+    def action_on_start(self):
+
+        # clear prev data
+        self.clear_main_window()
+
+        # update controls
+        self.update_controls(self.controls_on_start)
+        
+        # set default x,y margins
+        self.cur_rel_x = self.base_rel_x
+        self.cur_rel_y = self.base_rel_y
+        
     def action_on_begin_session(self):
 
         # update controls
@@ -195,7 +209,7 @@ class CustomWidget(npyscreen.MultiLineAction):
         # clear
         self.clear_main_window()
 
-        # update x,y margins
+        # set default x,y margins
         self.cur_rel_x = self.base_rel_x
         self.cur_rel_y = self.base_rel_y
 

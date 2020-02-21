@@ -28,7 +28,7 @@ class CustomWidget(npyscreen.MultiLineAction):
 
     color_y = 'WARNING'
 
-    controls_on_begin_session = [text_controls_start_problem, text_controls_skip_problem, text_controls_stats, text_controls_exit]
+    controls_on_begin_session = [text_controls_start_problem, text_controls_skip_problem, text_controls_exit]
     controls_on_start_problem = [text_controls_done, text_controls_stats, text_controls_exit]
     controls_on_done = [text_controls_next, text_controls_stats, text_controls_exit]
     controls_on_session_finished = [text_controls_stats, text_controls_exit]
@@ -199,7 +199,7 @@ class CustomWidget(npyscreen.MultiLineAction):
         self.cur_rel_x = self.base_rel_x
         self.cur_rel_y = self.base_rel_y
 
-        self.add_lines(stats.get_all_stats(core.results))
+        self.add_lines(stats.get_month(core.results))
 
     def clear_main_window(self):
         for x in self.parent._widgets__[1:]:
@@ -216,7 +216,7 @@ class BoxWithSelects(npyscreen.BoxTitle):
 
 class MainForm(npyscreen.FormBaseNew):
     def create(self):
-        self.add(BoxWithSelects, values=['begin session', 'exit'], max_height=7, max_width=18)
+        self.add(BoxWithSelects, values=['begin session', 'stats', 'exit'], max_height=7, max_width=18)
 
 
 class App(npyscreen.StandardApp):

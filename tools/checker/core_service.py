@@ -46,7 +46,6 @@ class CoreService:
         for dirpath, subdirs, files in os.walk(from_dir, topdown=True):
             subdirs[:] = [d for d in subdirs if d not in ['ds']]
             for x in files:
-                print(x)
                 if x.endswith(".java"):
                     path = os.path.join(dirpath, x)
                     num = self.find_problem_number_in_file(path)

@@ -1,16 +1,31 @@
 package twoPointers.slidingWindow.max;
 
+import util.test.Tester;
+
 /**
  * 159
+ *
+ * =====
+ *
+ * Task.
+ *
+ * Given a string, find the length of the longest substring T that contains at
+ * most 2 distinct characters.
+ *
+ * =====
+ *
+ * Tests.
+ *
+ * "ececcbb", 5; "ececececec", 10; "", 0; "ec", 2;
  */
 public class LongestSubstringWithAtMostTwoDistinctCharacters
 {
-	static class Solution
+	public static class Solution
 	{
 		public int lengthOfLongestSubstringTwoDistinct(String s)
 		{
 			int l = 0;
-			int result = Integer.MIN_VALUE;
+			int result = 0;
 			int twoDistinctCharCounter = 0;
 			int[] map = new int[256];
 
@@ -36,7 +51,17 @@ public class LongestSubstringWithAtMostTwoDistinctCharacters
 				result = Math.max(result, r - l + 1);
 			}
 
-			return result == Integer.MIN_VALUE ? 0 : result;
+			return result;
 		}
+	}
+
+	public static void main(String[] args)
+	{
+		new Tester(new Solution())
+				.add("ececcbb").expect(5)
+				.add("ececececec").expect(10)
+				.add("").expect(0)
+				.add("ec").expect(2)
+				.run();
 	}
 }

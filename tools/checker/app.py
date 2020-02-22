@@ -29,9 +29,9 @@ class CustomWidget(npyscreen.MultiLineAction):
     color_y = 'WARNING'
 
     controls_on_begin_session = [text_controls_start_problem, text_controls_skip_problem, text_controls_exit]
-    controls_on_start_problem = [text_controls_done, text_controls_stats, text_controls_exit]
-    controls_on_done = [text_controls_next, text_controls_stats, text_controls_exit]
-    controls_on_session_finished = [text_controls_stats, text_controls_exit]
+    controls_on_start_problem = [text_controls_done, text_controls_exit]
+    controls_on_done = [text_controls_next, text_controls_exit]
+    controls_on_session_finished = [text_controls_exit]
     controls_on_stats = [text_controls_back_to_main_menu, text_controls_exit]
     controls_on_start=[text_controls_begin_session, text_controls_stats, text_controls_exit]
 

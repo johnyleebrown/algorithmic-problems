@@ -7,7 +7,6 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.test.Out.sou;
 import static util.test.Out.sout;
 
 public class Tester
@@ -16,7 +15,7 @@ public class Tester
 	private static String TESTER_S;
 	private static String TESTER_SEP;
 	private static final String TEXT_VERDICT = "verdict";
-	private static final int DEFAULT_LINE_LEN = 40;
+	private static final int DEFAULT_LINE_LEN = 20;
 	private static final String TEXT_ACC = "[ACCEPTED]";
 	private static final String TEXT_EXEC = "execution";
 
@@ -145,27 +144,24 @@ public class Tester
 		for (int i = 0; i < expectations.size(); i++)
 		{
 			boolean x = results.get(i).equals(expectations.get(i));
-			String ind = String.valueOf(i + 1) + ". ";
-			if (x)
-			{
-//				sout(ind + "OK");
-			}
-			else
+			String ind = (i + 1) + ". ";
+			if (!x)
 			{
 				nok = true;
-				sou(ind + "NOK");
-				sout(NEW_LINE + TESTER_SEP);
+				String NUM = String.valueOf(i + 1);
+				String NOK = "NOK";
+				String E = createLongString('.', DEFAULT_LINE_LEN - NUM.length() - NOK.length());
+				sout(NUM+E+NOK);
 			}
 		}
 		if (!nok)
 		{
-			String emptiness = createLongString('.', DEFAULT_LINE_LEN - TEXT_VERDICT.length() - TEXT_ACC.length());
-			sout(TEXT_VERDICT + emptiness + TEXT_ACC);
-//			sout(TESTER_SEP);
+			String emptiness = createLongString('.', DEFAULT_LINE_LEN - TEXT_ACC.length());
+			sout(emptiness + TEXT_ACC);
 		}
 		String avgTimes = "["+ String.format("%.2f", getAvgExecTimes())+"]";
-		String e2 = createLongString('.', DEFAULT_LINE_LEN - avgTimes.length() - TEXT_EXEC.length());
-		sout(TEXT_EXEC + e2 + avgTimes);
+		String e2 = createLongString('.', DEFAULT_LINE_LEN - avgTimes.length());
+		sout(e2+avgTimes);
 		sout(TESTER_S);
 	}
 

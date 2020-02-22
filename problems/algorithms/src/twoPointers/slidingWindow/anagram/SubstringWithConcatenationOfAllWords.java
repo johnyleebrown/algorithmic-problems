@@ -1,9 +1,8 @@
 package twoPointers.slidingWindow.anagram;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import util.test.Tester;
+
+import java.util.*;
 
 /**
  * 30
@@ -12,71 +11,77 @@ import java.util.Map;
  *
  * Task.
  *
- * You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of
- * substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.
+ * You are given a string, s, and a list of words, words, that are all of the
+ * same length. Find all starting indices of substring(s) in s that is a
+ * concatenation of each word in words exactly once and without any intervening
+ * characters.
  */
 public class SubstringWithConcatenationOfAllWords
 {
-	static class Solution
+	public static class Solution
 	{
 		public List<Integer> findSubstring(String s, String[] words)
 		{
-			List<Integer> result = new ArrayList<>();
-			if (words.length == 0)
-			{
-				return result;
-			}
+			List<Integer> res = new ArrayList<>();
+			if (s.length() == 0 || words.length == 0) return res;
+			int n = s.length();
+			int m = words[0].length();
+			Map<String, Integer> map = new HashMap<>();
+			for (String x : words) map.put(x, map.getOrDefault(x, 0) + 1);
+			int totalUniqueWords = map.size();
+			int targetLength = m * words.length;
 
-			Map<String, Integer> originalMap = new HashMap<>();
-			for (String str : words)
+			// idea is to step by not the regular length (1), but step by the length of words[0]
+			for (int start = 0; start < m; start++)
 			{
-				originalMap.put(str, originalMap.getOrDefault(str, 0) + 1);
-			}
-
-			int wordLength = words[0].length();
-			int targetLength = wordLength * words.length;
-
-			for (int start = 0; start < wordLength; start++)
-			{
+				int uniqueWordsCount = 0;
 				int l = start;
-				int count = 0;
-				Map<String, Integer> currentMap = new HashMap<>();
+				Map<String, Integer> lmap = new HashMap<>();
 
-				for (int r = wordLength + start - 1; r < s.length(); r += wordLength)
+				for (int r = start; r <= n - m; r += m)
 				{
-					String substringEndingAtRightPointer = s.substring(r + 1 - wordLength, r + 1);
-					if (originalMap.containsKey(substringEndingAtRightPointer))
+					String curr = getCur(s, r, r + m);
+					if (map.containsKey(curr))
 					{
-						currentMap.put(substringEndingAtRightPointer, currentMap.getOrDefault(substringEndingAtRightPointer, 0) + 1);
-						if (originalMap.get(substringEndingAtRightPointer) - currentMap.get(substringEndingAtRightPointer) >= 0)
-						{
-							count++;
-						}
+						lmap.put(curr, lmap.getOrDefault(curr, 0) + 1);
+						if (map.get(curr) - lmap.get(curr) == 0)
+							uniqueWordsCount++;
 					}
 
-					while (r - l + 1 == targetLength)
+					if (targetLength == r - l)
 					{
-						if (count == words.length)
+
+						String curl = getCur(s, l, l + m);
+						if (map.containsKey(curl))
 						{
-							result.add(l);
+							lmap.put(curl, lmap.getOrDefault(curl, 0) - 1);
+							if (map.get(curl) - lmap.get(curl) == 1)
+								uniqueWordsCount--;
 						}
 
-						String substringStartAtLeftPointer = s.substring(l, l + wordLength);
-						if (originalMap.containsKey(substringStartAtLeftPointer))
-						{
-							currentMap.put(substringStartAtLeftPointer, currentMap.getOrDefault(substringStartAtLeftPointer, 0) - 1);
-							if (originalMap.get(substringStartAtLeftPointer) - currentMap.get(substringStartAtLeftPointer) >= 1)
-							{
-								count--;
-							}
-						}
-
-						l += wordLength;
+						l += m;
 					}
+
+					if (uniqueWordsCount == totalUniqueWords)
+						res.add(l);
 				}
 			}
 
-			return result;
+			return res;
 		}
+
+		private String getCur(String s, int i, int j)
+		{
+			return s.substring(i, j);
+		}
+	}
+
+	public static void main(String[] args)
+	{
+		new Tester(new Solution())
+				.add("lingmindraboofooowingdingbarrwingmonkeypoundcake", new String[]{"fooo", "barr", "wing", "ding", "wing"}).expect(Arrays.asList(13))
+				.add("aaaaaa", new String[]{"aaa", "aaa"}).expect(Arrays.asList(0))
+				.add("aaaaaaaa", new String[]{"aa", "aa", "aa"}).expect(Arrays.asList(0, 2, 1))
+				.run();
 	}
 }

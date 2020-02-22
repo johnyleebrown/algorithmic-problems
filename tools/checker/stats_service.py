@@ -134,3 +134,6 @@ def get_month(r):
 
 # add good or bad stats
 # for each topic it should be 7 solves per week
+#Ttt
+##Add can’t solve button
+#It will add a list for the next day

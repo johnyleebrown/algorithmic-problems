@@ -152,6 +152,9 @@ public class Tester
 				String NOK = "NOK";
 				String E = createLongString('.', DEFAULT_LINE_LEN - NUM.length() - NOK.length());
 				sout(NUM+E+NOK);
+				sout("got: "+results.get(i));
+				sout("expected: "+expectations.get(i));
+				sout(TESTER_SEP);
 			}
 		}
 		if (!nok)

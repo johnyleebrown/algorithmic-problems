@@ -44,6 +44,22 @@ public class InputReader
 		return Long.parseLong(next());
 	}
 
+	public int[] nextIntAr(int n)
+	{
+		int[] ar = new int[n];
+		for (int i = 0; i < n; i++)
+			ar[i] = nextInt();
+		return ar;
+	}
+
+	public Long[] nextLongAr(int n)
+	{
+		Long[] ar = new Long[n];
+		for (int i = 0; i < n; i++)
+			ar[i] = nextLong();
+		return ar;
+	}
+
 	public String nextLine()
 	{
 		try

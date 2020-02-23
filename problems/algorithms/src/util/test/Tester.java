@@ -6,6 +6,7 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.*;
 
+import static util.test.Out.sou;
 import static util.test.Out.sout;
 
 public class Tester
@@ -151,6 +152,11 @@ public class Tester
 		return o.getClass().getSimpleName().equals("int[]");
 	}
 
+	private boolean isArr(Object o)
+	{
+		return o.getClass().getSimpleName().contains("[]");
+	}
+
 	private boolean compareResults(int i)
 	{
 		if (EXPECT_ANY_ORDER_FLAG && isIntArr(results.get(i)))
@@ -183,9 +189,19 @@ public class Tester
 		String NOK = "NOK";
 		String E = createLongString('.', getLineLen() - NUM.length() - NOK.length());
 		sout(NUM + E + NOK);
-		sout("got: " + results.get(i));
-		sout("expected: " + expectations.get(i));
+		sou("got: ");
+		print(results.get(i));
+		sout();
+		sou("expected: ");
+		print(expectations.get(i));
+		sout();
 		sout(TESTER_SEP);
+	}
+
+	private void print(Object o)
+	{
+		if (isArr(o))
+			System.out.print(Arrays.toString(new Object[]{o}));
 	}
 
 	private void printOk()

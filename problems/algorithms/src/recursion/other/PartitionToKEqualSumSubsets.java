@@ -1,4 +1,4 @@
-package Medium.Recursion;
+package recursion.other;
 
 
 import java.util.Arrays;

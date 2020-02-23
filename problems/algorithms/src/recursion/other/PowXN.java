@@ -1,4 +1,4 @@
-package medium.recusrion;
+package recursion.other;
 
 public class PowXN
 {

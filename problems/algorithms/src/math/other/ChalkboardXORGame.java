@@ -1,4 +1,4 @@
-package Hard.Math;
+package math.other;
 
 /**
  * 810

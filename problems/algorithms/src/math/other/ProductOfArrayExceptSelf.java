@@ -1,4 +1,4 @@
-package math;
+package math.other;
 
 /**
  * 238

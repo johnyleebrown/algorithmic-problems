@@ -1,6 +1,6 @@
-package Easy.recursion;
+package recursion.other;
 
-import util.ListNode;
+import util.ds.ListNode;
 
 public class SwapNodesInPairs
 {

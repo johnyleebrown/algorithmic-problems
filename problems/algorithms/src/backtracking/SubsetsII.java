@@ -39,7 +39,7 @@ public class SubsetsII
 	}
 
 	/**
-	 * min.Solution with checking for dups in array
+	 * Sol with checking for dups in array
 	 */
 	class Solution
 	{

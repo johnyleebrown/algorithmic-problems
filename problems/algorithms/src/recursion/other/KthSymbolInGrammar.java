@@ -1,4 +1,4 @@
-package medium.recursion;
+package recursion.other;
 
 public class KthSymbolInGrammar
 {

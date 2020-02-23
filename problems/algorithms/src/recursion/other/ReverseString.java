@@ -1,4 +1,4 @@
-package Easy.recursion;
+package recursion.other;
 
 // 344
 public class ReverseString

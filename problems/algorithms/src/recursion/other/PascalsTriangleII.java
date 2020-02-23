@@ -1,4 +1,4 @@
-package Easy.recursion;
+package recursion.other;
 
 import java.util.Arrays;
 import java.util.LinkedList;

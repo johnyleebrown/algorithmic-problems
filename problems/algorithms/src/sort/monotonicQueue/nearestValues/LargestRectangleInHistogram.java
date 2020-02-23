@@ -20,7 +20,7 @@ import java.util.Deque;
 public class LargestRectangleInHistogram
 {
 	/**
-	 * Solution using queue. The biggest area involving a height at i is between nearest smallest value on the left, and
+	 * Sol using queue. The biggest area involving a height at i is between nearest smallest value on the left, and
 	 * nearest smallest value on the right.
 	 */
 	class Solution
@@ -74,7 +74,7 @@ public class LargestRectangleInHistogram
 	}
 
 	/**
-	 * Solution using arrays of nearest smaller values. The biggest area involving a height at i is between nearest
+	 * recursion.other.Solution using arrays of nearest smaller values. The biggest area involving a height at i is between nearest
 	 * smallest value on the left, and * nearest smallest value on the right.
 	 */
 	static class Solution2

@@ -230,11 +230,21 @@ class BoxWithSelects(npyscreen.BoxTitle):
 
 class MainForm(npyscreen.FormBaseNew):
     def create(self):
-        self.add(BoxWithSelects, values=['begin session', 'stats', 'exit'], max_height=7, max_width=18)
+        global core
+        core = CoreService()
+        if len(core.init_errors) != 0:
+            form=self.add(BoxWithSelects, values=['exit'], max_height=7, max_width=18)
+            form.entry_widget.add_lines(core.init_errors)
+            form.entry_widget.display()
+        else:
+            self.add(BoxWithSelects, values=['begin session','stats','exit'], max_height=7, max_width=18)
 
 
 class App(npyscreen.StandardApp):
     def onStart(self):
-        global core
-        core = CoreService()
         self.addForm("MAIN", MainForm, name="Checker")
+'''
+if __name__ == "__main__":
+    core = CoreService()
+'''
+

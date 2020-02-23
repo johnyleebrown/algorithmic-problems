@@ -1,3 +1,7 @@
+package recursion.regular;
+
+import util.test.Tester;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,30 +15,18 @@ import java.util.regex.Pattern;
  *
  * Task.
  *
- * Find the length of the longest substring T of a given string (consists of lowercase letters only) such that every
- * character in T appears no less than k times.
- *
- * ============
- *
- * Solution.
- *
- * Recursively split on characters that appear less than k times, there can not be any answer containing these chars.
- *
- * ============
- *
- * Test cases.
- *
- * "aaabb" 3 "ababbc" 2 "cababb" 2 "abcabb" 2 "cababbbc" 3 "abcabbbc" 3 "cabcabbb" 3 "cabcabbbbc" 4 "cabccabccc" 4
- * "cccaaaaaaaabccabccc" 8
- *
- * ============
+ * Find the length of the longest substring T of a given string (consists of
+ * lowercase letters only) such that every character in T appears no less than k
+ * times.
  */
 public class LongestSubstringWithAtLeastKRepeatingCharacters
 {
 	/**
-	 * Pulling out good substrings with regex and checking them recursively.
+	 * Recursively split on characters that appear less than k times, there can
+	 * not be any answer containing these chars. Pulling out good substrings
+	 * with regex and checking them recursively.
 	 */
-	class Solution1
+	private static class Solution
 	{
 		public int longestSubstring(String s, int k)
 		{
@@ -56,10 +48,11 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 
 			// create a regex out of bad chars
 			String regexToAdd = "";
-			for (int i = 0; i < 256; i++) if (map[i] > 0 && map[i] < k)
-			{
-				regexToAdd += String.valueOf((char) i);
-			}
+			for (int i = 0; i < 256; i++)
+				if (map[i] > 0 && map[i] < k)
+				{
+					regexToAdd += String.valueOf((char) i);
+				}
 
 			// finalize regex if there are bad chars
 			String regex = "";
@@ -89,8 +82,9 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 
 	/**
 	 * No regex. Pulling out good substrings and checking them recursively.
+	 * Faster.
 	 */
-	class Solution2
+	private static class Solution2
 	{
 		public int longestSubstring(String s, int k)
 		{
@@ -110,10 +104,11 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 			}
 
 			Set<Character> badChars = new HashSet<>();
-			for (int i = 0; i < 26; i++) if (map[i] > 0 && map[i] < k)
-			{
-				badChars.add((char) ('z' - i));
-			}
+			for (int i = 0; i < 26; i++)
+				if (map[i] > 0 && map[i] < k)
+				{
+					badChars.add((char) ('z' - i));
+				}
 			if (badChars.size() == 0)
 			{
 				return s.length();
@@ -141,12 +136,29 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 			}
 
 			int max = 0;
-			for (String a: ar)
+			for (String a : ar)
 			{
 				max = Math.max(max, longestSubstring(a, k));
 			}
 
 			return max;
 		}
+	}
+
+	public static void main(String[] args)
+	{
+		new Tester(new Solution2())
+				.add("aaabb",3).expect(3)
+				.add("ababbc",2).expect(5)
+				.add("cababb",2).expect(5)
+				.add("abcabb",2).expect(2)
+				.add("cababbbc",3).expect(3)
+				.add("abcabbbc",3).expect(3)
+				.add("cabcabbb",3).expect(3)
+				.add("cabcabbbbc",4).expect(4)
+				.add("cabccabccc",4).expect(0)
+				.add("cccaaaaaaaabccabccc",8).expect(8)
+				.add("aacbbbdc",2).expect(3)
+				.run();
 	}
 }

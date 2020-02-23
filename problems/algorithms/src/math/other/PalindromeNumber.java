@@ -1,4 +1,4 @@
-package math;
+package math.other;
 
 /**
  * Determine whether an integer is a palindrome.

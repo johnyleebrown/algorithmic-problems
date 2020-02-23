@@ -18,6 +18,10 @@ import java.util.*;
  */
 public class SubstringWithConcatenationOfAllWords
 {
+	/**
+	 * Usual sliding window, but here we compare local count to global count and
+	 * we use a word len as a step instead of 1.
+	 */
 	public static class Solution
 	{
 		public List<Integer> findSubstring(String s, String[] words)
@@ -31,31 +35,29 @@ public class SubstringWithConcatenationOfAllWords
 			int totalUniqueWords = map.size();
 			int targetLength = m * words.length;
 
-			// idea is to step by not the regular length (1), but step by the length of words[0]
 			for (int start = 0; start < m; start++)
 			{
 				int uniqueWordsCount = 0;
 				int l = start;
-				Map<String, Integer> lmap = new HashMap<>();
+				Map<String, Integer> localMap = new HashMap<>();
 
 				for (int r = start; r <= n - m; r += m)
 				{
-					String curr = getCur(s, r, r + m);
-					if (map.containsKey(curr))
+					String wordAtR = substr(s, r, r + m);
+					if (map.containsKey(wordAtR))
 					{
-						lmap.put(curr, lmap.getOrDefault(curr, 0) + 1);
-						if (map.get(curr) - lmap.get(curr) == 0)
+						localMap.put(wordAtR, localMap.getOrDefault(wordAtR, 0) + 1);
+						if (map.get(wordAtR) - localMap.get(wordAtR) == 0)
 							uniqueWordsCount++;
 					}
 
 					if (targetLength == r - l)
 					{
-
-						String curl = getCur(s, l, l + m);
-						if (map.containsKey(curl))
+						String wordAtL = substr(s, l, l + m);
+						if (map.containsKey(wordAtL))
 						{
-							lmap.put(curl, lmap.getOrDefault(curl, 0) - 1);
-							if (map.get(curl) - lmap.get(curl) == 1)
+							localMap.put(wordAtL, localMap.getOrDefault(wordAtL, 0) - 1);
+							if (map.get(wordAtL) - localMap.get(wordAtL) == 1)
 								uniqueWordsCount--;
 						}
 
@@ -70,7 +72,7 @@ public class SubstringWithConcatenationOfAllWords
 			return res;
 		}
 
-		private String getCur(String s, int i, int j)
+		private String substr(String s, int i, int j)
 		{
 			return s.substring(i, j);
 		}

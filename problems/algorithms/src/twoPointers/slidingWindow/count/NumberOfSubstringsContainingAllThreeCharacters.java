@@ -21,7 +21,10 @@ import util.test.Tester;
 public class NumberOfSubstringsContainingAllThreeCharacters
 {
 	/**
-	 *
+	 * Shorting the window when we have good condition. Meanwhile, we update
+	 * result with number of substrings we can have with substring from l to r.
+	 * n - r means we count all substrings that end at i where is is between r
+	 * and r, so all involving current (l,r) substring.
 	 */
 	private static class Solution
 	{
@@ -43,7 +46,7 @@ public class NumberOfSubstringsContainingAllThreeCharacters
 
 				while (uniqueCharsCount == 3)
 				{
-//					res += n - r;
+					res += n - r;
 
 					map[s.charAt(l) - 'a']--;
 					if (map[s.charAt(l) - 'a'] == 0)
@@ -53,8 +56,6 @@ public class NumberOfSubstringsContainingAllThreeCharacters
 
 					l++;
 				}
-
-				res+=l;
 			}
 
 			return res;

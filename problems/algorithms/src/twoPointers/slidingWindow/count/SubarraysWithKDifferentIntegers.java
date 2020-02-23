@@ -7,8 +7,9 @@ package twoPointers.slidingWindow.count;
  *
  * Task.
  *
- * Given an array A of positive integers, call a (contiguous, not necessarily distinct) subarray of A good if the number
- * of different integers in that subarray is exactly K. Return the number of good subarrays of A.
+ * Given an array A of positive integers, call a (contiguous, not necessarily
+ * distinct) subarray of A good if the number of different integers in that
+ * subarray is exactly K. Return the number of good subarrays of A.
  */
 public class SubarraysWithKDifferentIntegers
 {

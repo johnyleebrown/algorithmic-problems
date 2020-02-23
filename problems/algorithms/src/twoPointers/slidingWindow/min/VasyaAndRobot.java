@@ -5,7 +5,7 @@ import util.ds.InputReader;
 import java.io.PrintWriter;
 
 /**
- * 256854 D
+ * 256854D
  *
  * ======
  *

@@ -7,3 +7,4 @@ Heap Sort,sort/heap
 Union Find,unionFind
 Graph,graph
 Hash Table,hashtable
+Rec,recursion/other

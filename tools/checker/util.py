@@ -21,3 +21,6 @@ def add_line_to_file(file_name, text):
 
 def clear_file(file_name):
     open(file_name, 'w').close()
+
+def record_test_case(str, path):
+    add_line_to_file(path + 'test.txt', str)

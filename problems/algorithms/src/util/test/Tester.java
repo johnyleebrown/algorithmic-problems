@@ -4,10 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static util.test.Out.sout;
 
@@ -55,9 +52,24 @@ public class Tester
 
 	private int calculateLineLenFromClassName(Class c)
 	{
-		String enclosingClass = c.getEnclosingClass().getSimpleName();
+		String enclosingClass = c.getEnclosingClass() != null
+				? c.getEnclosingClass().getSimpleName()
+				: c.getSimpleName();
 		int extra = 5; // depends on the java run alias
 		return extra + enclosingClass.length();
+	}
+
+	/**
+	 * Custom methods that are public always go first. If we have an inner class
+	 * 'Solution'(most of the times) - then we take first. Otherwise we iterate
+	 * to find the right one.
+	 */
+	private Method getCorrectMethod(Object o)
+	{
+		for (Method m : o.getClass().getMethods())
+			if (!m.getName().equals("main"))
+				return m;
+		return null;
 	}
 
 	@SuppressWarnings({"unchecked"})
@@ -66,7 +78,8 @@ public class Tester
 		classObject = obj;
 		TESTER_S = createDefaultLongString('=');
 		TESTER_SEP = createDefaultLongString('-');
-		method = obj.getClass().getMethods()[0];
+
+		method = getCorrectMethod(obj);
 		AccessController.doPrivileged((PrivilegedAction) () ->
 		{
 			method.setAccessible(true);
@@ -141,9 +154,10 @@ public class Tester
 	private boolean compareResults(int i)
 	{
 		if (EXPECT_ANY_ORDER_FLAG && isIntArr(results.get(i)))
-		{
 			return areAnagrams((int[]) results.get(i), (int[]) expectations.get(i));
-		}
+
+		if (isIntArr(results.get(i)) && isIntArr(expectations.get(i)))
+			return Arrays.equals((int[]) results.get(i), (int[]) expectations.get(i));
 
 		return results.get(i).equals(expectations.get(i));
 	}
@@ -152,11 +166,12 @@ public class Tester
 	{
 		sout(TESTER_S);
 		boolean nok = false;
-		for (int i = 0; i < expectations.size(); i++) if (!compareResults(i))
-		{
-			nok = true;
-			printIntermediate(i);
-		}
+		for (int i = 0; i < expectations.size(); i++)
+			if (!compareResults(i))
+			{
+				nok = true;
+				printIntermediate(i);
+			}
 		if (!nok) printOk();
 		printTime();
 		sout(TESTER_S);
@@ -167,9 +182,9 @@ public class Tester
 		String NUM = String.valueOf(i + 1);
 		String NOK = "NOK";
 		String E = createLongString('.', getLineLen() - NUM.length() - NOK.length());
-		sout(NUM+E+NOK);
-		sout("got: "+results.get(i));
-		sout("expected: "+expectations.get(i));
+		sout(NUM + E + NOK);
+		sout("got: " + results.get(i));
+		sout("expected: " + expectations.get(i));
 		sout(TESTER_SEP);
 	}
 
@@ -181,9 +196,9 @@ public class Tester
 
 	private void printTime()
 	{
-		String avgTimes = "["+ String.format("%.2f", getAvgExecTimes())+"]";
+		String avgTimes = "[" + String.format("%.2f", getAvgExecTimes()) + "]";
 		String e2 = createLongString('.', getLineLen() - avgTimes.length());
-		sout(e2+avgTimes);
+		sout(e2 + avgTimes);
 	}
 
 	private Double getAvgExecTimes()

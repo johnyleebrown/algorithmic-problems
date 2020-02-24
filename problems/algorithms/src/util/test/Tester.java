@@ -86,6 +86,7 @@ public class Tester
 			method.setAccessible(true);
 			return null;
 		});
+
 		results = new ArrayList<>();
 		expectations = new ArrayList<>();
 		execTimes = new ArrayList<>();
@@ -173,17 +174,33 @@ public class Tester
 		sout(TESTER_S);
 		boolean nok = false;
 		for (int i = 0; i < expectations.size(); i++)
+		{
 			if (!compareResults(i))
 			{
 				nok = true;
-				printIntermediate(i);
+				printIntermediateNok(i);
 			}
+			else
+			{
+				printIntermediateOk(i);
+			}
+		}
 		if (!nok) printOk();
 		printTime();
 		sout(TESTER_S);
 	}
 
-	private void printIntermediate(int i)
+	// todo - record to list ,then if all ok, don't print ok's
+	private void printIntermediateOk(int i)
+	{
+		String NUM = String.valueOf(i + 1);
+		String OK = "OK";
+		String E = createLongString('.', getLineLen() - NUM.length() - OK.length());
+		sout(NUM + E + OK);
+		sout(TESTER_SEP);
+	}
+
+	private void printIntermediateNok(int i)
 	{
 		String NUM = String.valueOf(i + 1);
 		String NOK = "NOK";
@@ -202,6 +219,8 @@ public class Tester
 	{
 		if (isArr(o))
 			System.out.print(Arrays.toString(new Object[]{o}));
+		else
+			System.out.println(o);
 	}
 
 	private void printOk()

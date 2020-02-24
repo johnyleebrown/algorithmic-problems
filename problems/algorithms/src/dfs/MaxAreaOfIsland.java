@@ -4,7 +4,7 @@
  */
 class Solution
 {
-    private static int[][] path = new int[][]{{0,-1},{-1,0},{1,0},{0,1}};
+    private static int[][] dirs = new int[][]{{0,-1},{-1,0},{1,0},{0,1}};
     private static int n, m;
 
     public int maxAreaOfIsland(int[][] grid)
@@ -20,31 +20,36 @@ class Solution
                 grid[i][j] = 2;
                 maxArea = Math.max(maxArea, dfs(i, j, grid));
             }
-
         }
 
         return maxArea;
     }
 
-    private int dfs(int old_i, int old_j, int[][] grid)
+    private int dfs(int i, int j, int[][] grid)
     {
         int area = 1;
 
-        for (int[] cell: path)
+        for (int[] dir: dirs)
         {
-            int i = old_i + cell[0], j = old_j + cell[1];
+            int newi = i + dir[0];
+            int newj = j + dir[1];
 
-            if (i >= 0 && i < n && j >= 0 && j < m)
+            if (!isValid(newi,newj))
+                continue;
+
+            if (grid[newi][newj] == 1)
             {
-                if (grid[i][j] == 1)
-                {
-                    grid[i][j] = 2;
-                    area += dfs(i, j, grid);
-                }
+                grid[newi][newj] = 2;
+                area += dfs(newi, newj, grid);
             }
         }
 
         return area;
+    }
+
+    private boolean isValid(int i, int j)
+    {
+        return i >= 0 && i < n && j >= 0 && j < m;
     }
 }
 

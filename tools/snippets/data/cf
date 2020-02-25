@@ -26,76 +26,17 @@ public class Main
 	 *
 	 * ********************************
 	 */
-	public static void main(String[] args)
-	{
-		PrintWriter out = new PrintWriter(System.out);
-		solve(new InputReader(System.in), out);
-		out.close();
-	}
-
+	public static void main(String[] args) { PrintWriter out = new PrintWriter(System.out); solve(new InputReader(System.in), out); out.close(); }
 	public static class InputReader
 	{
 		public BufferedReader reader;
 		public StringTokenizer tokenizer;
-
-		public InputReader(InputStream stream)
-		{
-			reader = new BufferedReader(new InputStreamReader(stream), 32768);
-			tokenizer = null;
-		}
-
-		public String next()
-		{
-			while (tokenizer == null || !tokenizer.hasMoreTokens())
-			{
-				try
-				{
-					tokenizer = new StringTokenizer(reader.readLine());
-				}
-				catch (IOException e)
-				{
-					throw new RuntimeException(e);
-				}
-			}
-			return tokenizer.nextToken();
-		}
-
-		public int nextInt()
-		{
-			return Integer.parseInt(next());
-		}
-
-		public Long nextLong()
-		{
-			return Long.parseLong(next());
-		}
-
-		public int[] nextIntAr(int n)
-		{
-			int[] ar = new int[n];
-			for (int i = 0; i < n; i++)
-				ar[i] = nextInt();
-			return ar;
-		}
-
-		public Long[] nextLongAr(int n)
-		{
-			Long[] ar = new Long[n];
-			for (int i = 0; i < n; i++)
-				ar[i] = nextLong();
-			return ar;
-		}
-
-		public String nextLine()
-		{
-			try
-			{
-				return reader.readLine();
-			}
-			catch (IOException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
+		public InputReader(InputStream stream) { reader = new BufferedReader(new InputStreamReader(stream), 32768); tokenizer = null; }
+		public String next() { while (tokenizer == null || !tokenizer.hasMoreTokens()) { try { tokenizer = new StringTokenizer(reader.readLine()); } catch (IOException e) { throw new RuntimeException(e); } } return tokenizer.nextToken(); }
+		public int nextInt() { return Integer.parseInt(next()); }
+		public Long nextLong() { return Long.parseLong(next()); }
+		public int[] nextIntAr(int n) { int[] ar = new int[n]; for (int i = 0; i < n; i++) ar[i] = nextInt(); return ar; }
+		public Long[] nextLongAr(int n) { Long[] ar = new Long[n]; for (int i = 0; i < n; i++) ar[i] = nextLong(); return ar; }
+		public String nextLine() { try { return reader.readLine(); } catch (IOException e) { throw new RuntimeException(e); } }
 	}
 }

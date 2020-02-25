@@ -2,15 +2,14 @@ package math.random;
 
 import java.util.Random;
 
-/*
+/**
  * 398
  */
 public class RandomPickIndex
 {
-	/*
-	 * Reservoir sampling.
-	 * Treating target elements as stream, so for each target element
-	 * probability to be chosen will be 1/countTargets.
+	/**
+	 * Reservoir sampling. Treating target elements as stream, so for each
+	 * target element probability to be chosen will be 1/countTargets.
 	 */
 	class Solution
 	{

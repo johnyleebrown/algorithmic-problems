@@ -1,6 +1,8 @@
 package medium.tree;
 
-// 114
+/**
+ * 114
+ */
 public class FlattenBinaryTreeToLinkedList
 {
 	class Solution 

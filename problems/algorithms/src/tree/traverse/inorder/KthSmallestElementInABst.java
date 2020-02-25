@@ -1,5 +1,11 @@
-// 230
-class Solution 
+package tree.traverse.inorder;
+
+import java.util.Stack;
+
+/**
+ * 230
+ */
+class Solution
 {
 	public int kthSmallest(TreeNode root, int k) 
 	{

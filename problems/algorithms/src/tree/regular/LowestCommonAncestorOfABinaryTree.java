@@ -2,8 +2,10 @@ package tree.regular;
 
 import util.TreeNode;
 
-// 236
-public class LowestCommonAncestorOfABinaryTree 
+/**
+ * 236
+ */
+public class LowestCommonAncestorOfABinaryTree
 {
 	class Solution 
 	{

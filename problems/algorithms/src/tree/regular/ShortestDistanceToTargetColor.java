@@ -1,8 +1,13 @@
-/*
+package tree.regular;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
+
+/**
  * 1182
- * Google
  */
-public class ShortestDistanceToTargetColor 
+public class ShortestDistanceToTargetColor
 {
 	// treeset solution
 	// other solution is to use binary search

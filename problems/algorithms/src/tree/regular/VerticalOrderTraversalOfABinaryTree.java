@@ -1,96 +1,102 @@
 package tree.regular;
 
-/*
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+/**
  * 987
- * Google
- *
- * Number nodes, sort them by coordinates, then create lists for each x coordinate.
  */
-class Solution
+class VerticalOrderTraversalOfABinaryTree
 {
-    public List<List<Integer>> verticalTraversal(TreeNode root)
-    {
-        if (root == null)
-        {
-            return new ArrayList<>();
-        }
 
-        List<Element> elements = new ArrayList<>();
+	class Solution
+	{
+		public List<List<Integer>> verticalTraversal(TreeNode root)
+		{
+			if (root == null)
+			{
+				return new ArrayList<>();
+			}
 
-        // obtain coordinates for each of the nodes
-        obtainElementsCoordinates(root, 0, 0, elements);
+			List<Element> elements = new ArrayList<>();
 
-        // sort as per problem statement
-        sortElements(elements);
+			// obtain coordinates for each of the nodes
+			obtainElementsCoordinates(root, 0, 0, elements);
 
-        // put nodes with same x coordinate in the same list
-        return createVerticalLists(elements);
-    }
+			// sort as per problem statement
+			sortElements(elements);
 
-    private List<List<Integer>> createVerticalLists(List<Element> elements)
-    {
-        List<List<Integer>> result = new ArrayList<>();
+			// put nodes with same x coordinate in the same list
+			return createVerticalLists(elements);
+		}
 
-        int i = 0;
-        while (i < elements.size())
-        {
-            List<Integer> curList = new ArrayList<>();
-            int currentVertical = elements.get(i).x;
+		private List<List<Integer>> createVerticalLists(List<Element> elements)
+		{
+			List<List<Integer>> result = new ArrayList<>();
 
-            while (i < elements.size() && elements.get(i).x == currentVertical)
-            {
-                curList.add(elements.get(i).val);
-                i++;
-            }
+			int i = 0;
+			while (i < elements.size())
+			{
+				List<Integer> curList = new ArrayList<>();
+				int currentVertical = elements.get(i).x;
 
-            result.add(curList);
-        }
+				while (i < elements.size() && elements.get(i).x == currentVertical)
+				{
+					curList.add(elements.get(i).val);
+					i++;
+				}
 
-        return result;
-    }
+				result.add(curList);
+			}
 
-    private void sortElements(List<Element> elements)
-    {
-        Collections.sort(elements, new Comparator<Element>(){
-            public int compare(Element a, Element b)
-            {
-                if (a.x == b.x && a.y == b.y)
-                {
-                    return a.val - b.val;
-                }
-                if (a.x == b.x)
-                {
-					// because we decrease y as we go deeper
-                    return b.y - a.y;
-                }
-                return a.x - b.x;
-            }
-        });
-    }
+			return result;
+		}
 
-    private void obtainElementsCoordinates(TreeNode root, int x, int y, List<Element> elements)
-    {
-        if (root == null)
-        {
-            return;
-        }
+		private void sortElements(List<Element> elements)
+		{
+			Collections.sort(elements, new Comparator<Element>()
+			{
+				public int compare(Element a, Element b)
+				{
+					if (a.x == b.x && a.y == b.y)
+					{
+						return a.val - b.val;
+					}
+					if (a.x == b.x)
+					{
+						// because we decrease y as we go deeper
+						return b.y - a.y;
+					}
+					return a.x - b.x;
+				}
+			});
+		}
 
-        elements.add(new Element(x, y, root.val));
+		private void obtainElementsCoordinates(TreeNode root, int x, int y, List<Element> elements)
+		{
+			if (root == null)
+			{
+				return;
+			}
 
-        obtainElementsCoordinates(root.left, x - 1, y - 1, elements);
-        obtainElementsCoordinates(root.right, x + 1, y - 1, elements);
-    }
+			elements.add(new Element(x, y, root.val));
 
-    class Element
-    {
-        int x, y, val;
+			obtainElementsCoordinates(root.left, x - 1, y - 1, elements);
+			obtainElementsCoordinates(root.right, x + 1, y - 1, elements);
+		}
 
-        public Element(int x, int y, int val)
-        {
-            this.x = x;
-            this.y = y;
-            this.val = val;
-        }
-    }
+		class Element
+		{
+			int x, y, val;
+
+			public Element(int x, int y, int val)
+			{
+				this.x = x;
+				this.y = y;
+				this.val = val;
+			}
+		}
+	}
 }
-

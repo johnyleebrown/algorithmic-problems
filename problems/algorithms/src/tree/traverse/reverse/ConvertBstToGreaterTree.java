@@ -2,8 +2,10 @@ package tree.traverse.reverse;
 
 import util.TreeNode;
 
-// 538
-public class ConvertBstToGreaterTree 
+/**
+ * 538
+ */
+public class ConvertBstToGreaterTree
 {
     // Reverse inorder traversal
     public class Solution 

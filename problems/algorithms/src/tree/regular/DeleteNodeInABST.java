@@ -1,12 +1,16 @@
 package tree.regular;
 
-// 450
+import util.ds.TreeNode;
+
+/**
+ * 450
+ */
 public class DeleteNodeInABST
 {
 	// stand binary tree deletion
 	class Solution 
 	{
-		public TreeNode deleteNode(TreeNode root, int key) 
+		public TreeNode deleteNode(TreeNode root, int key)
 		{
 			// bst = unique
 			// we v found a node
@@ -41,6 +45,4 @@ public class DeleteNodeInABST
 			return root;
 		}
 	}
-
 }
-

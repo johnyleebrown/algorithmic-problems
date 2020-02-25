@@ -3,6 +3,10 @@ package twoPointers.slidingWindow.max;
 import util.ds.InputReader;
 
 import java.io.PrintWriter;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 256854A
@@ -10,6 +14,8 @@ import java.io.PrintWriter;
  * ======
  *
  * Source: Codeforces
+ *
+ * Link: https://codeforces.com/group/pgkaqF4igo/contest/256854
  */
 public class MaxBooksToRead
 {
@@ -46,6 +52,33 @@ public class MaxBooksToRead
 				result = Math.max(result, r - l + 1);
 			}
 			out.println(result);
+		}
+	}
+
+	class Solution2 {
+		public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+			int n = nums1.length;
+			int[] res = new int[n];
+			Deque<Integer> q = new ArrayDeque<>();
+			Map<Integer, Integer> map = new HashMap<>();
+			for (int i = nums2.length - 1; i >= 0; i--)
+			{
+				while (!q.isEmpty() && nums2[i]>=q.peekLast())
+				{
+					q.removeLast();
+				}
+				if (!q.isEmpty())
+					map.put(nums2[i],-1);
+				else
+					map.put(nums2[i], q.peekLast());
+				q.addLast(nums2[i]);
+			}
+			for (int i = 0; i < n; i++)
+			{
+				int x = nums1[i];
+				res[i] = map.get(x);
+			}
+			return res;
 		}
 	}
 }

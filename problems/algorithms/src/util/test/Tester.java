@@ -20,6 +20,7 @@ public class Tester
 	private final Method method;
 	private final List<Object> results;
 	private final List<Object> expectations;
+	private final List<Object> orExpectations;
 	private final Object classObject;
 	private final List<Double> execTimes;
 
@@ -89,6 +90,7 @@ public class Tester
 
 		results = new ArrayList<>();
 		expectations = new ArrayList<>();
+		orExpectations = new ArrayList<>();
 		execTimes = new ArrayList<>();
 	}
 
@@ -117,6 +119,12 @@ public class Tester
 	public Tester expect(Object param)
 	{
 		expectations.add(param);
+		return this;
+	}
+
+	public Tester orExpect(Object param)
+	{
+		orExpectations.add(param);
 		return this;
 	}
 
@@ -161,12 +169,31 @@ public class Tester
 	private boolean compareResults(int i)
 	{
 		if (EXPECT_ANY_ORDER_FLAG && isIntArr(results.get(i)))
-			return areAnagrams((int[]) results.get(i), (int[]) expectations.get(i));
+		{
+			boolean ans1 = areAnagrams((int[]) results.get(i), (int[]) expectations.get(i));
+			if (!orExpectations.isEmpty() && !ans1)
+			{
+				return areAnagrams((int[]) results.get(i), (int[]) orExpectations.get(i)); // ans2
+			}
+			return ans1;
+		}
 
 		if (isIntArr(results.get(i)) && isIntArr(expectations.get(i)))
-			return Arrays.equals((int[]) results.get(i), (int[]) expectations.get(i));
+		{
+			boolean ans1 = Arrays.equals((int[]) results.get(i), (int[]) expectations.get(i));
+			if (!orExpectations.isEmpty() && !ans1)
+			{
+				return Arrays.equals((int[]) results.get(i), (int[]) orExpectations.get(i)); // ans2
+			}
+			return ans1;
+		}
 
-		return results.get(i).equals(expectations.get(i));
+		boolean ans1 = results.get(i).equals(expectations.get(i));
+		if (!orExpectations.isEmpty() && !ans1)
+		{
+			return results.get(i).equals(orExpectations.get(i));
+		}
+		return ans1;
 	}
 
 	public void run()
@@ -211,6 +238,11 @@ public class Tester
 		sout();
 		sou("expected: ");
 		print(expectations.get(i));
+		if (!orExpectations.isEmpty())
+		{
+			sou("or: ");
+			print(orExpectations.get(i));
+		}
 		sout();
 		sout(TESTER_SEP);
 	}

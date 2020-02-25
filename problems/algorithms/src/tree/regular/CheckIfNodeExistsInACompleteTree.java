@@ -1,12 +1,18 @@
 package tree.regular;
 
+import util.ds.TreeNode;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-/*
- * Check if node index exists in complete binary tree.
+/**
+ * Google_Interview_6
  *
- * google phone interview.
+ * =====
+ *
+ * Task.
+ *
+ * Check if node index exists in complete binary tree.
  */
 public class CheckIfNodeExistsInACompleteTree
 {
@@ -44,4 +50,3 @@ public class CheckIfNodeExistsInACompleteTree
 		}
 	}
 }
-

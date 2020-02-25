@@ -1,6 +1,10 @@
 package tree.regular;
 
-// 662
+import java.util.LinkedList;
+
+/**
+ * 662
+ */
 public class MaximumWidthOfBinaryTree
 {
 	// count max row length at each row, remove nulls at the row start and the end 

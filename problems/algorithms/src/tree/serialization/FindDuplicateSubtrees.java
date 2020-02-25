@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-// 652
+/**
+ * 652
+ */
 public class FindDuplicateSubtrees
 {
 	// keeping duplicates as string in a map with counters, 

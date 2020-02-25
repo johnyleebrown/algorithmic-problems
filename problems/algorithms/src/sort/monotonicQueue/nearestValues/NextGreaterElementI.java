@@ -1,5 +1,7 @@
 package sort.monotonicQueue.nearestValues;
 
+import util.test.Tester;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
@@ -24,10 +26,7 @@ import java.util.Map;
  */
 public class NextGreaterElementI
 {
-	/**
-	 *
-	 */
-	class Solution
+	private static class Solution1
 	{
 		private Map<Integer, Integer> m = new HashMap<>(); // value, index of nums1
 
@@ -95,5 +94,12 @@ public class NextGreaterElementI
 				return nearestValues;
 			}
 		}
+	}
+
+	public static void main(String[] args)
+	{
+		new Tester(new Solution1())
+				.add(new int[]{4,1,2}, new int[]{1,3,4,2}).expect(new int[]{-1,3,-1})
+				.run();
 	}
 }

@@ -7,8 +7,10 @@ import java.util.Set;
 import Helpers.Helper;
 import util.TreeNode;
 
-// 222
-public class CountCompleteTreeNodes 
+/**
+ * 222
+ */
+public class CountCompleteTreeNodes
 {
 	class Solution1 
 	{

@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.lang.Math;
 
-/*
- * tags: {google}
+/**
+ * Google_Interview_7
  */
 public class MinPathBetweenLeafNodes
 {
@@ -16,29 +16,32 @@ public class MinPathBetweenLeafNodes
 	{
 		private int val;
 		private List<TN> children;
-		TN (int value)
+
+		TN(int value)
 		{
 			val = value;
 			children = new ArrayList<>();
 		}
 	}
-	
-	// if the child is 1 then we compare with 
-	// with the last that came from recursion
-	// 
-	// if it is not, that means we already compared 
-	// and we get the last one that we will send further
-	//
-	// we need to return a last one at each crossroads
-	// we need to update global minimum at each crossroads
+
+	/**
+	 * if the child is 1 then we compare with with the last that came from
+	 * recursion
+	 *
+	 * if it is not, that means we already compared and we get the last one that
+	 * we will send further
+	 *
+	 * we need to return a last one at each crossroads we need to update global
+	 * minimum at each crossroads
+	 */
 	private static int[] calculate(TN root)
 	{
-		if (root.children.size() == 0) return new int[]{root.val, root.val};	
-	
+		if (root.children.size() == 0) return new int[]{root.val, root.val};
+
 		int[] base = calculate(getEl(root, 0));
 		int prev = base[1];
 		int localFirst = base[0];
-		
+
 		for (int i = 1; i < root.children.size(); i++)
 		{
 			int[] cur = calculate(getEl(root, i));
@@ -60,7 +63,7 @@ public class MinPathBetweenLeafNodes
 	{
 		return root.children.get(i);
 	}
-	
+
 	private static int findMin(TN root)
 	{
 		if (root == null) return -1;
@@ -71,13 +74,13 @@ public class MinPathBetweenLeafNodes
 	public static void main(String[] args)
 	{
 		globalMin = Integer.MAX_VALUE;
-		System.out.println(findMin(test1()));		
+		System.out.println(findMin(test1()));
 		globalMin = Integer.MAX_VALUE;
-		System.out.println(findMin(test2()));		
+		System.out.println(findMin(test2()));
 		globalMin = Integer.MAX_VALUE;
-		System.out.println(findMin(test3()));		
+		System.out.println(findMin(test3()));
 	}
-	
+
 	private static TN test1()
 	{
 		TN tn1 = new TN(1);
@@ -102,8 +105,8 @@ public class MinPathBetweenLeafNodes
 		TN root = new TN(5);
 		root.children.add(tn2);
 		root.children.add(tn7);
-	
-		return root;	
+
+		return root;
 	}
 
 	private static TN test2()
@@ -132,7 +135,7 @@ public class MinPathBetweenLeafNodes
 		root.children.add(tn7);
 
 		return root;
-	}	
+	}
 
 	private static TN test3()
 	{
@@ -158,9 +161,7 @@ public class MinPathBetweenLeafNodes
 		TN root = new TN(5);
 		root.children.add(tn2);
 		root.children.add(tnm7);
-	
+
 		return root;
 	}
-
 }
-

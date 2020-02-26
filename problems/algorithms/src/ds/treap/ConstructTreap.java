@@ -1,3 +1,7 @@
+package ds.treap;
+
+import java.util.Arrays;
+
 /*
  * There is a set of pairs [i, j], i's and j's are unique on it's own.
  * Construct treap.

@@ -1,18 +1,21 @@
 package string.serialize;
 
-/*
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+
+/**
  * 249
- * Google
  */
 public class GroupShiftedStrings
 {
-	class Solution 
+	class Solution
 	{
-		public List<List<String>> groupStrings(String[] strings) 
+		public List<List<String>> groupStrings(String[] strings)
 		{
 			// we know that it wont exceed n
 			HashMap<String, List<String>> stringPatternMap = new HashMap<>(strings.length);
-			for (String variant: strings)
+			for (String variant : strings)
 			{
 				String variantPattern = createPattern(variant);
 				stringPatternMap.putIfAbsent(variantPattern, new LinkedList<>());

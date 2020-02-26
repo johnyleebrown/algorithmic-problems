@@ -7,28 +7,29 @@ import util.ds.ListNode;
  */
 public class RemoveDuplicatesFromSortedListII
 {
+	/**
+	 * We check 2 things: if next is the same as cur, for 0..n-1 of the
+	 * sequence, and if prev is the same as cur, for the 1..n.
+	 */
 	class Solution
 	{
-		public ListNode deleteDuplicates(ListNode head)
+		public ListNode deleteDuplicates(ListNode cur)
 		{
-			return helper(head, null);
+			return h(cur, null);
 		}
 
-		private ListNode helper(ListNode head, ListNode prev)
+		private ListNode h(ListNode cur, ListNode prev)
 		{
-			if (head == null) return null;
-			head.next = helper(head.next, head);
-			if (head.next != null)
-			{
-				if (head.val == head.next.val)
-				{
-					if ((prev == null) ||
-							(prev != null && prev.val != head.val))
-						return head.next.next;
-					else return head.next;
-				}
-			}
-			return head;
+			if (cur == null)
+				return null;
+
+			ListNode ret = h(cur.next, cur);
+
+			if (prev != null && cur.val == prev.val || cur.next != null && cur.next.val == cur.val)
+				return ret;
+
+			cur.next = ret;
+			return cur;
 		}
 	}
 }

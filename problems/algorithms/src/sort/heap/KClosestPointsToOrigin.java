@@ -171,4 +171,12 @@ public class KClosestPointsToOrigin
 			a[j] = temp;
 		}
 	}
+
+	/**
+	 * Standard pq. (slower).
+	 */
+	public class Solution3
+	{
+
+	}
 }

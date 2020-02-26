@@ -5,10 +5,10 @@ Binary Search,bs
 Linked List,linkedList
 Heap Sort,sort/heap
 Union Find,unionFind
-Graph Others,graph/!shortestPaths
+Graph Others,graph,graph/shortestPaths
 Graph Shortest Papths,graph/shortestPaths
 Hash Table,hashtable
 Recursion,recursion/other
 Random,math/random
 Tree Regular,tree/regular
-Tree Oher,tree/!regular
+Tree Other,tree,tree/regular

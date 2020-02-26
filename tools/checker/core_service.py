@@ -41,13 +41,18 @@ class CoreService:
     def random_select(n):
         return random.randint(0, n - 1)
 
-    def create_problems_map_and_list(self, from_dir):
+    def create_problems_map_and_list(self, topic_name):
 
+        from_dir = self.topics_map[topic_name]['path']
+        excluded = self.topics_map[topic_name]['excluded']
         problems_list = []
         problems_map = {}
         files_with_errors = []
 
         for dirpath, subdirs, files in os.walk(from_dir, topdown=True):
+            if excluded == dirpath:
+                subdirs[:] = []
+                files[:] = []
             subdirs[:] = [d for d in subdirs if d not in ['ds']]
             for x in files:
                 if x.endswith(".java"):
@@ -114,9 +119,10 @@ class CoreService:
             self.topics_name_list.append(topic_name)
 
             self.topics_map[topic_name] = {}
-            self.topics_map[topic_name]['path'] = topic_path
+            self.topics_map[topic_name]['path'] = self.main_dir + topic_path
+            self.topics_map[topic_name]['excluded'] = self.main_dir + x[2] if len(x) > 2 else ''
 
-            pm, pl, err = self.create_problems_map_and_list(self.main_dir + topic_path)
+            pm, pl, err = self.create_problems_map_and_list(topic_name)
             if err:
                 not_valid_files.extend(err)
                 problem_found = True
@@ -149,8 +155,9 @@ class CoreService:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
-"""
+
 if __name__ == "__main__":
     c = CoreService()
-"""
-
+    print(c.topic_to_problem_list_map) 
+'''
+'''

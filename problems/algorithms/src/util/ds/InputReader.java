@@ -1,9 +1,6 @@
 package util.ds;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class InputReader
@@ -32,6 +29,21 @@ public class InputReader
 		}
 
 		return tokenizer.nextToken();
+	}
+
+	public static void p(PrintWriter out, Object o)
+	{
+		out.println(o);
+	}
+
+	public static void par(PrintWriter out, int[] a)
+	{
+		for (int value : a)
+		{
+			out.print(value);
+			out.print(" ");
+		}
+		out.println();
 	}
 
 	public int nextInt()

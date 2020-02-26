@@ -7,7 +7,7 @@ import util.ds.ListNode;
  */
 public class ReorderList
 {
-	class Solution
+	private static class Solution1
 	{
 		private boolean even = true;
 
@@ -61,6 +61,45 @@ public class ReorderList
 				head = head.next;
 			}
 			return c;
+		}
+	}
+
+	/**
+	 * We bring the front all the way to the end, and unravel moving back step
+	 * by step until we hit the middle. know where middle is; second half =
+	 * rewriting; middle = set next to null;
+	 */
+	private static class Solution2
+	{
+		int half = 0;
+
+		public void reorderList(ListNode head)
+		{
+			helper(head, head, 1);
+		}
+
+		private ListNode helper(ListNode cur, ListNode front, int path)
+		{
+			if (cur == null)
+			{
+				half = (path - 1) / 2;
+				return front;
+			}
+
+			ListNode queen = helper(cur.next, front, path + 1);
+			if (path > half + 1)
+			{
+				ListNode frontNext = queen.next;
+				queen.next = cur;
+				cur.next = frontNext;
+				return frontNext;
+			}
+			else if (path == half + 1)
+			{
+				cur.next = null;
+			}
+
+			return null;
 		}
 	}
 }

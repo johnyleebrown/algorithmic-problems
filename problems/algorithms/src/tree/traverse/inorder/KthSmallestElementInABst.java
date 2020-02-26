@@ -1,32 +1,36 @@
 package tree.traverse.inorder;
 
+import util.ds.TreeNode;
+
 import java.util.Stack;
 
 /**
  * 230
  */
-class Solution
+public class KthSmallestElementInABst
 {
-	public int kthSmallest(TreeNode root, int k) 
+	private static class Solution
 	{
-		TreeNode t = root;
-		Stack<TreeNode> st = new Stack<>();
-		int count = 0;
-		
-		while (t != null || !st.isEmpty())
+		public int kthSmallest(TreeNode root, int k)
 		{
-			while (t != null)
+			TreeNode t = root;
+			Stack<TreeNode> st = new Stack<>();
+			int count = 0;
+
+			while (t != null || !st.isEmpty())
 			{
-				st.push(t);
-				t = t.left;
+				while (t != null)
+				{
+					st.push(t);
+					t = t.left;
+				}
+
+				TreeNode x = st.pop();
+				if (++count == k) return x.val;
+				t = x.right;
 			}
 
-			TreeNode x = st.pop();
-			if (++count == k) return x.val;
-			t = x.right;
+			return -1;
 		}
-
-		return -1;
 	}
 }
-

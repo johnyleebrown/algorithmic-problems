@@ -1,28 +1,34 @@
-package medium.tree;
+package tree.traverse;
+
 
 /**
  * 117
  */
 public class PopulatingNextRightPointersInEachNodeII
 {
-	class Solution 
+	class Solution
 	{
-		public Node connect(Node root) 
+		private class Node
+		{
+			Node left, next, right;
+		}
+
+		public Node connect(Node root)
 		{
 			if (root == null) return null;
 			Node returnNode = root;
 			Node start = root;
 			Node prev = null;
-			
+
 			while (root != null)
 			{
 				if (root.left != null)
 				{
-					if (start == null) 
+					if (start == null)
 					{
 						start = root.left;
 					}
-					if (prev != null) 
+					if (prev != null)
 					{
 						prev.next = root.left;
 					}
@@ -32,11 +38,11 @@ public class PopulatingNextRightPointersInEachNodeII
 
 				if (root.right != null)
 				{
-					if (start == null) 
+					if (start == null)
 					{
 						start = root.right;
 					}
-					if (prev != null) 
+					if (prev != null)
 					{
 						prev.next = root.right;
 					}
@@ -52,7 +58,7 @@ public class PopulatingNextRightPointersInEachNodeII
 					start = null;
 				}
 			}
-				
+
 			return returnNode;
 		}
 	}

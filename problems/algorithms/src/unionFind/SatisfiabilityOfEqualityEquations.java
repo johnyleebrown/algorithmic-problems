@@ -7,49 +7,54 @@ public class SatisfiabilityOfEqualityEquations
 {
 	class Solution
 	{
-		private int[] parents;
-
-		public boolean equationsPossible(String[] equations)
+		public boolean equationsPossible(String[] a)
 		{
-			parents = new int[26];
-
-			for (int i = 0; i < 26; i++) parents[i] = i;
-
-			for (String eq : equations)
-				if (convert(eq.charAt(1)))
-				{
-					union(getInt(eq.charAt(0)), getInt(eq.charAt(3)));
-				}
-
-			for (String eq : equations)
-				if (!convert(eq.charAt(1)))
-				{
-					if (find(getInt(eq.charAt(0))) == find(getInt(eq.charAt(3))))
+			UF uf1 = new UF();
+			for (String s : a)
+				if (s.charAt(1) != '!')
+					uf1.union(s.charAt(0), s.charAt(3));
+			for (String s : a)
+				if (s.charAt(1) == '!')
+					if (uf1.areConnected(s.charAt(0), s.charAt(3)))
 						return false;
-				}
-
 			return true;
 		}
 
-		private int getInt(char c)
+		private class UF
 		{
-			return (int) c - 97;
-		}
+			int[] parents = new int[26];
 
-		private boolean convert(char c)
-		{
-			return c == '=' ? true : false;
-		}
+			public UF()
+			{
+				for (int i = 0; i < 26; i++)
+					parents[i] = i;
+			}
 
-		private void union(int p, int q)
-		{
-			parents[find(p)] = find(q);
-		}
+			public void union(char a, char b)
+			{
+				int pa = find(getint(a));
+				int pb = find(getint(b));
+				if (pa != pb)
+					parents[pa] = pb;
+			}
 
-		private int find(int p)
-		{
-			while (p != parents[p]) p = parents[p];
-			return p;
+			private int getint(char c)
+			{
+				return c - 'a';
+			}
+
+			private int find(int p)
+			{
+				while (parents[p] != p)
+					p = parents[parents[p]];
+
+				return p;
+			}
+
+			public boolean areConnected(char a, char b)
+			{
+				return find(getint(a)) == find(getint(b));
+			}
 		}
 	}
 }

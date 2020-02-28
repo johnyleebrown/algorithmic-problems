@@ -1,7 +1,6 @@
 package linkedList;
 
 import util.ds.ListNode;
-import util.ds.TreeNode;
 import util.test.Tester;
 
 /**
@@ -69,7 +68,7 @@ public class OddEvenLinkedList
 	public static void main(String[] args)
 	{
 		new Tester(new Solution())
-				.add(new ListNode("1,2,3,4,5")).expect(new TreeNode("1,3,5,2,4"))
+				.add(new ListNode("1,2,3,4,5")).expect(new ListNode("1,3,5,2,4"))
 				.run();
 	}
 }

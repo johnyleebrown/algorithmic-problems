@@ -2,6 +2,7 @@ package util.ds;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TreeNode
 {
@@ -131,5 +132,22 @@ public class TreeNode
 			if (noNullsAtLevelFlag)
 				System.out.println(local);
 		}
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (!(o instanceof TreeNode)) return false;
+		TreeNode treeNode = (TreeNode) o;
+		return val == treeNode.val &&
+				Objects.equals(left, treeNode.left) &&
+				Objects.equals(right, treeNode.right);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(val, left, right);
 	}
 }

@@ -147,6 +147,7 @@ public class Tester
 		{
 			Timer t = new Timer().start();
 			Object result = method.invoke(classObject, o);
+
 			execTimes.add(t.end().getTotal());
 			return result;
 		}

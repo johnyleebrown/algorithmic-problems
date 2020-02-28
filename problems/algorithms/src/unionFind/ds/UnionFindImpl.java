@@ -1,4 +1,4 @@
-package unionFind.ds_;
+package unionFind.ds;
 
 public class UnionFindImpl implements UnionFind
 {

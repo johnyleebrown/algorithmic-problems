@@ -16,6 +16,7 @@ class CoreService:
     topics_map = {}
     current_topic_ind = 0
     topic_to_problem_list_map = {}
+    seen_topics = set()
 
     results = []
     init_errors = []
@@ -67,14 +68,19 @@ class CoreService:
         return problems_map, problems_list, files_with_errors
 
     def get_next_topic(self):
+        
+        n = len(self.topics_name_list)
 
-        ret = self.topics_name_list[self.current_topic_ind]
+        selected = self.random_select(n)
+        while selected in self.seen_topics:
+            selected = self.random_select(n)
+        self.seen_topics.add(selected)
 
         self.current_topic_ind += 1
-        if self.current_topic_ind == len(self.topics_name_list):
+        if self.current_topic_ind == n:
             self.is_session_finished = True
 
-        return ret
+        return self.topics_name_list[selected]
 
     def get_random_problem(self, t, results):
 
@@ -156,8 +162,8 @@ class CoreService:
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
 
+'''
 if __name__ == "__main__":
     c = CoreService()
     print(c.topic_to_problem_list_map) 
-'''
 '''

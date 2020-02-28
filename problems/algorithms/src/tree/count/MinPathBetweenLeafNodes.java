@@ -1,8 +1,9 @@
-package tree.regular;
+package tree.count;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.lang.Math;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * Google_Interview_7
@@ -36,7 +37,8 @@ public class MinPathBetweenLeafNodes
 	 */
 	private static int[] calculate(TN root)
 	{
-		if (root.children.size() == 0) return new int[]{root.val, root.val};
+		if (root.children.size() == 0)
+			return new int[]{root.val, root.val};
 
 		int[] base = calculate(getEl(root, 0));
 		int prev = base[1];
@@ -73,12 +75,13 @@ public class MinPathBetweenLeafNodes
 
 	public static void main(String[] args)
 	{
+		System.out.println();
 		globalMin = Integer.MAX_VALUE;
 		System.out.println(findMin(test1()));
-		globalMin = Integer.MAX_VALUE;
-		System.out.println(findMin(test2()));
-		globalMin = Integer.MAX_VALUE;
-		System.out.println(findMin(test3()));
+//		globalMin = Integer.MAX_VALUE;
+//		System.out.println(findMin(test2()));
+//		globalMin = Integer.MAX_VALUE;
+//		System.out.println(findMin(test3()));
 	}
 
 	private static TN test1()
@@ -106,6 +109,23 @@ public class MinPathBetweenLeafNodes
 		root.children.add(tn2);
 		root.children.add(tn7);
 
+		Queue<TN> q = new LinkedList<>();
+		q.add(root);
+		while (!q.isEmpty())
+		{
+			int size = q.size();
+			System.out.println();
+			while(--size>=0)
+			{
+				TN cur = q.poll();
+				System.out.print(cur.val + " " + " ch "+cur.children.size()+" | ");
+				for (TN c:cur.children)
+				{
+					q.add(c);
+				}
+			}
+		}
+		System.out.println();
 		return root;
 	}
 

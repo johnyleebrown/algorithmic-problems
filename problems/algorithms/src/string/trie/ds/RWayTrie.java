@@ -47,6 +47,11 @@ public class RWayTrie
 		{
 			this.val = val;
 		}
+
+		public Node[] getNext()
+		{
+			return next;
+		}
 	}
 
 	public RWayTrie()
@@ -55,7 +60,8 @@ public class RWayTrie
 
 	public Object get(String key)
 	{
-		return getIteratively(key);
+//		return getIteratively(key);
+		return getRecursively(root, key, 0);
 	}
 
 	/**
@@ -63,6 +69,9 @@ public class RWayTrie
 	 */
 	private Object getIteratively(String key)
 	{
+		if (root == null)
+			return null;
+
 		Node currentNode = root;
 		int n = key.length();
 
@@ -76,7 +85,9 @@ public class RWayTrie
 			currentNode = currentNode.get(c);
 		}
 
-		return currentNode.isWordEnd();
+		if (currentNode.isWordEnd())
+			return currentNode.val;
+		return null;
 	}
 
 	private Object getRecursively(Node currentNode, String key, int dist)
@@ -87,22 +98,28 @@ public class RWayTrie
 		}
 
 		// distance from start is the word length = we traversed a whole word
-		if (dist == key.length())
+		if (dist == key.length() )
 		{
-			return currentNode.val;
+			if (currentNode.isWordEnd())
+				return currentNode.val;
+			return null;
 		}
 
 		char nextChar = key.charAt(dist);
 		return getRecursively(currentNode.get(nextChar), key, dist + 1);
 	}
 
-	public boolean put(String key, Object val)
+	public void put(String key, Object val)
 	{
-		putIteratively(key, val);
+		root = putRecursively(root, 0, key, val);
+//		return putIteratively(key, val);
 	}
 
 	private void putIteratively(String key, Object val)
 	{
+		if (root == null)
+			root = new Node();
+
 		Node currentNode = root;
 		int n = key.length();
 
@@ -120,8 +137,29 @@ public class RWayTrie
 		currentNode.setVal(val);
 	}
 
+	private Node putRecursively(Node currentNode, int count, String key, Object val)
+	{
+		if (currentNode == null)
+			currentNode = new Node();
+		if (count == key.length())
+		{
+			currentNode.val = val;
+			currentNode.isEnd = true;
+			return currentNode;
+		}
+		char c = key.charAt(count);
+		currentNode.getNext()[c] = putRecursively(currentNode.getNext()[c], count + 1, key, val);
+		return currentNode;
+	}
+
 	public static void main(String[] args)
 	{
-
+		RWayTrie t = new RWayTrie();
+		t.put("banana", 1);
+		t.put("bananas", 2);
+		t.put("banan", 3);
+		System.out.println(t.get("banan"));
+		System.out.println(t.get("bananz"));
+		System.out.println(t.get("b"));
 	}
 }

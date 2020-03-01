@@ -16,6 +16,11 @@ import java.util.Deque;
  */
 public class CheckIfNodeExistsInACompleteTree
 {
+	/**
+	 * A complete binary tree is a binary tree in which every level, except
+	 * possibly the last, is completely filled, and all nodes are as far left as
+	 * possible.
+	 */
 	class Solution
 	{
 		public boolean ifExists(TreeNode root, int target)

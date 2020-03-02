@@ -54,4 +54,12 @@ public class CheckIfNodeExistsInACompleteTree
 			return true;
 		}
 	}
+
+	class S
+	{
+		public boolean s(int i)
+		{
+			return false;
+		}
+	}
 }

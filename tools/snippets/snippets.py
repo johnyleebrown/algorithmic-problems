@@ -44,7 +44,10 @@ def main(win):
     while 1:
         try:
             k = win.getkey()
-            if k == os.linesep:
+            if key in ('KEY_BACKSPACE', '\b', '\x7f'):
+                win.addstr('\n' + key)
+                win.addstr('\n' + 'sasa')
+            elif k == os.linesep:
                 path = datas_map[cur_key]
                 pyperclip.copy(read_from_file(path))
                 #cur_line = 0

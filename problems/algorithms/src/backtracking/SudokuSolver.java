@@ -5,7 +5,102 @@ package backtracking;
  */
 public class SudokuSolver
 {
-	class Solution
+	/**
+	 * Backtracking classic. As seen array - keep track of x axis, y axis and
+	 * cubes. First, we preprocess, set what is already filled.
+	 */
+	private static class Solution1
+	{
+		private boolean[][][] a = new boolean[3][10][10];
+
+		public void solveSudoku(char[][] b)
+		{
+			preProcess(b);
+			gen(b, 0, 0);
+		}
+
+		private void preProcess(char[][] b)
+		{
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					if (b[i][j] == '.')
+						continue;
+
+					int cubeId = calculateCube(i, j);
+					int val = getIntFromChar(b[i][j]);
+
+					a[0][cubeId][val] = a[1][i][val] = a[2][j][val] = true;
+				}
+			}
+		}
+
+		private boolean gen(char[][] b, int ii, int jj)
+		{
+			if (ii == 8 && jj == 8)
+			{
+				return true;
+			}
+			else
+			{
+				for (int i = 0; i < 9; i++)
+				{
+					for (int j = 0; j < 9; j++)
+					{
+						if (b[i][j] != '.')
+							continue;
+
+						for (char k = '1'; k <= '9'; k++)
+						{
+							if (!isValid(i, j, k))
+								continue;
+
+							setFlags(i, j, k, true, b);
+
+							if (gen(b, i, j))
+								return true;
+
+							setFlags(i, j, k, false, b);
+						}
+
+						// if we could nt been able to set anything correct
+						// otherwise the gen would ve returned true
+						return false;
+					}
+				}
+
+				return true;
+			}
+		}
+
+		void setFlags(int i, int j, char c, boolean f, char[][] b)
+		{
+			b[i][j] = f ? c : '.';
+			int cubeId = calculateCube(i, j);
+			int val = getIntFromChar(c);
+			a[0][cubeId][val] = a[1][i][val] = a[2][j][val] = f;
+		}
+
+		int calculateCube(int i, int j)
+		{
+			return (i / 3) * 3 + j / 3;
+		}
+
+		int getIntFromChar(int c)
+		{
+			return c - '0';
+		}
+
+		private boolean isValid(int i, int j, char c)
+		{
+			int cubeId = calculateCube(i, j);
+			int val = getIntFromChar(c);
+			return !a[0][cubeId][val] && !a[1][i][val] && !a[2][j][val];
+		}
+	}
+
+	class Solution2
 	{
 		// to solve we try different combinations of filling the cells
 		// since every cell has to be filled out with numbers 1-9 then

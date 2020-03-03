@@ -1,5 +1,8 @@
 package string.trie.ds;
 
+/**
+ * todo: add prefix search, pattern search
+ */
 public class RWayTrie
 {
 	private static final int R = 256;

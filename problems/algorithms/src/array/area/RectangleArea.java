@@ -31,7 +31,7 @@ public class RectangleArea
 			int topMin = Math.min(D, H);
 			int botMax = Math.max(B, F);
 			if (rightMin > leftMax && topMin > botMax)
-				area -= ((rightMin - leftMax) * (topMin - botMax));
+				area -= (rightMin - leftMax) * (topMin - botMax);
 			return area;
 		}
 	}

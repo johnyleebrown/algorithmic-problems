@@ -1,6 +1,7 @@
 package tree.regular;
 
 import util.ds.TreeNode;
+import util.test.Tester;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -12,7 +13,12 @@ import java.util.Deque;
  *
  * Task.
  *
- * Check if node index exists in complete binary tree.
+ * Check if node index exists in complete binary tree. Given a complete
+ * (virtual) binary tree, return true/false if the given target node exists in
+ * the tree or not. Here, the virtual means the tree nodes are numbered assuming
+ * the tree is a complete binary tree.
+ *
+ * https://leetcode.com/discuss/interview-question/236898/
  */
 public class CheckIfNodeExistsInACompleteTree
 {
@@ -21,7 +27,7 @@ public class CheckIfNodeExistsInACompleteTree
 	 * possibly the last, is completely filled, and all nodes are as far left as
 	 * possible.
 	 */
-	class Solution
+	private static class Solution
 	{
 		public boolean ifExists(TreeNode root, int target)
 		{
@@ -55,11 +61,11 @@ public class CheckIfNodeExistsInACompleteTree
 		}
 	}
 
-	class S
+	public static void main(String[] args)
 	{
-		public boolean s(int i)
-		{
-			return false;
-		}
+		new Tester(new Solution())
+				.add(new TreeNode("1,2,3,4,null,6,null"), 4).expect(true)
+				.add(new TreeNode("1,2,3,4,null,6,null"), 7).expect(false)
+				.run();
 	}
 }

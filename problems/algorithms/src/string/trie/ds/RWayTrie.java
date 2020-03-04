@@ -2,6 +2,8 @@ package string.trie.ds;
 
 /**
  * todo: add prefix search, pattern search
+ *
+ * Reference: https://github.com/kevin-wayne/algs4/blob/master/src/main/java/edu/princeton/cs/algs4/TrieST.java
  */
 public class RWayTrie
 {
@@ -101,7 +103,7 @@ public class RWayTrie
 		}
 
 		// distance from start is the word length = we traversed a whole word
-		if (dist == key.length() )
+		if (dist == key.length())
 		{
 			if (currentNode.isWordEnd())
 				return currentNode.val;

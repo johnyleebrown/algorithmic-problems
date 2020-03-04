@@ -16,3 +16,5 @@ R[i] := S[i]
 for i = k+1 to n
 j := math.random(1, i) // important: inclusive range if j <= k
 R[j] := S[i]
+
+https://ru.wikipedia.org/wiki/Reservoir_sampling

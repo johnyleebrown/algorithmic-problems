@@ -10,12 +10,6 @@ package bs.shift;
  * Binary search solution, so we are trying to pick the right value. After the
  * pick we check if all weights fit, if they don't, we increase the lower
  * bound.
- *
- * ======
- *
- * Optimization.
- *
- * if (D >= weights.length) return lo;
  */
 public class CapacityToShipPackagesWithinDDays
 {

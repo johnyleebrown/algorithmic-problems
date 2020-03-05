@@ -1,5 +1,7 @@
 package sort.heap;
 
+import util.test.Tester;
+
 import java.util.PriorityQueue;
 
 /**
@@ -22,7 +24,7 @@ public class SortArrayOfSortedArrays
 	 */
 	private static class Solution1
 	{
-		public void sort(int[][] a)
+		public int[][] sort(int[][] a)
 		{
 			PriorityQueue<Integer> pq = new PriorityQueue<>();
 			for (int i = 0; i < a.length; i++)
@@ -35,6 +37,7 @@ public class SortArrayOfSortedArrays
 				{
 					a[i][j] = pq.poll();
 				}
+			return a;
 		}
 	}
 
@@ -45,10 +48,11 @@ public class SortArrayOfSortedArrays
 	 */
 	private static class Solution2
 	{
-		public void sort(int[][] a)
+		public int[][] sort(int[][] a)
 		{
 			int n = a.length;
 			for (int i = 0; i < n; i++)
+			{
 				for (int j = 0; j < a[i].length; j++)
 				{
 					int min = a[i][j];
@@ -81,6 +85,8 @@ public class SortArrayOfSortedArrays
 						}
 					}
 				}
+			}
+			return a;
 		}
 
 		private void swap(int[][] a, int i, int j, int newI, int newJ)
@@ -89,5 +95,20 @@ public class SortArrayOfSortedArrays
 			a[i][j] = a[newI][newJ];
 			a[newI][newJ] = temp;
 		}
+	}
+
+//	private static class S
+//	{
+//		public int[][] sort(int[][] a)
+//		{
+//
+//		}
+//	}
+
+	public static void main(String[] args)
+	{
+		new Tester(new Solution1())
+				.add(new int[][]{{5, 12, 17, 21, 23}, {1, 2, 4, 6, 8}, {12, 14, 18, 19, 27}, {3, 7, 9, 15, 25}}).expect(new int[][]{{1, 2, 3, 4, 5}, {6, 7, 8, 9, 12}, {12, 14, 15, 17, 18}, {19, 21, 23, 25, 27}})
+				.run();
 	}
 }

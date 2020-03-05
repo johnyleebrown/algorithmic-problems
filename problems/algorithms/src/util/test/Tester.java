@@ -116,6 +116,12 @@ public class Tester
 		return this;
 	}
 
+	public Tester add(int[][] param)
+	{
+		results.add(exec((Object) param));
+		return this;
+	}
+
 	public Tester expect(Object param)
 	{
 		expectations.add(param);
@@ -141,13 +147,14 @@ public class Tester
 		return true;
 	}
 
+	@SuppressWarnings({"unchecked"})
 	private Object exec(Object... o)
 	{
 		try
 		{
 			Timer t = new Timer().start();
+//			System.out.println(method.getName());
 			Object result = method.invoke(classObject, o);
-
 			execTimes.add(t.end().getTotal());
 			return result;
 		}
@@ -155,16 +162,6 @@ public class Tester
 		{
 			throw new RuntimeException(e.getCause());
 		}
-	}
-
-	private boolean isIntArr(Object o)
-	{
-		return o.getClass().getSimpleName().equals("int[]");
-	}
-
-	private boolean isArr(Object o)
-	{
-		return o.getClass().getSimpleName().contains("[]");
 	}
 
 	private boolean compareResults(int i)
@@ -178,23 +175,57 @@ public class Tester
 			}
 			return ans1;
 		}
-
-		if (isIntArr(results.get(i)) && isIntArr(expectations.get(i)))
+		else if (isIntIntArr(results.get(i)) || isIntArr(results.get(i)))
 		{
-			boolean ans1 = Arrays.equals((int[]) results.get(i), (int[]) expectations.get(i));
-			if (!orExpectations.isEmpty() && !ans1)
-			{
-				return Arrays.equals((int[]) results.get(i), (int[]) orExpectations.get(i)); // ans2
-			}
-			return ans1;
+			return ggg2(i);
 		}
-
-		boolean ans1 = results.get(i).equals(expectations.get(i));
-		if (!orExpectations.isEmpty() && !ans1)
+		else if (!orExpectations.isEmpty() && !(results.get(i).equals(expectations.get(i))))
 		{
 			return results.get(i).equals(orExpectations.get(i));
 		}
-		return ans1;
+		else
+		{
+			return results.get(i).equals(expectations.get(i));
+		}
+	}
+
+	private boolean ggg2(int i)
+	{
+		return ggg(i, expectations) || ggg(i, orExpectations);
+	}
+
+	private boolean ggg(int i, List<Object> other)
+	{
+		if (other.isEmpty())
+			return false;
+		if (isIntIntArr(results.get(i)))
+			return arr2dEq(i, other);
+		return arrEq(i, other);
+	}
+
+	private boolean arr2dEq(int i, List<Object> other)
+	{
+		return Arrays.deepEquals((int[][]) results.get(i), (int[][]) other.get(i));
+	}
+
+	private boolean arrEq(int i, List<Object> other)
+	{
+		return Arrays.equals((int[]) results.get(i), (int[]) other.get(i));
+	}
+
+	private boolean isIntArr(Object o)
+	{
+		return o.getClass().getSimpleName().equals("int[]");
+	}
+
+	private boolean isIntIntArr(Object o)
+	{
+		return o.getClass().getSimpleName().equals("int[][]");
+	}
+
+	private boolean isArr(Object o)
+	{
+		return o.getClass().getSimpleName().contains("[]");
 	}
 
 	public void run()

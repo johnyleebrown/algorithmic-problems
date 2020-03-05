@@ -14,10 +14,12 @@ core: CoreService
 
 class CustomWidget(npyscreen.MultiLineAction):
     text_controls_begin_session = 'begin session'
+    text_controls_repeat_latest = 'repeat latest'
     text_controls_start_problem = 'start problem'
     text_controls_skip_problem = 'skip'
     text_controls_back_to_main_menu = 'back'
     text_controls_done = 'done'
+    text_controls_cant_solve = 'can\'t solve'
     text_controls_next = 'next'
     text_controls_exit = 'exit'
     text_controls_stats = 'stats'
@@ -29,11 +31,11 @@ class CustomWidget(npyscreen.MultiLineAction):
     color_y = 'WARNING'
 
     controls_on_begin_session = [text_controls_start_problem, text_controls_exit]
-    controls_on_start_problem = [text_controls_done, text_controls_exit]
+    controls_on_start_problem = [text_controls_done, text_controls_cant_solve, text_controls_exit]
     controls_on_done = [text_controls_next, text_controls_exit]
     controls_on_session_finished = [text_controls_exit]
     controls_on_stats = [text_controls_back_to_main_menu, text_controls_exit]
-    controls_on_start=[text_controls_begin_session, text_controls_stats, text_controls_exit]
+    controls_on_start = [text_controls_begin_session, text_controls_stats, text_controls_exit]
 
     current_problem_title = ''
 
@@ -55,12 +57,14 @@ class CustomWidget(npyscreen.MultiLineAction):
 
         self.action_switcher = {
             self.text_controls_begin_session: self.action_on_begin_session,
+            self.text_controls_repeat_latest: self.action_on_repeat_latest,
             self.text_controls_start_problem: self.action_on_start_problem,
             self.text_controls_skip_problem: self.action_on_skip_problem,
             self.text_controls_done: self.action_on_done,
             self.text_controls_next: self.action_on_next,
             self.text_controls_exit: self.action_on_exit,
             self.text_controls_stats: self.action_on_stats,
+            self.text_controls_cant_solve: self.action_on_cant_solve,
             self.text_controls_back_to_main_menu: self.action_on_start
         }
 
@@ -68,6 +72,11 @@ class CustomWidget(npyscreen.MultiLineAction):
         return self.current_problem_topic + ',' + self.current_problem_number
 
     def get_next_problem_title(self):
+        if core.cant_solve_mode:
+            next = core.get_next_cant_solve()
+            self.current_problem_topic = next[0]
+            self.current_problem_number = next[1]
+            return next[0] + ': ' + next[1]
         self.current_problem_topic = core.get_next_topic()
         self.current_problem_number = core.get_random_problem(self.current_problem_topic, core.results)
         return self.current_problem_topic + ': ' + self.current_problem_number
@@ -75,6 +84,12 @@ class CustomWidget(npyscreen.MultiLineAction):
     def record_result(self, time_spent_val):
         new_line_words = [self.get_current_problem_title(), time_spent_val, self.current_problem_start_time]
         u.add_line_to_file(core.root_path+'results.txt', ','.join(new_line_words))
+
+    def record_cant_solve(self):
+        rep_path = core.root_path+'next_day_repeat.txt'
+        u.add_line_to_file(rep_path, self.get_current_problem_title() + ',' + self.current_problem_start_time)
+        u.add_line_to_file(rep_path, self.get_current_problem_title() + ',' + str(u.get_dt_with_delta(datetime.utcnow(),1)))
+        u.add_line_to_file(rep_path, self.get_current_problem_title() + ',' + str(u.get_dt_with_delta(datetime.utcnow(),4)))
 
     def create_text_box_new_line(self, title, color='DEFAULT'):
         text_box = self.parent.add(npyscreen.FixedText,
@@ -119,7 +134,10 @@ class CustomWidget(npyscreen.MultiLineAction):
         # set default x,y margins
         self.cur_rel_x = self.base_rel_x
         self.cur_rel_y = self.base_rel_y
-        
+
+    def action_on_repeat_latest(self):
+        self.action_on_begin_session()
+
     def action_on_begin_session(self):
 
         # update controls
@@ -185,6 +203,10 @@ class CustomWidget(npyscreen.MultiLineAction):
         # record result
         self.record_result(str(time_spent_val))
 
+        # if solving cant_solve problems remove from core cant solve list on done
+        if core.cant_solve_mode:
+            core.cant_solves.pop()
+
         # action if session finished
         if core.is_session_finished:
             self.create_text_box_new_line(self.text_session_finished, self.color_y)
@@ -215,12 +237,42 @@ class CustomWidget(npyscreen.MultiLineAction):
 
         self.add_lines(stats.get_month(core.results))
 
+    def action_on_cant_solve(self):
+
+        # add to cant solve list
+        self.record_cant_solve()
+
+        # reset timer
+        self.timer_start = None
+
+        # update controls
+        self.update_controls(self.controls_on_done)
+
+        # remove in progress text from problem title box
+        self.current_text_box.value = None
+        self.current_text_box.display()
+
+        # update x,y margin
+        self.cur_rel_x = self.base_rel_x
+        self.cur_rel_y += 2
+
+        if core.cant_solve_mode:
+            core.cant_solves.pop()
+
+        # action if session finished
+        if core.is_session_finished:
+            self.create_text_box_new_line(self.text_session_finished, self.color_y)
+
     def clear_main_window(self):
         for x in self.parent._widgets__[1:]:
             x.value = None
             x.display()
 
     def action_on_exit(self):
+        if core.cant_solve_mode:
+            next_file = core.root_path+'next_day_repeat.txt'
+            for datas in core.cant_solves:
+                u.add_line_to_file(next_file, ','.join(datas))
         exit(0)
 
 
@@ -236,6 +288,8 @@ class MainForm(npyscreen.FormBaseNew):
             form=self.add(BoxWithSelects, values=['exit'], max_height=7, max_width=18)
             form.entry_widget.add_lines(core.init_errors)
             form.entry_widget.display()
+        elif len(core.cant_solves):
+            self.add(BoxWithSelects, values=['repeat latest', 'stats', 'exit'], max_height=7, max_width=18)
         else:
             self.add(BoxWithSelects, values=['begin session','stats','exit'], max_height=7, max_width=18)
 
@@ -243,8 +297,15 @@ class MainForm(npyscreen.FormBaseNew):
 class App(npyscreen.StandardApp):
     def onStart(self):
         self.addForm("MAIN", MainForm, name="Checker")
+
 '''
 if __name__ == "__main__":
     core = CoreService()
+    print(core.cant_solves)
+    u.clear_file(core.root_path+'next_day_repeat.txt')
+    for data in core.cant_solves:
+        print(','.join(data))
+        u.add_line_to_file(core.root_path+'next_day_repeat.txt', ','.join(data))
+
 '''
 

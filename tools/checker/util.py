@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
+from datetime import *
+
 def touch_open(filename, *args, **kwargs):
     open(filename, "a").close()
     return open(filename, *args, **kwargs)
@@ -18,9 +20,14 @@ def add_line_to_file(file_name, text):
     with open(file_name, 'a+') as f:
         f.write(text + '\n')
 
-
 def clear_file(file_name):
-    open(file_name, 'w').close()
+    open(file_name, 'w+').close()
 
 def record_test_case(str, path):
     add_line_to_file(path + 'test.txt', str)
+
+def get_date(s):
+    return datetime.strptime(s, '%Y-%m-%d %H:%M:%S.%f')
+
+def get_dt_with_delta(dt,d):
+    return dt+timedelta(days=d)

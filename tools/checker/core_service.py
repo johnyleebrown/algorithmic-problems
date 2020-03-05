@@ -5,6 +5,7 @@ import os
 import random
 from pathlib import Path
 
+from datetime import *
 import util as u
 
 
@@ -67,8 +68,18 @@ class CoreService:
 
         return problems_map, problems_list, files_with_errors
 
+    def get_next_cant_solve(self):
+        if self.cant_solve_mode:
+            len_topics = len(self.cant_solves)
+            if len_topics == 1:
+                self.is_session_finished = True
+            if len_topics > 0:
+                return self.cant_solves[-1]
+            else:
+                return "none"
+
     def get_next_topic(self):
-        
+
         n = len(self.topics_name_list)
 
         selected = self.random_select(n)
@@ -147,14 +158,37 @@ class CoreService:
         params_map = {x[0]: x[1] for x in [param.split(",") for param in params]}
         self.main_dir = params_map['main_dir']
 
+    def process_cant_solves(self):
+        self.cant_solves=[]
+        todos = u.read_from_file(self.root_path + 'next_day_repeat.txt')
+        for t in [todo.split(",") for todo in todos]:
+            local_data = []
+            local_data.append(t[0])
+            local_data.append(t[1])
+            local_data.append(t[2])
+            dt = u.get_date(local_data[2])
+            dt_plus_one_day = u.get_dt_with_delta(dt, 1)
+            now = datetime.utcnow()
+            if now >= dt_plus_one_day:
+                self.cant_solves.append(local_data)
+        return len(self.cant_solves) > 0
+
     def __init__(self):
+
         self.process_parameters()
+
+        self.cant_solve_mode = self.process_cant_solves()
+        if self.cant_solve_mode:
+            u.clear_file(self.root_path + 'next_day_repeat.txt')
+            return
+
         is_invalid_path, errors = self.process_topics()
-        if not is_invalid_path:
-            self.process_results()
-        else:
-            error_msg=['==== ERROR IN FILES ====']
+        if is_invalid_path:
+            error_msg = ['==== ERROR IN FILES ====']
             self.init_errors = error_msg + errors
+            return
+
+        self.process_results()
 
     def __enter__(self):
         return self

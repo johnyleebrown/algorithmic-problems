@@ -4,6 +4,7 @@
 import sys
 from datetime import *
 
+import util as u
 from core_service import CoreService
 
 
@@ -50,7 +51,7 @@ def get_fastest_solved_problem(n, results):
     now_with_delta = get_now_with_delta(-n)
     for r in results:
         res_data=r.split(",")
-        dt = get_date(res_data[3])
+        dt = u.get_date(res_data[3])
         if dt >= now_with_delta:
             cur=float(res_data[2])
             if cur < res_seconds:
@@ -67,7 +68,7 @@ def get_slowest_solved_problem(n, results):
     now_with_delta=get_now_with_delta(-n)
     for r in results:
         res_data=r.split(",")
-        dt = get_date(res_data[3])
+        dt = u.get_date(res_data[3])
         if dt>=now_with_delta:
             cur = float(res_data[2])
             if cur > res_seconds:
@@ -78,16 +79,12 @@ def get_slowest_solved_problem(n, results):
     return [get_title('SLOWEST'), s + ' ' + res_title]
 
 
-def get_date(s):
-    return datetime.strptime(s, '%Y-%m-%d %H:%M:%S.%f')
-
-
 def get_(n,results):
     now_with_delta = get_now_with_delta(-n)
     topics={}
     for r in results:
         res_data=r.split(",")
-        dt=get_date(res_data[3])
+        dt=u.get_date(res_data[3])
         if dt>=now_with_delta:
             if res_data[0] in topics:
                 topics[res_data[0]] += 1

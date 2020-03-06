@@ -7,19 +7,20 @@ import util.ds.TreeNode;
  */
 public class ValidateBinarySearchTree
 {
-	class Solution
+	private static class Solution
 	{
-		public boolean isValidBST(TreeNode root)
+		public boolean isValidBST(TreeNode cur)
 		{
-			return f(root, null, null);
+			return f(cur, null, null);
 		}
 
-		private boolean f(TreeNode root, Integer min, Integer max)
+		private boolean f(TreeNode cur, Integer min, Integer max)
 		{
-			if (root == null) return true;
-			if ((min != null && root.val <= min) || (max != null && root.val >= max))
+			if (cur == null)
+				return true;
+			if (max != null && cur.val >= max || min != null && cur.val <= min)
 				return false;
-			return f(root.left, min, root.val) && f(root.right, root.val, max);
+			return f(cur.left, min, cur.val) && f(cur.right, cur.val, max);
 		}
 	}
 }

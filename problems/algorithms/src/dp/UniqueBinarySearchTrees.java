@@ -1,7 +1,7 @@
-package medium.dp;
+package dp;
 
 /**
- * 98
+ * 96
  * Given n, how many structurally unique BST's that store values 1...n?
  */
 public class UniqueBinarySearchTrees {

@@ -27,16 +27,12 @@ public class SortArrayOfSortedArrays
 		public int[][] sort(int[][] a)
 		{
 			PriorityQueue<Integer> pq = new PriorityQueue<>();
+			for (int[] ints : a)
+				for (int anInt : ints)
+					pq.add(anInt);
 			for (int i = 0; i < a.length; i++)
 				for (int j = 0; j < a[i].length; j++)
-				{
-					pq.add(a[i][j]);
-				}
-			for (int i = 0; i < a.length; i++)
-				for (int j = 0; j < a[i].length; j++)
-				{
 					a[i][j] = pq.poll();
-				}
 			return a;
 		}
 	}
@@ -51,63 +47,45 @@ public class SortArrayOfSortedArrays
 		public int[][] sort(int[][] a)
 		{
 			int n = a.length;
+			int m = a[0].length;
 			for (int i = 0; i < n; i++)
 			{
-				for (int j = 0; j < a[i].length; j++)
+				for (int j = 0; j < m; j++)
 				{
 					int min = a[i][j];
-					int minRow = i;
-
-					// comparing with first el in each row below
-					for (int k = i + 1; k < n; k++)
+					int localI = i;
+					for (int i2 = i + 1; i2 < n; i2++)
 					{
-						if (min > a[k][0])
+						if (a[i2][0] < min)
 						{
-							min = a[k][0];
-							minRow = k;
+							min = a[i2][0];
+							localI = i2;
 						}
 					}
-
-					if (min != a[i][j])
-					{
-						// swap the min
-						swap(a, i, j, minRow, 0);
-
-						// put new row min in right place in the row
-						for (int k = 0; k < a[minRow].length - 1; k++)
-						{
-							if (a[minRow][k] <= a[minRow][k + 1])
-							{
-								break;
-							}
-
-							swap(a, minRow, k, minRow, k + 1);
-						}
-					}
+					if (a[i][j] == min)
+						continue;
+					swap(a, i, j, localI, 0);
+					for (int j2 = 0; j2 < m - 1; j2++)
+						if (a[localI][j2] > a[localI][j2 + 1])
+							swap(a, localI, j2, localI, j2 + 1);
+						else
+							break;
 				}
 			}
 			return a;
 		}
 
-		private void swap(int[][] a, int i, int j, int newI, int newJ)
+		private void swap(int[][] a, int i1, int j1, int i2, int j2)
 		{
-			int temp = a[i][j];
-			a[i][j] = a[newI][newJ];
-			a[newI][newJ] = temp;
+			int t = a[i1][j1];
+			a[i1][j1] = a[i2][j2];
+			a[i2][j2] = t;
 		}
 	}
 
-//	private static class S
-//	{
-//		public int[][] sort(int[][] a)
-//		{
-//
-//		}
-//	}
-
 	public static void main(String[] args)
 	{
-		new Tester(new Solution1())
+		new Tester(new Solution2())
 				.add(new int[][]{{5, 12, 17, 21, 23}, {1, 2, 4, 6, 8}, {12, 14, 18, 19, 27}, {3, 7, 9, 15, 25}}).expect(new int[][]{{1, 2, 3, 4, 5}, {6, 7, 8, 9, 12}, {12, 14, 15, 17, 18}, {19, 21, 23, 25, 27}})
 				.run();
 	}

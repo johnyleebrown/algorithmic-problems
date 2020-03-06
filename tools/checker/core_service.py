@@ -16,6 +16,7 @@ class CoreService:
     topics_name_list = []
     topics_map = {}
     current_topic_ind = 0
+    current_cant_solve = -1
     topic_to_problem_list_map = {}
     seen_topics = set()
 
@@ -74,7 +75,8 @@ class CoreService:
             if len_topics == 1:
                 self.is_session_finished = True
             if len_topics > 0:
-                return self.cant_solves[-1]
+                self.current_cant_solve+=1
+                return self.cant_solves[self.current_cant_solve]
             else:
                 return "none"
 
@@ -160,17 +162,20 @@ class CoreService:
 
     def process_cant_solves(self):
         self.cant_solves=[]
-        todos = u.read_from_file(self.root_path + 'next_day_repeat.txt')
-        for t in [todo.split(",") for todo in todos]:
+        x = self.root_path + 'next_day_repeat.txt'
+        todos = u.read_from_file(x)
+        u.clear_file(x)
+        for todo in todos:
+            t = todo.split(",")
             local_data = []
             local_data.append(t[0])
             local_data.append(t[1])
             local_data.append(t[2])
-            dt = u.get_date(local_data[2])
-            dt_plus_one_day = u.get_dt_with_delta(dt, 1)
-            now = datetime.utcnow()
-            if now >= dt_plus_one_day:
+            if datetime.utcnow() >= u.get_date(t[2]):
                 self.cant_solves.append(local_data)
+            else:
+                u.add_line_to_file(x,todo)
+
         return len(self.cant_solves) > 0
 
     def __init__(self):
@@ -179,7 +184,6 @@ class CoreService:
 
         self.cant_solve_mode = self.process_cant_solves()
         if self.cant_solve_mode:
-            u.clear_file(self.root_path + 'next_day_repeat.txt')
             return
 
         is_invalid_path, errors = self.process_topics()

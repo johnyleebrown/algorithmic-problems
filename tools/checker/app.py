@@ -205,7 +205,7 @@ class CustomWidget(npyscreen.MultiLineAction):
 
         # if solving cant_solve problems remove from core cant solve list on done
         if core.cant_solve_mode:
-            core.cant_solves.pop()
+            core.cant_solves.pop(core.current_cant_solve)
 
         # action if session finished
         if core.is_session_finished:
@@ -257,7 +257,7 @@ class CustomWidget(npyscreen.MultiLineAction):
         self.cur_rel_y += 2
 
         if core.cant_solve_mode:
-            core.cant_solves.pop()
+            core.cant_solves.pop(core.current_cant_solve)
 
         # action if session finished
         if core.is_session_finished:

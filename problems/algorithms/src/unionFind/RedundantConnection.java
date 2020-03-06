@@ -5,79 +5,64 @@ package unionFind;
  */
 public class RedundantConnection
 {
-	/**
-	 * We want to find a connection that is the last one in the cycle because we
-	 * know that edge could be removed so the number of connected components
-	 * won't change if it is in the cycle by using union find, we will union all
-	 * the edges, the first one that will have vertices that have the same
-	 * parent is the answer.
-	 */
-	static class Solution1
+	private static class Solution
 	{
-		public int[] findRedundantConnection(int[][] edges)
+		public int[] findRedundantConnection(int[][] e)
 		{
-			// we dont know the exact size, +1 for 1-indexation   
-			UF uf = new UF(1000 + 1);
-			for (int[] edge : edges)
+			UnionFind uf = new UnionFind(e.length + 1);
+			for (int[] ee : e)
 			{
-				if (!uf.union(edge[0], edge[1])) return edge;
+				if (uf.connected(ee[0], ee[1]))
+					return ee;
+				uf.union(ee[0], ee[1]);
 			}
-
 			return new int[]{};
 		}
 
-		class UF
+		private class UnionFind
 		{
-			private int[] parents;
-			private int[] ranks;
+			private int[] parent;
+			private int[] rank;
 
-			UF(int size)
+			public UnionFind(int n)
 			{
-				ranks = new int[size];
-				parents = new int[size];
-
-				for (int i = 0; i < size; i++)
-				{
-					parents[i] = i;
-				}
+				rank = new int[n];
+				parent = new int[n];
+				for (int i = 0; i < n; i++)
+					parent[i] = i;
 			}
 
-			public boolean union(int p, int q)
+			public void union(int p, int q)
 			{
-				int pP = find(p);
-				int pQ = find(q);
+				int rootP = find(p);
+				int rootQ = find(q);
 
-				if (pP == pQ)
-				{
-					return false;
-				}
+				if (rootP == rootQ)
+					return;
 
-				// using rank to balance out the tree of connections
-				if (ranks[pP] > ranks[pQ])
+				if (rank[rootP] < rank[rootQ])
 				{
-					parents[pQ] = pP;
+					parent[rootP] = rootQ;
 				}
 				else
 				{
-					parents[pP] = pQ;
-					ranks[pQ]++;
+					parent[rootQ] = rootP;
+					rank[rootP]++;
 				}
+			}
 
-				return true;
+			public boolean connected(int p, int q)
+			{
+				return find(p) == find(q);
 			}
 
 			private int find(int p)
 			{
-				if (p == parents[p])
-				{
-					return p;
-				}
+				while (parent[p] != p)
+					p = parent[parent[p]];
 
-				return find(parents[p]);
+				return p;
 			}
 		}
 	}
-
-	// other solution is O(N(N+M)), we check if the number of CCs hasn't
-	// if we remove any vertex
 }

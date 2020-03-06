@@ -7,6 +7,7 @@ public class UnionFindImpl implements UnionFind
 
 	public UnionFindImpl(int n)
 	{
+		rank = new int[n];
 		parent = new int[n];
 		for (int i = 0; i < n; i++)
 			parent[i] = i;

@@ -21,10 +21,63 @@ public class Tester
 	private final List<Object> results;
 	private final List<Object> expectations;
 	private final List<Object> orExpectations;
-	private final Object classObject;
+	private Object classObject;
+	private final Class solutionClass;
 	private final List<Double> execTimes;
 
 	private static boolean EXPECT_ANY_ORDER_FLAG = false;
+
+	@SuppressWarnings({"unchecked"})
+	public Tester(Object obj)
+	{
+		classObject = obj;
+		solutionClass = classObject.getClass();
+		TESTER_S = createDefaultLongString('=');
+		TESTER_SEP = createDefaultLongString('-');
+		method = getCorrectMethod(obj);
+		AccessController.doPrivileged((PrivilegedAction) () ->
+		{
+			method.setAccessible(true);
+			return null;
+		});
+
+		results = new ArrayList<>();
+		expectations = new ArrayList<>();
+		orExpectations = new ArrayList<>();
+		execTimes = new ArrayList<>();
+	}
+
+	private Object getNewSolutionInstance()
+	{
+		try
+		{
+			return solutionClass.getConstructors()[0].newInstance();
+		}
+		catch (InstantiationException | IllegalAccessException
+				| InvocationTargetException  e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+
+	@SuppressWarnings({"unchecked"})
+	private Object exec(Object... o)
+	{
+		try
+		{
+			Timer t = new Timer().start();
+			// invoke public solution method
+			Object result = method.invoke(classObject, o);
+			execTimes.add(t.end().getTotal());
+			// re-instantiate solution object
+			classObject = getNewSolutionInstance();
+			return result;
+		}
+		catch (IllegalAccessException | InvocationTargetException e)
+		{
+			throw new RuntimeException(e.getCause());
+		}
+	}
 
 	private String createDefaultLongString(char c)
 	{
@@ -74,36 +127,6 @@ public class Tester
 		return null;
 	}
 
-	@SuppressWarnings({"unchecked"})
-	public Tester(Object obj)
-	{
-		classObject = obj;
-		TESTER_S = createDefaultLongString('=');
-		TESTER_SEP = createDefaultLongString('-');
-
-		method = getCorrectMethod(obj);
-		AccessController.doPrivileged((PrivilegedAction) () ->
-		{
-			method.setAccessible(true);
-			return null;
-		});
-
-		results = new ArrayList<>();
-		expectations = new ArrayList<>();
-		orExpectations = new ArrayList<>();
-		execTimes = new ArrayList<>();
-	}
-
-	public Tester init(Object[]... params)
-	{
-		for (Object[] param : params)
-		{
-			results.add(exec(param));
-		}
-
-		return this;
-	}
-
 	public Tester add(Object... params)
 	{
 		results.add(exec(params));
@@ -145,23 +168,6 @@ public class Tester
 			if (c.get(i) != 0)
 				return false;
 		return true;
-	}
-
-	@SuppressWarnings({"unchecked"})
-	private Object exec(Object... o)
-	{
-		try
-		{
-			Timer t = new Timer().start();
-//			System.out.println(method.getName());
-			Object result = method.invoke(classObject, o);
-			execTimes.add(t.end().getTotal());
-			return result;
-		}
-		catch (IllegalAccessException | InvocationTargetException e)
-		{
-			throw new RuntimeException(e.getCause());
-		}
 	}
 
 	private boolean compareResults(int i)
@@ -232,7 +238,8 @@ public class Tester
 	{
 		sout(TESTER_S);
 		boolean nok = false;
-		for (int i = 0; i < expectations.size(); i++)
+		int size = expectations.isEmpty() ? orExpectations.size() : expectations.size();
+		for (int i = 0; i < size; i++)
 		{
 			if (!compareResults(i))
 			{

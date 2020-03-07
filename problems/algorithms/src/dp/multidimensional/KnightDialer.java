@@ -1,4 +1,4 @@
-package dp.linear;
+package dp.multidimensional;
 
 import util.test.Tester;
 

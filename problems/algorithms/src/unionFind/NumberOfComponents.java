@@ -24,12 +24,6 @@ package unionFind;
  *
  * ======
  *
- * Tests.
- *
- * $INSERT_TEST_CASES
- *
- * ======
- *
  * Source: Codeforces
  */
 public class NumberOfComponents

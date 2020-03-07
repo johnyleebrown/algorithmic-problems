@@ -18,7 +18,7 @@ public class $INSERT_CLASS_NAME
 	/**
 	 *
 	 */
-	private static class Solution
+	public static class Solution
 	{
         public int solve()
         {

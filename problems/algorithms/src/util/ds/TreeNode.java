@@ -55,6 +55,9 @@ public class TreeNode
 				{
 					TreeNode prev = q.remove(0);
 
+					if (prev == null)
+						continue;
+
 					if (i >= n) return root;
 					prev.left = getCurrentNode(sAr, i++);
 					q.add(prev.left);

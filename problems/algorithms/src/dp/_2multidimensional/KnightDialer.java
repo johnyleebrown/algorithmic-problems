@@ -1,4 +1,4 @@
-package dp.multidimensional;
+package dp._2multidimensional;
 
 import util.test.Tester;
 
@@ -30,7 +30,7 @@ public class KnightDialer
 	 * Linear dp. If we have calculated an item before we use it. The trick is
 	 * to use a dp array for each kind of n.
 	 */
-	private static class Solution
+	public static class Solution
 	{
 		int[][] dirs = new int[][]{{1, 2}, {2, 1}, {-1, 2}, {1, -2}, {-1, -2}, {2, -1}, {-2, 1}, {-2, -1}};
 		int[][][] dp;

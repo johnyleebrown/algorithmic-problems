@@ -7,13 +7,15 @@ package twoPointers.palindrome;
  *
  * Task.
  *
- * Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+ * Given a string s, find the longest palindromic substring in s. You may assume
+ * that the maximum length of s is 1000.
  */
 public class LongestPalindromicSubstring
 {
 	/**
-	 * The idea is to explore each character in both directions, we could have 2 cases, if the palindrome length is odd
-	 * or it is even, if it is odd 2 pointers i and j will be k and k + 1, otherwise they will be k and k.
+	 * The idea is to explore each character in both directions, we could have 2
+	 * cases, if the palindrome length is odd or it is even, if it is odd 2
+	 * pointers i and j will be k and k + 1, otherwise they will be k and k.
 	 */
 	static class Solution
 	{
@@ -30,7 +32,6 @@ public class LongestPalindromicSubstring
 
 			for (int i = 0; i < s.length(); i++)
 			{
-				char c = s.charAt(i);
 				explore(i, i, s);
 				explore(i, i + 1, s);
 			}
@@ -38,16 +39,16 @@ public class LongestPalindromicSubstring
 			return s.substring(finalI, finalJ + 1);
 		}
 
-		private void explore(int baseI, int baseJ, String s)
+		private void explore(int i, int j, String s)
 		{
-			int i = baseI, j = baseJ;
-			while (i >= 0 && j < s.length() && s.charAt(i) == s.charAt(j))
+			int newi = i, newj = j;
+			while (newi >= 0 && newj < s.length() && s.charAt(newi) == s.charAt(newj))
 			{
-				i--;
-				j++;
+				newi--;
+				newj++;
 			}
 
-			updateMax(i, j);
+			updateMax(newi, newj);
 		}
 
 		private void updateMax(int i, int j)
@@ -61,4 +62,3 @@ public class LongestPalindromicSubstring
 		}
 	}
 }
-

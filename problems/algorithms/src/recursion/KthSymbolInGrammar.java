@@ -1,4 +1,4 @@
-package recursion.other;
+package recursion;
 
 /**
  * 779

@@ -1,4 +1,4 @@
-package recursion.regular;
+package recursion;
 
 import util.test.Tester;
 

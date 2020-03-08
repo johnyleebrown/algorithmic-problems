@@ -54,10 +54,31 @@ public class Tester
 			return solutionClass.getConstructors()[0].newInstance();
 		}
 		catch (InstantiationException | IllegalAccessException
-				| InvocationTargetException  e)
+				| InvocationTargetException e)
 		{
 			throw new RuntimeException(e);
 		}
+	}
+
+	public static int[][] ararFromString(String s)
+	{
+		//[[1,2],[1,3],[1,7],[2,4],[2,6],[3,5]]
+		String[] rightBracketSplit = s.split("]");
+		int n = rightBracketSplit.length;
+		int[][] res = new int[n][];
+		for (int i = 0; i < n; i++)
+		{
+			int k = 0;
+			String cur = rightBracketSplit[i];
+			String[] leftBracketSplit = cur.split("\\[");
+			String[] commaSplit = leftBracketSplit[leftBracketSplit.length - 1].split(",");
+			res[i] = new int[commaSplit.length];
+			for (int j = 0; j < commaSplit.length; j++)
+			{
+				res[i][j] = Integer.parseInt(commaSplit[j]);
+			}
+		}
+		return res;
 	}
 
 	@SuppressWarnings({"unchecked"})

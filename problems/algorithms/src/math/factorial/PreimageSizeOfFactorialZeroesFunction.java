@@ -1,4 +1,4 @@
-package math.other;
+package math.factorial;
 
 /**
  * 793

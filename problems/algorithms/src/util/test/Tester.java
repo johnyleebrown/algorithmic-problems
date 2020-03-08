@@ -60,6 +60,7 @@ public class Tester
 		}
 	}
 
+	@SuppressWarnings({"unchecked"})
 	public static int[][] ararFromString(String s)
 	{
 		//[[1,2],[1,3],[1,7],[2,4],[2,6],[3,5]]
@@ -79,6 +80,29 @@ public class Tester
 			}
 		}
 		return res;
+	}
+
+	@SuppressWarnings({"unchecked"})
+	public static int[] arFromString(String s)
+	{
+		//[5,9,6,10,-1,8,9,1,9,3,4]
+
+		//empty array []
+		if (s.length() == 2)
+			return new int[]{};
+
+		//arr of strings 5,9,6,10,-1,8,9,1,9,3,4
+		String[] splitOnComma = s
+				.replaceAll("\\[","")
+				.replaceAll("]","")
+				.split(",");
+		int n = splitOnComma.length;
+
+		int[] ans = new int[n];
+		for (int i = 0; i < n; i++)
+			ans[i] = Integer.parseInt(splitOnComma[i]);
+
+		return ans;
 	}
 
 	@SuppressWarnings({"unchecked"})

@@ -6,4 +6,6 @@
 6,CheckIfNodeExistsInACompleteTree
 7,MinPathBetweenLeafNodes
 8,BusiestTimeInTheMall
+9,SkipIterator
+10,ConstructTreap
 use this: Google_Interview_6

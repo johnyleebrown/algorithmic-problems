@@ -1,5 +1,12 @@
-// 155
-class MinStack 
+package ds.stack;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+/**
+ * 155
+ */
+public class MinStack
 {
 	private Deque<Integer> s;
 	private Deque<Integer> minstack;
@@ -40,4 +47,3 @@ class MinStack
 		return minstack.peek();
 	}
 }
-

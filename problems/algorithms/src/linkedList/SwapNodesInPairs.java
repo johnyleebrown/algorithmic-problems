@@ -9,17 +9,29 @@ public class SwapNodesInPairs
 {
 	class Solution
 	{
-		public ListNode swapPairs(ListNode head)
+		public ListNode swapPairs(ListNode cur)
 		{
-			if (head == null) return null;
-			if (head.next == null) return head;
+			return traverse(null, cur);
+		}
 
-			ListNode x = head.next;
-			ListNode y = head.next.next;
-			head.next.next = head;
-			head.next = swapPairs(y);
+		private ListNode traverse(ListNode prev, ListNode cur)
+		{
+			if (cur == null)
+				return null;
+			if (prev == null && cur.next == null)
+				return cur;
 
-			return x;
+			ListNode next = cur.next;
+
+			if (prev != null)
+			{
+				prev.next = traverse(null, next);
+				cur.next = prev;
+				return cur;
+			}
+
+			traverse(cur, next);
+			return next;
 		}
 	}
 }

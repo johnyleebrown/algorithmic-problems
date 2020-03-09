@@ -1,13 +1,20 @@
-// 346
-class MovingAverage 
+package ds.queue;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+/**
+ * 346
+ */
+public class MovingAverageFromDataStream
 {
     private Queue<Integer> q;
     private double sum = 0;
     private int size;
 
-    public MovingAverage(int s) 
+    public MovingAverageFromDataStream(int s)
     {
-        q = new LinkedList();
+        q = new LinkedList<>();
         size = s;
     }
     
@@ -23,4 +30,3 @@ class MovingAverage
         return sum / q.size();
     }
 }
-

@@ -1,9 +1,16 @@
-// 359
-public class Logger 
+package ds.map;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 359
+ */
+public class LoggerRateLimiter
 {
     private Map<String, Integer> printSchedule;
     
-    public Logger() 
+    public LoggerRateLimiter()
 	{
         printSchedule = new HashMap<>();
     }
@@ -19,4 +26,3 @@ public class Logger
         return true;
     }
 }
-

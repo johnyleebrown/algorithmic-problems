@@ -1,10 +1,11 @@
-package iterator;
+package ds.iterator;
 
 import java.util.*;
-import static test.Out.sout;
 
-/*
- * Company: Google
+import static util.test.Out.sout;
+
+/**
+ * Google_Interview_9
  */
 public class SkipIterator implements Iterator<Integer>
 {

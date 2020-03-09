@@ -1,14 +1,20 @@
-/*
+package ds.queue;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
  * 379
- * Company: Google
  */
-class PhoneDirectory
+public class DesignPhoneDirectory
 {
 	private Set<Integer> used;
 	private List<Integer> available;
 	private int max;
 
-	public PhoneDirectory(int maxNumbers)
+	public DesignPhoneDirectory(int maxNumbers)
 	{
 		used = new HashSet<>();
 		available = new ArrayList<>();
@@ -51,4 +57,3 @@ class PhoneDirectory
 		}
 	}
 }
-

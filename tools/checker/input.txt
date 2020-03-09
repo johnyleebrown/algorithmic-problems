@@ -1,14 +1,18 @@
 Sliding Window,twoPointers/slidingWindow
+Two Pointers,twoPointers,twoPointers/slidingWindow
 Monotonic Queue,sort/monotonicQueue
+Heap Sort,sort/heap
+Sort Other,sort,sort/heap,sort/monotonicQueue
 Backtracking,backtracking
 Binary Search,bs
 Linked List,linkedList
-Heap Sort,sort/heap
 Union Find,unionFind
 Graph Others,graph,graph/shortestPaths
-Graph Shortest Papths,graph/shortestPaths
+Graph Shortest Paths,graph/shortestPaths
 Hash Table,hashtable
 Recursion,recursion/other
 Random,math/random
 Tree Regular,tree/regular
 Tree Other,tree,tree/regular
+Design,ds
+Intervals,intervals

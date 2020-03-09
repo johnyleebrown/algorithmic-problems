@@ -90,6 +90,7 @@ class CustomWidget(npyscreen.MultiLineAction):
         u.add_line_to_file(rep_path, self.get_current_problem_title() + ',' + self.current_problem_start_time)
         u.add_line_to_file(rep_path, self.get_current_problem_title() + ',' + str(u.get_dt_with_delta(datetime.utcnow(),1)))
         u.add_line_to_file(rep_path, self.get_current_problem_title() + ',' + str(u.get_dt_with_delta(datetime.utcnow(),4)))
+        u.add_line_to_file(rep_path, self.get_current_problem_title() + ',' + str(u.get_dt_with_delta(datetime.utcnow(),8)))
 
     def create_text_box_new_line(self, title, color='DEFAULT'):
         text_box = self.parent.add(npyscreen.FixedText,

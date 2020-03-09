@@ -21,21 +21,24 @@ public class MinimumHeightTrees
      */
     public static List<Integer> solution1(int n, int[][] edges) 
 	{
-        if (n == 1) return Collections.singletonList(0);
+        if (n == 1)
+        	return Collections.singletonList(0);
 
         // init graph
-        List<Set<Integer>> adj = new ArrayList<>(n);
-        for (int i = 0; i < n; ++i) adj.add(new HashSet<>());
+        List<Set<Integer>> graph = new ArrayList<>(n);
+        for (int i = 0; i < n; i++)
+        	graph.add(new HashSet<>());
 		for (int[] edge : edges) 
 		{
-            adj.get(edge[0]).add(edge[1]);// O(1)
-            adj.get(edge[1]).add(edge[0]);// O(1)
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
         }
 
         // find v with degree 1
         List<Integer> leaves = new ArrayList<>();
         for (int i = 0; i < n; ++i)
-            if (adj.get(i).size() == 1) leaves.add(i);
+            if (graph.get(i).size() == 1)
+            	leaves.add(i);
 
         // until 2 leaves are left on a tree
         while (n > 2) 
@@ -46,11 +49,11 @@ public class MinimumHeightTrees
 			for (int i : leaves) 
 			{
                 // going to the next leave
-                int j = adj.get(i).iterator().next();
+                int j = graph.get(i).iterator().next();
                 
 				// removing connection to prev leave
-                adj.get(j).remove(i);
-                if (adj.get(j).size() == 1)
+                graph.get(j).remove(i);
+                if (graph.get(j).size() == 1)
 				{
                     // add if the node doesn't have any other edges
                     newLeaves.add(j);

@@ -1,5 +1,7 @@
 package twoPointers.slidingWindow.max;
 
+import util.test.Tester;
+
 /**
  * 395
  *
@@ -117,5 +119,22 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters
 
 			return result;
 		}
+	}
+
+	public static void main(String[] args)
+	{
+		new Tester(new Solution())
+				.add("aaabb", 3).expect(3)
+				.add("ababbc", 2).expect(5)
+				.add("cababb", 2).expect(5)
+				.add("abcabb", 2).expect(2)
+				.add("cababbbc", 3).expect(3)
+				.add("abcabbbc", 3).expect(3)
+				.add("cabcabbb", 3).expect(3)
+				.add("cabcabbbbc", 4).expect(4)
+				.add("cabccabccc", 4).expect(0)
+				.add("cccaaaaaaaabccabccc", 8).expect(8)
+				.add("aacbbbdc", 2).expect(3)
+				.run();
 	}
 }

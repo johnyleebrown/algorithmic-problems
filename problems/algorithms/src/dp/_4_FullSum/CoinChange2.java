@@ -1,4 +1,4 @@
-package medium.dp;
+package dp._4_FullSum;
 
 /**
  * 518

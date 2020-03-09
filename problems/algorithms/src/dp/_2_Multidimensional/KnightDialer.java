@@ -1,4 +1,4 @@
-package dp._2multidimensional;
+package dp._2_Multidimensional;
 
 import util.test.Tester;
 

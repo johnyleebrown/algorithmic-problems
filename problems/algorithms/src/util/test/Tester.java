@@ -283,7 +283,11 @@ public class Tester
 	{
 		sout(TESTER_S);
 		boolean nok = false;
+
 		int size = expectations.isEmpty() ? orExpectations.size() : expectations.size();
+		if (size != results.size())
+			throw new RuntimeException("Results size is different from expectations size.");
+
 		for (int i = 0; i < size; i++)
 		{
 			if (!compareResults(i))

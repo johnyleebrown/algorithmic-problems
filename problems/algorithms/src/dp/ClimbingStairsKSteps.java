@@ -1,6 +1,8 @@
 package Easy.DP;
 
 /**
+ * 70_1
+ *
  * Count the number of ways to climb the n-th step
  * if it is possible to climb from 1 to k steps at a time
  */

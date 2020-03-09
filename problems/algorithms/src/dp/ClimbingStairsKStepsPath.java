@@ -1,6 +1,8 @@
 package Easy.DP;
 
 /**
+ * 70_2
+ *
  * While climbing to the n-th step
  * with 1 to k steps at a time
  * compute the path

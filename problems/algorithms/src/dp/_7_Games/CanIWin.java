@@ -1,4 +1,4 @@
-package medium.dp;
+package dp._7_Games;
 
 import java.util.HashMap;
 

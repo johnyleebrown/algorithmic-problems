@@ -1,7 +1,7 @@
-package medium.dp;
+package dp._4_FullSum;
 
 /**
- * 0-1 Knapsack problem
+ * Knapsack01
  *
  * Given weights and values of n items,
  * put these items in a knapsack of capacity W

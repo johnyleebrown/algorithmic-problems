@@ -1,4 +1,4 @@
-package dp;
+package dp._4_FullSum;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -11,13 +11,7 @@ import java.util.Map;
 public class CoinChange
 {
 	/**
-	 * Bottom-up solution Time complexity: O(amount*coins.length) Space
-	 * complexity: O(amount) Recurrence: total[i] = min(total[i], 1 + total[i -
-	 * coins[j]])
-	 *
-	 * @param totalAmount total to return with change
-	 * @param coins       coin denominations
-	 * @return last item in the array
+	 * Bottom-up solution
 	 */
 	private int SolutionBU(int totalAmount, int[] coins)
 	{
@@ -40,8 +34,7 @@ public class CoinChange
 	}
 
 	/**
-	 * Top-down solution Time complexity: O(amount*coins.length) Space
-	 * complexity: O(amount)
+	 * Top-down solution
 	 */
 	private int SolutionTD(int amount, int[] coins, Map<Integer, Integer> map)
 	{

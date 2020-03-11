@@ -9,6 +9,16 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Known bugs:
+ *
+ * - orExpected should be the same length as expected - solve with map, where
+ * key is a test number, and value - map with list of test case parameters,
+ * result, expected etc.
+ *
+ * - orExpected should be a list, or just list of expected values; what about
+ * any order switcher thou.
+ */
 public class Tester
 {
 	private final Method method;

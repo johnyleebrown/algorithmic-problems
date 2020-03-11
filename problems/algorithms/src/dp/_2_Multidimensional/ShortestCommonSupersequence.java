@@ -93,7 +93,7 @@ public class ShortestCommonSupersequence
 	public static void main(String[] args)
 	{
 		new Tester(new Solution())
-				.add("abac", "cab").expect("cabac")
+				.add("abac", "cab").expect("cabac").orExpect(null)
 				.add("cbcbacaab", "ababaabbbb").expect("cabacbacaabbbb").orExpect("cabcabacaabbbb")
 				.run();
 	}

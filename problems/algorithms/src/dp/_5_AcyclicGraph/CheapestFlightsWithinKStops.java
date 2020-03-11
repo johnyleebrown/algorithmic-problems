@@ -1,6 +1,7 @@
 package dp._5_AcyclicGraph;
 
 import util.tester.Tester;
+import util.tester.TesterPreprocessor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,9 +72,9 @@ public class CheapestFlightsWithinKStops
 	public static void main(String[] args)
 	{
 		new Tester(new Solution())
-				.add(3, Tester.ararFromString("[[0,1,100],[1,2,100],[0,2,500]]"), 0, 2, 1).expect(200)
-				.add(4, Tester.ararFromString("[[0,1,1],[0,2,5],[1,2,1],[2,3,1]]"), 0, 3, 1).expect(6)
-				.add(5, Tester.ararFromString("[[0,1,5],[1,2,5],[0,3,2],[3,1,2],[1,4,1],[4,2,1]]"), 0, 2, 2).expect(7)
+				.add(3, TesterPreprocessor.ararFromString("[[0,1,100],[1,2,100],[0,2,500]]"), 0, 2, 1).expect(200)
+				.add(4, TesterPreprocessor.ararFromString("[[0,1,1],[0,2,5],[1,2,1],[2,3,1]]"), 0, 3, 1).expect(6)
+				.add(5, TesterPreprocessor.ararFromString("[[0,1,5],[1,2,5],[0,3,2],[3,1,2],[1,4,1],[4,2,1]]"), 0, 2, 2).expect(7)
 				.run();
 	}
 }

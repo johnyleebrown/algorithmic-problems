@@ -28,7 +28,7 @@ import static util.utility.Utility.getMaxLen3Strings;
 public class ShortestCommonSupersequence
 {
 	/**
-	 *
+	 * Find a lcs and then fill the result with leftovers from both strings.
 	 */
 	public static class Solution
 	{

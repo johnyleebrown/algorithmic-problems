@@ -7,63 +7,53 @@ import java.util.*;
  */
 public class MinimumHeightTrees
 {
-    /**
-     * We start from every vertex of degree 1. We let the 
-	 * pointers move the same speed. When two pointers meet, 
-	 * we keep only one of them, until the last two pointers meet
-     * or one step away we then find the roots. It is easy to see 
-	 * that the last two pointers are from the two ends of the
-	 * longest path in the graph. Remove the leaves, update the
-	 * degrees of inner vertexes. Then remove the new leaves.
-     * Doing so level by level until there are 2 or 1 nodes left.
-     * Basically, the idea is to eat up all the leaves at the same
+	/**
+	 * We start from every vertex of degree 1. We let the pointers move the same
+	 * speed. When two pointers meet, we keep only one of them, until the last
+	 * two pointers meet or one step away we then find the roots. It is easy to
+	 * see that the last two pointers are from the two ends of the longest path
+	 * in the graph. Remove the leaves, update the degrees of inner vertexes.
+	 * Then remove the new leaves. Doing so level by level until there are 2 or
+	 * 1 nodes left. Basically, the idea is to eat up all the leaves at the same
 	 * time, until one/two leaves are left.
-     */
-    public static List<Integer> solution1(int n, int[][] edges) 
+	 */
+	class Solution
 	{
-        if (n == 1)
-        	return Collections.singletonList(0);
-
-        // init graph
-        List<Set<Integer>> graph = new ArrayList<>(n);
-        for (int i = 0; i < n; i++)
-        	graph.add(new HashSet<>());
-		for (int[] edge : edges) 
+		public List<Integer> findMinHeightTrees(int n, int[][] edges)
 		{
-            graph.get(edge[0]).add(edge[1]);
-            graph.get(edge[1]).add(edge[0]);
-        }
+			Map<Integer, List<Integer>> g = new HashMap<>();
+			for (int i = 0; i < n; i++)
+				g.put(i, new ArrayList<>());
 
-        // find v with degree 1
-        List<Integer> leaves = new ArrayList<>();
-        for (int i = 0; i < n; ++i)
-            if (graph.get(i).size() == 1)
-            	leaves.add(i);
-
-        // until 2 leaves are left on a tree
-        while (n > 2) 
-		{
-            n -= leaves.size();
-            List<Integer> newLeaves = new ArrayList<>();
-            
-			for (int i : leaves) 
+			for (int[] e : edges)
 			{
-                // going to the next leave
-                int j = graph.get(i).iterator().next();
-                
-				// removing connection to prev leave
-                graph.get(j).remove(i);
-                if (graph.get(j).size() == 1)
+				g.get(e[0]).add(e[1]);
+				g.get(e[1]).add(e[0]);
+			}
+
+			List<Integer> q = new ArrayList<>();
+			for (int i = 0; i < n; i++)
+				if (g.get(i).size() <= 1)
+					q.add(i);
+
+			while (n > 2)
+			{
+				int size = q.size();
+				while (--size >= 0)
 				{
-                    // add if the node doesn't have any other edges
-                    newLeaves.add(j);
+					int v = q.remove(0);
+					for (int w : g.get(v))
+					{
+						g.get(w).remove(new Integer(v));
+						if (g.get(w).size() == 1)
+						{
+							q.add(w);
+						}
+					}
+					n--;
 				}
-            }
-
-            leaves = newLeaves;
-        }
-
-        return leaves;
-    }
+			}
+			return q;
+		}
+	}
 }
-

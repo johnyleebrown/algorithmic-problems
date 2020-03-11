@@ -1,6 +1,6 @@
 package graph.topological;
 
-import util.test.Tester;
+import util.tester.Tester;
 
 import java.util.HashMap;
 import java.util.HashSet;

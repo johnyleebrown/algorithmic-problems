@@ -33,7 +33,7 @@ public class TreeNode
 		String[] sAr = s.split(",");
 		int n = sAr.length;
 		if (n == 1)
-			return getCurrentNode(sAr, 0);
+			return createNode(sAr, 0);
 
 		double base = 0.5;
 		List<TreeNode> q = new ArrayList<>();
@@ -42,13 +42,13 @@ public class TreeNode
 		for (int i = 0; i < n;)
 		{
 			base *= 2;
-			int size = (int) base;
+			double size = base;
 
 			while (--size >= 0)
 			{
 				if (q.isEmpty())
 				{
-					root = getCurrentNode(sAr, i++);
+					root = createNode(sAr, i++);
 					q.add(root);
 				}
 				else
@@ -59,11 +59,11 @@ public class TreeNode
 						continue;
 
 					if (i >= n) return root;
-					prev.left = getCurrentNode(sAr, i++);
+					prev.left = createNode(sAr, i++);
 					q.add(prev.left);
 
 					if (i >= n) return root;
-					prev.right = getCurrentNode(sAr, i++);
+					prev.right = createNode(sAr, i++);
 					q.add(prev.right);
 				}
 			}
@@ -72,7 +72,7 @@ public class TreeNode
 		return root;
 	}
 
-	private TreeNode getCurrentNode(String[] a, int i)
+	private TreeNode createNode(String[] a, int i)
 	{
 		String s = a[i];
 		try

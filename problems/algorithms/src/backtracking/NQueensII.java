@@ -1,6 +1,6 @@
 package backtracking;
 
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * 52

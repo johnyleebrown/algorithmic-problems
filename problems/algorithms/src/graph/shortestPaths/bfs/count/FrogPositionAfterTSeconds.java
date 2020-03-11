@@ -1,6 +1,6 @@
 package graph.shortestPaths.bfs.count;
 
-import util.test.Tester;
+import util.tester.Tester;
 
 import java.util.*;
 

@@ -1,7 +1,7 @@
 package tree.regular;
 
 import util.ds.TreeNode;
-import util.test.Tester;
+import util.tester.Tester;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

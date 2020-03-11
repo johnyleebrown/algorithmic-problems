@@ -1,7 +1,7 @@
 package tree.count;
 
 import util.ds.TreeNode;
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * 979

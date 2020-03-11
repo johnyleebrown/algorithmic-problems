@@ -2,7 +2,7 @@ package ds.iterator;
 
 import java.util.*;
 
-import static util.test.Out.sout;
+import static util.utility.Out.sout;
 
 /**
  * Google_Interview_9

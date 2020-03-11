@@ -1,6 +1,6 @@
 package string.trie;
 
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * 642

@@ -1,6 +1,6 @@
 package math.detectRecurrence;
 
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * 1362

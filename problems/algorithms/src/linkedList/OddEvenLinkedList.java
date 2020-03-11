@@ -1,7 +1,7 @@
 package linkedList;
 
 import util.ds.ListNode;
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * 328

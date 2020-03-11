@@ -1,6 +1,6 @@
 package math.numberTheory;
 
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * 50

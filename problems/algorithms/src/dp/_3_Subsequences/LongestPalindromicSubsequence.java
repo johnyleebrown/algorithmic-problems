@@ -1,6 +1,6 @@
 package dp._3_Subsequences;
 
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * 516

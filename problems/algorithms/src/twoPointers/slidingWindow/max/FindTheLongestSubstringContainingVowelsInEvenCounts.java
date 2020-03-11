@@ -1,6 +1,6 @@
 package twoPointers.slidingWindow.max;
 
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * 1371

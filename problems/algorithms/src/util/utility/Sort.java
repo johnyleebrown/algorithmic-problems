@@ -1,8 +1,8 @@
-package util.test;
+package util.utility;
 
 import java.util.Arrays;
 
-import static util.test.Gen.genIntArray;
+import static util.utility.Gen.genIntArray;
 
 /**
  * Arrays.sort uses quick sort if the array contains elements of primitive type such as long or int. Quick sort has on

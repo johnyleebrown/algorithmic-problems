@@ -1,11 +1,11 @@
-package util.test;
+package util.utility;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
-import static util.test.Out.sout;
+import static util.utility.Out.sout;
 
 public class StringUtils
 {

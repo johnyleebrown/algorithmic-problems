@@ -1,4 +1,4 @@
-package util.test;
+package util.utility;
 
 public class Timer
 {

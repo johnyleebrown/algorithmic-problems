@@ -1,7 +1,5 @@
 package array.prefix;
 
-import util.test.Tester;
-
 /**
  * 1375
  *

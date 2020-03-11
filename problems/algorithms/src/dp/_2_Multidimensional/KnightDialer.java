@@ -1,6 +1,6 @@
 package dp._2_Multidimensional;
 
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * 935

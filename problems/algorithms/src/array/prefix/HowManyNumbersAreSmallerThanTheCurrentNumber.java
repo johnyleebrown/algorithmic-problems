@@ -1,6 +1,6 @@
 package array.prefix;
 
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * 1365

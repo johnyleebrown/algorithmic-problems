@@ -1,7 +1,5 @@
 package string.regular;
 
-import util.test.Tester;
-
 /**
  * 1374
  *

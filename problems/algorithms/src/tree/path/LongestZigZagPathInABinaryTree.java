@@ -1,7 +1,7 @@
 package tree.path;
 
 import util.ds.TreeNode;
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * 1372

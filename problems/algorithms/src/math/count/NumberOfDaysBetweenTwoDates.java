@@ -1,6 +1,6 @@
 package math.count;
 
-import util.test.Tester;
+import util.tester.Tester;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

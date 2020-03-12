@@ -1,4 +1,4 @@
-import util.test.Tester;
+import util.tester.Tester;
 
 /**
  * $INSERT_PROBLEM_NUMBER

@@ -20,4 +20,9 @@ public class Timer
 	{
 		return (endTime - startTime)/1e6;
 	}
+
+	public void printEnd()
+	{
+		System.out.println(String.format("%.2f", this.end().getTotal()));
+	}
 }

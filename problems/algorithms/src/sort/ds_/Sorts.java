@@ -1,4 +1,6 @@
-package util.utility;
+package sort.ds_;
+
+import util.utility.Gen;
 
 import java.util.Arrays;
 
@@ -15,7 +17,7 @@ import static util.utility.Gen.genIntArray;
  *
  * Results of testing: Long array is sorted faster than Integer. "(long) x" conversion is faster than "new Long(x)".
  */
-public class Sort
+public class Sorts
 {
 	public static void qSort(int n)
 	{

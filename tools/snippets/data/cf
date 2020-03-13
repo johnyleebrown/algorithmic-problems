@@ -5,30 +5,27 @@ public class Main
 {
 	/**
 	 * ********************************
-	 *
-	 * ********************************
 	 */
-	private static void s(InputReader in, PrintWriter o)
+	private static void s(InputReader in, PrintWriter out)
 	{
 
 	}
 
-	public static void solve(InputReader in, PrintWriter o)
+	public static void solve(InputReader in, PrintWriter out)
 	{
 		int t = in.nextInt();
 		while (--t >= 0)
 		{
-			s(in, o);
+			s(in, out);
 		}
 	}
 	/**
 	 * ********************************
-	 *
-	 * ********************************
 	 */
+	// @formatter:off
 	private static void print(PrintWriter out,Object o){out.println(o);}
 	private static void printAr(PrintWriter out,int[] a){for(int value:a){out.print(value);out.print(" ");}out.println();}
-	public static void main(String[] args){PrintWriter o=new PrintWriter(System.out);solve(new InputReader(System.in), o);o.close();}
+	public static void main(String[] args){PrintWriter out = new PrintWriter(System.out);InputReader in = new InputReader(System.in);solve(in, out);out.close();}
 	public static class InputReader
 	{
 		public BufferedReader r;
@@ -41,4 +38,5 @@ public class Main
 		public Long[] nextLongAr(int n) { Long[] a = new Long[n]; for (int i = 0; i < n; i++) a[i] = nextLong(); return a; }
 		public String nextLine(){try{return r.readLine();}catch(IOException e){throw new RuntimeException(e);}}
 	}
+	// @formatter:on
 }

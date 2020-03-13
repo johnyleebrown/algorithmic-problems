@@ -1,22 +1,30 @@
-// 1196
-class Solution 
+package sort.regular;
+
+import java.util.Arrays;
+
+/**
+ * 1196
+ */
+public class HowManyApplesCanYouPutIntoTheBasket
 {
-    public int maxNumberOfApples(int[] arr) 
+    class Solution
     {
-        Arrays.sort(arr);
-        int res = 0, sum = 0;
-        
-        for (int i = 0; i < arr.length && sum <= 5000; i++) 
+        public int maxNumberOfApples(int[] arr)
         {
-            sum += arr[i];
-            
-            if (sum <= 5000) 
+            Arrays.sort(arr);
+            int res = 0, sum = 0;
+
+            for (int i = 0; i < arr.length && sum <= 5000; i++)
             {
-                res++;
+                sum += arr[i];
+
+                if (sum <= 5000)
+                {
+                    res++;
+                }
             }
+
+            return res;
         }
-        
-        return res;
     }
 }
-

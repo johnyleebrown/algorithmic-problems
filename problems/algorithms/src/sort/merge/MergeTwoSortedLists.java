@@ -1,9 +1,15 @@
-// 21
-public class MergeTwoSortedLists 
+package sort.merge;
+
+import util.ds.ListNode;
+
+/**
+ * 21
+ */
+public class MergeTwoSortedLists
 {
     class Solution 
 	{
-        public ListNode mergeTwoLists(ListNode l1, ListNode l2) 
+        public ListNode mergeTwoLists(ListNode l1, ListNode l2)
 		{
             if (l1 == null) 
 			{

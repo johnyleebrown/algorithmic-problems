@@ -59,4 +59,19 @@ public class ListNode
 	{
 		return Objects.hash(val, random, next, prev, child);
 	}
+
+	private void print(ListNode head)
+	{
+		ListNode cur = head;
+		while (cur != null)
+		{
+			System.out.print(cur.val + " ");
+			cur = cur.next;
+		}
+	}
+
+	private void printSelf(ListNode head)
+	{
+		System.out.println(head == null ? null : head.val);
+	}
 }

@@ -26,8 +26,8 @@ public class Main
 	 *
 	 * ********************************
 	 */
-	private static void p(PrintWriter out,Object o){out.println(o);}
-	private static void par(PrintWriter out,int[] a){for(int value:a){out.print(value);out.print(" ");}out.println();}
+	private static void print(PrintWriter out,Object o){out.println(o);}
+	private static void printAr(PrintWriter out,int[] a){for(int value:a){out.print(value);out.print(" ");}out.println();}
 	public static void main(String[] args){PrintWriter o=new PrintWriter(System.out);solve(new InputReader(System.in), o);o.close();}
 	public static class InputReader
 	{

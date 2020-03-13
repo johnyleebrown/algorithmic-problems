@@ -1,8 +1,11 @@
-/*
+package sort.regular;
+
+import java.util.Arrays;
+
+/**
  * 280
- * Company: Google
  */
-class WiggleSort
+public class WiggleSort
 {
 	// straight-forward, sort and rearange
 	class Solution 
@@ -47,6 +50,9 @@ class WiggleSort
 				less = !less;
 			}
 		}
-	}
 
+		private void swap(int[] nums, int i, int i1)
+		{
+		}
+	}
 }

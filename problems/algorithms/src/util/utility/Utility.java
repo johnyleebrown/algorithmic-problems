@@ -14,4 +14,11 @@ public class Utility
 		else
 			return b;
 	}
+
+	public static void exch(int[] a, int j, int i)
+	{
+		int swap = a[i];
+		a[i] = a[j];
+		a[j] = swap;
+	}
 }

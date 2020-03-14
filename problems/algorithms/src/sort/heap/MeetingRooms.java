@@ -2,6 +2,7 @@ package sort.heap;
 
 import sun.jvm.hotspot.utilities.Interval;
 
+import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -10,22 +11,23 @@ import java.util.Queue;
  */
 public class MeetingRooms
 {
-	/**
-	 * Time complexity: O(n) Space complexity: O(n)
-	 */
-	public static boolean solution(Interval[] intervals)
+	class Solution
 	{
-		Queue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-		for (int i = 0; i < intervals.length; i++)
-			pq.add(new int[]{(int) intervals[i].getLowEndpoint(), (int) intervals[i].getHighEndpoint()});
-
-		int[] prev = new int[]{-1, -1};
-		for (int[] a : pq)
+		public boolean canAttendMeetings(int[][] a)
 		{
-			if (a[0] < prev[1]) return false;
-			prev = a;
+			if (a.length == 0)
+				return true;
+			PriorityQueue<int[]> pq = new PriorityQueue<>((a1, b1) -> a1[0] - b1[0]);
+			Collections.addAll(pq, a);
+			int[] prev = pq.poll();
+			while (!pq.isEmpty())
+			{
+				int[] cur = pq.poll();
+				if (prev[1] > cur[0])
+					return false;
+				prev = cur;
+			}
+			return true;
 		}
-
-		return true;
 	}
 }

@@ -9,10 +9,16 @@ public class TreeNode
 	public int val;
 	public TreeNode left;
 	public TreeNode right;
+	public boolean someFlag;
 
-	public TreeNode(int x)
+	public TreeNode(int val)
 	{
-		val = x;
+		this.val = val;
+	}
+
+	public TreeNode(boolean f)
+	{
+		someFlag = f;
 	}
 
 	public TreeNode(String s)

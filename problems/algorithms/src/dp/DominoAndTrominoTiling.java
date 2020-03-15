@@ -12,7 +12,7 @@ public class DominoAndTrominoTiling {
      * Time complexity: O(n)
      * Space complexity: O(n)
      */
-    private static final int MOD = 1000000007;
+    private static final int MOD = 1_000_000_007;
 
     public int numTilings(int N) {
         if (N < 0) return 0;

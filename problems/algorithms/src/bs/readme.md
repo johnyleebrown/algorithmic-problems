@@ -4,3 +4,6 @@ https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/discuss/25
 https://leetcode.com/problems/koko-eating-bananas/discuss/152324/C++JavaPython-Binary-Search
 https://leetcode.com/problems/minimize-max-distance-to-gas-station/discuss/113633/Easy-and-Concise-Solution-using-Binary-Search-C++JavaPython
 https://leetcode.com/problems/split-array-largest-sum/
+
+
+https://brestprog.by/topics/binsearch/

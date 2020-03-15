@@ -17,40 +17,32 @@ public class MinimumHeightTrees
 	 * 1 nodes left. Basically, the idea is to eat up all the leaves at the same
 	 * time, until one/two leaves are left.
 	 */
-	class Solution
-	{
-		public List<Integer> findMinHeightTrees(int n, int[][] edges)
-		{
-			Map<Integer, List<Integer>> g = new HashMap<>();
+	class Solution {
+		public List<Integer> findMinHeightTrees(int n, int[][] e) {
+			List<Integer>[] g= new List[n];
 			for (int i = 0; i < n; i++)
-				g.put(i, new ArrayList<>());
-
-			for (int[] e : edges)
-			{
-				g.get(e[0]).add(e[1]);
-				g.get(e[1]).add(e[0]);
+				g[i] = new LinkedList<>();
+			for (int[] ee : e) {
+				g[ee[0]].add(ee[1]);
+				g[ee[1]].add(ee[0]);
 			}
-
-			List<Integer> q = new ArrayList<>();
-			for (int i = 0; i < n; i++)
-				if (g.get(i).size() <= 1)
+			List<Integer> q = new LinkedList<>();
+			for (int i = 0; i < n; i++) {
+				if (g[i].size() <= 1) {
 					q.add(i);
-
-			while (n > 2)
-			{
+				}
+			}
+			while (n > 2) {
 				int size = q.size();
-				while (--size >= 0)
-				{
+				n -= size;
+				while (--size >= 0) {
 					int v = q.remove(0);
-					for (int w : g.get(v))
-					{
-						g.get(w).remove(new Integer(v));
-						if (g.get(w).size() == 1)
-						{
+					for (int w : g[v]) {
+						g[w].remove(new Integer(v));
+						if (g[w].size() == 1) {
 							q.add(w);
 						}
 					}
-					n--;
 				}
 			}
 			return q;

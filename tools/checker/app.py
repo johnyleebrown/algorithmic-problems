@@ -87,7 +87,6 @@ class CustomWidget(npyscreen.MultiLineAction):
 
     def record_cant_solve(self):
         rep_path = core.root_path+'next_day_repeat.txt'
-        u.add_line_to_file(rep_path, self.get_current_problem_title() + ',' + self.current_problem_start_time)
         u.add_line_to_file(rep_path, self.get_current_problem_title() + ',' + str(u.get_dt_with_delta(datetime.utcnow(),1)))
         u.add_line_to_file(rep_path, self.get_current_problem_title() + ',' + str(u.get_dt_with_delta(datetime.utcnow(),4)))
         u.add_line_to_file(rep_path, self.get_current_problem_title() + ',' + str(u.get_dt_with_delta(datetime.utcnow(),8)))

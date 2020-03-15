@@ -1,4 +1,4 @@
-package Easy.DP;
+package dp._1_Linear;
 
 /**
  * 70_2

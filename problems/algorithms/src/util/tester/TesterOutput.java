@@ -31,12 +31,13 @@ public class TesterOutput
 	public void printIntermediateNok(int i, final List<Object> results, final List<Object> expectations, final List<Object> orExpectations)
 	{
 		String NUM = String.valueOf(i + 1);
-		String NOK = "NOK";
+		String NOK = " NOK";
 		String E = createLongString('.', getLineLen() - NUM.length() - NOK.length());
-		System.out.println(NUM + E + NOK);
-		System.out.print("got: ");
+//		System.out.println(NUM + E + NOK);
+		System.out.println(NUM + '.' + NOK);
+		System.out.print("got:      ");
 		print(results.get(i));
-		System.out.println();
+//		System.out.println();
 		System.out.print("expected: ");
 		print(expectations.get(i));
 		if (!orExpectations.isEmpty())

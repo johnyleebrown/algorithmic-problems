@@ -125,6 +125,7 @@ public class Tester
 
 	public void run()
 	{
+		//todo: get len of the longest string in results, expectations, orExpectations for the separator
 		TesterOutput out = new TesterOutput(solutionClass);
 		out.printMainSeparator();
 
@@ -141,7 +142,7 @@ public class Tester
 			}
 			else
 			{
-				out.printIntermediateOk(i);
+//				out.printIntermediateOk(i);
 			}
 		}
 

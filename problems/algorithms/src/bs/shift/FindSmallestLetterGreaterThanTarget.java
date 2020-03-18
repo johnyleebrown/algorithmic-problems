@@ -9,35 +9,24 @@ public class FindSmallestLetterGreaterThanTarget
 	{
 		public char nextGreatestLetter(char[] letters, char target)
 		{
-			if (target >= letters[letters.length - 1])
-			{
-				target = letters[0];
-			}
-			else
-			{
-				target += 1;
-			}
+			if (letters[0] > target) return letters[0];
+			if (letters[letters.length - 1] <= target) return letters[0];
+			return binarySearch(letters, target);
+		}
 
-			int lo = 0, hi = letters.length;
-			while (lo < hi)
+		private char binarySearch(char[] letters, char target)
+		{
+			int start = 0;
+			int end = letters.length - 1;
+			while (start <= end)
 			{
-				int mid = lo + (hi - lo) / 2;
-
-				if (letters[mid] == target)
-				{
-					return letters[mid];
-				}
-				else if (letters[mid] < target)
-				{
-					lo = mid + 1;
-				}
+				int mid = start + (end - start) / 2;
+				if (letters[mid] <= target)
+					start = mid + 1;
 				else
-				{
-					hi = mid;
-				}
+					end = mid - 1;
 			}
-
-			return letters[lo];
+			return letters[start];
 		}
 	}
 }

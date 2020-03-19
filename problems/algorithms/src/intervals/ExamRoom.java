@@ -5,7 +5,7 @@ import java.util.TreeSet;
 /**
  * 855
  */
-class ExamRoom
+public class ExamRoom
 {
 	/**
 	 * Using treeset to get the difference between each student and find the

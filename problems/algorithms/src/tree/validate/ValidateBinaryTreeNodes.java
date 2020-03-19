@@ -26,45 +26,33 @@ import util.tester.Tester;
 public class ValidateBinaryTreeNodes
 {
 	/**
-	 * Check if every node has 1 parent, except root.
+	 * SF. Tree traversal.
 	 */
-	private static class Solution
+	public static class Solution
 	{
-		public boolean validateBinaryTreeNodes(int n, int[] leftChild, int[] rightChild)
+		int n;
+
+		public boolean validateBinaryTreeNodes(int n, int[] l, int[] r)
 		{
-			boolean[] hasParents = new boolean[n];
+			this.n = n;
+			int i = 0;
+			for (; i < n; i++)
+				if (l[i] == 0 || r[i] == 0)
+					break;
+			return dfs(i == n ? 0 : i, l, r, new boolean[n]) && this.n == 0;
+		}
 
-			// case - so no node has a root as child
-			hasParents[0] = true;
-
-			// case - check if we haven't already set a parent
-			// which means we would have 2 parents for 1 node
-			for (int i = 0; i < n; i++)
-			{
-				if (leftChild[i] != -1)
-				{
-					if (hasParents[leftChild[i]])
-						return false;
-
-					hasParents[leftChild[i]] = true;
-				}
-
-				if (rightChild[i] != -1)
-				{
-					if (hasParents[rightChild[i]])
-						return false;
-
-					hasParents[rightChild[i]] = true;
-				}
-			}
-
-			// case - everyone has a parent
-			// otherwise we would have > than 1 connected component
-			for (int i = 0; i < n; i++)
-				if (!hasParents[i])
-					return false;
-
-			return true;
+		private boolean dfs(int cur, int[] l, int[] r, boolean[] seen)
+		{
+			if (cur == -1)
+				return true;
+			if (seen[cur])
+				return false;
+			n--;
+			seen[cur] = true;
+			boolean left = dfs(l[cur], l, r, seen);
+			boolean right = dfs(r[cur], l, r, seen);
+			return left && right;
 		}
 	}
 

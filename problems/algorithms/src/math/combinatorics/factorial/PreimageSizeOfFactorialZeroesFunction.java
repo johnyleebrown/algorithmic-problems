@@ -1,4 +1,4 @@
-package math.factorial;
+package math.combinatorics.factorial;
 
 /**
  * 793
@@ -37,7 +37,8 @@ public class PreimageSizeOfFactorialZeroesFunction
 		{
 			long count = 0;
 
-			for (long i = 5; N / i >= 1; i = i * 5) count += N / i;
+			for (long i = 5; N / i >= 1; i = i * 5)
+				count += N / i;
 
 			return count;
 		}

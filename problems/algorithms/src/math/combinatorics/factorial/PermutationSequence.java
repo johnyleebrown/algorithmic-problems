@@ -1,4 +1,4 @@
-package math.factorial;
+package math.combinatorics.factorial;
 
 import java.util.ArrayList;
 import java.util.List;

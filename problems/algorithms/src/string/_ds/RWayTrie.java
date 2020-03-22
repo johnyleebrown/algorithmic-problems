@@ -1,4 +1,4 @@
-package string.trie.ds;
+package string._ds;
 
 /**
  * todo: add prefix search, pattern search

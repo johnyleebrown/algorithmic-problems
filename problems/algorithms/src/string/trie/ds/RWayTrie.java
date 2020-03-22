@@ -157,6 +157,25 @@ public class RWayTrie
 		return currentNode;
 	}
 
+	public String longestPrefixOf(String query) {
+		if (query == null) throw new IllegalArgumentException("argument to longestPrefixOf() is null");
+		int length = longestPrefixOf(root, query, 0, -1);
+		if (length == -1) return null;
+		return query.substring(0, length);
+	}
+
+	// returns the length of the longest string key in the subtrie
+	// rooted at x that is a prefix of the query string,
+	// assuming the first d character match and we have already
+	// found a prefix match of length length
+	private int longestPrefixOf(Node x, String query, int d, int length) {
+		if (x == null) return length;
+		if (x.isEnd) length = d;
+		if (d == query.length()) return length;
+		char c = query.charAt(d);
+		return longestPrefixOf(x.next[c], query, d+1, length);
+	}
+
 	public static void main(String[] args)
 	{
 		RWayTrie t = new RWayTrie();

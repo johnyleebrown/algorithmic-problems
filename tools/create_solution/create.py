@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
 import re
+import sys
+
 
 def read_from_file(file_path):
     file = open(file_path, 'r', encoding='utf-8')
@@ -27,15 +28,29 @@ def add_package_info_if_needed(path, new_data):
     return new_data
 
 
+# def create_class_name():
+#     regex = re.compile('[^a-zA-Z0-9]')
+#     name = ''
+#     for arg in sys.argv[1:]:
+#         arg = regex.sub('', arg)
+#         name += arg[:1].upper() + arg[1:]
+#     if name == '':
+#         raise ValueError('ERROR. No args.')
+#     return name
+
+
 def create_class_name():
     regex = re.compile('[^a-zA-Z0-9]')
     name = ''
     for arg in sys.argv[1:]:
-        arg = regex.sub('', arg)
-        name += arg[:1].upper() + arg[1:]
+        args = arg.split("-")
+        for a in args:
+            a = regex.sub('', a)
+            name += a[:1].upper() + a[1:]
     if name == '':
         raise ValueError('ERROR. No args.')
     return name
+
 
 
 def insert_class_name(template, new_file_name):

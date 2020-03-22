@@ -2,8 +2,7 @@ package util.contest;
 
 import util.tester.Tester;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Arrays;
 import java.util.TreeSet;
 
 /**
@@ -36,8 +35,11 @@ public class FindTheDistanceValueBetweenTwoArrays
 				t.add(b[i]);
 			}
 			int res = 0;
+			System.out.println(Arrays.toString(b));
 			for (int i = 0; i < a.length; i++) {
-				if (t.ceiling(a[i] + d) == null && t.floor(a[i] - d) == null) {
+				System.out.println((a[i] - d)+" "+t.ceiling(a[i] - d));
+				System.out.println((a[i] + d)+" "+t.floor(a[i] + d));
+				if (t.ceiling(a[i] - d) == null && t.floor(a[i] + d) == null) {
 					res++;
 				}
 			}

@@ -5,28 +5,34 @@ package bs.shift;
  */
 public class FindSmallestLetterGreaterThanTarget
 {
-	static class Solution
+	class Solution
 	{
 		public char nextGreatestLetter(char[] letters, char target)
 		{
-			if (letters[0] > target) return letters[0];
-			if (letters[letters.length - 1] <= target) return letters[0];
-			return binarySearch(letters, target);
+			if (target < letters[0] || target >= letters[letters.length - 1])
+			{
+				return letters[0];
+			}
+			return letters[bs(letters, target)];
 		}
 
-		private char binarySearch(char[] letters, char target)
+		private int bs(char[] a, char x)
 		{
-			int start = 0;
-			int end = letters.length - 1;
-			while (start <= end)
+			int lo = 0;
+			int hi = a.length - 1;
+			while (lo <= hi)
 			{
-				int mid = start + (end - start) / 2;
-				if (letters[mid] <= target)
-					start = mid + 1;
+				int mid = lo + (hi - lo) / 2;
+				if (a[mid] <= x)
+				{
+					lo = mid + 1;
+				}
 				else
-					end = mid - 1;
+				{
+					hi = mid - 1;
+				}
 			}
-			return letters[start];
+			return lo;
 		}
 	}
 }

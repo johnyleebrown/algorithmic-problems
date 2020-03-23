@@ -1,6 +1,6 @@
 package array.traverse.other;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -8,71 +8,69 @@ import java.util.List;
  */
 public class SpiralMatrix
 {
-	static class Solution
-	{
-		private enum Dir
-		{
-			R, D, L, U;
-		}
-
-		public List<Integer> spiralOrder(int[][] matrix)
-		{
-			List<Integer> ans = new ArrayList<>();
-			if (matrix.length == 0 || matrix[0].length == 0) return ans;
-			
-			// starting state
-			Dir cur = Dir.R;
-
-			int r = matrix[0].length - 1, d = matrix.length - 1, l = 0, u = 0;
-			int i = u, j = l;
-
-			while (i >= u && i <= d && j >= l && j <= r)
-			{
-				ans.add(matrix[i][j]);
-
-				if (cur == Dir.R)
-				{
-					if (j == r) // going right until right border
-					{
-						cur = Dir.D; // changed status - going down now
-						i++; // moved the pointer
-						u++; // decr upper border
-					}
-					else j++;
-				}
-				else if (cur == Dir.D) 
-				{
-					if (i == d) // going down until down border
-					{
-						cur = Dir.L; // changed status - going left now
-						j--; // moved the pointer
-						r--; // decr right border
-					}
-					else i++;
-				}
-				else if (cur == Dir.L)
-				{
-					if (j == l) // going left until left border
-					{
-						cur = Dir.U; // changed status - going up now
-						i--; // moved the pointer
-						d--; // incr bottom border
-					}
-					else j--;
-				}
-				else
-				{
-					if (i == u) // going up until upper border 
-					{
-						cur = Dir.R; // changed status - now right
-						j++; // moved the pointer
-						l++; // incr left border
-					}
-					else i--;
-				}            
+	class Solution {
+		public List<Integer> spiralOrder(int[][] a) {
+			List<Integer> res = new LinkedList<>();
+			int n = a.length;
+			if (n == 0) {
+				return res;
 			}
-
-			return ans;
+			int m = a[0].length;
+			if (m == 0) {
+				return res;
+			}
+			int l = 0;//3
+			int r = m - 1;//1
+			int t = 1;//4
+			int b = n - 1;//2
+			int max = n*m;
+			int dir = 1;
+			int i = 0;
+			int j = 0;
+			while (max > 0) {
+				if (dir == 1) {
+					while (j <= r) {
+						res.add(a[i][j]);
+						j++;
+						max--;
+					}
+					dir = 2;
+					r--;
+					i++;
+					j--;
+				} else if (dir == 2) {
+					while (i <= b) {
+						res.add(a[i][j]);
+						i++;
+						max--;
+					}
+					dir = 3;
+					b--;
+					j--;
+					i--;
+				} else if (dir == 3) {
+					while (j >= l) {
+						res.add(a[i][j]);
+						j--;
+						max--;
+					}
+					dir = 4;
+					l++;
+					i--;
+					j++;
+				} else {
+					while (i >= t) {
+						res.add(a[i][j]);
+						i--;
+						max--;
+					}
+					dir = 1;
+					t++;
+					j++;
+					i++;
+				}
+			}
+			return res;
 		}
-	}	
+	}
 }

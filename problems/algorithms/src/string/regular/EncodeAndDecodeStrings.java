@@ -1,12 +1,15 @@
 package string.regular;
 
-/*
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+/**
  * 271
- * Google
  */
-public class Codec
+public class EncodeAndDecodeStrings
 {
-	/*
+	/**
 	 * Place the length of each string as the separator.
 	 */
 	class Solution1
@@ -14,7 +17,7 @@ public class Codec
 		public String encode(List<String> strs)
 		{
 			StringBuilder sb = new StringBuilder();
-			for (String s: strs)
+			for (String s : strs)
 			{
 				sb.append(s.length());
 				sb.append("|");
@@ -57,30 +60,30 @@ public class Codec
 	 */
 	class Solution2
 	{
-		public String encode(List<String> strs) 
+		public String encode(List<String> strs)
 		{
-			if (strs.size() == 0) 
+			if (strs.size() == 0)
 			{
 				return Character.toString((char) 258);
 			}
 
 			String d = Character.toString((char) 257);
 			StringBuilder sb = new StringBuilder();
-			for (String s: strs) 
+			for (String s : strs)
 			{
 				sb.append(s);
 				sb.append(d);
 			}
 			sb.deleteCharAt(sb.length() - 1);
-			
+
 			return sb.toString();
 		}
 
-		public List<String> decode(String s) 
+		public List<String> decode(String s)
 		{
 			String d = Character.toString((char) 258);
 
-			if (s.equals(d)) 
+			if (s.equals(d))
 			{
 				return new ArrayList();
 			}

@@ -1,21 +1,22 @@
 package string.regular;
 
-/*
+import java.util.*;
+
+/**
  * 49
- * Company: Amazon
  */
-public class G
+public class GroupAnagrams
 {
-	/*
+	/**
 	 * Sort each time we encounter a string.
 	 */
-	public class Solution1 
+	public class Solution1
 	{
-		public List<List<String>> groupAnagrams(String[] strs) 
+		public List<List<String>> groupAnagrams(String[] strs)
 		{
 			if (strs == null || strs.length == 0) 
 			{
-				return new ArrayList<List<String>>();
+				return new ArrayList<>();
 			}
 
 			Map<String, List<String>> map = new HashMap<String, List<String>>();
@@ -34,11 +35,11 @@ public class G
 				map.get(keyStr).add(s);
 			}
 
-			return new ArrayList<List<String>>(map.values());
+			return new ArrayList<>(map.values());
 		}
 	}
 
-	/*
+	/**
 	 * Custom Node class for storage.
 	 */
 	class Solution2
@@ -49,7 +50,7 @@ public class G
 			for (String s: strs)
 			{
 				Node x = new Node(s);
-				if (!map.contains(x))
+				if (!map.containsKey(x))
 				{
 					map.put(x, new ArrayList<>());
 				}
@@ -73,7 +74,7 @@ public class G
 				this.len = s.length();
 				for (int i = 0; i < s.length(); i++)
 				{
-					c.put(s.charAt(i), getOrDefault(s.charAt(i), 0) + 1);
+					c.put(s.charAt(i), c.getOrDefault(s.charAt(i), 0) + 1);
 				}	
 			}
 
@@ -91,17 +92,21 @@ public class G
 					return false;
 				}
 
-				if (o.len != this.len)
+				if (!(o instanceof Node)) {
+					return false;
+				}
+
+				if (((Node) o).len != this.len)
 				{
 					return false;
 				}
 
-				if (o.c.size() != this.c.size())
+				if (((Node) o).c.size() != this.c.size())
 				{
 					return false;
 				}
 
-				for (Entry<Character, Integer> e: o.c.entrySet())
+				for (Map.Entry<Character, Integer> e: ((Node) o).c.entrySet())
 				{
 					if (!this.c.containsKey(e.getKey()))
 					{

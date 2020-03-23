@@ -9,10 +9,7 @@ public class RWayTrie
 {
 	private static final int R = 256;
 	private Node root;
-	/**
-	 * Nodes count.
-	 */
-	private int count;
+	private int count; // Nodes count.
 
 	/**
 	 * R-way trie node.

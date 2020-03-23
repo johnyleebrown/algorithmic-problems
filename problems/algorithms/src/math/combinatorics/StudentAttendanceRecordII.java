@@ -3,8 +3,6 @@ package math.combinatorics;
 import util.tester.Tester;
 
 import java.math.BigInteger;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 552
@@ -25,6 +23,9 @@ import java.util.List;
  * A record is regarded as rewardable if it doesn't contain more than one 'A'
  * (absent) or more than two continuous 'L' (late).
  *
+ * https://codeforces.com/blog/entry/6221
+ * https://algoprog.ru/material/module-17576
+ *
  * ======
  *
  * Source: Leetcode
@@ -32,6 +33,7 @@ import java.util.List;
 public class StudentAttendanceRecordII
 {
 	/**
+	 * TODO
 	 * Math solution.
 	 */
 	public static class Solution2

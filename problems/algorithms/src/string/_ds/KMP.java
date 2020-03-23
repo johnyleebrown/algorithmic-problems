@@ -3,6 +3,8 @@ package string._ds;
 /**
  * This implementation uses a version of the Knuth-Morris-Pratt substring search
  * algorithm.
+ *
+ * http://e-maxx.ru/algo/prefix_function
  */
 public class KMP
 {

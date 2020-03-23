@@ -9,7 +9,7 @@ public class Main
 	private static void s(InputReader in, PrintWriter out)
 	{
 	}
-
+	
 	// @formatter:off
 	public static void solve(InputReader in, PrintWriter out)
 	{

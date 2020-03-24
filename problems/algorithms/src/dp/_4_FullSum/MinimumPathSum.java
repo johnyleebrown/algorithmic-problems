@@ -1,4 +1,4 @@
-package dp._2_Multidimensional;
+package dp._4_FullSum;
 
 import java.util.Arrays;
 

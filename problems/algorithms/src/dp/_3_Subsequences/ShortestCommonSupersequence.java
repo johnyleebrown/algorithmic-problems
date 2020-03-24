@@ -1,4 +1,4 @@
-package dp._2_Multidimensional;
+package dp._3_Subsequences;
 
 import util.tester.Tester;
 

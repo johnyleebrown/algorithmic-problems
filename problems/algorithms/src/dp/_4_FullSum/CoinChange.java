@@ -1,56 +1,43 @@
 package dp._4_FullSum;
 
-import java.util.Arrays;
-import java.util.Map;
-
 /**
  * 322
- *
- * Compute the fewest number of coins that you need to make up the amount.
  */
 public class CoinChange
 {
 	/**
-	 * Bottom-up solution
+	 * 1. dp[i] - smallest n of c for amount i
+	 *
+	 * 2. with what ends with - either we take a coint + 1 or we don't
 	 */
-	private int SolutionBU(int totalAmount, int[] coins)
+	class Solution
 	{
-		int[] total = new int[totalAmount + 1];
-		Arrays.fill(total, Integer.MAX_VALUE - 1);
-		total[0] = 0;
-		for (int amount = 1; amount <= totalAmount; amount++)
-		{
-			for (int coinValue : coins)
-			{
-				if (coinValue <= amount)
-				{
-					// if it is possible to give
-					// change with coin of denomination j
-					total[amount] = Math.min(total[amount], 1 + total[amount - coinValue]);
-				}
-			}
-		}
-		return total[totalAmount] > totalAmount ? -1 : total[totalAmount];
-	}
+		private int[] dp;
 
-	/**
-	 * Top-down solution
-	 */
-	private int SolutionTD(int amount, int[] coins, Map<Integer, Integer> map)
-	{
-		// it takes 0 coins to form a total of 0
-		if (amount == 0) return 0;
-		// memoization, how many coins it takes to form a total
-		if (map.containsKey(amount)) return map.get(amount);
-		int min = Integer.MAX_VALUE;
-		// iterate through all coins to see which coin will give the best result
-		for (int coin : coins)
+		public int coinChange(int[] coins, int amount)
 		{
-			if (coin > amount) continue;
-			min = Math.min(min, SolutionTD(amount - coin, coins, map));
+
+			dp = new int[amount + 1];
+			dfs(amount, coins);
+			return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
 		}
-		min = min == Integer.MAX_VALUE ? min : min + 1;
-		map.put(amount, min);
-		return min;
+
+		private int dfs(int s, int[] coins)
+		{
+			if (s < 0)
+				return -1;
+			if (s == 0)
+				return 0;
+			if (dp[s] != 0)
+				return dp[s];
+
+			int ans = Integer.MAX_VALUE;
+			for (int c : coins)
+				if (dfs(s - c, coins) != -1)
+					ans = Math.min(ans, dfs(s - c, coins) + 1);
+
+			dp[s] = ans == Integer.MAX_VALUE ? -1 : ans;
+			return dp[s];
+		}
 	}
 }

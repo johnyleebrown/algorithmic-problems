@@ -1,4 +1,4 @@
-package dp;
+package dp._1_Linear.both;
 
 /**
  * 1340
@@ -26,51 +26,43 @@ package dp;
  *
  * Source: Leetcode
  */
-public class JumpGameV
-{
+public class JumpGameV {
 	/**
 	 * Straightforward. Similar to frog jump, either we jump to position (+1)
 	 * and finish or we jump to position (+1) and jump somewhere else as well
 	 * (+dfs).
 	 */
-	class Solution
-	{
-		Integer[] dp = null;
+	class Solution {
+		private Integer[] dp;
 
-		public int maxJumps(int[] arr, int d)
-		{
+		public int maxJumps(int[] arr, int d) {
 			dp = new Integer[arr.length];
 			int res = Integer.MIN_VALUE;
-			for (int i = 0; i < arr.length; i++)
-			{
+			for (int i = 0; i < arr.length; i++) {
 				res = Math.max(res, dfs(i, arr, d));
 			}
 			return res;
 		}
 
-		private int dfs(int curInd, int[] arr, int d)
-		{
-			if (dp[curInd] != null)
-			{
-				return dp[curInd];
+		private int dfs(int cur, int[] arr, int d) {
+			if (dp[cur] != null) {
+				return dp[cur];
 			}
 
 			// we either jump here (+1) and finish or we jump here (+1) and smw else (+dfs)
 			int res = 1;
 
 			// from cur-1 to left border
-			for (int i = curInd - 1; i >= 0 && i >= curInd - d && arr[i] < arr[curInd]; i--)
-			{
+			for (int i = cur - 1; i >= 0 && i >= cur - d && arr[i] < arr[cur]; i--) {
 				res = Math.max(res, dfs(i, arr, d) + 1);
 			}
 
 			// from cur+1 to right border
-			for (int i = curInd + 1; i < arr.length && i <= curInd + d && arr[i] < arr[curInd]; i++)
-			{
+			for (int i = cur + 1; i < arr.length && i <= cur + d && arr[i] < arr[cur]; i++) {
 				res = Math.max(res, dfs(i, arr, d) + 1);
 			}
 
-			dp[curInd] = res;
+			dp[cur] = res;
 			return res;
 		}
 	}

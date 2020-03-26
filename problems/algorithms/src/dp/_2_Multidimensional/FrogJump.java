@@ -1,75 +1,70 @@
 package dp._2_Multidimensional;
 
-import util.tester.Tester;
-
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * $INSERT_PROBLEM_NUMBER
+ * 403
  *
  * ======
  *
  * Task.
  *
- * $INSERT_TASK
+ * A frog is crossing a river. The river is divided into x units and at each
+ * unit there may or may not exist a stone. The frog can jump on a stone, but it
+ * must not jump into the water.
  *
- * ======
+ * Given a list of stones' positions (in units) in sorted ascending order,
+ * determine if the frog is able to cross the river by landing on the last
+ * stone. Initially, the frog is on the first stone and assume the first jump
+ * must be 1 unit.
  *
- * Similar: $INSERT_SIMILAR.
+ * If the frog's last jump was k units, then its next jump must be either k - 1,
+ * k, or k + 1 units. Note that the frog can only jump in the forward
+ * direction.
  *
  * ======
  *
  * Source: Leetcode
  */
-public class FrogJump
-{
+public class FrogJump {
 	/**
-	 * $INSERT_EXPLANATION.
+	 * Using map(ind-map_of_k) to save space for cases with large indexes.
+	 * Considering 3 cases.
 	 */
 	public static class Solution {
-		private static boolean[][] dp;
-		private static boolean[][] seen;
+		private static Map<Integer, Map<Integer, Boolean>> m;
 		private static int max;
+
 		public boolean canCross(int[] a) {
-			int n = a.length;
-			max = a[n - 1];
-			dp = new boolean[max + 1][max + 1];
-			seen = new boolean[max + 1][max + 1];
-			Arrays.fill(seen[0], true);
-			for (int i = 0; i < n; i++) {
-				for (int k = 0; k <= max; k++) {
-					dp[a[i]][k] = true;
-				}
-			}
-			dfs(1,1);
-			return dp[max][max];
+			max = a[a.length - 1];
+
+			m = new HashMap<>();
+			for (int value : a)
+				m.put(value, new HashMap<>());
+
+			return dfs(1, 1);
 		}
+
 		private boolean dfs(int ind, int k) {
-			System.out.println(ind+" "+k);
-			if (k < 0||ind > max)
+			if (!m.containsKey(ind)) {// there is no stone at ind
 				return false;
-			if (seen[ind][k])
-				return dp[ind][k];
-			if (!dp[ind][k])
-				return false;
-			// System.out.println("goto "+(ind+k+1));
-			boolean ans = dfs(ind + k + 1, k + 1);
-			// System.out.println("goto "+(ind+k));
-			ans=ans||dfs(ind + k, k);
-			if (ind+k-1!=ind)
-				ans=ans||dfs(ind + k - 1, k - 1);
-			dp[ind][k]=ans;
-			seen[ind][k]=true;
-			return dp[ind][k];
+			}
+			if (ind == max) {//reached the end - always true
+				m.get(ind).put(k, true);
+				return true;
+			}
+			if (m.get(ind).containsKey(k)) {//if been here before
+				return m.get(ind).get(k);
+			}
+
+			boolean ans = false;
+			if (ind + k - 1 > ind)
+				ans = dfs(ind + k - 1, k - 1);//not going back
+			ans = ans || dfs(ind + k, k) || dfs(ind + k + 1, k + 1);
+
+			m.get(ind).put(k, ans);
+			return ans;
 		}
-
-        public Solution(){}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add().expect()
-				.run();
 	}
 }

@@ -7,6 +7,16 @@ import static util.utility.Validation.isSorted;
 
 /**
  * MergeSort
+ *
+ * @formatter:off
+ * Complexity:
+ * - Time: Worst O(nlogn), Avg O(nlogn), Best O(nlogn)
+ * - Space: O(n)
+ *
+ * Stats:
+ * - Stable
+ * - Not in place
+ * @formatter:on
  */
 public class MergeSort
 {

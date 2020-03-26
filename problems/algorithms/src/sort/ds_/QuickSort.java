@@ -8,6 +8,19 @@ import static util.utility.Validation.isSorted;
 
 /**
  * QuickSort
+ *
+ * @formatter:off
+ * Complexity:
+ * - Time: Worst O(n^2), Avg O(nlogn), Best O(nlogn)
+ * - Space: O(logn)
+ *
+ * Stats:
+ * - Faster than merge sort by 40%
+ * - Random shuffle - works against worst case
+ * - Not stable
+ * - In place
+ * - For small arrays - insertion sort (20% faster)
+ * @formatter:on
  */
 public class QuickSort
 {

@@ -1,4 +1,3 @@
-for (Object o: col)
-{
-	
+for (Object o : collection) {
+    System.out.println(o);
 }

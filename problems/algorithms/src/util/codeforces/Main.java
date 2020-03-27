@@ -26,27 +26,44 @@ public class Main
 		int[] d = d(n,g,p);
 		while (--m >= 0) {
 			int k = in.nextInt();
-			Set<Integer> s = new HashSet<>();
+			List<Integer> l = new LinkedList<>();
 			int maxd = -1;
 			int maxind = 0;
 			for (int i = 0; i < k; i++) {
 				int cur = in.nextInt();
-				s.add(cur);
+				l.add(cur);
 				if (maxd < d[cur]) {
 					maxd = d[cur];
 					maxind = cur;
 				}
 			}
+			Set<Integer> s = new HashSet<>();
 			dfs(g,maxind,s,p);
-			out.println(s.size()>0?"NO":"YES");
+//			for (Object o : s) {
+//				System.out.println(o);
+//			}
+			boolean f = false;
+			for (int v : l) {
+				if (!s.contains(v)) {
+					f = true;
+					break;
+				}
+			}
+			if (f) {
+				out.println("NO");
+			}
+			else {
+				out.println("YES");
+			}
 		}
 	}
 
-	private static void dfs(Map<Integer, Set<Integer>> g, int cur,
-	                        Set<Integer> s, int[] p) {
-		if (cur==-1||s.isEmpty())
+	private static void dfs(Map<Integer, Set<Integer>> g, int cur, Set<Integer> s, int[] p) {
+		if (cur==-1)
 			return;
-		s.removeIf(x -> g.get(cur).contains(x) || cur == x);
+//		s.removeIf(x -> g.get(cur).contains(x) || cur == x);
+		s.add(cur);
+		s.addAll(g.get(cur));
 		dfs(g, p[cur], s, p);
 	}
 

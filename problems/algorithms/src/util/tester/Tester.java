@@ -18,9 +18,13 @@ import java.util.List;
  *
  * - orExpected should be a list, or just list of expected values; what about
  * any order switcher thou.
+ *
+ * TODO
+ *
+ * - add compare solutions by times(the idea is to call sol method n times and
+ * get avg)
  */
-public class Tester
-{
+public class Tester {
 	private final Method method;
 	private final List<Object> results = new ArrayList<>();
 	private final List<Object> expectations = new ArrayList<>();
@@ -30,8 +34,7 @@ public class Tester
 	private final Class solutionClass;
 	private final List<Double> execTimes = new ArrayList<>();
 
-	public Tester(Object obj)
-	{
+	public Tester(Object obj) {
 		classObject = obj;
 		solutionClass = classObject.getClass();
 		method = getCorrectMethod(obj);
@@ -39,8 +42,7 @@ public class Tester
 	}
 
 	@SuppressWarnings({"unchecked"})
-	private void setMethodAccess()
-	{
+	private void setMethodAccess() {
 		AccessController.doPrivileged((PrivilegedAction) () ->
 		{
 			method.setAccessible(true);
@@ -48,23 +50,18 @@ public class Tester
 		});
 	}
 
-	private Object getNewSolutionInstance()
-	{
-		try
-		{
+	private Object getNewSolutionInstance() {
+		try {
 			return solutionClass.getConstructors()[0].newInstance();
 		}
-		catch (InstantiationException | IllegalAccessException | InvocationTargetException e)
-		{
+		catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	@SuppressWarnings({"unchecked"})
-	private Object exec(Object... o)
-	{
-		try
-		{
+	private Object exec(Object... o) {
+		try {
 			util.utility.Timer t = new Timer().start();
 			// invoke public solution method
 			Object result = method.invoke(classObject, o);
@@ -73,58 +70,49 @@ public class Tester
 			classObject = getNewSolutionInstance();
 			return result;
 		}
-		catch (IllegalAccessException | InvocationTargetException e)
-		{
+		catch (IllegalAccessException | InvocationTargetException e) {
 			throw new RuntimeException(e.getCause());
 		}
 	}
 
-	private Method getCorrectMethod(Object o)
-	{
+	private Method getCorrectMethod(Object o) {
 		for (Method m : o.getClass().getMethods())
 			if (!m.getName().equals("main"))
 				return m;
 		return null;
 	}
 
-	public Tester add(Object... params)
-	{
+	public Tester add(Object... params) {
 		results.add(exec(params));
 		return this;
 	}
 
-	public Tester add(String[] param)
-	{
+	public Tester add(String[] param) {
 		results.add(exec((Object) param));
 		return this;
 	}
 
-	public Tester add(int[][] param)
-	{
+	public Tester add(int[][] param) {
 		results.add(exec((Object) param));
 		return this;
 	}
 
-	public Tester expect(Object param)
-	{
+	public Tester expect(Object param) {
 		expectations.add(param);
 		return this;
 	}
 
-	public Tester orExpect(Object param)
-	{
+	public Tester orExpect(Object param) {
 		orExpectations.add(param);
 		return this;
 	}
 
-	public Tester expectAnyOrder()
-	{
+	public Tester expectAnyOrder() {
 		EXPECT_ANY_ORDER_FLAG = true;
 		return this;
 	}
 
-	public void run()
-	{
+	public void run() {
 		//todo: get len of the longest string in results, expectations, orExpectations for the separator
 		TesterOutput out = new TesterOutput(solutionClass);
 		out.printMainSeparator();
@@ -133,15 +121,12 @@ public class Tester
 		int size = getExpectationSize();
 
 		TesterComparator comp = new TesterComparator(results, expectations, orExpectations, EXPECT_ANY_ORDER_FLAG);
-		for (int i = 0; i < size; i++)
-		{
-			if (!comp.compareResults(i))
-			{
+		for (int i = 0; i < size; i++) {
+			if (!comp.compareResults(i)) {
 				nok = true;
 				out.printIntermediateNok(i, results, expectations, orExpectations);
 			}
-			else
-			{
+			else {
 //				out.printIntermediateOk(i);
 			}
 		}
@@ -151,8 +136,7 @@ public class Tester
 		out.printMainSeparator();
 	}
 
-	private int getExpectationSize()
-	{
+	private int getExpectationSize() {
 		int size = expectations.isEmpty() ? orExpectations.size() : expectations.size();
 		if (size != results.size())
 			throw new RuntimeException("Results size is different from expectations size.");

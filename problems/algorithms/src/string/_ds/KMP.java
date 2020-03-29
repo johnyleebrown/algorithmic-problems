@@ -7,6 +7,11 @@ package string._ds;
  * http://e-maxx.ru/algo/prefix_function
  * https://habr.com/en/post/191454/
  * https://algoprog.ru/material/25514
+ *
+ * problems:
+ *
+ * https://leetcode.com/problems/find-all-good-strings/
+ * https://leetcode.com/problems/longest-happy-prefix/
  */
 public class KMP
 {

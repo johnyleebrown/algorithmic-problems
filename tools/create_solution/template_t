@@ -1,3 +1,5 @@
+import util.tester.Tester;
+
 /**
  * $INSERT_PROBLEM_NUMBER
  *
@@ -6,6 +8,10 @@
  * Task.
  *
  * $INSERT_TASK
+ *
+ * ======
+ *
+ * Similar: $INSERT_SIMILAR.
  *
  * ======
  *
@@ -22,5 +28,14 @@ public class $INSERT_CLASS_NAME
         {
             return -1;
         }
+
+        public Solution(){}
+	}
+
+	public static void main(String[] args)
+	{
+		new Tester(new Solution())
+				.add().expect()
+				.run();
 	}
 }

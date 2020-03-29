@@ -6,6 +6,10 @@ import re
 import sys
 
 
+# NOTICE
+## use quotation marks when there are apostrophes in the title
+
+
 def read_from_file(file_path):
     file = open(file_path, 'r', encoding='utf-8')
     params = file.read()
@@ -28,21 +32,12 @@ def add_package_info_if_needed(path, new_data):
     return new_data
 
 
-# def create_class_name():
-#     regex = re.compile('[^a-zA-Z0-9]')
-#     name = ''
-#     for arg in sys.argv[1:]:
-#         arg = regex.sub('', arg)
-#         name += arg[:1].upper() + arg[1:]
-#     if name == '':
-#         raise ValueError('ERROR. No args.')
-#     return name
-
-
 def create_class_name():
     regex = re.compile('[^a-zA-Z0-9]')
     name = ''
     for arg in sys.argv[1:]:
+        if (arg=='-t'):
+            continue
         args = arg.split("-")
         for a in args:
             a = regex.sub('', a)
@@ -52,14 +47,16 @@ def create_class_name():
     return name
 
 
-
 def insert_class_name(template, new_file_name):
     return template.replace('$INSERT_CLASS_NAME', new_file_name)
 
 
 def get_template(new_file_name):
-    script_path = '/Volumes/Greg/projects/algorithmic-problems/tools/create_solution/template'
-    return insert_class_name(read_from_file(script_path), new_file_name)
+    path = '/Volumes/Greg/projects/algorithmic-problems/tools/create_solution/'
+    p = path+'template'
+    if sys.argv[-1] == '-t':
+        p+='_t'
+    return insert_class_name(read_from_file(p), new_file_name)
 
 
 if __name__ == "__main__":

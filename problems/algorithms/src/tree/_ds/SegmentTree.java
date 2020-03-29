@@ -12,7 +12,7 @@ package tree._ds;
 
 interface QueryInterface {
 	void increment(int i, int j, int val);
-	int minimum(int i, int j);
+	int min(int i, int j);
 }
 
 /**
@@ -31,7 +31,7 @@ class RangeSlow implements QueryInterface {
 		}
 	}
 
-	public void min(int i, int j) {
+	public int min(int i, int j) {
 		int res = a[i];
 		for (int k = i + 1; k <= j; k++) {
 			res = Math.min(res, a[k]);
@@ -73,7 +73,7 @@ public class SegmentTree implements QueryInterface{
 	 * - if we are out of the range, left to the ith node or to the right of the ith node
 	 * - a,b is inside of the ith node
 	 */
-	public increment(int i, int a, int b, int val) {
+	public void increment(int i, int a, int b, int val) {
 		// 1 case : no cover
 		if (notIntersects(i, a, b)) {
 			return;
@@ -81,7 +81,7 @@ public class SegmentTree implements QueryInterface{
 
 		// 2 case : a,b is in ith node
 		if (covers(i, a, b)) {
-			delta += val;
+			delta[i] += val;
 			return;
 		}
 
@@ -98,23 +98,6 @@ public class SegmentTree implements QueryInterface{
 		// --- we updated the subtree with new values, 
 		// --- so now we need to update min of the subtree
 		update(i);
-	}
-
-	/**
-	 * propagating - modifying children with cur value -
-	 * the value that we didnt move further yet until now.
-	 */
-	private void prop(int i) {
-		delta[2*i] += delta[i];
-		delta[2*i+1] += delta[i];
-		delta[i] = 0;
-	}
-	
-	/**
-	 * for max - change to max.
-	 */
-	private void update() {
-		min[i] = Math.min(min[2*i] + delta[2*i], min[2*i+1] + delta[2*i+1]); 
 	}
 
 	public int min(int a, int b) {
@@ -146,8 +129,25 @@ public class SegmentTree implements QueryInterface{
 		return a > hi[i] || b < lo[i];
 	}
 
-	private boolean contains(int i, int a, int b) {
+	private boolean covers(int i, int a, int b) {
 		return a >= lo[i] && b <= hi[i];
+	}
+
+	/**
+	 * propagating - modifying children with cur value -
+	 * the value that we didnt move further yet until now.
+	 */
+	private void prop(int i) {
+		delta[2*i] += delta[i];
+		delta[2*i+1] += delta[i];
+		delta[i] = 0;
+	}
+	
+	/**
+	 * for max - change to max.
+	 */
+	private void update(int i) {
+		min[i] = Math.min(min[2*i] + delta[2*i], min[2*i+1] + delta[2*i+1]); 
 	}
 
 	/**
@@ -166,10 +166,14 @@ public class SegmentTree implements QueryInterface{
 		// split point
 		int mid = (a+b)/2;
 		init(2*i, a, mid);
-		init(2*i+1, m+1, b);
+		init(2*i+1, mid+1, b);
 	}
 
 	public static void main(String[] a) {
-		
+		RangeSlow rs = new RangeSlow(8);
+	}
+
+	private static runTests(QueryInterface q) {
+		q.update();
 	}
 }

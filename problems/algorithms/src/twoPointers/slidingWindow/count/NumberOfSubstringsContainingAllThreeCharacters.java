@@ -23,8 +23,7 @@ public class NumberOfSubstringsContainingAllThreeCharacters
 	/**
 	 * Shorting the window when we have good condition. Meanwhile, we update
 	 * result with number of substrings we can have with substring from l to r.
-	 * n - r means we count all substrings that end at i where is is between r
-	 * and r, so all involving current (l,r) substring.
+	 * n - r means we count all substrings that end at l.
 	 */
 	private static class Solution
 	{

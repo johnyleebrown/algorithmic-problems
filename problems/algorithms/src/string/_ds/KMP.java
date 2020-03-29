@@ -5,6 +5,8 @@ package string._ds;
  * algorithm.
  *
  * http://e-maxx.ru/algo/prefix_function
+ * https://habr.com/en/post/191454/
+ * https://algoprog.ru/material/25514
  */
 public class KMP
 {

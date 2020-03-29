@@ -1,6 +1,6 @@
 package dp._6_Trees;
 
-import tree.ds_.ExpressionTree;
+import tree._ds.ExpressionTree;
 import util.ds.InputReader;
 import util.ds.TreeNode;
 

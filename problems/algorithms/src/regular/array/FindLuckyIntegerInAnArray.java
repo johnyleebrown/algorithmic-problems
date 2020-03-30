@@ -18,9 +18,6 @@ package regular.array;
  * Source: Leetcode
  */
 public class FindLuckyIntegerInAnArray {
-	/**
-	 * $INSERT_EXPLANATION.
-	 */
 	public static class Solution {
 		public int findLucky(int[] a) {
 			int n = a.length;

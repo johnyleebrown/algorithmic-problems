@@ -1,4 +1,4 @@
-package util.contest;
+package dp;
 
 import util.tester.Tester;
 
@@ -33,45 +33,33 @@ import util.tester.Tester;
 public class PizzaWith3nSlices
 {
 	/**
-	 * $INSERT_EXPLANATION.
+	 * The idea here is to remove what was picked.
 	 */
-	class Solution {
-		int[][] dp;
+	public static class Solution {
+		int[] dp;
 		int n;
 		public int maxSizeSlices(int[] a) {
 			n = a.length;
-			dp = new int[n + 1][n + 1];
-			int res = -1;
-			boolean[] seen = new boolean[n];
+			dp = new int[n + 1];
+
 			for (int i = 0; i <= n; i++) {
-				dp[i][i] = - 1;
+				dp[i]=;
 			}
+
+			int res = -1;
+			// "you will pick any slice"
 			for (int i = 0; i < n; i++) {
-				dp[i][] = dfs(i, i, a, seen);
+				dp[] = ;
 				res = Math.max(res, );
 			}
 			return res;
 		}
-		int dfs(int start, int cur, int[] a, boolean[] seen){
-			if (dp[start][cur] != 0) {
-				return dp[start][cur];
+		int dfs(int cur, int[] a){
+			if (dp[] != 0) {
+				return dp[];
 			}
-			for (int i = 0; i < n; i++) {
-				if (i == cur) {
-					continue;
-				}
-				if (seen[i]) {
-					continue;
-				}
-				int prev = g(i,-1); int next = g(i,1);
-				if (seen[prev] || seen[next]) {
-					continue;
-				}
-				seen[i] = seen[prev] = seen[next] = true;
-				dp[start][cur] = Math.max(dp[start][cur], dfs());
-				seen[i] = seen[prev] = seen[next] = false;
-			}
-			return dp[start][cur];
+		
+			return dp[];
 		}
 		int g(int a, int b){
 			int x = a + b;
@@ -86,5 +74,11 @@ public class PizzaWith3nSlices
 			}
 			return x;
 		}
+	}
+
+	public static void main(String[] args) {
+		new Tester(new Solution())
+				.add(new int[]{1,2,3,4,5,6}).expect(10)
+				.run();
 	}
 }

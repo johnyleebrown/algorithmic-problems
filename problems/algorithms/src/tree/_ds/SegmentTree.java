@@ -6,60 +6,74 @@ package tree._ds;
  * =====
  *
  * Tasks.
- * 
+ *
  * https://codeforces.com/problemset/problem/52/C
  */
 
 interface QueryInterface {
 	void increment(int i, int j, int val);
+
 	int min(int i, int j);
+
+	void print(int i, int a, int b);
 }
 
 /**
  * Slow version of range increment.
  */
 class RangeSlow implements QueryInterface {
-	private int[] a;
+	private int[] ar;
 
 	public RangeSlow(int n) {
-		a = new int[n];
+		ar = new int[4*n + 1];
 	}
 
 	public void increment(int i, int j, int val) {
 		for (int k = i; k <= j; k++) {
-			a[k] += val;
+			ar[k] += val;
 		}
 	}
 
 	public int min(int i, int j) {
-		int res = a[i];
+		int res = ar[i];
 		for (int k = i + 1; k <= j; k++) {
-			res = Math.min(res, a[k]);
+			res = Math.min(res, ar[k]);
 		}
 		return res;
+	}
+
+	@Override
+	public void print(int i, int a, int b) {
+		System.out.println("[ "+ a + "," + b +" ]: delta=" + ar[i]);
+		if (a==b) return;
+		int mid = (a+b)/2;
+		print(2*i, a, mid);
+		print(2*i+1, mid+1, b);
 	}
 }
 
 /**
- * Segment Tree is represented as an array where root is at index 1 with subtrees starting at 2*i and 2*i+1, like in heap.
- * For min and for increment we do propagate before entering the loop - so we could use the lazy values - the values that we use only when we need them.
- * And we do update after we exit the recursion - we update the min depending on the new values.
+ * Segment Tree is represented as an array where root is at index 1 with
+ * subtrees starting at 2*i and 2*i+1, like in heap. For min and for increment
+ * we do propagate before entering the loop - so we could use the lazy values -
+ * the values that we use only when we need them. And we do update after we exit
+ * the recursion - we update the min depending on the new values.
  */
-public class SegmentTree implements QueryInterface{
+public class SegmentTree implements QueryInterface {
 	int n;
 	int[] lo, hi, min, delta;
 
 	public SegmentTree(int n) {
 		this.n = n;
 
-		lo = new int[4*n+1];
-		hi = new int[4*n+1];
-		min = new int[4*n+1];
-		delta = new int[4*n+1];
+		lo = new int[4 * n + 1];
+		hi = new int[4 * n + 1];
+		min = new int[4 * n + 1];
+		delta = new int[4 * n + 1];
 
 		// starting from root (1)
 		// whole size is from 0 to n - 1
-		init(1, 0, n-1);
+		init(1, 0, n - 1);
 	}
 
 	public void increment(int a, int b, int val) {
@@ -69,9 +83,8 @@ public class SegmentTree implements QueryInterface{
 	/**
 	 * we want to incr in range [a,b]
 	 *
-	 * 2 cases:
-	 * - if we are out of the range, left to the ith node or to the right of the ith node
-	 * - a,b is inside of the ith node
+	 * 2 cases: - if we are out of the range, left to the ith node or to the
+	 * right of the ith node - a,b is inside of the ith node
 	 */
 	public void increment(int i, int a, int b, int val) {
 		// 1 case : no cover
@@ -91,8 +104,8 @@ public class SegmentTree implements QueryInterface{
 		prop(i);
 
 		// 3.2 increment at the subtrees
-		increment(2*i, a, b, val);
-		increment(2*i+1, a, b, val);
+		increment(2 * i, a, b, val);
+		increment(2 * i + 1, a, b, val);
 
 		// 3.3 we came back from recursive incremention
 		// --- we updated the subtree with new values, 
@@ -117,8 +130,8 @@ public class SegmentTree implements QueryInterface{
 
 		prop(i);
 
-		int minLeft = min(2*i, a, b);
-		int minRight = min(2*i, a, b);
+		int minLeft = min(2 * i, a, b);
+		int minRight = min(2 * i + 1, a, b);
 
 		update(i);
 
@@ -134,46 +147,68 @@ public class SegmentTree implements QueryInterface{
 	}
 
 	/**
-	 * propagating - modifying children with cur value -
-	 * the value that we didnt move further yet until now.
+	 * propagating - modifying children with cur value - the value that we didnt
+	 * move further yet until now.
 	 */
 	private void prop(int i) {
-		delta[2*i] += delta[i];
-		delta[2*i+1] += delta[i];
+		delta[2 * i] += delta[i];
+		delta[2 * i + 1] += delta[i];
 		delta[i] = 0;
 	}
-	
+
 	/**
 	 * for max - change to max.
 	 */
 	private void update(int i) {
-		min[i] = Math.min(min[2*i] + delta[2*i], min[2*i+1] + delta[2*i+1]); 
+		min[i] = Math.min(min[2 * i] + delta[2 * i], min[2 * i + 1] + delta[2 * i + 1]);
 	}
 
 	/**
-	 * [a,b] range for init
-	 * i - current node
+	 * [a,b] range for init i - current node
 	 */
 	private void init(int i, int a, int b) {
 		lo[i] = a;
 		hi[i] = b;
 
 		// we are at a leaf, nowhere to go
-		if (a==b) {
+		if (a == b) {
 			return;
 		}
 
 		// split point
-		int mid = (a+b)/2;
-		init(2*i, a, mid);
-		init(2*i+1, mid+1, b);
+		int mid = (a + b) / 2;
+		init(2 * i, a, mid);
+		init(2 * i + 1, mid + 1, b);
 	}
+
+	public void print(int i, int a, int b)
+	{
+		System.out.println("[ "+ a + "," + b +" ]: delta=" + delta[i]);
+		if (a==b) return;
+		int mid = (a+b)/2;
+		print(2*i, a, mid);
+		print(2*i+1, mid+1, b);
+	}
+
 
 	public static void main(String[] a) {
-		RangeSlow rs = new RangeSlow(8);
+		RangeSlow rs = new RangeSlow(7);
+		initTest(rs);
+		rs.print(1,0,6);
+//		assertEquals(0, rs.min(0, 3));
+//		SegmentTree st = new SegmentTree(7);
+//		initTest(st);
+//		st.print(1,0,6);
+//		assertEquals(0, st.min(0, 3));
 	}
 
-	private static runTests(QueryInterface q) {
-		q.update();
+	private static void initTest(QueryInterface q) {
+		q.increment(0, 0, 0);
+		q.increment(1, 1, 3);
+		q.increment(2, 2, 4);
+		q.increment(3, 3, 2);
+		q.increment(4, 4, 1);
+		q.increment(5, 5, 6);
+		q.increment(6, 6, -1);
 	}
 }

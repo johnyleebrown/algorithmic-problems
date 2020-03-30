@@ -3,9 +3,9 @@
 
 import os
 import random
+from datetime import *
 from pathlib import Path
 
-from datetime import *
 import util as u
 
 
@@ -53,7 +53,7 @@ class CoreService:
         files_with_errors = []
 
         for dirpath, subdirs, files in os.walk(from_dir, topdown=True):
-            if excluded == dirpath:
+            if dirpath in excluded:
                 subdirs[:] = []
                 files[:] = []
             subdirs[:] = [d for d in subdirs if d not in ['ds']]
@@ -139,7 +139,7 @@ class CoreService:
 
             self.topics_map[topic_name] = {}
             self.topics_map[topic_name]['path'] = self.main_dir + topic_path
-            self.topics_map[topic_name]['excluded'] = self.main_dir + x[2] if len(x) > 2 else ''
+            self.topics_map[topic_name]['excluded'] = [self.main_dir + a for a in x[2:]]
 
             pm, pl, err = self.create_problems_map_and_list(topic_name)
             if err:

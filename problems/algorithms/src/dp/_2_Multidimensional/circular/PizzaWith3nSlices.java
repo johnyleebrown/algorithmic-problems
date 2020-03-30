@@ -1,4 +1,4 @@
-package dp;
+package dp._2_Multidimensional.circular;
 
 import util.tester.Tester;
 
@@ -24,61 +24,25 @@ import util.tester.Tester;
  *
  * ======
  *
- * Similar: $INSERT_SIMILAR.
+ * Similar: HRII.
  *
  * ======
  *
  * Source: Leetcode
  */
-public class PizzaWith3nSlices
-{
+public class PizzaWith3nSlices {
 	/**
-	 * The idea here is to remove what was picked.
+	 * We can use either 0 or n-1 th. Same idea as HRII.
 	 */
 	public static class Solution {
-		int[] dp;
-		int n;
-		public int maxSizeSlices(int[] a) {
-			n = a.length;
-			dp = new int[n + 1];
-
-			for (int i = 0; i <= n; i++) {
-				dp[i]=;
-			}
-
-			int res = -1;
-			// "you will pick any slice"
-			for (int i = 0; i < n; i++) {
-				dp[] = ;
-				res = Math.max(res, );
-			}
-			return res;
-		}
-		int dfs(int cur, int[] a){
-			if (dp[] != 0) {
-				return dp[];
-			}
-		
-			return dp[];
-		}
-		int g(int a, int b){
-			int x = a + b;
-			if (x == n + 2) {
-				return 1;
-			} else if (x == n + 1) {
-				return 0;
-			} else if (x == -1) {
-				return n - 1;
-			} else if (x == -2) {
-				return n - 2;
-			}
-			return x;
+		public int maxSizeSlices(int[] slices) {
+						
 		}
 	}
 
 	public static void main(String[] args) {
 		new Tester(new Solution())
-				.add(new int[]{1,2,3,4,5,6}).expect(10)
+				.add(new int[]{1, 2, 3, 4, 5, 6}).expect(10)
 				.run();
 	}
 }

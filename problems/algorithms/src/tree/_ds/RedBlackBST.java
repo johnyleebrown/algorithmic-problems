@@ -1,5 +1,8 @@
 package tree._ds;
 
+/**
+ * RedBlackBST
+ */
 public class RedBlackBST<Key, Value> {
 	private static final boolean RED   = true;
 	private static final boolean BLACK = false;

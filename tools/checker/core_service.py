@@ -56,7 +56,7 @@ class CoreService:
             if dirpath in excluded:
                 subdirs[:] = []
                 files[:] = []
-            subdirs[:] = [d for d in subdirs if d not in ['ds']]
+            subdirs[:] = [d for d in subdirs if d not in ['ds', 'reference']]
             for x in files:
                 if x.endswith(".java"):
                     path = os.path.join(dirpath, x)

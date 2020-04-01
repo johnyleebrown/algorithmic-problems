@@ -2,10 +2,6 @@ package twoPointers.slidingWindow.min;
 
 /**
  * 1055
- *
- * ======
- *
- * Companies: Google.
  */
 public class ShortestWayToFormString
 {

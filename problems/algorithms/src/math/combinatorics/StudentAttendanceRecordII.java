@@ -2,7 +2,6 @@ package math.combinatorics;
 
 import util.tester.Tester;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
@@ -38,7 +37,7 @@ import java.util.Arrays;
  */
 public class StudentAttendanceRecordII {
 	/**
-	 * TODO Math solution.
+	 * TODO finish math solution.
 	 * https://leetcode.com/problems/student-attendance-record-ii/discuss/234026/Share-my-thought-of-combing-o(1)-space
 	 */
 	public static class Solution2 {
@@ -47,16 +46,12 @@ public class StudentAttendanceRecordII {
 		public int checkRecord(int n) {
 			// total
 			long t = (long) Math.pow(3, n);
-			System.out.println("t: " + t);
 			// count l's
 			long l = 0;
 			for (int k = n - 3; k <= n - 1; k++) {
 				long pow = (1 << (n - k - 1));
 				l += (n - k) * pow;
-				BigInteger b = new BigInteger(String.valueOf(0));
-				System.out.println(b.intValue());
 			}
-			System.out.println("l: " + l);
 			long[] fact = new long[n + 1];
 			fact[0] = 1;
 			for (int i = 1; i <= n; i++) {
@@ -67,7 +62,6 @@ public class StudentAttendanceRecordII {
 			for (int k = 2; k <= n; k++) {
 				a += (fact[n] / fact[k] / fact[n - k]) * (1 << (n - k));
 			}
-			System.out.println("a: " + a);
 			return (int) (t - l - a) % MOD;
 		}
 
@@ -109,15 +103,140 @@ public class StudentAttendanceRecordII {
 	}
 
 	/**
-	 * This is how i solve this type of problems, maybe someone will find it
-	 * helpful, maybe not.
+	 * Backtracking -> dfs.
+	 */
+	public class Solution1_2 {
+		private long ans;
+		private int n;
+		private char[] b = new char[]{'A', 'L', 'P'};
+
+		public int checkRecord(int n) {
+			this.n = n;
+			long res = gen(0, new char[n], 0, 0);
+			int mod = 1_000_000_007;
+			return (int) (res % mod);
+		}
+
+		private long gen(int ind, char[] ca, int ac, int l) {
+			if (l == 3) {
+				return 0;
+			}
+			if (ac == 2) {
+				return 0;
+			}
+			if (ind == n) {
+				return 1;
+			}
+
+			long res = 0;
+			for (int i = 0; i < 3; i++) {
+				ca[ind] = b[i];
+				long x = gen(ind + 1, ca, ca(i,ac), cl(ind,i,ca));
+				res += x;
+				ca[ind] = 0;
+			}
+
+			return res;
+		}
+
+		private int ca(int i, int ac) {
+			return b[i] == 'A' ? ac + 1 : ac;
+		}
+
+		private int cl(int ind, int i, char[] ca) {
+			if (b[i] == 'L') {
+				if (ind > 0 && ca[ind - 1] == 'L') {
+					if (ind > 1 && ca[ind - 2] == 'L') {
+						return 3;
+					}
+					return 2;
+				}
+				return 1;
+			}
+			return 0;
+		}
+	}
+
+	/**
+	 * Backtracking -> dfs -> dfs_with_memo.
+	 */
+	public class Solution1_3 {
+		private long ans;
+		private int n;
+		private char[] b = new char[]{'A', 'L', 'P'};
+		int mod = 1_000_000_007;
+
+		public int checkRecord(int n) {
+			this.n = n;
+			Long[][][] dp = new Long[n+1][2][3];// ind,ac,l
+			long res = gen(0, new char[n], 0, 0,dp);
+			// System.out.println(res % mod);
+			return (int) (res % mod);
+		}
+
+		private long gen(int ind, char[] ca, int ac, int l,Long[][][] dp) {
+			if (l == 3) {
+				return 0;
+			}
+			if (ac == 2) {
+				return 0;
+			}
+			if (ind == n) {
+				return 1;
+			}
+			if (dp[ind][ac][l]!=null) {
+				return dp[ind][ac][l];
+			}
+
+			long res = 0;
+			for (int i = 0; i < 3; i++) {
+				ca[ind] = b[i];
+				long x = gen(ind + 1, ca, ca(i,ac), cl(ind,i,ca),dp);
+				res += x;
+				ca[ind] = 0;
+			}
+
+			dp[ind][ac][l]=res % mod;
+
+			return res;
+		}
+
+		private int ca(int i, int ac) {
+			return b[i] == 'A' ? ac + 1 : ac;
+		}
+
+		private int cl(int ind, int i, char[] ca) {
+			if (b[i] == 'L') {
+				if (ind > 0 && ca[ind - 1] == 'L') {
+					if (ind > 1 && ca[ind - 2] == 'L') {
+						return 3;
+					}
+					return 2;
+				}
+				return 1;
+			}
+			return 0;
+		}
+	}
+
+	/**
+	 * Had wrong trans table.
+	 -----+---------------
+	 INIT | A -- L -- P --
+	 -----+---------------
+	 A0L0 | A1L0 A0L1 A0L0
+	 A0L1 | A1L0 A0L2 A0L0
+	 A0L2 | A1L0 Done A0L0
+	 A1L0 | Done A1L1 A1L0
+	 A1L1 | Done A1L2 A1L0
+	 A1L2 | Done Done A1L0
 	 */
 	public static class Solution3 {
 		public int checkRecord(int n) {
 			if (n == 1) {
 				return 3;
 			}
-			//num of variants(8),1st letter,2nd letter,keep the last 2 answers
+			//keep the last 2 answers,1st letter,2nd letter
 			//a-0,l-1,p-2
 			long[][][] dp = new long[2][3][3];
 			//base
@@ -126,10 +245,6 @@ public class StudentAttendanceRecordII {
 			}
 			dp[0][0][0] = 0;
 			int k = 1;
-//         for (int i = 0; i < 3; i++) {
-//             System.out.println(Arrays.toString(dp[1-k][i]));
-
-//         }
 			for (int i = 3; i <= n; i++, k = 1 - k) {
 				dp[k][2][2] = dp[1 - k][2][2] + dp[1 - k][0][2] + dp[1 - k][1][2];//PP
 				dp[k][2][0] = dp[1 - k][2][2] + dp[1 - k][1][2];//PA
@@ -142,7 +257,6 @@ public class StudentAttendanceRecordII {
 			}
 			long ans = 0;
 			for (int i = 0; i < 3; i++) {
-				// System.out.println(Arrays.toString(dp[1-k][i]));
 				for (int j = 0; j < 3; j++) {
 					ans += dp[1 - k][i][j];
 				}

@@ -1,5 +1,10 @@
 package tree._ds;
 
+import java.util.Arrays;
+import java.util.Random;
+
+import static util.tester.Assert.assertEquals;
+
 /**
  * SegmentTree
  *
@@ -25,13 +30,15 @@ class RangeSlow implements QueryInterface {
 	private int[] ar;
 
 	public RangeSlow(int n) {
-		ar = new int[4*n + 1];
+		ar = new int[n];
 	}
 
 	public void increment(int i, int j, int val) {
+//		System.out.println("[ "+ i + "," + j +" ]: d=" + ar[i] + " v " + val);
 		for (int k = i; k <= j; k++) {
 			ar[k] += val;
 		}
+//		System.out.println("[ "+ i + "," + j +" ]: d=" + ar[i] + " v " + val);
 	}
 
 	public int min(int i, int j) {
@@ -44,11 +51,7 @@ class RangeSlow implements QueryInterface {
 
 	@Override
 	public void print(int i, int a, int b) {
-		System.out.println("[ "+ a + "," + b +" ]: delta=" + ar[i]);
-		if (a==b) return;
-		int mid = (a+b)/2;
-		print(2*i, a, mid);
-		print(2*i+1, mid+1, b);
+		System.out.println(Arrays.toString(ar));
 	}
 }
 
@@ -143,7 +146,7 @@ public class SegmentTree implements QueryInterface {
 	}
 
 	private boolean covers(int i, int a, int b) {
-		return a >= lo[i] && b <= hi[i];
+		return a <= lo[i] && b >= hi[i];
 	}
 
 	/**
@@ -192,23 +195,41 @@ public class SegmentTree implements QueryInterface {
 
 
 	public static void main(String[] a) {
+		int n = 7;
+
 		RangeSlow rs = new RangeSlow(7);
 		initTest(rs);
-		rs.print(1,0,6);
-//		assertEquals(0, rs.min(0, 3));
-//		SegmentTree st = new SegmentTree(7);
-//		initTest(st);
-//		st.print(1,0,6);
-//		assertEquals(0, st.min(0, 3));
+
+		SegmentTree st = new SegmentTree(7);
+		initTest(st);
+
+		runSmallTest(n, rs, st);
+	}
+
+	private static void runSmallTest(int n, QueryInterface stSlow, QueryInterface stRegular) {
+		Random r  = new Random();
+		for (int i = 0; i < n; i++) {
+			int a = r.nextInt(n);
+			int b = r.nextInt(n);
+			while (b < a) b = r.nextInt(n);
+			int minSlow = stSlow.min(a, b);
+			int minRegular = stRegular.min(a, b);
+			assertEquals(minSlow, minRegular);
+		}
 	}
 
 	private static void initTest(QueryInterface q) {
-		q.increment(0, 0, 0);
+		q.increment(0, 0, 15);
 		q.increment(1, 1, 3);
 		q.increment(2, 2, 4);
 		q.increment(3, 3, 2);
 		q.increment(4, 4, 1);
 		q.increment(5, 5, 6);
 		q.increment(6, 6, -1);
+
+		q.increment(0, 4, 3);
+		q.increment(1, 3, -4);
+		q.increment(5, 6, 10);
+		q.increment(0, 6, 0);
 	}
 }

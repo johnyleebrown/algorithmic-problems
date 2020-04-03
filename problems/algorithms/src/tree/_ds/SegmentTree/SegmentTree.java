@@ -1,6 +1,5 @@
-package tree._ds;
+package tree._ds.SegmentTree;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import static util.tester.Assert.assertEquals;
@@ -10,33 +9,41 @@ import static util.tester.Assert.assertEquals;
  *
  * =====
  *
- * Tasks.
+ * Overview.
  *
- * https://codeforces.com/problemset/problem/52/C
- */
-interface QueryInterface {
-	void increment(int i, int j, int val);
-
-	int min(int i, int j);
-}
-
-/**
  * Segment Tree is represented as an array where root is at index 1 with
  * subtrees starting at 2*i and 2*i+1, like in heap. For min and for increment
  * we do propagate before entering the loop - so we could use the lazy values -
  * the values that we use only when we need them. And we do update after we exit
  * the recursion - we update the min depending on the new values.
+ *
+ * =====
+ *
+ * Tasks.
+ *
+ * https://codeforces.com/problemset/problem/52/C
  */
-public class SegmentTree implements QueryInterface {
+public class SegmentTree implements SegmentTreeQuery {
 	int n;
-	int[] lo, hi, min, delta;
 
-	public SegmentTree(int n) {
+	int[] lo, hi;
+	int[] delta;
+	int[] min, max;
+
+	int updateOp = 0; // 0 - incr, 1 - decr
+	int aFn; // aggregate function: 0 - min, 1 - max
+
+	public SegmentTree(int n, int u, int a) {
 		this.n = n;
+
+		aFn = a;
 
 		lo = new int[4 * n + 1];
 		hi = new int[4 * n + 1];
-		min = new int[4 * n + 1];
+		if (a == 0)
+			min = new int[4 * n + 1];
+		else if (a == 1)
+			max = new int[4 * n + 1];
 		delta = new int[4 * n + 1];
 
 		// starting from root (1)
@@ -76,7 +83,7 @@ public class SegmentTree implements QueryInterface {
 		increment(2 * i + 1, a, b, val);
 
 		// 3.3 we came back from recursive incremention
-		// --- we updated the subtree with new values, 
+		// --- we updated the subtree with new values,
 		// --- so now we need to update min of the subtree
 		update(i);
 	}
@@ -85,10 +92,14 @@ public class SegmentTree implements QueryInterface {
 		return min(1, a, b);
 	}
 
+	/**
+	 * we search for min, by pushing unpubliched delta to children
+	 * then we lift the minimums from the bottom and update parent's mins
+	 */
 	private int min(int i, int a, int b) {
 		// 1 case : no cover
 		if (notIntersects(i, a, b)) {
-			return Integer.MAX_VALUE;
+			return Integer.MAX_VALUE; //TODO consider aFn
 		}
 
 		// 2 case : ith node covers [a,b]
@@ -101,9 +112,14 @@ public class SegmentTree implements QueryInterface {
 		int minLeft = min(2 * i, a, b);
 		int minRight = min(2 * i + 1, a, b);
 
+		//		System.out.println(minLeft+" "+minRight+" _: "+(2*i)+" "+(2*i+1));
+
 		update(i);
 
-		return Math.min(minLeft, minRight);
+		if (aFn == 0)
+			return Math.min(minLeft, minRight);
+		else
+			return Math.max(minLeft, minRight);
 	}
 
 	private boolean notIntersects(int i, int a, int b) {
@@ -128,7 +144,12 @@ public class SegmentTree implements QueryInterface {
 	 * for max - change to max.
 	 */
 	private void update(int i) {
-		min[i] = Math.min(min[2 * i] + delta[2 * i], min[2 * i + 1] + delta[2 * i + 1]);
+		if (aFn == 0)
+			min[i] = Math.min(min[2 * i] + delta[2 * i],
+					min[2 * i + 1] + delta[2 * i + 1]);
+		else if (aFn == 1)
+			max[i] = Math.max(min[2 * i] + delta[2 * i],
+					min[2 * i + 1] + delta[2 * i + 1]);
 	}
 
 	/**
@@ -157,20 +178,32 @@ public class SegmentTree implements QueryInterface {
 		print(2 * i + 1, mid + 1, b);
 	}
 
-
+	/**
+	 * TODO introduce nulls
+	 */
 	public static void main(String[] a) {
-		int n = 7;
+		int n = 50;
 
-		RangeSlow rs = new RangeSlow(7);
+		SegmentTreeSlow rs = new SegmentTreeSlow(n);
 		initTest(rs);
+		//rs.increment(10,20,10);
+		//	rs.print();
 
-		SegmentTree st = new SegmentTree(7);
+		SegmentTree st = new SegmentTree(n,0,0);
 		initTest(st);
+		//st.increment(10,20,10);
+		//st.print(1,0,n);
+
+		//runTest(16, 41, rs, st);
 
 		runSmallTest(n, rs, st);
 	}
 
-	private static void runSmallTest(int n, QueryInterface stSlow, QueryInterface stRegular) {
+	/**
+	 * TODO
+	 */
+	private void testDeltas(int n, SegmentTreeQuery stSlow,
+			SegmentTreeQuery stRegular) {
 		Random r = new Random();
 		for (int i = 0; i < n; i++) {
 			int a = r.nextInt(n);
@@ -182,7 +215,29 @@ public class SegmentTree implements QueryInterface {
 		}
 	}
 
-	private static void initTest(QueryInterface q) {
+	private static void runSmallTest(int n, SegmentTreeQuery stSlow,
+			SegmentTreeQuery stRegular) {
+		Random r = new Random();
+		for (int i = 0; i < n; i++) {
+			int a = r.nextInt(n);
+			int b = r.nextInt(n);
+			while (b < a) b = r.nextInt(n);
+			int minSlow = stSlow.min(a, b);
+			int minRegular = stRegular.min(a, b);
+			assertEquals(minSlow, minRegular);
+		}
+	}
+
+	private static void runTest(int a, int b,
+			SegmentTreeQuery stSlow, SegmentTreeQuery stRegular) {
+		System.out.println("a,b: [" + a + " " + b + "]");
+		int minSlow = stSlow.min(a, b);
+		System.out.println("=======");
+		int minRegular = stRegular.min(a, b);
+		assertEquals(minSlow, minRegular);
+	}
+
+	private static void initTest(SegmentTreeQuery q) {
 		q.increment(0, 0, 15);
 		q.increment(1, 1, 3);
 		q.increment(2, 2, 4);
@@ -195,169 +250,5 @@ public class SegmentTree implements QueryInterface {
 		q.increment(1, 3, -4);
 		q.increment(5, 6, 10);
 		q.increment(0, 6, 0);
-	}
-}
-
-/**
- * Implicit Segment tree , is similar to static segment tree , Here we create
- * nodes only when required, that’s why it is also known as dynamic segment
- * tree.
- */
-class ImplicitSegmentTree implements QueryInterface {
-
-	Node root;
-
-	private class Node {
-		int lo;
-		int hi;
-
-		int delta;
-
-		Node left;
-		Node right;
-
-		private Node(int lo, int hi) {
-			this.lo = lo;
-			this.hi = hi;
-		}
-	}
-
-	public ImplicitSegmentTree(int n) {
-		root = new Node(0, n);
-	}
-
-	public void increment(int a, int b, int val) {
-		increment(root, a, b, val);
-	}
-
-	public void increment(Node root, int a, int b, int val) {
-		if (root == null) {
-			return;
-		}
-
-		if (noIntersection(root, a, b)) {
-			return;
-		}
-
-		if (covers(root, a, b)) {
-			root.val += val;
-			root.lazyVal += val;
-			return;
-		}
-
-		prop(i);
-
-		int mid = (root.hi + root.lo) / 2;
-
-		if (root.left == null) root.left = new Node(root.lo, mid);
-		increment(root.left, newInterval, val);
-
-		if (root.right == null) root.right = new Node(mid + 1, root.hi);
-		increment(root.right, newInterval, val);
-
-		update(i);
-	}
-
-	private boolean noIntersection(Node root, int a, int b) {
-		return a > root.hi || b < root.hi;
-	}
-
-	private boolean covers(Node root, int a, int b) {
-		return a <= root.lo && b >= root.hi;
-	}
-
-	public int min(int a, int b) {
-		return min(1, a, b);
-	}
-
-	private int min(int i, int a, int b) {
-		if (notIntersects(i, a, b)) {
-			return Integer.MAX_VALUE;
-		}
-
-		if (covers(i, a, b)) {
-			return min[i] + delta[i];
-		}
-
-		prop(i);
-
-		int minLeft = min(2 * i, a, b);
-		int minRight = min(2 * i + 1, a, b);
-
-		update(i);
-
-		return Math.min(minLeft, minRight);
-	}
-
-	public static void main(String[] a) {
-		int n = 7;
-
-		RangeSlow rs = new RangeSlow(7);
-		initTest(rs);
-
-		ImplicitSegmentTree st = new ImplicitSegmentTree(7);
-		initTest(st);
-
-		runSmallTest(n, rs, st);
-	}
-
-	private static void runSmallTest(int n, QueryInterface stSlow, QueryInterface stRegular) {
-		Random r = new Random();
-		for (int i = 0; i < n; i++) {
-			int a = r.nextInt(n);
-			int b = r.nextInt(n);
-			while (b < a) b = r.nextInt(n);
-			int minSlow = stSlow.min(a, b);
-			int minRegular = stRegular.min(a, b);
-			assertEquals(minSlow, minRegular);
-		}
-	}
-
-	private static void initTest(QueryInterface q) {
-		q.increment(0, 0, 15);
-		q.increment(1, 1, 3);
-		q.increment(2, 2, 4);
-		q.increment(3, 3, 2);
-		q.increment(4, 4, 1);
-		q.increment(5, 5, 6);
-		q.increment(6, 6, -1);
-
-		q.increment(0, 4, 3);
-		q.increment(1, 3, -4);
-		q.increment(5, 6, 10);
-		q.increment(0, 6, 0);
-	}
-}
-
-
-/**
- * Slow version of range increment.
- */
-class RangeSlow implements QueryInterface {
-	private int[] ar;
-
-	public RangeSlow(int n) {
-		ar = new int[n];
-	}
-
-	public void increment(int i, int j, int val) {
-//		System.out.println("[ "+ i + "," + j +" ]: d=" + ar[i] + " v " + val);
-		for (int k = i; k <= j; k++) {
-			ar[k] += val;
-		}
-//		System.out.println("[ "+ i + "," + j +" ]: d=" + ar[i] + " v " + val);
-	}
-
-	public int min(int i, int j) {
-		int res = ar[i];
-		for (int k = i + 1; k <= j; k++) {
-			res = Math.min(res, ar[k]);
-		}
-		return res;
-	}
-
-	@Override
-	public void print(int i, int a, int b) {
-		System.out.println(Arrays.toString(ar));
 	}
 }

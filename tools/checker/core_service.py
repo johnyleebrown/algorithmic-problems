@@ -9,6 +9,9 @@ from pathlib import Path
 import util as u
 
 
+# TODO exclude interfaces
+
+
 class CoreService:
     root_path=str(Path(__file__).parent.absolute())+'/'
     is_session_finished = False

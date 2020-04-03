@@ -3,7 +3,7 @@ package graph.dfs;
 /**
  * 695
  */
-class MaxAreaOfIsland
+public class MaxAreaOfIsland
 {
 	class Solution
 	{

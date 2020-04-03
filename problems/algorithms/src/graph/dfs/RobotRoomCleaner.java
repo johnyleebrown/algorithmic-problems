@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * 489
  */
-class RobotRoomCleaner
+public class RobotRoomCleaner
 {
 	class Solution
 	{

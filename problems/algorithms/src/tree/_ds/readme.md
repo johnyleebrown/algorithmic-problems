@@ -1,2 +1,7 @@
+### Ref
+#### Segment tree:
 https://brestprog.by/topics/segmenttree/
-https://brestprog.by/topics/prefixsums/
+
+### Problems
+#### Segment tree:
+https://codeforces.com/blog/entry/22616

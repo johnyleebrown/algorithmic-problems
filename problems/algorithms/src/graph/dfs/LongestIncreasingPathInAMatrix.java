@@ -3,7 +3,7 @@ package graph.dfs;
 /**
  * 329
  */
-class LongestIncreasingPathInAMatrix
+public class LongestIncreasingPathInAMatrix
 {
 	class Solution
 	{

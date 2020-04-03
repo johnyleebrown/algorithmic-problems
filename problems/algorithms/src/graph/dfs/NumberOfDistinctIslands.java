@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * 694
  */
-class NumberOfDistinctIslands
+public class NumberOfDistinctIslands
 {
 
 	class Solution

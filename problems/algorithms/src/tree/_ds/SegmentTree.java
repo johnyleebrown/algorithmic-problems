@@ -14,45 +14,10 @@ import static util.tester.Assert.assertEquals;
  *
  * https://codeforces.com/problemset/problem/52/C
  */
-
 interface QueryInterface {
 	void increment(int i, int j, int val);
 
 	int min(int i, int j);
-
-	void print(int i, int a, int b);
-}
-
-/**
- * Slow version of range increment.
- */
-class RangeSlow implements QueryInterface {
-	private int[] ar;
-
-	public RangeSlow(int n) {
-		ar = new int[n];
-	}
-
-	public void increment(int i, int j, int val) {
-//		System.out.println("[ "+ i + "," + j +" ]: d=" + ar[i] + " v " + val);
-		for (int k = i; k <= j; k++) {
-			ar[k] += val;
-		}
-//		System.out.println("[ "+ i + "," + j +" ]: d=" + ar[i] + " v " + val);
-	}
-
-	public int min(int i, int j) {
-		int res = ar[i];
-		for (int k = i + 1; k <= j; k++) {
-			res = Math.min(res, ar[k]);
-		}
-		return res;
-	}
-
-	@Override
-	public void print(int i, int a, int b) {
-		System.out.println(Arrays.toString(ar));
-	}
 }
 
 /**
@@ -184,13 +149,12 @@ public class SegmentTree implements QueryInterface {
 		init(2 * i + 1, mid + 1, b);
 	}
 
-	public void print(int i, int a, int b)
-	{
-		System.out.println("[ "+ a + "," + b +" ]: delta=" + delta[i]);
-		if (a==b) return;
-		int mid = (a+b)/2;
-		print(2*i, a, mid);
-		print(2*i+1, mid+1, b);
+	public void print(int i, int a, int b) {
+		System.out.println("[ " + a + "," + b + " ]: delta=" + delta[i]);
+		if (a == b) return;
+		int mid = (a + b) / 2;
+		print(2 * i, a, mid);
+		print(2 * i + 1, mid + 1, b);
 	}
 
 
@@ -207,7 +171,7 @@ public class SegmentTree implements QueryInterface {
 	}
 
 	private static void runSmallTest(int n, QueryInterface stSlow, QueryInterface stRegular) {
-		Random r  = new Random();
+		Random r = new Random();
 		for (int i = 0; i < n; i++) {
 			int a = r.nextInt(n);
 			int b = r.nextInt(n);
@@ -231,5 +195,169 @@ public class SegmentTree implements QueryInterface {
 		q.increment(1, 3, -4);
 		q.increment(5, 6, 10);
 		q.increment(0, 6, 0);
+	}
+}
+
+/**
+ * Implicit Segment tree , is similar to static segment tree , Here we create
+ * nodes only when required, that’s why it is also known as dynamic segment
+ * tree.
+ */
+class ImplicitSegmentTree implements QueryInterface {
+
+	Node root;
+
+	private class Node {
+		int lo;
+		int hi;
+
+		int delta;
+
+		Node left;
+		Node right;
+
+		private Node(int lo, int hi) {
+			this.lo = lo;
+			this.hi = hi;
+		}
+	}
+
+	public ImplicitSegmentTree(int n) {
+		root = new Node(0, n);
+	}
+
+	public void increment(int a, int b, int val) {
+		increment(root, a, b, val);
+	}
+
+	public void increment(Node root, int a, int b, int val) {
+		if (root == null) {
+			return;
+		}
+
+		if (noIntersection(root, a, b)) {
+			return;
+		}
+
+		if (covers(root, a, b)) {
+			root.val += val;
+			root.lazyVal += val;
+			return;
+		}
+
+		prop(i);
+
+		int mid = (root.hi + root.lo) / 2;
+
+		if (root.left == null) root.left = new Node(root.lo, mid);
+		increment(root.left, newInterval, val);
+
+		if (root.right == null) root.right = new Node(mid + 1, root.hi);
+		increment(root.right, newInterval, val);
+
+		update(i);
+	}
+
+	private boolean noIntersection(Node root, int a, int b) {
+		return a > root.hi || b < root.hi;
+	}
+
+	private boolean covers(Node root, int a, int b) {
+		return a <= root.lo && b >= root.hi;
+	}
+
+	public int min(int a, int b) {
+		return min(1, a, b);
+	}
+
+	private int min(int i, int a, int b) {
+		if (notIntersects(i, a, b)) {
+			return Integer.MAX_VALUE;
+		}
+
+		if (covers(i, a, b)) {
+			return min[i] + delta[i];
+		}
+
+		prop(i);
+
+		int minLeft = min(2 * i, a, b);
+		int minRight = min(2 * i + 1, a, b);
+
+		update(i);
+
+		return Math.min(minLeft, minRight);
+	}
+
+	public static void main(String[] a) {
+		int n = 7;
+
+		RangeSlow rs = new RangeSlow(7);
+		initTest(rs);
+
+		ImplicitSegmentTree st = new ImplicitSegmentTree(7);
+		initTest(st);
+
+		runSmallTest(n, rs, st);
+	}
+
+	private static void runSmallTest(int n, QueryInterface stSlow, QueryInterface stRegular) {
+		Random r = new Random();
+		for (int i = 0; i < n; i++) {
+			int a = r.nextInt(n);
+			int b = r.nextInt(n);
+			while (b < a) b = r.nextInt(n);
+			int minSlow = stSlow.min(a, b);
+			int minRegular = stRegular.min(a, b);
+			assertEquals(minSlow, minRegular);
+		}
+	}
+
+	private static void initTest(QueryInterface q) {
+		q.increment(0, 0, 15);
+		q.increment(1, 1, 3);
+		q.increment(2, 2, 4);
+		q.increment(3, 3, 2);
+		q.increment(4, 4, 1);
+		q.increment(5, 5, 6);
+		q.increment(6, 6, -1);
+
+		q.increment(0, 4, 3);
+		q.increment(1, 3, -4);
+		q.increment(5, 6, 10);
+		q.increment(0, 6, 0);
+	}
+}
+
+
+/**
+ * Slow version of range increment.
+ */
+class RangeSlow implements QueryInterface {
+	private int[] ar;
+
+	public RangeSlow(int n) {
+		ar = new int[n];
+	}
+
+	public void increment(int i, int j, int val) {
+//		System.out.println("[ "+ i + "," + j +" ]: d=" + ar[i] + " v " + val);
+		for (int k = i; k <= j; k++) {
+			ar[k] += val;
+		}
+//		System.out.println("[ "+ i + "," + j +" ]: d=" + ar[i] + " v " + val);
+	}
+
+	public int min(int i, int j) {
+		int res = ar[i];
+		for (int k = i + 1; k <= j; k++) {
+			res = Math.min(res, ar[k]);
+		}
+		return res;
+	}
+
+	@Override
+	public void print(int i, int a, int b) {
+		System.out.println(Arrays.toString(ar));
 	}
 }

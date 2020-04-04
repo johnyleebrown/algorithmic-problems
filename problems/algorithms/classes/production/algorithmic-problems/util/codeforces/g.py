@@ -32,8 +32,8 @@ def get_path(dep):
     
 def get_dep_data(dep):
     dep_data = read_from_file(get_path(dep))
-    ind = dep_data.find('public class')
-    return dep_data[ind:]
+    ind = dep_data.find('class')
+    return 'private static ' + dep_data[ind:]
 
 def parse_cl():
     cl = read_from_file(cur+'Main.java')

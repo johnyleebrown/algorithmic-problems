@@ -3,6 +3,7 @@
 
 from pathlib import Path
 
+src=str(Path(__file__).parent.absolute())+'/'
 
 def touch_open(filename, *args, **kwargs):
     open(filename, "a").close()
@@ -22,6 +23,5 @@ def write_to_file(file_name, text):
 
 
 if __name__ == "__main__":
-    src_path="/Volumes/Greg/projects/algorithmic-problems/tools/snippets/data/cf"
     target_path=str(Path(__file__).parent.absolute())+'/'
-    write_to_file(target_path+'Main.java',read_from_file(src_path))
+    write_to_file(target_path+'Main.java',read_from_file(src+'cf'))

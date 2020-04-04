@@ -1,7 +1,5 @@
 package design.stack;
 
-import java.util.HashMap;
-
 /**
  * 716
  *
@@ -30,7 +28,6 @@ public class MaxStack {
 		// pq for max, ll for stack cuz we need to remove efficiently
 		// map of some kind
 
-		Map<> m = new HashMap<>();
 		Node back;
 
 		public Solution() {

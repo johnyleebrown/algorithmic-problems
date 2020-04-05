@@ -1,4 +1,4 @@
-package dp._4_FullSum;
+package dp.fullSum;
 
 /**
  * Knapsack01

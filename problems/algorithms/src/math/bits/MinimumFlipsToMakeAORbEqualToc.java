@@ -12,28 +12,19 @@ package math.bits;
  * operation consists of change any single bit 1 to 0 or change the bit 0 to 1
  * in their binary representation.
  */
-public class MinimumFlipsToMakeAORbEqualToc
-{
-	/**
-	 * Bit operations.
-	 */
-	static class Solution1
-	{
-		public int minFlips(int a, int b, int c)
-		{
+public class MinimumFlipsToMakeAORbEqualToc {
+	static class Solution1 {
+		public int minFlips(int a, int b, int c) {
 			int result = 0;
-			for (int i = 0; i < 32; ++i)
-			{
+			for (int i = 0; i < 32; ++i) {
 				int ci = (c & (1 << i)) != 0 ? 1 : 0;
 				int ai = (a & (1 << i)) != 0 ? 1 : 0;
 				int bi = (b & (1 << i)) != 0 ? 1 : 0;
 
-				if (ci == 0)
-				{
+				if (ci == 0) {
 					result += ai + bi;
 				}
-				else if (ai == 0 && bi == 0)
-				{
+				else if (ai == 0 && bi == 0) {
 					result++;
 				}
 			}
@@ -45,23 +36,19 @@ public class MinimumFlipsToMakeAORbEqualToc
 	/**
 	 * Straightforward.
 	 */
-	static class Solution2
-	{
-		public int minFlips(int a, int b, int c)
-		{
+	static class Solution2 {
+		public int minFlips(int a, int b, int c) {
 			int result = 0;
 			StringBuilder binA = new StringBuilder(Integer.toBinaryString(a)).reverse();
 			StringBuilder binB = new StringBuilder(Integer.toBinaryString(b)).reverse();
 			StringBuilder binC = new StringBuilder(Integer.toBinaryString(c)).reverse();
 
-			for (int i = 0; i < Math.max(Math.max(binA.length(), binB.length()), binC.length()); i++)
-			{
+			for (int i = 0; i < Math.max(Math.max(binA.length(), binB.length()), binC.length()); i++) {
 				int bitA = i < binA.length() ? binA.charAt(i) - '0' : 0;
 				int bitB = i < binB.length() ? binB.charAt(i) - '0' : 0;
 				int bitC = i < binC.length() ? binC.charAt(i) - '0' : 0;
 
-				if ((bitA | bitB) != bitC)
-				{
+				if ((bitA | bitB) != bitC) {
 					if (bitA == 0 && bitB == 1 && bitC == 0) result += 1;
 					else if (bitA == 1 && bitB == 0 && bitC == 0) result += 1;
 					else if (bitA == 1 && bitB == 1 && bitC == 0) result += 2;

@@ -1,4 +1,4 @@
-package math.bits.count;
+package math.bits;
 
 import util.tester.Tester;
 

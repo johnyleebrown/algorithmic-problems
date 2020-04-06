@@ -1,6 +1,4 @@
-package math.combinatorics;
-
-import util.tester.Tester;
+package dp.stateMachine;
 
 import java.util.Arrays;
 
@@ -27,52 +25,13 @@ import java.util.Arrays;
  *
  * ======
  *
- * Similar
- *
- * https://lectoriy.mipt.ru/lecture/CompTech-Informat-L03-Derbysh-141010.01#00:37:33
- *
- * ======
- *
  * Source: Leetcode
  */
 public class StudentAttendanceRecordII {
 	/**
-	 * TODO finish math solution.
-	 * https://leetcode.com/problems/student-attendance-record-ii/discuss/234026/Share-my-thought-of-combing-o(1)-space
+	 * Backtracking solution. (TLE).
 	 */
-	public static class Solution2 {
-		private static final int MOD = 1_000_000_007;
-
-		public int checkRecord(int n) {
-			// total
-			long t = (long) Math.pow(3, n);
-			// count l's
-			long l = 0;
-			for (int k = n - 3; k <= n - 1; k++) {
-				long pow = (1 << (n - k - 1));
-				l += (n - k) * pow;
-			}
-			long[] fact = new long[n + 1];
-			fact[0] = 1;
-			for (int i = 1; i <= n; i++) {
-				fact[i] = i * fact[i - 1];
-			}
-			// count a's
-			long a = 0;
-			for (int k = 2; k <= n; k++) {
-				a += (fact[n] / fact[k] / fact[n - k]) * (1 << (n - k));
-			}
-			return (int) (t - l - a) % MOD;
-		}
-
-		public Solution2() {
-		}
-	}
-
-	/**
-	 * SF backtracking solution.
-	 */
-	public static class Solution1 {
+	public static class Solution1_1 {
 		private long ans;
 		private int n;
 		private char[] b = new char[]{'A', 'L', 'P'};
@@ -131,7 +90,7 @@ public class StudentAttendanceRecordII {
 			long res = 0;
 			for (int i = 0; i < 3; i++) {
 				ca[ind] = b[i];
-				long x = gen(ind + 1, ca, ca(i,ac), cl(ind,i,ca));
+				long x = gen(ind + 1, ca, ca(i, ac), cl(ind, i, ca));
 				res += x;
 				ca[ind] = 0;
 			}
@@ -139,10 +98,12 @@ public class StudentAttendanceRecordII {
 			return res;
 		}
 
+		// count a's
 		private int ca(int i, int ac) {
 			return b[i] == 'A' ? ac + 1 : ac;
 		}
 
+		// count l's
 		private int cl(int ind, int i, char[] ca) {
 			if (b[i] == 'L') {
 				if (ind > 0 && ca[ind - 1] == 'L') {
@@ -164,17 +125,16 @@ public class StudentAttendanceRecordII {
 		private long ans;
 		private int n;
 		private char[] b = new char[]{'A', 'L', 'P'};
-		int mod = 1_000_000_007;
+		private int mod = 1_000_000_007;
 
 		public int checkRecord(int n) {
 			this.n = n;
-			Long[][][] dp = new Long[n+1][2][3];// ind,ac,l
-			long res = gen(0, new char[n], 0, 0,dp);
-			// System.out.println(res % mod);
+			Long[][][] dp = new Long[n + 1][2][3];// ind,ac,l
+			long res = gen(0, new char[n], 0, 0, dp);
 			return (int) (res % mod);
 		}
 
-		private long gen(int ind, char[] ca, int ac, int l,Long[][][] dp) {
+		private long gen(int ind, char[] ca, int ac, int l, Long[][][] dp) {
 			if (l == 3) {
 				return 0;
 			}
@@ -184,20 +144,19 @@ public class StudentAttendanceRecordII {
 			if (ind == n) {
 				return 1;
 			}
-			if (dp[ind][ac][l]!=null) {
+			if (dp[ind][ac][l] != null) {
 				return dp[ind][ac][l];
 			}
 
 			long res = 0;
 			for (int i = 0; i < 3; i++) {
 				ca[ind] = b[i];
-				long x = gen(ind + 1, ca, ca(i,ac), cl(ind,i,ca),dp);
+				long x = gen(ind + 1, ca, ca(i, ac), cl(ind, i, ca), dp);
 				res += x;
 				ca[ind] = 0;
 			}
 
-			dp[ind][ac][l]=res % mod;
-
+			dp[ind][ac][l] = res % mod;
 			return res;
 		}
 
@@ -220,18 +179,74 @@ public class StudentAttendanceRecordII {
 	}
 
 	/**
-	 * Had wrong trans table.
-	 -----+---------------
-	 INIT | A -- L -- P --
-	 -----+---------------
-	 A0L0 | A1L0 A0L1 A0L0
-	 A0L1 | A1L0 A0L2 A0L0
-	 A0L2 | A1L0 Done A0L0
-	 A1L0 | Done A1L1 A1L0
-	 A1L1 | Done A1L2 A1L0
-	 A1L2 | Done Done A1L0
+	 * Transition table = the state is number of 'A' in string and number of L the string ends with.
+	 *
+	 * @formatter:off
+	 * -----+---------------
+	 * INIT | A -- L -- P --
+	 * -----+---------------
+	 * A0L0 | A1L0 A0L1 A0L0
+	 * A0L1 | A1L0 A0L2 A0L0
+	 * A0L2 | A1L0 Done A0L0
+	 * A1L0 | Done A1L1 A1L0
+	 * A1L1 | Done A1L2 A1L0
+	 * A1L2 | Done Done A1L0
+	 * @formatter:on
 	 */
-	public static class Solution3 {
+	public static class Solution {
+		private static final int mod = 1_000_000_007;
+
+		public int checkRecord(int n) {
+			if (n == 0) {
+				return 0;
+			}
+			if (n == 1) {
+				return 3;
+			}
+			long[][][] dp = new long[n + 1][2][3]; // ind,ac,lc
+			for (int i = 0; i < 2; i++) {
+				Arrays.fill(dp[0][i], 1);
+			}
+			return (int) (dfs(n, 0, 0, dp) % mod);
+		}
+
+		private long dfs(int n, int ac, int lc, long[][][] dp) {
+			if (dp[n][ac][lc] != 0) {
+				return dp[n][ac][lc];
+			}
+
+			long res = 0;
+
+			if (ac == 0 && lc == 0) {
+				res += dfs(n - 1, 1, 0, dp) + dfs(n - 1, 0, 1, dp) + dfs(n - 1, 0, 0, dp);
+			}
+			else if (ac == 0 && lc == 1) {
+				res += dfs(n - 1, 1, 0, dp) + dfs(n - 1, 0, 2, dp) + dfs(n - 1, 0, 0, dp);
+			}
+			else if (ac == 0 && lc == 2) {
+				res += dfs(n - 1, 1, 0, dp) + dfs(n - 1, 0, 0, dp);
+			}
+			else if (ac == 1 && lc == 0) {
+				res += dfs(n - 1, 1, 1, dp) + dfs(n - 1, 1, 0, dp);
+			}
+			else if (ac == 1 && lc == 1) {
+				res += dfs(n - 1, 1, 2, dp) + dfs(n - 1, 1, 0, dp);
+			}
+			else if (ac == 1 && lc == 2) {
+				res += dfs(n - 1, 1, 0, dp);
+			}
+
+			dp[n][ac][lc] = res % mod;
+			return res;
+		}
+	}
+
+	/**
+	 * This solution is for the same problem without the 'A's part.
+	 *
+	 * https://lectoriy.mipt.ru/lecture/CompTech-Informat-L03-Derbysh-141010.01#00:37:33
+	 */
+	public static class SolutionExtra {
 		public int checkRecord(int n) {
 			if (n == 1) {
 				return 3;
@@ -264,15 +279,5 @@ public class StudentAttendanceRecordII {
 			int MOD = 1_000_000_007;
 			return (int) ans % MOD;
 		}
-	}
-
-	public static void main(String[] args) {
-		new Tester(new Solution2())
-//				.add(1).expect(3)
-//				.add(2).expect(8)
-//				.add(3).expect(19)
-//				.add(4).expect(43)
-				.add(5).expect(94)
-				.run();
 	}
 }

@@ -1,4 +1,4 @@
-package string.anagram;
+package regular.string;
 
 /**
  * 1347

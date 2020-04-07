@@ -1,10 +1,10 @@
-package dp.linear;
+package dp.linear.back;
 
 /**
  * 256
  */
 public class PaintHouse {
-	public static int solution1(int[][] costs) {
+	public static int Solution(int[][] costs) {
 		int prev = -1;
 		int n = costs.length;
 		int[] dp = new int[n + 1];

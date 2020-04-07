@@ -11,22 +11,21 @@ package dp.linear;
  */
 public class MaximumSubarray {
 	/**
-	 * Kadane's algorithm.
+	 * Kadane's algorithm. We replace running sum with current element if
+	 * current element is bigger than running sum.
 	 */
 	public static class Solution {
 		public int maxSubArray(int[] nums) {
-			if (nums == null || nums.length == 0) {
-				return 0;
+			int curSum = 0;
+			int ans = Integer.MIN_VALUE;
+			for (int i = 0; i < nums.length; i++) {
+				curSum += nums[i];
+				if (nums[i] > curSum) {
+					curSum = nums[i];
+				}
+				ans = Math.max(curSum, ans);
 			}
-
-			int curMax = nums[0];
-			int max = nums[0];
-			for (int i = 1; i < nums.length; i++) {
-				curMax = Math.max(nums[i], curMax + nums[i]);
-				max = Math.max(curMax, max);
-			}
-
-			return max;
+			return ans;
 		}
 	}
 }

@@ -11,8 +11,11 @@ public class TesterOutput
 	private static final String TEXT_ACC = "[ACCEPTED]";
 	private final Class solutionClass;
 
-	public TesterOutput(final Class solutionClass)
+	private static List<String> outputQueue;
+
+	public TesterOutput(final Class solutionClass, List<String> outputQueue)
 	{
+		this.outputQueue = outputQueue;
 		this.solutionClass = solutionClass;
 		TESTER_S = createDefaultLongString('=');
 		TESTER_SEP = createDefaultLongString('-');
@@ -32,12 +35,9 @@ public class TesterOutput
 	{
 		String NUM = String.valueOf(i + 1);
 		String NOK = " NOK";
-		String E = createLongString('.', getLineLen() - NUM.length() - NOK.length());
-//		System.out.println(NUM + E + NOK);
 		System.out.println(NUM + '.' + NOK);
 		System.out.print("got:      ");
 		print(results.get(i));
-//		System.out.println();
 		System.out.print("expected: ");
 		print(expectations.get(i));
 		if (!orExpectations.isEmpty())

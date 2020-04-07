@@ -21,8 +21,14 @@ import java.util.List;
  *
  * TODO
  *
+ * - TestCase class
+ *
+ * - create output queue - add first, then decide to print or not
+ *
  * - add compare solutions by times(the idea is to call sol method n times and
  * get avg)
+ *
+ * - add debug mode - show inp and outp
  */
 public class Tester {
 	private final Method method;
@@ -82,6 +88,11 @@ public class Tester {
 		return null;
 	}
 
+	public Tester debug() {
+
+		return this;
+	}
+
 	public Tester add(Object... params) {
 		results.add(exec(params));
 		return this;
@@ -112,9 +123,16 @@ public class Tester {
 		return this;
 	}
 
+	class TestCase {
+		String input;
+		String output;
+		List<Object> expectations;
+		boolean result;
+	}
+
 	public void run() {
 		//todo: get len of the longest string in results, expectations, orExpectations for the separator
-		TesterOutput out = new TesterOutput(solutionClass);
+		TesterOutput out = new TesterOutput(solutionClass, null);
 		out.printMainSeparator();
 
 		boolean nok = false;

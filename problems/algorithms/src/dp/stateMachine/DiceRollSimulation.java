@@ -25,37 +25,37 @@ import java.util.Arrays;
  */
 public class DiceRollSimulation {
 	/**
-	 * $INSERT_EXPLANATION.
+	 * The reasoning here is to check how can the ith element end. I wrote down
+	 * the states for i=2 and i=3.
 	 */
 	public static class Solution {
+		private static final int MOD = 1_000_000_007;
+
 		public int dieSimulator(int n, int[] a) {
-			int[][][] dp = new int[n + 1][6 + 1][15 + 1];
-			for (int i = 3; i <= 6; i++) Arrays.fill(dp[2][i], 6);
-			for (int i = 1; i <= 2; i++) Arrays.fill(dp[2][i], 5);
+			int[][][] dp = new int[n + 1][6][15 + 1];
+			for (int i = 0; i < 6; i++) {
+				Arrays.fill(dp[1][i], 1);
+			}
 			int res = 0;
-			for (int i = 1; i <= 6; i++) {
-				res += dfs(n, i, a[i], dp, a);
+			for (int i = 0; i < 6; i++) {
+				res = (res + dfs(n, i, a[i], dp, a)) % MOD;
 			}
 			return res;
 		}
 
-		/**
-		 * k=how many times we can end with itself
-		 * curI=cur last digit
-		 */
 		int dfs(int n, int curI, int k, int[][][] dp, int[] a) {
 			if (dp[n][curI][k] != 0) {
 				return dp[n][curI][k];
 			}
 			int res = 0;
-			for (int newI = 1; newI <= 6; newI++) {
+			for (int newI = 0; newI < 6; newI++) {
 				if (newI != curI) {
-					for (int newK = a[newI]; newK >= 1; newK--) {
-						res += dfs(n - 1, newI, newK, dp, a);
-					}
-				} else {
-					for (int newK = k - 1; newK >= 1; newK--) {
-						res += dfs(n - 1, newI, newK, dp, a);
+					res = (res + dfs(n - 1, newI, a[newI], dp, a)) % MOD;
+				}
+				// ith sequence can end with i only if k - 1 > 0
+				else {
+					if (k - 1 > 0) {
+						res = (res + dfs(n - 1, newI, k - 1, dp, a)) % MOD;
 					}
 				}
 			}
@@ -64,3 +64,5 @@ public class DiceRollSimulation {
 		}
 	}
 }
+
+

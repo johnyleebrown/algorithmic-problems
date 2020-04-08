@@ -12,8 +12,7 @@ Graph Shortest Paths,graph/shortestPaths
 Hash Table,hashtable
 Recursion,recursion/other
 Random,math/random
-Tree Regular,tree/regular
-Tree Other,tree,tree/regular
+Tree Regular,tree
 Design,ds
 Intervals,intervals
 Dynamic Programming,dp

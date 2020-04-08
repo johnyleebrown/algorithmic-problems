@@ -13,7 +13,7 @@ import util as u
 
 
 class CoreService:
-    root_path=str(Path(__file__).parent.absolute())+'/'
+    root_path = str(Path(__file__).parent.absolute()) + '/'
     is_session_finished = False
 
     topics_name_list = []
@@ -67,6 +67,8 @@ class CoreService:
                     if num == -1:
                         files_with_errors.append(x)
                         continue
+                    elif '@nochecker' in str(num):
+                        continue
                     problems_list.append(num)
                     problems_map[num] = {'path': path, 'name': x}
 
@@ -78,7 +80,7 @@ class CoreService:
             if len_topics == 1:
                 self.is_session_finished = True
             if len_topics > 0:
-                self.current_cant_solve+=1
+                self.current_cant_solve += 1
                 return self.cant_solves[self.current_cant_solve]
             else:
                 return "none"
@@ -130,7 +132,7 @@ class CoreService:
     def process_topics(self):
 
         topics = u.read_from_file(self.root_path + 'input.txt')
-        
+
         problem_found = False
         not_valid_files = []
 
@@ -164,7 +166,7 @@ class CoreService:
         self.main_dir = params_map['main_dir']
 
     def process_cant_solves(self):
-        self.cant_solves=[]
+        self.cant_solves = []
         x = self.root_path + 'next_day_repeat.txt'
         todos = u.read_from_file(x)
         u.clear_file(x)
@@ -177,7 +179,7 @@ class CoreService:
             if datetime.utcnow() >= u.get_date(t[2]):
                 self.cant_solves.append(local_data)
             else:
-                u.add_line_to_file(x,todo)
+                u.add_line_to_file(x, todo)
 
         return len(self.cant_solves) > 0
 
@@ -202,6 +204,7 @@ class CoreService:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
+
 
 '''
 if __name__ == "__main__":

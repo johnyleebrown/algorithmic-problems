@@ -1,13 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import npyscreen
 import time
 from datetime import datetime
 
+import npyscreen
+
+import stats_service as stats
 import util as u
 from core_service import CoreService
-import stats_service as stats
 
 core: CoreService
 
@@ -235,7 +236,7 @@ class CustomWidget(npyscreen.MultiLineAction):
         self.cur_rel_x = self.base_rel_x
         self.cur_rel_y = self.base_rel_y
 
-        self.add_lines(stats.get_month(core.results))
+        self.add_lines(stats.get_all(core.results))
 
     def action_on_cant_solve(self):
 

@@ -5,7 +5,6 @@ import sys
 from datetime import *
 
 import util as u
-from core_service import CoreService
 
 
 def get_best_result_for_problem(current_problem_number, results):
@@ -31,61 +30,61 @@ def get_comparison_to_best_result(current_problem_number, current_time, results)
 
 
 def get_title(s):
-    tot=30
-    if s=='':
-        return '='*tot
-    l='='*3
-    empt=' '
-    leftover='='*(tot-len(l)-len(s)-2)
+    tot = 30
+    if s == '':
+        return '=' * tot
+    l = '=' * 3
+    empt = ' '
+    leftover = '=' * (tot - len(l) - len(s) - 2)
     return l + empt + s + empt + leftover
 
 
 def get_now_with_delta(d):
     now = datetime.utcnow()
-    return now+timedelta(days=d)
+    return now + timedelta(days=d)
 
 
 def get_fastest_solved_problem(n, results):
-    res_seconds=sys.float_info.max
-    res_title=''
+    res_seconds = sys.float_info.max
+    res_title = ''
     now_with_delta = get_now_with_delta(-n)
     for r in results:
-        res_data=r.split(",")
+        res_data = r.split(",")
         dt = u.get_date(res_data[3])
         if dt >= now_with_delta:
-            cur=float(res_data[2])
+            cur = float(res_data[2])
             if cur < res_seconds:
-                res_seconds=cur
-                res_title=res_data[0] + ', ' + res_data[1]
-    res_minutes = res_seconds/60
-    s=f'[{res_minutes :.2f}]'
+                res_seconds = cur
+                res_title = res_data[0] + ', ' + res_data[1]
+    res_minutes = res_seconds / 60
+    s = f'[{res_minutes :.2f}]'
     return [get_title('FASTEST'), s + ' ' + res_title]
 
 
 def get_slowest_solved_problem(n, results):
-    res_seconds=sys.float_info.min
-    res_title=''
-    now_with_delta=get_now_with_delta(-n)
+    res_seconds = sys.float_info.min
+    res_title = ''
+    now_with_delta = get_now_with_delta(-n)
     for r in results:
-        res_data=r.split(",")
+        res_data = r.split(",")
         dt = u.get_date(res_data[3])
-        if dt>=now_with_delta:
+        if dt >= now_with_delta:
             cur = float(res_data[2])
             if cur > res_seconds:
                 res_seconds = cur
                 res_title = res_data[0] + ', ' + res_data[1]
-    res_minutes = res_seconds/60
-    s=f'[{res_minutes :.2f}]'
+    res_minutes = res_seconds / 60
+    s = f'[{res_minutes :.2f}]'
     return [get_title('SLOWEST'), s + ' ' + res_title]
 
 
-def get_(n,results):
+def get_(n, results):
     now_with_delta = get_now_with_delta(-n)
-    topics={}
+    topics = {}
     for r in results:
-        res_data=r.split(",")
-        dt=u.get_date(res_data[3])
-        if dt>=now_with_delta:
+        res_data = r.split(",")
+        dt = u.get_date(res_data[3])
+        if dt >= now_with_delta:
             if res_data[0] in topics:
                 topics[res_data[0]] += 1
             else:
@@ -94,8 +93,8 @@ def get_(n,results):
 
 
 def get_topics_problems_count(n, results):
-    topics=get_(n,results)
-    res=[get_title(get_n_title_map(n))]
+    topics = get_(n, results)
+    res = [get_title(get_n_title_map(n))]
     for k, v in sorted(topics.items(), key=lambda item: item[1], reverse=True):
         res.append(str(v) + ' ' + k)
     return res
@@ -109,28 +108,30 @@ def get_n_title_map(n):
     else:
         return 'ALL'
 
+
 def get_for_period(n, results):
     res = []
-    res.extend(get_fastest_solved_problem(n, results))
-    res.extend(get_slowest_solved_problem(n, results))
+    # res.extend(get_fastest_solved_problem(n, results))
+    # res.extend(get_slowest_solved_problem(n, results))
     res.extend(get_topics_problems_count(n, results))
     res.extend([get_title('')])
     return res
 
 
 def get_weekly(r):
-    return get_for_period(7,r)
+    return get_for_period(7, r)
 
 
 def get_month(r):
-    return get_for_period(30,r)
+    return get_for_period(30, r)
 
-# if __name__ == "__main__":
-#     core = CoreService()
-#     print(get_fastest_solved_problem(7,core.results))
 
-# add good or bad stats
-# for each topic it should be 7 solves per week
-#Ttt
-##Add can’t solve button
-#It will add a list for the next day
+def get_all(r):
+    return get_for_period(365, r)
+
+
+"""
+if __name__ == "__main__":
+    core = CoreService()
+    print(get_fastest_solved_problem(7,core.results))
+"""

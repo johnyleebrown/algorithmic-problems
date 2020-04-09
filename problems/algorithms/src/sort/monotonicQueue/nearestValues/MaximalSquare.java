@@ -10,24 +10,21 @@ import java.util.Deque;
  *
  * Task.
  *
- * Given a 2D binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
+ * Given a 2D binary matrix filled with 0's and 1's, find the largest square
+ * containing only 1's and return its area.
  *
  * ======
  *
  * Source: Leetcode
  */
-public class MaximalSquare
-{
+public class MaximalSquare {
 	/**
 	 * Same as 85.
 	 */
-	class Solution
-	{
-		public int maximalSquare(char[][] matrix)
-		{
+	class Solution {
+		public int maximalSquare(char[][] matrix) {
 			int n = matrix.length;
-			if (n == 0)
-			{
+			if (n == 0) {
 				return 0;
 			}
 
@@ -35,18 +32,14 @@ public class MaximalSquare
 			int maxRectangle = 0;
 
 			int[] accumulatedHeights = new int[m];
-			for (int i = 0; i < n; i++)
-			{
-				for (int j = 0; j < m; j++)
-				{
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < m; j++) {
 					// reset accumulation if there is a gap in the bar
 					// meaning - there is a gap in height
-					if (matrix[i][j] == '0')
-					{
+					if (matrix[i][j] == '0') {
 						accumulatedHeights[j] = 0;
 					}
-					else
-					{
+					else {
 						accumulatedHeights[j]++;
 					}
 				}
@@ -57,30 +50,24 @@ public class MaximalSquare
 			return maxRectangle;
 		}
 
-		public int largestRectangleArea(int[] heights)
-		{
+		public int largestRectangleArea(int[] heights) {
 			MQ q = new MQ();
-			for (int i = 0; i <= heights.length; i++)
-			{
+			for (int i = 0; i <= heights.length; i++) {
 				int currentValue = i != heights.length ? heights[i] : 0;
 				q.push(new Item(currentValue, i));
 			}
 			return q.maxArea;
 		}
 
-		private class MQ
-		{
+		private class MQ {
 			private Deque<Item> q = new ArrayDeque<>();
 			private int maxArea;
 
-			public void push(Item newItem)
-			{
-				while (!q.isEmpty() && newItem.val < q.peekLast().val)
-				{
+			public void push(Item newItem) {
+				while (!q.isEmpty() && newItem.val < q.peekLast().val) {
 					Item upperBoundary = q.removeLast();
 					int leftBoundaryIndex = -1;
-					if (!q.isEmpty())
-					{
+					if (!q.isEmpty()) {
 						leftBoundaryIndex = q.peekLast().ind;
 					}
 					int width = newItem.ind - leftBoundaryIndex - 1;
@@ -94,12 +81,10 @@ public class MaximalSquare
 			}
 		}
 
-		private class Item
-		{
+		private class Item {
 			int val, ind;
 
-			Item(int val, int ind)
-			{
+			Item(int val, int ind) {
 				this.val = val;
 				this.ind = ind;
 			}

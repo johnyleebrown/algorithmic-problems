@@ -27,18 +27,15 @@ import java.util.PriorityQueue;
  *
  * Source: Leetcode
  */
-public class MaximumPerformanceOfATeam
-{
+public class MaximumPerformanceOfATeam {
 	/**
 	 * When checking redo for indexes. Thinking here is that we need most
 	 * efficient engineers, so we traverse them in decreasing order.
 	 */
-	public static class Solution
-	{
+	public static class Solution {
 		private static final int MOD = 1_000_000_007;
 
-		public int maxPerformance(int n, int[] speed, int[] efficiency, int k)
-		{
+		public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
 			List<Engineer> mostEfficientEngineers = new ArrayList<>();
 			for (int i = 0; i < speed.length; i++)
 				mostEfficientEngineers.add(new Engineer(speed[i], efficiency[i]));
@@ -48,8 +45,7 @@ public class MaximumPerformanceOfATeam
 			long sum = 0;
 			long ans = 0;
 
-			for (Engineer engineer : mostEfficientEngineers)
-			{
+			for (Engineer engineer : mostEfficientEngineers) {
 				sum += engineer.speed;
 
 				mostEfficientAndFastEngineers.add(engineer.speed);
@@ -64,25 +60,21 @@ public class MaximumPerformanceOfATeam
 			return (int) (ans % MOD);
 		}
 
-		private class Engineer
-		{
+		private class Engineer {
 			private int speed;
 			private int efficiency;
 
-			public Engineer(int speed, int efficiency)
-			{
+			public Engineer(int speed, int efficiency) {
 				this.speed = speed;
 				this.efficiency = efficiency;
 			}
 		}
 
-		public Solution()
-		{
+		public Solution() {
 		}
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		new Tester(new Solution())
 				.add(6, new int[]{2, 10, 3, 1, 5, 8}, new int[]{5, 4, 3, 9, 7, 2}, 2).expect(60)
 				.run();

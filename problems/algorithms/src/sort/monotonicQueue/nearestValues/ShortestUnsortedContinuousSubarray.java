@@ -10,8 +10,9 @@ import java.util.Deque;
  *
  * Task.
  *
- * Given an integer array, you need to find one continuous subarray that if you only sort this subarray in ascending
- * order, then the whole array will be sorted in ascending order, too.
+ * Given an integer array, you need to find one continuous subarray that if you
+ * only sort this subarray in ascending order, then the whole array will be
+ * sorted in ascending order, too.
  *
  * You need to find the shortest such subarray and output its length.
  *
@@ -19,91 +20,70 @@ import java.util.Deque;
  *
  * Source: Leetcode
  */
-public class ShortestUnsortedContinuousSubarray
-{
+public class ShortestUnsortedContinuousSubarray {
 	/**
-	 * Using MQ to detect change of rising/falling slope.
+	 * We have increasing mq from 0 to n-1 and decr from n-1 to 0. In incr we
+	 * are looking for the minimum removed index - this element will be the
+	 * leftmost element that is not in it's place - we will understand that by
+	 * removing bigger elements with smaller ones. Similarly for decr queue.
 	 */
-	class Solution
-	{
-		public int findUnsortedSubarray(int[] nums)
-		{
+	class Solution {
+		public int findUnsortedSubarray(int[] nums) {
 			int n = nums.length;
-			IMQ imq = new IMQ(n);
-			for (int i = 0; i < n; i++)
-			{
-				imq.push(new Item(nums[i], i));
+			MQ imq = new IMQ();
+			for (int i = 0; i < n; i++) {
+				imq.push(new int[]{nums[i], i});
 			}
-			int left = imq.getLeftBoundary();
-			DMQ dmq = new DMQ(-1);
-			for (int i = n - 1; i >= 0; i--)
-			{
-				dmq.push(new Item(nums[i], i));
+			MQ dmq = new DMQ();
+			for (int i = n - 1; i >= 0; i--) {
+				dmq.push(new int[]{nums[i], i});
 			}
-			int right = dmq.getRightBoundary();
-			return left > right ? 0 : right - left + 1;
+			if (imq.ind == null && dmq.ind == null) {
+				return 0;
+			}
+			return dmq.ind - imq.ind + 1;
 		}
 
-		private class IMQ
-		{
-			Deque<Item> q = new ArrayDeque<>();
-			int leftBoundary;
+		abstract class MQ {
+			Deque<int[]> q = new ArrayDeque<>();
+			Integer ind;
 
-			IMQ(int leftBoundary)
-			{
-				this.leftBoundary = leftBoundary;
-			}
+			abstract void push(int[] cur);
 
-			int getLeftBoundary()
-			{
-				return leftBoundary;
-			}
+			abstract int getInd();
+		}
 
-			void push(Item newItem)
-			{
-				while (!q.isEmpty() && newItem.val < q.peekLast().val)
-				{
-					leftBoundary = Math.min(leftBoundary, q.peekLast().ind);
+		private class IMQ extends MQ {
+			public void push(int[] cur) {
+				while (!q.isEmpty() && q.peekLast()[0] > cur[0]) {
+					ind = Math.min(getInd(), q.peekLast()[1]);
 					q.removeLast();
 				}
-				q.addLast(newItem);
+				q.addLast(cur);
+			}
+
+			protected int getInd() {
+				if (ind == null) {
+					return Integer.MAX_VALUE;
+				}
+				return ind;
 			}
 		}
 
-		private class DMQ
-		{
-			Deque<Item> q = new ArrayDeque<>();
-			int rightBoundary;
-
-			DMQ(int rightBoundary)
-			{
-				this.rightBoundary = rightBoundary;
-			}
-
-			int getRightBoundary()
-			{
-				return rightBoundary;
-			}
-
-			void push(Item newItem)
-			{
-				while (!q.isEmpty() && newItem.val > q.peekLast().val)
-				{
-					rightBoundary = Math.max(rightBoundary, q.peekLast().ind);
+		private class DMQ extends MQ {
+			public void push(int[] cur) {
+				while (!q.isEmpty() && q.peekLast()[0] < cur[0]) {
+					ind = Math.max(q.peekLast()[1], getInd());
 					q.removeLast();
 				}
-				q.addLast(newItem);
+				q.addLast(cur);
 			}
-		}
 
-		private class Item
-		{
-			int val, ind;
-
-			Item(int val, int ind)
-			{
-				this.val = val;
-				this.ind = ind;
+			protected int getInd() {
+				if (ind == null) {
+					return Integer.MIN_VALUE;
+				}
+				return ind;
 			}
 		}
 	}

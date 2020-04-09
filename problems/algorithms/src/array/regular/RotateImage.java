@@ -1,14 +1,12 @@
 package array.regular;
 
+import com.sun.tools.javac.util.Pair;
+
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * 48
- * <p>
- * You are given an n x n 2D matrix representing an image.
- * Rotate the image by 90 degrees (clockwise).
- * You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
  */
 public class RotateImage {
     /**
@@ -20,19 +18,19 @@ public class RotateImage {
             int n = matrix.length;
             int newj = n - 1;
             int newi = 0;
-            Set<javafx.util.Pair> set = new HashSet<>();
+            Set<Pair> set = new HashSet<>();
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
                     if (set.size() == n * n) return;
-                    if (!set.contains(new javafx.util.Pair(i, j)))
+                    if (!set.contains(new Pair(i, j)))
                         replace(matrix, i, j, newi + j, newj - i, matrix[i][j], set);
                 }
             }
 
         }
 
-        private void replace(int[][] matrix, int originalI, int originalJ, int newi, int newj, int num, Set<javafx.util.Pair> set) {
-            set.add(new javafx.util.Pair(newi, newj));
+        private void replace(int[][] matrix, int originalI, int originalJ, int newi, int newj, int num, Set<Pair> set) {
+            set.add(new Pair(newi, newj));
             int temp = matrix[newi][newj];
             matrix[newi][newj] = num;
             if (newi == originalI && newj == originalJ) return;

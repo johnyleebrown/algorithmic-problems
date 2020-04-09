@@ -7,3 +7,4 @@ https://leetcode.com/problems/split-array-largest-sum/
 
 
 https://brestprog.by/topics/binsearch/
+https://leetcode.com/problems/sqrtx/discuss/480399/Binary-Search-Summary

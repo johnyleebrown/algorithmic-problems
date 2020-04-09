@@ -23,7 +23,7 @@ public class IncreasingTripletSubsequence {
 	/**
 	 * Using MQ and set. Keeping a decreasing queue, going from the back.
 	 */
-	public static class Solution2 {
+	public static class Solution {
 		public boolean increasingTriplet(int[] a) {
 			MQ mq = new MQ();
 			for (int i = a.length - 1; i >= 0; i--) {

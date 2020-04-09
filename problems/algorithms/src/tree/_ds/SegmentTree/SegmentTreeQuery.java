@@ -1,6 +1,11 @@
 package tree._ds.SegmentTree;
 
-interface SegmentTreeQuery {
+/**
+ * @nochecker
+ *
+ * SegmentTreeQuery
+ */
+public interface SegmentTreeQuery {
 
 	void increment(int i, int j, int val);
 

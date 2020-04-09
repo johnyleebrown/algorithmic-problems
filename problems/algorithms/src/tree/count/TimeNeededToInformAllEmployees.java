@@ -1,7 +1,5 @@
 package tree.count;
 
-import util.tester.Tester;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,18 +34,15 @@ import java.util.List;
  *
  * Source: Leetcode
  */
-public class TimeNeededToInformAllEmployees
-{
+public class TimeNeededToInformAllEmployees {
 	/**
 	 * In other words - find max path sum.
 	 */
-	public static class Solution
-	{
+	public static class Solution {
 		private int ans = 0;
 		private List<Integer>[] graph;
 
-		public int numOfMinutes(int n, int headID, int[] manager, int[] time)
-		{
+		public int numOfMinutes(int n, int headID, int[] manager, int[] time) {
 			graph = new List[n];
 			for (int i = 0; i < n; i++)
 				graph[i] = new ArrayList<>();
@@ -58,19 +53,11 @@ public class TimeNeededToInformAllEmployees
 			return ans;
 		}
 
-		void dfs(int prev, int cur, int[] inf)
-		{
+		void dfs(int prev, int cur, int[] inf) {
 			if (graph[cur].size() == 0)
 				ans = Math.max(ans, prev + inf[cur]);
 			for (int w : graph[cur])
 				dfs(prev + inf[cur], w, inf);
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add(11, 4, Tester.arFromString("[5,9,6,10,-1,8,9,1,9,3,4]"), Tester.arFromString("[0,213,0,253,686,170,975,0,261,309,337]")).expect(2560)
-				.run();
 	}
 }

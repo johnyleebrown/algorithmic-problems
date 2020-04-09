@@ -3,28 +3,28 @@ package bs.regular;
 /**
  * 69
  */
-public class Sqrt
-{
-	class Solution
-	{
-		public int mySqrt(int x)
-		{
-			if (x == 0) return 0;
-			int lo = 1, hi = x, ans = -1;
-			while (lo <= hi)
-			{
-				int mid = lo + (hi - lo) / 2;
-				if (mid <= x / mid)
-				{
-					lo = mid + 1;
-					ans = mid;
+public class Sqrt {
+	class Solution {
+		public int mySqrt(int x) {
+			if (x == 0) {
+				return 0;
+			}
+			long lo = 1;
+			long hi = x;
+			while (lo <= hi) {
+				long mid = lo + (hi - lo) / 2;
+				long val = mid * mid;
+				if (val == x) {
+					return (int) mid;
 				}
-				else
-				{
+				else if (val > x) {
 					hi = mid - 1;
 				}
+				else {
+					lo = mid + 1;
+				}
 			}
-			return ans;
+			return (int) hi;
 		}
 	}
 }

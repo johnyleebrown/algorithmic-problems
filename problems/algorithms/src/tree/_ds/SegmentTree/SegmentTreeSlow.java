@@ -1,11 +1,13 @@
 package tree._ds.SegmentTree;
 
 /**
+ * @nochecker
+ *
  * RangeSlow
  *
  * Slow version of range increment.
  */
-class SegmentTreeSlow implements SegmentTreeQuery {
+public class SegmentTreeSlow implements SegmentTreeQuery {
 	private Integer[] ar;
 
 	public SegmentTreeSlow(int n) {

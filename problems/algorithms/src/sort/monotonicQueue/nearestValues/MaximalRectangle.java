@@ -10,25 +10,22 @@ import java.util.Deque;
  *
  * Task.
  *
- * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its
- * area.
+ * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle
+ * containing only 1's and return its area.
  *
  * ======
  *
  * Source: Leetcode
  */
-public class MaximalRectangle
-{
+public class MaximalRectangle {
 	/**
-	 * First solve nearest values, then solve 84, then draw example, then it's pretty obvious.
+	 * First solve nearest values, then solve 84, then draw example, then it's
+	 * pretty obvious.
 	 */
-	class Solution
-	{
-		public int maximalRectangle(char[][] matrix)
-		{
+	class Solution {
+		public int maximalRectangle(char[][] matrix) {
 			int n = matrix.length;
-			if (n == 0)
-			{
+			if (n == 0) {
 				return 0;
 			}
 
@@ -36,18 +33,14 @@ public class MaximalRectangle
 			int maxRectangle = 0;
 
 			int[] accumulatedHeights = new int[m];
-			for (int i = 0; i < n; i++)
-			{
-				for (int j = 0; j < m; j++)
-				{
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < m; j++) {
 					// reset accumulation if there is a gap in the bar
 					// meaning - there is a gap in height
-					if (matrix[i][j] == '0')
-					{
+					if (matrix[i][j] == '0') {
 						accumulatedHeights[j] = 0;
 					}
-					else
-					{
+					else {
 						accumulatedHeights[j]++;
 					}
 				}
@@ -58,48 +51,46 @@ public class MaximalRectangle
 			return maxRectangle;
 		}
 
-		public int largestRectangleArea(int[] heights)
-		{
-			MQ q = new MQ();
-			for (int i = 0; i <= heights.length; i++)
-			{
+		public int largestRectangleArea(int[] heights) {
+			MQ queue = new MQ();
+
+			for (int i = 0; i <= heights.length; i++) {
 				int currentValue = i != heights.length ? heights[i] : 0;
-				q.push(new Item(currentValue, i));
+				queue.push(new Item(currentValue, i));
 			}
-			return q.maxArea;
+
+			return queue.maxArea;
 		}
 
-		private class MQ
-		{
-			private Deque<Item> q = new ArrayDeque<>();
-			private int maxArea;
+		private class MQ {
+			Deque<Item> queue;
+			int maxArea;
 
-			public void push(Item newItem)
-			{
-				while (!q.isEmpty() && newItem.val < q.peekLast().val)
-				{
-					Item upperBoundary = q.removeLast();
+			private MQ() {
+				queue = new ArrayDeque<>();
+			}
+
+			public void push(Item newItem) {
+				while (!queue.isEmpty() && newItem.val < queue.peekLast().val) {
+					Item upperBoundary = queue.removeLast();
 					int leftBoundaryIndex = -1;
-					if (!q.isEmpty())
-					{
-						leftBoundaryIndex = q.peekLast().ind;
+					if (!queue.isEmpty()) {
+						leftBoundaryIndex = queue.peekLast().ind;
 					}
+
 					int width = newItem.ind - leftBoundaryIndex - 1;
 					int currentArea = width * upperBoundary.val;
-
 					maxArea = Math.max(maxArea, currentArea);
 				}
 
-				q.addLast(newItem);
+				queue.addLast(newItem);
 			}
 		}
 
-		private class Item
-		{
+		private class Item {
 			int val, ind;
 
-			Item(int val, int ind)
-			{
+			Item(int val, int ind) {
 				this.val = val;
 				this.ind = ind;
 			}

@@ -1,7 +1,5 @@
 package graph.shortestPaths.bfs.count;
 
-import util.tester.Tester;
-
 import java.util.*;
 
 /**
@@ -30,22 +28,14 @@ import java.util.*;
  *
  * Source: Leetcode
  */
-public class FrogPositionAfterTSeconds
-{
-	/**
-	 *
-	 */
-	public static class Solution
-	{
-		public double frogPosition(int n, int[][] edges, int time, int target)
-		{
+public class FrogPositionAfterTSeconds {
+	public static class Solution {
+		public double frogPosition(int n, int[][] edges, int time, int target) {
 			Map<Integer, List<Integer>> m = new HashMap<>();
-			for (int i = 1; i <= n; i++)
-			{
+			for (int i = 1; i <= n; i++) {
 				m.put(i, new ArrayList<>());
 			}
-			for (int[] edge : edges)
-			{
+			for (int[] edge : edges) {
 				m.get(edge[0]).add(edge[1]);
 				m.get(edge[1]).add(edge[0]);
 			}
@@ -59,17 +49,14 @@ public class FrogPositionAfterTSeconds
 			Deque<Double> qProb = new ArrayDeque<>();
 			qProb.add(1D);
 
-			while (!qItem.isEmpty() && time-- >= 0)
-			{
+			while (!qItem.isEmpty() && time-- >= 0) {
 				int size = qItem.size();
-				while (--size >= 0)
-				{
+				while (--size >= 0) {
 					int currentItem = qItem.removeFirst();
 					double currentProbability = qProb.removeFirst();
 
 					int canGoToCount = 0;
-					for (int w : m.get(currentItem))
-					{
+					for (int w : m.get(currentItem)) {
 						if (seen[w])
 							continue;
 						seen[w] = true;
@@ -77,13 +64,11 @@ public class FrogPositionAfterTSeconds
 						canGoToCount++;
 					}
 
-					if (currentItem == target)
-					{
+					if (currentItem == target) {
 						// edge case
 						// if the time is not finished and we are at target
 						// and there is someplace else to go, the ans is zero
-						if (time >= 0 && canGoToCount > 0)
-						{
+						if (time >= 0 && canGoToCount > 0) {
 							return 0;
 						}
 
@@ -91,8 +76,7 @@ public class FrogPositionAfterTSeconds
 					}
 
 					//optimize this
-					for (int i = 0; i < canGoToCount; i++)
-					{
+					for (int i = 0; i < canGoToCount; i++) {
 						qProb.addLast(currentProbability / canGoToCount);
 					}
 				}
@@ -100,13 +84,5 @@ public class FrogPositionAfterTSeconds
 
 			return 0;
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add(7, Tester.ararFromString("[[1,2],[1,3],[1,7],[2,4],[2,6],[3,5]]"),2,4).expect(0.16666666666666666)
-				.add(22, Tester.ararFromString("[[2,1],[3,1],[4,2],[5,2],[6,4],[7,4],[8,4],[9,3],[10,4],[11,4],[12,5],[13,8],[14,9],[15,10],[16,7],[17,7],[18,15],[19,9],[20,11],[21,16],[22,19]]"),4,7).expect(0.0)
-				.run();
 	}
 }

@@ -2,6 +2,7 @@ package util.contest;
 
 import util.tester.Tester;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -29,9 +30,7 @@ public class SortIntegersByThePowerValue
 	public static class Solution
 	{
 		public int getKth(int lo, int hi, int k) {
-			PriorityQueue<Integer> q = new PriorityQueue<>((a,b)->{
-				return get(a) - get(b);
-			});
+			PriorityQueue<Integer> q = new PriorityQueue<>(Comparator.comparingInt(this::get));
 			for (int i = lo; i <= hi; i++)
 			{
 				q.add(i);

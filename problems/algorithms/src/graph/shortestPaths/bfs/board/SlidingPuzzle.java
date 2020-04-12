@@ -1,90 +1,111 @@
 package graph.shortestPaths.bfs.board;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 773
  */
-public class SlidingPuzzle
-{
-	class Solution
-	{
-		private String toStr(int[][] arr)
-		{
-			return Arrays.deepToString(arr);
+public class SlidingPuzzle {
+	/**
+	 * 123450 = 001 010 011 100 101 000 -> 42792
+	 *
+	 * 543210 = 101 100 011 010 001 000 -> 181896
+	 */
+	public static class Solution {
+		private static int[][] d = new int[][]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+		private static int[] finalState = new int[]{1, 2, 3, 4, 5, 0};
+
+		public int slidingPuzzle(int[][] ar) {
+			if (ar.length == 0) {
+				return 0;
+			}
+
+			List<Cell> q = new LinkedList<>();
+			q.add(new Cell(ar));
+			int ans = 0;
+			boolean[] seen = new boolean[181896 + 1];
+
+			while (!q.isEmpty()) {
+				int s = q.size();
+				while (--s >= 0) {
+					Cell cur = q.remove(0);
+					if (isFinalState(cur)) return ans;
+					for (int[] dd : d) {
+						int ni = cur.i + dd[0];
+						int nj = cur.j + dd[1];
+						if (ni < 0 || nj < 0 || ni >= 2 || nj >= 3) continue;
+						Cell nc = new Cell(cur);
+						nc.moveZero(ni, nj);
+						int st = getBitMask(nc.b);
+						if (seen[st]) continue;
+						seen[st] = true;
+						q.add(nc);
+					}
+				}
+				ans++;
+			}
+			return -1;
 		}
 
-		public int slidingPuzzle(int[][] board)
-		{
-			// edge cases
-			if (board == null || board.length == 0 || board[0].length == 0) return -1;
-			int[][] targetBoard = new int[][]{{1, 2, 3}, {4, 5, 0}};
-			if (Arrays.deepEquals(board, targetBoard)) return 0;
-
-			// essentials
-			int n = board.length, m = board[0].length;
-			int[][] dirs = new int[][]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
-			Set<String> seen = new HashSet<>();
-			seen.add(toStr(board));
-
-			// queues
-			Queue<int[][]> q = new LinkedList<>();
-			q.add(board);
-			Queue<int[]> cellsWithZero = new LinkedList<>();
-			for (int i = 0; i < n; i++)
-				for (int j = 0; j < m; j++)
-				{
-					if (board[i][j] == 0) cellsWithZero.add(new int[]{i, j});
+		private int getBitMask(int[][] ar) {
+			int ans = 0;
+			for (int i = 0; i < 2; i++) {
+				for (int j = 0; j < 3; j++) {
+					ans |= ar[i][j];
+					if (i != 1 || j != 2) {
+						ans = ans << 3;
+					}
 				}
+			}
+			return ans;
+		}
 
-			int moves = 0;
-			while (!q.isEmpty())
-			{
-				moves++;
-				int size = q.size();
-				while (--size >= 0)
-				{
-					int[] baseCell = cellsWithZero.poll();
-					int i = baseCell[0], j = baseCell[1];
-					int[][] newBoard = q.poll();
-					for (int[] dir : dirs)
-					{
-						// coordinates of possible move
-						int newI = i + dir[0], newJ = j + dir[1];
-						// if we cant go there continue
-						if (!isValidCell(newI, newJ, n, m)) continue;
-						// copy array with replaced cells
-						int[][] possibleMatch = copyArr(newBoard, n, m, i, j, newI, newJ);
-						// if we already seen that match we dont put it in the queue 	
-						if (!seen.add(toStr(possibleMatch))) continue;
-						// if it is the variant we ve been looking 4, return moves
-						if (Arrays.deepEquals(possibleMatch, targetBoard)) return moves;
+		private boolean isFinalState(Cell cur) {
+			int k = 0;
+			for (int i = 0; i < 2; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (cur.b[i][j] != finalState[k++]) {
+						return false;
+					}
+				}
+			}
+			return true;
+		}
 
-						q.add(possibleMatch);
-						cellsWithZero.add(new int[]{newI, newJ});
+		private class Cell {
+			int[][] b = new int[2][3];
+			int i, j;
+
+			public Cell(int[][] b) {
+				for (int i = 0; i < 2; i++) {
+					for (int j = 0; j < 3; j++) {
+						if (b[i][j] == 0) {
+							this.i = i;
+							this.j = j;
+						}
+						this.b[i][j] = b[i][j];
 					}
 				}
 			}
 
-			return -1;
-		}
-
-		private boolean isValidCell(int i, int j, int n, int m)
-		{
-			return i >= 0 && j >= 0 && i < n && j < m;
-		}
-
-		private int[][] copyArr(int[][] board, int n, int m, int oldI, int oldJ, int newI, int newJ)
-		{
-			int[][] newArray = new int[n][m];
-			for (int i = 0; i < n; i++)
-				for (int j = 0; j < m; j++)
-				{
-					newArray[i][j] = board[i][j];
+			public Cell(Cell c) {
+				for (int i = 0; i < 2; i++) {
+					for (int j = 0; j < 3; j++) {
+						b[i][j] = c.b[i][j];
+					}
 				}
-			newArray[newI][newJ] = board[oldI][oldJ];
-			newArray[oldI][oldJ] = board[newI][newJ];
-			return newArray;
+				this.i = c.i;
+				this.j = c.j;
+			}
+
+			public void moveZero(int ni, int nj) {
+				int t = b[ni][nj];
+				b[ni][nj] = 0;
+				b[i][j] = t;
+				i = ni;
+				j = nj;
+			}
 		}
 	}
 }

@@ -35,44 +35,40 @@ import java.util.List;
  *
  * Source: Leetcode
  */
-public class ProductOfTheLastKNumbers
-{
+public class ProductOfTheLastKNumbers {
 	/**
 	 * Clear when encounter a zero, because every product of subarray involving
 	 * zero is zero.
 	 */
-	private class Solution
-	{
-		class ProductOfNumbers
-		{
+	private class Solution {
+		class ProductOfNumbers {
 			List<Integer> pros = new ArrayList<>();
 
-			public ProductOfNumbers()
-			{
+			public ProductOfNumbers() {
 			}
 
-			public void add(int num)
-			{
-				if (num == 0)
-				{
+			public void add(int num) {
+				if (num == 0) {
 					pros.clear();
 				}
-				else
-				{
-					if (pros.size() > 0)
+				else {
+					if (pros.size() > 0) {
 						pros.add(pros.get(pros.size() - 1) * num);
-					else
+					}
+					else {
 						pros.add(num);
+					}
 				}
 			}
 
-			public int getProduct(int k)
-			{
+			public int getProduct(int k) {
 				int s = pros.size();
-				if (k > s)
+				if (k > s) {
 					return 0;
-				else
+				}
+				else {
 					return s - k - 1 < 0 ? pros.get(s - 1) : pros.get(s - 1) / pros.get(s - k - 1);
+				}
 			}
 		}
 	}

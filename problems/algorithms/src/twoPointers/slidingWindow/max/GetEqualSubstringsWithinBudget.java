@@ -21,23 +21,18 @@ package twoPointers.slidingWindow.max;
  * If there is no substring from s that can be changed to its corresponding
  * substring from t, return 0.
  */
-public class GetEqualSubstringsWithinBudget
-{
-	static class Solution
-	{
-		public int equalSubstring(String s, String t, int maxCost)
-		{
+public class GetEqualSubstringsWithinBudget {
+	static class Solution {
+		public int equalSubstring(String s, String t, int maxCost) {
 			int result = 0;
 			int l = 0;
 			int sum = 0;
 
-			for (int r = 0; r < s.length(); r++)
-			{
+			for (int r = 0; r < s.length(); r++) {
 				sum += getDiff(s, t, r);
 
 				// moving left pointer if bad condition is met
-				while (sum > maxCost)
-				{
+				while (sum > maxCost) {
 					sum -= getDiff(s, t, l);
 					l++;
 				}
@@ -48,8 +43,7 @@ public class GetEqualSubstringsWithinBudget
 			return result;
 		}
 
-		private int getDiff(String s, String t, int r)
-		{
+		private int getDiff(String s, String t, int r) {
 			return Math.abs(s.charAt(r) - t.charAt(r));
 		}
 	}

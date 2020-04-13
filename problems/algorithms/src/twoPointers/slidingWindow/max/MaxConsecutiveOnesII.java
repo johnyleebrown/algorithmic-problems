@@ -3,28 +3,21 @@ package twoPointers.slidingWindow.max;
 /**
  * 487
  */
-public class MaxConsecutiveOnesII
-{
-	static class Solution
-	{
-		public int findMaxConsecutiveOnes(int[] nums)
-		{
+public class MaxConsecutiveOnesII {
+	static class Solution {
+		public int findMaxConsecutiveOnes(int[] nums) {
 			int start = 0;
 			int end = 0;
 			int zeros = 0;
 			int maxLen = Integer.MIN_VALUE;
 
-			while (end < nums.length)
-			{
-				if (nums[end] == 0)
-				{
+			while (end < nums.length) {
+				if (nums[end] == 0) {
 					zeros++;
 				}
 
-				if (zeros > 1)
-				{
-					if (nums[start++] == 0)
-					{
+				if (zeros > 1) {
+					if (nums[start++] == 0) {
 						zeros--;
 					}
 				}

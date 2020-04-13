@@ -25,16 +25,12 @@ import java.util.Arrays;
  *
  * Source: Codeforces
  */
-public class MaxSizeBalancedTeam
-{
-	static class Solution
-	{
-		public void solve(int testNumber, InputReader in, PrintWriter out)
-		{
+public class MaxSizeBalancedTeam {
+	static class Solution {
+		public void solve(int testNumber, InputReader in, PrintWriter out) {
 			int n = in.nextInt(); // number of students
 			Long[] students = new Long[n]; // student powers
-			for (int i = 0; i < n; i++)
-			{
+			for (int i = 0; i < n; i++) {
 				students[i] = in.nextLong();
 			}
 
@@ -43,10 +39,8 @@ public class MaxSizeBalancedTeam
 			int result = 0;
 			int l = 0;
 
-			for (int r = 0; r < n; r++)
-			{
-				while (students[r] - students[l] > 5)
-				{
+			for (int r = 0; r < n; r++) {
+				while (students[r] - students[l] > 5) {
 					l++;
 				}
 

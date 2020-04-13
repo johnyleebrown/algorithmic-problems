@@ -25,29 +25,38 @@ public class A132Pattern {
 	 */
 	public static class Solution {
 		public boolean find132pattern(int[] a) {
-			MQ q = new MQ();
+			MQ queue = new MQ();
 			int n = a.length;
+
 			for (int i = n - 1; i >= 0; i--) {
-				if (q.push(a[i])) {
+				if (queue.push(a[i])) {
 					return true;
 				}
 			}
+
 			return false;
 		}
 
 		private class MQ {
-			private Deque<Integer> q = new ArrayDeque<>();
-			private int prev = Integer.MIN_VALUE;
+			private Deque<Integer> queue;
+			private int prev;
+
+			private MQ() {
+				queue = new ArrayDeque<>();
+				prev = Integer.MIN_VALUE;
+			}
 
 			public boolean push(int cur) {
 				if (prev > cur) {
 					return true;
 				}
-				while (!q.isEmpty() && q.peekLast() < cur) {
-					prev = q.peekLast();
-					q.removeLast();
+
+				while (!queue.isEmpty() && queue.peekLast() < cur) {
+					prev = queue.peekLast();
+					queue.removeLast();
 				}
-				q.addLast(cur);
+
+				queue.addLast(cur);
 				return false;
 			}
 		}

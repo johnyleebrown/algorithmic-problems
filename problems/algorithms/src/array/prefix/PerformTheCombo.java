@@ -3,8 +3,7 @@ package array.prefix;
 import util.ds.InputReader;
 
 import java.io.PrintWriter;
-
-import static util.ds.InputReader.par;
+import java.util.Arrays;
 
 /**
  * 624Div3C
@@ -34,8 +33,7 @@ import static util.ds.InputReader.par;
  *
  * Source: Codeforces
  */
-public class PerformTheCombo
-{
+public class PerformTheCombo {
 	/**
 	 * Since we have intervals [0, i], which indicate that from 0 to i letters
 	 * were pressed, this means we can sum this pressings with prefix sums. For
@@ -43,10 +41,8 @@ public class PerformTheCombo
 	 * pressings from 0 to i) and this translates to prefix sum arr: [3,2,2,1]
 	 * where i is letter at i pos in input string.
 	 */
-	private static class Solution
-	{
-		private static void s(InputReader in, PrintWriter o)
-		{
+	private static class Solution {
+		private static void s(InputReader in, PrintWriter o) {
 			int max = (int) (1e5) * 2;
 			int n = in.nextInt();
 			int m = in.nextInt();
@@ -63,7 +59,7 @@ public class PerformTheCombo
 			// for each letter find how much we pressed it from prefix sum arr
 			for (int i = 0; i < n; i++)
 				ans[s.charAt(i) - 'a'] += a[i];
-			par(o, ans);
+			o.print(Arrays.toString(ans));
 		}
 	}
 }

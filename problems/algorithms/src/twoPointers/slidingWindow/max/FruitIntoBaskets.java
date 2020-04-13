@@ -29,34 +29,27 @@ package twoPointers.slidingWindow.max;
  *
  * Find the largest subarray with exactly 2 types of elements.
  */
-public class FruitIntoBaskets
-{
-	static class Solution
-	{
-		public int totalFruit(int[] tree)
-		{
+public class FruitIntoBaskets {
+	static class Solution {
+		public int totalFruit(int[] tree) {
 			int l = 0;
 			int result = 0;
 			int[] map = new int[tree.length];
 			int uniqueNumbersInWindowCount = 0;
 
-			for (int r = 0; r < tree.length; r++)
-			{
+			for (int r = 0; r < tree.length; r++) {
 				map[tree[r]]++;
 
 				// if we ve found unique number - tree[r]
-				if (map[tree[r]] == 1)
-				{
+				if (map[tree[r]] == 1) {
 					uniqueNumbersInWindowCount++;
 				}
 
-				while (uniqueNumbersInWindowCount > 2)
-				{
+				while (uniqueNumbersInWindowCount > 2) {
 					map[tree[l]]--;
 
 					// if we ve found unique number - tree[r]
-					if (map[tree[l]] == 0)
-					{
+					if (map[tree[l]] == 0) {
 						uniqueNumbersInWindowCount--;
 					}
 

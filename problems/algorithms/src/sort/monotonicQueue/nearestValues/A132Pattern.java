@@ -20,21 +20,17 @@ import java.util.Deque;
  * Source: Leetcode
  */
 public class A132Pattern {
-	/**
-	 * $INSERT_EXPLANATION.
-	 */
 	public static class Solution {
 		public boolean find132pattern(int[] a) {
-			MQ queue = new MQ();
-			int n = a.length;
+				MQ queue = new MQ();
 
-			for (int i = n - 1; i >= 0; i--) {
-				if (queue.push(a[i])) {
-					return true;
+				for (int i = a.length - 1; i >= 0; i--) {
+						if (queue.push(a[i])) {
+								return true;
+						}
 				}
-			}
 
-			return false;
+				return false;
 		}
 
 		private class MQ {

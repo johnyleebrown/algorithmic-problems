@@ -13,11 +13,11 @@
  */
 public class $INSERT_CLASS_NAME
 {
-	/**
-	 * @formatter:off
-	 * $INSERT_EXPLANATION.
-	 * @formatter:on
-	 */
+    /**
+     * @formatter:off
+     * $INSERT_EXPLANATION.
+     * @formatter:on
+     */
 	public static class Solution
 	{
         public int solve()

@@ -1,4 +1,4 @@
-package dp.multidimensional.stateMachine;
+package dp.multidimensional;
 
 import java.util.Arrays;
 

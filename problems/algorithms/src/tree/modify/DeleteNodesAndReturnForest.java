@@ -2,74 +2,36 @@ package tree.modify;
 
 import util.ds.TreeNode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 1110
  */
-class DeleteNodesAndReturnForest
-{
-	class Solution
-	{
-		private Set<Integer> set = new HashSet<>();
+class DeleteNodesAndReturnForest {
+		class Solution {
+				List<TreeNode> l = new ArrayList<>();
 
-		public List<TreeNode> delNodes(TreeNode root, int[] to_delete)
-		{
-			List<TreeNode> res = new LinkedList<>();
-			if (root == null)
-			{
-				return res;
-			}
-
-			for (int i : to_delete)
-			{
-				set.add(i);
-			}
-
-			Queue<TreeNode> q = new LinkedList<>();
-			q.add(root);
-
-			if (!set.contains(root.val))
-			{
-				res.add(root);
-			}
-
-			while (!q.isEmpty())
-			{
-				TreeNode x = q.poll();
-
-				if (x.left != null)
-				{
-					TreeNode l = x.left;
-					q.add(l);
-
-					if (set.contains(x.left.val))
-					{
-						x.left = null;
-					}
-					if (set.contains(x.val) && !set.contains(l.val))
-					{
-						res.add(l);
-					}
+				public List<TreeNode> delNodes(TreeNode root, int[] d) {
+						Set<Integer> s = new HashSet<>();
+						for (int i : d) s.add(i);
+						root = h(s, root);
+						if (root != null) l.add(root);
+						return l;
 				}
 
-				if (x.right != null)
-				{
-					TreeNode r = x.right;
-					q.add(r);
-
-					if (set.contains(x.right.val))
-					{
-						x.right = null;
-					}
-					if (set.contains(x.val) && !set.contains(r.val))
-					{
-						res.add(r);
-					}
+				private TreeNode h(Set<Integer> s, TreeNode cur) {
+						if (cur == null) return null;
+						cur.left = h(s, cur.left);
+						cur.right = h(s, cur.right);
+						if (s.contains(cur.val)) {
+								if (cur.left != null) l.add(cur.left);
+								if (cur.right != null) l.add(cur.right);
+								return null;
+						}
+						return cur;
 				}
-			}
-
-			return res;
 		}
-	}
 }

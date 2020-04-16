@@ -7,48 +7,37 @@ import java.util.TreeMap;
 /**
  * 1146
  */
-public class SnapshotArray
-{
-	// opt: use array
-	private Map<Integer, TreeMap<Integer, Integer>> history;
-	private int snap_id = 0;
+public class SnapshotArray {
+		public static class Solution {
+				int id;
+				private static Map<Integer, TreeMap<Integer, Integer>> m;
+				int n;
 
-	public SnapshotArray(int length)
-	{
-		history = new HashMap<>();
-		for (int i = 0; i < length; i++)
-		{
-			TreeMap<Integer, Integer> indHistory = new TreeMap<>();
-			indHistory.put(0, 0);
-			history.put(i, indHistory);
+				public Solution(int n) {
+						this.n = n;
+						id = 0;
+						m = new HashMap<>();
+						for (int i = 0; i < n; i++) {
+								m.put(i, new TreeMap<>());
+								m.get(i).put(0, 0);
+						}
+				}
+
+				public void set(int index, int val) {
+						if (index > n) {
+								return;
+						}
+						if (m.get(index).floorEntry(id).getValue() != val) {
+								m.get(index).put(id, val);
+						}
+				}
+
+				public int snap() {
+						return id++;
+				}
+
+				public int get(int index, int snap_id) {
+						return m.get(index).floorEntry(snap_id).getValue();
+				}
 		}
-	}
-
-	public void set(int index, int val)
-	{
-		TreeMap<Integer, Integer> v = history.get(index);
-		v.put(snap_id, val);
-		history.put(index, v);
-	}
-
-	public int snap()
-	{
-		int temp = snap_id;
-		snap_id++;
-		return temp;
-	}
-
-	public int get(int index, int snap_id)
-	{
-		TreeMap<Integer, Integer> v = history.get(index);
-		if (v.containsKey(snap_id))
-		{
-			return v.get(snap_id);
-		}
-		else
-		{
-			int f = v.floorKey(snap_id);
-			return v.get(f);
-		}
-	}
 }

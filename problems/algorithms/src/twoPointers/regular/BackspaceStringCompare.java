@@ -11,51 +11,45 @@ package twoPointers.regular;
  * empty text editors. # means a backspace character.
  */
 public class BackspaceStringCompare {
-	public static class Solution {
-		public boolean backspaceCompare(String S, String T) {
-			int sn = S.length();
-			int tn = T.length();
-			int s = sn - 1;
-			int t = tn - 1;
-
-			while (s >= 0 || t >= 0) {
-				if (s >= 0) {
-					s = upd(S, s);
+		public static class Solution {
+				public boolean backspaceCompare(String s, String t) {
+						int sn = s.length(), tn = t.length();
+						int si = sn - 1, ti = tn - 1;
+						while (si >= 0 || ti >= 0) {
+								if (si >= 0) {
+										si = getIndexAfterRemovals(s, si);
+								}
+								if (ti >= 0) {
+										ti = getIndexAfterRemovals(t, ti);
+								}
+								if (si < 0 && ti < 0) {
+										return true;
+								}
+								if ((si < 0 || ti < 0) || s.charAt(si) != t.charAt(ti)) {
+										return false;
+								}
+								si--;
+								ti--;
+						}
+						return true;
 				}
-				if (t >= 0) {
-					t = upd(T, t);
-				}
 
-				if (s < 0 && t < 0) {
-					return true;
+				private int getIndexAfterRemovals(String s, int i) {
+						if (s.charAt(i) == '#') {
+								int c = 1;
+								while (c > 0) {
+										c--;
+										i--;
+										if (i < 0) break;
+										if (s.charAt(i) == '#') c++;
+										i--;
+										if (i < 0) break;
+										if (s.charAt(i) == '#') c++;
+								}
+						}
+						else {
+						}
+						return i;
 				}
-				if (s < 0 || t < 0 || S.charAt(s) != T.charAt(t)) {
-					return false;
-				}
-
-				s--;
-				t--;
-			}
-
-			return s < 0 && t < 0;
 		}
-
-		// find the next readable char from S
-		private int upd(String S, int s) {
-			int leftOver = 0;
-
-			while (s >= 0 && (leftOver > 0 || S.charAt(s) == '#')) {
-				if (S.charAt(s) == '#') {
-					leftOver++;
-				}
-				else {
-					leftOver--;
-				}
-
-				s--;
-			}
-
-			return s;
-		}
-	}
 }

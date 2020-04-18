@@ -3,42 +3,38 @@ package array;
 /**
  * 34
  */
-public class FindFirstAndLastPositionOfElementInSortedArray
-{
-	static class Solution
-	{
-		private enum Dir{R, L;}
+public class FindFirstAndLastPositionOfElementInSortedArray {
+    public static class Solution {
+        public int[] searchRange(int[] a, int t) {
+            return new int[]{bs1(a.length, t, a), bs2(a.length, t, a)};
+        }
 
-		public int[] searchRange(int[] nums, int target)
-		{
-			int l = bs(target, nums, Dir.L);
-			int r = bs(target, nums, Dir.R);
-			return new int[]{l, r};
-		}
+        private int bs1(int n, int x, int[] a) {
+            int lo = -1;
+            int hi = n;
+            while (hi - lo > 1) {
+                int mid = lo + (hi - lo) / 2;
+                if (a[mid] < x) {
+                    lo = mid;
+                } else {
+                    hi = mid;
+                }
+            }
+            return hi >= n || a[hi] != x ? -1 : hi;
+        }
 
-		private int bs(int target, int[] nums, Dir dir)
-		{
-			int ans = -1;
-			int lo = 0, hi = nums.length - 1;
-			while (lo <= hi)
-			{
-				int mid = lo + (hi - lo) / 2;
-				if (target < nums[mid])
-				{
-					hi = mid - 1;
-				}
-				else if (target > nums[mid])
-				{
-					lo = mid + 1;
-				}
-				else
-				{
-					ans = mid;
-					if (dir == Dir.R) lo = mid + 1;
-					else hi = mid - 1;
-				}
-			}
-			return ans;
-		}
-	}
+        private int bs2(int n, int x, int[] a) {
+            int lo = -1;
+            int hi = n;
+            while (hi - lo > 1) {
+                int mid = lo + (hi - lo) / 2;
+                if (a[mid] <= x) {
+                    lo = mid;
+                } else {
+                    hi = mid;
+                }
+            }
+            return lo <= -1 || a[lo] != x ? -1 : lo;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package bs;
+package bs.greedy;
 
 /**
  * 774
@@ -21,7 +21,9 @@ package bs;
  */
 public class MinimizeMaxDistanceToGasStation {
     /**
-     * We want to find dist with binary search.
+     * We operate with number of gas stations. Good condition - we put >= k gas
+     * stations it means that dist is too low => need to increase it, lo = mid +
+     * 1.
      */
     public static class Solution {
         public double minmaxGasDist(int[] a, int k) {
@@ -30,7 +32,7 @@ public class MinimizeMaxDistanceToGasStation {
             double hi = 1e8 + 1;
             while (hi - lo > eps) {
                 double mid = lo + (hi - lo) / 2;
-                if (k < countStationsForMaxDist(a, mid)) { // dist < x
+                if (k < getStationsForMaxDist(a, mid)) { // dist < x
                     lo = mid;
                 } else { // dist >= x
                     hi = mid;
@@ -39,7 +41,7 @@ public class MinimizeMaxDistanceToGasStation {
             return hi;
         }
 
-        private int countStationsForMaxDist(int[] a, double maxDist) {
+        private int getStationsForMaxDist(int[] a, double maxDist) {
             int n = a.length;
             int count = 0; // count of stations we can insert
             for (int i = 0; i < n - 1; i++) {

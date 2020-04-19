@@ -2,39 +2,38 @@ package design.iterator;
 
 import util.ds.TreeNode;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * 173
  */
-public class BinarySearchTreeIterator
-{
-	private Stack<TreeNode> stack;
-	private TreeNode node;
+public class BinarySearchTreeIterator {
+	public static class Solution {
+		class BSTIterator {
+			Deque<TreeNode> st;
 
-	public BinarySearchTreeIterator(TreeNode root)
-	{
-		stack = new Stack<>();
-		node = root;
-	}
+			public BSTIterator(TreeNode root) {
+				st = new ArrayDeque<>();
+				addLefts(root);
+			}
 
-	public boolean hasNext()
-	{
-		return !stack.isEmpty() || node != null;
-	}
+			private void addLefts(TreeNode r) {
+				while (r != null) {
+					st.addLast(r);
+					r = r.left;
+				}
+			}
 
-	public int next()
-	{
-		while (node != null)
-		{
-			stack.push(node);
-			node = node.left;
+			public int next() {
+				TreeNode cur = st.removeLast();
+				addLefts(cur.right);
+				return cur.val;
+			}
+
+			public boolean hasNext() {
+				return !st.isEmpty();
+			}
 		}
-
-		node = stack.pop();
-		int res = node.val;
-		node = node.right;
-
-		return res;
 	}
 }

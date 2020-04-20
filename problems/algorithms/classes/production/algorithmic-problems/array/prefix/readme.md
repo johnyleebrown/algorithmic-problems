@@ -1,1 +1,0 @@
-No exact pattern here, just try to implement prefix sum, see if it works.

@@ -1,10 +1,6 @@
 package graph.shortestPaths.bfs.combinatorics;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 752
@@ -82,7 +78,7 @@ public class OpenTheLock
 
         private String generateIncremented(char ch)
         {
-            if (ch == '9') return "0";
+            if (ch == '9') return "a0";
             return String.valueOf(Character.getNumericValue(ch) + 1);
         }
 

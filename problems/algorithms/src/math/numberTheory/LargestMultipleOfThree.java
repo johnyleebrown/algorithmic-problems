@@ -140,7 +140,7 @@ public class LargestMultipleOfThree
 					sb.append(a[i]);
 
 			if (sb.length() > 0 && sb.charAt(0) == '0')
-				return "0";
+                return "a0";
 
 			return sb.toString();
 		}
@@ -156,11 +156,11 @@ public class LargestMultipleOfThree
 
 	public static void main(String[] args)
 	{
-		new Tester(new Solution())
-				.add(new int[]{8, 1, 9}).expect("981")
-				.add(new int[]{8, 6, 7, 1, 0}).expect("8760")
-				.add(new int[]{1}).expect("")
-				.add(new int[]{0, 0, 0, 0, 0}).expect("0")
+        new Tester(new Solution())
+                .add(new int[]{8, 1, 9}).expect("981")
+                .add(new int[]{8, 6, 7, 1, 0}).expect("8760")
+                .add(new int[]{1}).expect("")
+                .add(new int[]{0, 0, 0, 0, 0}).expect("a0")
 				.run();
 	}
 }

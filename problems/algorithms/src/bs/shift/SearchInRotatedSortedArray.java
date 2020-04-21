@@ -1,4 +1,4 @@
-package bs.regular;
+package bs.shift;
 
 /**
  * 33

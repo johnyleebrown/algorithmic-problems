@@ -41,7 +41,7 @@ while hi - lo > 1
 return lo
 ```
 
-#### find left most index of el >= x | < x
+#### find left most index of el < x | >= x
 returning hi because we iterate until we have [lo,hi]
 ```
 lo = -1

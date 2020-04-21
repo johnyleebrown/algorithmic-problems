@@ -4,27 +4,28 @@ package bs.regular;
  * 69
  */
 public class Sqrt {
-	class Solution {
+	/**
+	 * Let's think of it this way:
+	 * numbers | 123456789
+	 * sqrt's  | 111222223
+	 * power   | 111444449
+	 */
+	public static class Solution {
 		public int mySqrt(int x) {
-			if (x == 0) {
-				return 0;
-			}
-			long lo = 1;
-			long hi = x;
-			while (lo <= hi) {
+			if (x == 1) return 1;
+			long lo = 0;
+			long hi = x / 2 + 1;
+
+			while (hi - lo > 1) {
 				long mid = lo + (hi - lo) / 2;
-				long val = mid * mid;
-				if (val == x) {
-					return (int) mid;
-				}
-				else if (val > x) {
-					hi = mid - 1;
-				}
-				else {
-					lo = mid + 1;
+				long xx = mid * mid;
+				if (xx <= x) {
+					lo = mid;
+				} else {
+					hi = mid;
 				}
 			}
-			return (int) hi;
+			return (int) lo;
 		}
 	}
 }

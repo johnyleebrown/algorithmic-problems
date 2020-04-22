@@ -1,4 +1,4 @@
-package design;
+package design.list;
 
 import java.util.LinkedList;
 import java.util.List;

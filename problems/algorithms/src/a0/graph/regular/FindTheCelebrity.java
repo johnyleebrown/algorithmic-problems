@@ -1,4 +1,4 @@
-package graph.dq;
+package a0.graph.regular;
 
 import java.util.Stack;
 
@@ -29,15 +29,12 @@ import java.util.Stack;
  *
  * Source: Leetcode
  */
-public class FindTheCelebrity
-{
+public class FindTheCelebrity {
 	/**
 	 * Check every two, add candidates to stack.
 	 */
-	public class Solution
-	{
-		public int findCelebrity(int n)
-		{
+	public class Solution {
+		public int findCelebrity(int n) {
 			if (n <= 0)
 				return -1;
 			if (n == 1)
@@ -47,8 +44,7 @@ public class FindTheCelebrity
 			for (int i = 0; i < n; i++)
 				stack.push(i);
 
-			while (stack.size() > 1)
-			{
+			while (stack.size() > 1) {
 				int a = stack.pop();
 				int b = stack.pop();
 
@@ -66,8 +62,7 @@ public class FindTheCelebrity
 			return c;
 		}
 
-		private boolean knows(int a, int b)
-		{
+		private boolean knows(int a, int b) {
 			return false;
 		}
 	}

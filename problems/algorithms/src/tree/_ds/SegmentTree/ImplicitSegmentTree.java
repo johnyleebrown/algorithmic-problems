@@ -1,233 +1,146 @@
 package tree._ds.SegmentTree;
 
-import java.util.*;
-
-import static util.tester.Assert.assertEquals;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * ImplicitSegmentTree
  *
  * Similar to static segment tree, we create nodes only when required, that’s
  * why it is also known as dynamic segment tree.
+ *
+ * increment - creates interval nodes for the interval and increments the delta.
+ * if intersects hi+lo / 2 intervals then we create.
  */
 public class ImplicitSegmentTree implements SegmentTreeQuery {
+    private Node root;
+    private AggregateFunction af;
 
-	Node root;
-	int max;
+    public ImplicitSegmentTree(int n) {
+        root = new Node(0, n);
+        af = AggregateFunction.MIN;
+    }
 
-	private class Node {
-		int lo;
-		int hi;
+    public ImplicitSegmentTree(int n, AggregateFunction aggregateFunction) {
+        root = new Node(0, n);
+        af = aggregateFunction;
+    }
 
-		int delta;
-		int min;
+    public void increment(int a, int b, int val) {
+        increment(root, a, b, val);
+    }
 
-		Node left;
-		Node right;
+    public void increment(Node cur, int a, int b, int val) {
+        if (cur == null || noIntersection(cur.lo, cur.hi, a, b)) {
+            return;
+        }
 
-		private Node(int lo, int hi) {
-			this.lo = lo;
-			this.hi = hi;
-		}
-	}
+        if (covers(cur, a, b)) {
+            cur.delta += val;
+            return;
+        }
 
-	public ImplicitSegmentTree(int n) {
-		root = new Node(0, n);
-		max = n;
-	}
+        int mid = (cur.hi + cur.lo) / 2;
 
-	public void increment(int a, int b, int val) {
-		increment(root, a, b, val);
-	}
+        if (cur.left == null) cur.left = new Node(cur.lo, mid);
+        cur.left.delta += cur.delta; // delta leftover
+        if (cur.right == null) cur.right = new Node(mid + 1, cur.hi);
+        cur.right.delta += cur.delta; // delta leftover
+        cur.delta = 0;
 
-	public void increment(Node root, int a, int b, int val) {
-		if (root == null || noIntersection(root, a, b)) {
-			return;
-		}
+        increment(cur.left, a, b, val);
+        increment(cur.right, a, b, val);
 
-		if (covers(root, a, b)) {
-			root.delta += val;
-			return;
-		}
+        // after children have been updated - we can use up-to-date data from them
+        update(cur);
+    }
 
-		int mid = (root.hi + root.lo) / 2;
+    private void update(Node cur) {
+        if (af == AggregateFunction.MIN) {
+            cur.min = Math.min(cur.left.min + cur.left.delta, cur.right.min + cur.right.delta);
+        } else {
+            cur.max = Math.max(cur.left.max + cur.left.delta, cur.right.max + cur.right.delta);
+        }
+    }
 
-		// make sure that [a,b] intersects with the half
-		if (!noInter(root.lo, mid, a, b)) {
-			if (root.left == null) root.left = new Node(root.lo, mid);
-			root.left.delta += root.delta; // delta leftover
-			increment(root.left, a, b, val);
-		}
+    public int min(int a, int b) {
+        return min(root, a, b);
+    }
 
-		// make sure that [a,b] intersects with the half
-		if (!noInter(mid + 1, root.hi, a, b)) {
-			if (root.right == null) root.right = new Node(mid + 1, root.hi);
-			root.right.delta += root.delta; // delta leftover
-			increment(root.right, a, b, val);
-		}
+    public int max(int a, int b) {
+        return min(root, a, b);
+    }
 
-		root.delta = 0;
+    private int min(Node cur, int a, int b) {
+        if (cur == null || noIntersection(cur.lo, cur.hi, a, b)) {
+            if (af == AggregateFunction.MIN) return Integer.MAX_VALUE;
+            else return Integer.MIN_VALUE;
+        }
 
-		// after children have been updated - we can use up-to-date data from them
-		update(root);
-	}
+        if (covers(cur, a, b)) {
+            if (af == AggregateFunction.MIN) return cur.delta + cur.min;
+            else return cur.delta + cur.max;
+        }
 
-	private boolean noInter(int lo, int hi, int a, int b) {
-		return a > hi || b < lo;
-	}
+        prop(cur);
 
-	/**
-	 * TODO root - curNode
-	 */
-	private void update(Node root) {
-		int m = Integer.MAX_VALUE;
-		int l = root.left == null ? m : root.left.min + root.left.delta;
-		int r = root.right == null ? m : root.right.min + root.right.delta;
-		root.min = Math.min(l, r);
-	}
+        int left = min(cur.left, a, b);
+        int right = min(cur.right, a, b);
 
-	private boolean noIntersection(Node root, int a, int b) {
-		return a > root.hi || b < root.lo;
-	}
+        update(cur);
 
-	private boolean covers(Node root, int a, int b) {
-		return a <= root.lo && b >= root.hi;
-	}
+        if (af == AggregateFunction.MIN) return Math.min(left, right);
+        else return Math.max(left, right);
+    }
 
-	public int min(int a, int b) {
-		return min(root, a, b);
-	}
+    private void prop(Node cur) {
+        if (cur.left != null) {
+            cur.left.delta += cur.delta;
+        }
+        if (cur.right != null) {
+            cur.right.delta += cur.delta;
+        }
+        cur.delta = 0;
+    }
 
-	private int min(Node root, int a, int b) {
-		if (root == null || noIntersection(root, a, b)) {
-			return Integer.MAX_VALUE;
-		}
+    private boolean covers(Node root, int a, int b) {
+        return a <= root.lo && b >= root.hi;
+    }
 
-		if (covers(root, a, b)) {
-			return root.delta + root.min;
-		}
+    private boolean noIntersection(int nodeLo, int nodeHi, int lo, int hi) {
+        return lo > nodeHi || hi < nodeLo;
+    }
 
-		prop(root);
+    public void print() {
+        print(root.lo, root.hi);
+    }
 
-		int left = min(root.left, a, b);
-		int right = min(root.right, a, b);
+    public void print(int a, int b) {
+        Deque<Node> q = new ArrayDeque<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (--size >= 0) {
+                Node cur = q.removeFirst();
+                System.out.print("i: [" + cur.lo + ", " + cur.hi + "] ");
+                System.out.print("d: [" + cur.delta + "], ");
+                System.out.print("m: [" + cur.min + "] | ");
+                if (cur.left != null) q.addLast(cur.left);
+                if (cur.right != null) q.addLast(cur.right);
+            }
+            System.out.println();
+        }
+    }
 
-		update(root);
+    private class Node {
+        int lo, hi;
+        int delta, min, max;
+        Node left, right;
 
-		return Math.min(left, right);
-	}
-
-	private void prop(Node root) {
-		if (root.left != null) {
-			root.left.delta += root.delta;
-		}
-		if (root.right != null) {
-			root.right.delta += root.delta;
-		}
-		root.delta = 0;
-	}
-
-	public void print() {
-		print(0, max);
-	}
-
-	public void print(int a, int b) {
-		Deque<Node> q = new ArrayDeque<>();
-		q.add(root);
-		while (!q.isEmpty()) {
-			int size = q.size();
-			while (--size >= 0) {
-				Node cur = q.removeFirst();
-				System.out.print("i: [" + cur.lo + ", " + cur.hi + "] ");
-				System.out.print("d: [" + cur.delta + "], ");
-				System.out.print("m: [" + cur.min + "] | ");
-
-				if (cur.left != null)
-					q.addLast(cur.left);
-				if (cur.right != null)
-					q.addLast(cur.right);
-			}
-			System.out.println();
-		}
-	}
-
-	public static void main(String[] a) {
-		int n = 50;
-
-		SegmentTreeSlow rs = new SegmentTreeSlow(n);
-		initTest(rs);
-		//rs.print();
-
-		ImplicitSegmentTree st = new ImplicitSegmentTree(n);
-		//st.increment(10,20,10);
-		//st.print();
-		initTest(st);
-
-		//runTest(3, 49, rs, st);
-		//runTest(16, 41, rs, st);
-
-		runSmallTest(n, rs, st);
-	}
-
-	private static void runSmallTest(int n, SegmentTreeQuery stSlow, SegmentTreeQuery stRegular) {
-		Random r = new Random();
-		String testType = "Random choices test.";
-		String step = "step";
-		int st = n/2;
-		System.out.println(testType);
-		while (--st >= 0) {
-			System.out.println(step + " " + (n/2-st));
-			List<String> ret = new LinkedList<>();
-			boolean allOk = true;
-			for (int i = 0; i < n; i++) {
-				int a = r.nextInt(n);
-				int b = r.nextInt(n);
-				while (b < a) b = r.nextInt(n);
-				ret.add("> [" + a + " " + b + "]");
-
-				int minSlow = stSlow.min(a, b);
-				int minRegular = stRegular.min(a, b);
-				boolean ans = assertEquals(minSlow, minRegular, false);
-				if (ans) {
-					ret.add("[++++] " + minSlow + " == " + minRegular);
-				} else {
-					ret.add("[FAIL] " + minSlow + " != " + minRegular);
-				}
-				if (!ans) {
-					allOk = false;
-				}
-			}
-			if (allOk) {
-				System.out.println("[ == ACCEPTED == ]");
-			} else {
-				for (String s: ret) {
-					System.out.println(s);
-				}
-			}
-		}
-	}
-
-	private static void runTest(int a, int b,
-			SegmentTreeQuery stSlow, SegmentTreeQuery stRegular) {
-		//		System.out.println("a,b: [" + a + " " + b + "]");
-		int minSlow = stSlow.min(a, b);
-		int minRegular = stRegular.min(a, b);
-		assertEquals(minSlow, minRegular);
-	}
-
-	private static void initTest(SegmentTreeQuery q) {
-		q.increment(0, 0, 15);
-		q.increment(1, 1, 3);
-		q.increment(2, 2, 4);
-		q.increment(3, 3, 2);
-		q.increment(4, 4, 1);
-		q.increment(5, 5, 6);
-		q.increment(6, 6, -1);
-
-		q.increment(0, 4, 3);
-		q.increment(1, 3, -4);
-		q.increment(5, 6, 10);
-		q.increment(0, 6, 0);
-	}
+        private Node(int lo, int hi) {
+            this.lo = lo;
+            this.hi = hi;
+        }
+    }
 }
 

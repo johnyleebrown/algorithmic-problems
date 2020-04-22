@@ -33,8 +33,17 @@ public class SegmentTreeSlow implements SegmentTreeQuery {
 
 	public void print() {
 		for (int i = 0; i < ar.length; i++) {
-			System.out.print(ar[i]+" ");
+			System.out.print(ar[i] + " ");
 		}
 		System.out.println();
+	}
+
+	@Override
+	public int max(int i, int j) {
+		int res = Integer.MIN_VALUE;
+		for (int k = i; k <= j; k++) {
+			res = Math.max(res, ar[k] == null ? Integer.MIN_VALUE : ar[k]);
+		}
+		return res;
 	}
 }

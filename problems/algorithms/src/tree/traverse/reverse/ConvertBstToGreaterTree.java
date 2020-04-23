@@ -1,6 +1,6 @@
 package tree.traverse.reverse;
 
-import util.TreeNode;
+import util.ds.TreeNode;
 
 /**
  * 538
@@ -12,16 +12,15 @@ public class ConvertBstToGreaterTree
 	{
         int sum = 0;
 
-        public TreeNode convertBST(TreeNode root) 
-		{
+        public TreeNode convertBST(TreeNode root) {
             if (root == null) return null;
-            
-			convertBST(root.right);
-            
-			root.val += sum;
-			sum = root.val;
-            
-			convertBST(root.left);
+
+            convertBST(root.right);
+
+            root.val += sum;
+            sum = root.val;
+
+            convertBST(root.left);
             
 			return root;
         }

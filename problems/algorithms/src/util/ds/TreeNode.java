@@ -36,19 +36,17 @@ public class TreeNode
 	 */
 	public TreeNode buildFromStringArray(String s)
 	{
-		String[] sAr = s.split(",");
-		int n = sAr.length;
-		if (n == 1)
-			return createNode(sAr, 0);
+        String[] sAr = s.split(",");
+        int n = sAr.length;
+        if (n == 1) return createNode(sAr, 0);
 
-		double base = 0.5;
-		List<TreeNode> q = new ArrayList<>();
-		TreeNode root = null;
+        double base = 0.5;
+        List<TreeNode> q = new ArrayList<>();
+        TreeNode root = null;
 
-		for (int i = 0; i < n;)
-		{
-			base *= 2;
-			double size = base;
+        for (int i = 0; i < n; ) {
+            base *= 2;
+            double size = base;
 
 			while (--size >= 0)
 			{
@@ -57,21 +55,18 @@ public class TreeNode
 					root = createNode(sAr, i++);
 					q.add(root);
 				}
-				else
-				{
-					TreeNode prev = q.remove(0);
+				else {
+                    TreeNode prev = q.remove(0);
+                    if (prev == null) continue;
 
-					if (prev == null)
-						continue;
+                    if (i >= n) return root;
+                    prev.left = createNode(sAr, i++);
+                    q.add(prev.left);
 
-					if (i >= n) return root;
-					prev.left = createNode(sAr, i++);
-					q.add(prev.left);
-
-					if (i >= n) return root;
-					prev.right = createNode(sAr, i++);
-					q.add(prev.right);
-				}
+                    if (i >= n) return root;
+                    prev.right = createNode(sAr, i++);
+                    q.add(prev.right);
+                }
 			}
 		}
 

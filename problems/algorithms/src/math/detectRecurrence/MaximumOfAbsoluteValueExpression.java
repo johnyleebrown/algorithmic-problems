@@ -1,7 +1,5 @@
 package math.detectRecurrence;
 
-import util.tester.Tester;
-
 /**
  * 1131
  *
@@ -24,27 +22,6 @@ import util.tester.Tester;
  *
  * Source: Leetcode
  */
-public class MaximumOfAbsoluteValueExpression
-{
-	/**
-	 * $INSERT_EXPLANATION.
-	 */
-	public static class Solution
-	{
-		public int solve()
-		{
-			return -1;
-		}
+public class MaximumOfAbsoluteValueExpression {
 
-		public Solution()
-		{
-		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add().expect()
-				.run();
-	}
 }

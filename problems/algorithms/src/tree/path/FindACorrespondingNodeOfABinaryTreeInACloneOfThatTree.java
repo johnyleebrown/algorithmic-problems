@@ -28,55 +28,48 @@ import java.util.List;
  *
  * Source: Leetcode
  */
-public class FindACorrespondingNodeOfABinaryTreeInACloneOfThatTree
-{
-	/**
-	 * Record path, then follow the path traversing the copy tree.
-	 */
-	public static class Solution
-	{
-		private List<Integer> path = new ArrayList<>();
+public class FindACorrespondingNodeOfABinaryTreeInACloneOfThatTree {
+    /**
+     * Record path, then follow the path traversing the copy tree.
+     */
+    public static class Solution {
+        private List<Integer> path = new ArrayList<>();
 
-		public final TreeNode getTargetCopy(final TreeNode original, final TreeNode copy, final TreeNode target)
-		{
-			recordPath(original, target);
-			return findNodeInCopy(copy);
-		}
+        public Solution() {
+        }
 
-		private TreeNode findNodeInCopy(final TreeNode copy)
-		{
-			TreeNode cur = copy;
-			for (int step : path)
-			{
-				if (step == 1)
-					cur = cur.left;
-				else
-					cur = cur.right;
-			}
-			return cur;
-		}
+        public final TreeNode getTargetCopy(final TreeNode original, final TreeNode copy, final TreeNode target) {
+            recordPath(original, target);
+            return findNodeInCopy(copy);
+        }
 
-		private boolean recordPath(TreeNode cur, TreeNode target)
-		{
-			if (cur == null)
-				return false;
+        private TreeNode findNodeInCopy(final TreeNode copy) {
+            TreeNode cur = copy;
+            for (int step : path) {
+                if (step == 1)
+                    cur = cur.left;
+                else
+                    cur = cur.right;
+            }
+            return cur;
+        }
 
-			if (cur == target)
-				return true;
+        private boolean recordPath(TreeNode cur, TreeNode target) {
+            if (cur == null)
+                return false;
 
-			boolean l = recordPath(cur.left, target);
-			boolean r = recordPath(cur.right, target);
+            if (cur == target)
+                return true;
 
-			if (l)
-				path.add(0, 1);
-			else if (r)
-				path.add(0, 2);
+            boolean l = recordPath(cur.left, target);
+            boolean r = recordPath(cur.right, target);
 
-			return l || r;
-		}
+            if (l)
+                path.add(0, 1);
+            else if (r)
+                path.add(0, 2);
 
-		public Solution()
-		{
-		}
-	}
+            return l || r;
+        }
+    }
 }

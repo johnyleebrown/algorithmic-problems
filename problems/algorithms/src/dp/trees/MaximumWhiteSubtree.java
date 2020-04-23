@@ -1,6 +1,6 @@
 package dp.trees;
 
-import util.codeforces.Main;
+import util.ds.InputReader;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -33,71 +33,59 @@ import static util.utility.Out.printAr;
  *
  * Source: Codeforces
  */
-public class MaximumWhiteSubtree
-{
-	/**
-	 *
-	 */
-	public static class Solution
-	{
-		private static int[][] dp;
+public class MaximumWhiteSubtree {
+    /**
+     * TODO
+     */
+    public static class Solution {
+        private static int[][] dp;
 
-		private static void s(Main.InputReader in, PrintWriter o)
-		{
-			int n = in.nextInt();
+        private static void s(InputReader in, PrintWriter o) {
+            int n = in.nextInt();
 
-			dp = new int[n + 1][n + 1];
-			int[] clr = new int[n + 1];
-			List<Integer>[] g = new List[n + 1];
+            dp = new int[n + 1][n + 1];
+            int[] clr = new int[n + 1];
+            List<Integer>[] g = new List[n + 1];
 
-			Arrays.fill(dp[0], Integer.MIN_VALUE);
-			for (int i = 1; i <= n; i++)
-			{
-				clr[i] = in.nextInt();
-				Arrays.fill(dp[i], Integer.MIN_VALUE);
-			}
+            Arrays.fill(dp[0], Integer.MIN_VALUE);
+            for (int i = 1; i <= n; i++) {
+                clr[i] = in.nextInt();
+                Arrays.fill(dp[i], Integer.MIN_VALUE);
+            }
 
-			// init graph
-			for (int i = 0; i <= n; i++)
-				g[i] = new ArrayList<>();
+            // init graph
+            for (int i = 0; i <= n; i++)
+                g[i] = new ArrayList<>();
 
-			// fill graph
-			for (int i = 0; i < n - 1; i++)
-			{
-				int w = in.nextInt();
-				int v = in.nextInt();
-				g[w].add(v);
-				g[v].add(w);
-			}
+            // fill graph
+            for (int i = 0; i < n - 1; i++) {
+                int w = in.nextInt();
+                int v = in.nextInt();
+                g[w].add(v);
+                g[v].add(w);
+            }
 
-			int[] res = new int[n];
-			for (int i = 1; i <= n; i++)
-				res[i - 1] = dfs(0, i, clr, g);
+            int[] res = new int[n];
+            for (int i = 1; i <= n; i++)
+                res[i - 1] = dfs(0, i, clr, g);
 
-			printAr(o, res);
-		}
+            printAr(o, res);
+        }
 
-		private static int dfs(int prev, int cur, int[] clr, List<Integer>[] g)
-		{
-			if (dp[prev][cur] != Integer.MIN_VALUE)
-				return dp[prev][cur];//if calculated before
-			int curval = clr[cur] == 1 ? 1 : -1;//real node value
-			int goodsum = 0;//count only >0
-			for (int w: g[cur])
-			{
-				if (w == prev)
-					continue;
-				int x = dfs(cur, w, clr, g);
-				if (x > 0)
-					goodsum+=x;
-			}
-			dp[prev][cur] = Math.max(dp[prev][cur], goodsum + curval);//this case includes self
-			return dp[prev][cur];
-		}
-
-		public static void solve(Main.InputReader in, PrintWriter o)
-		{
-			s(in, o);
-		}
-	}
+        private static int dfs(int prev, int cur, int[] clr, List<Integer>[] g) {
+            if (dp[prev][cur] != Integer.MIN_VALUE)
+                return dp[prev][cur];//if calculated before
+            int curval = clr[cur] == 1 ? 1 : -1;//real node value
+            int goodsum = 0;//count only >0
+            for (int w : g[cur]) {
+                if (w == prev)
+                    continue;
+                int x = dfs(cur, w, clr, g);
+                if (x > 0)
+                    goodsum += x;
+            }
+            dp[prev][cur] = Math.max(dp[prev][cur], goodsum + curval);//this case includes self
+            return dp[prev][cur];
+        }
+    }
 }

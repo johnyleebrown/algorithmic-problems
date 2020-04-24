@@ -5,50 +5,39 @@ import util.ds.ListNode;
 /**
  * 430
  */
-public class FlattenAMultilevelDoublyLinkedList
-{
-	class Solution
-	{
-		private ListNode prev = null;
+public class FlattenAMultilevelDoublyLinkedList {
+    /**
+     * Just go down case by case. Maybe the tricky part is not to forget the
+     * prev links.
+     */
+    public static class Solution {
+        public ListNode flatten(ListNode head) {
+            traverse(head);
+            return head;
+        }
 
-		public ListNode flatten(ListNode head)
-		{
-			if (head == null)
-				return null;
-			return helper(head);
-		}
-
-		private ListNode helper(ListNode head)
-		{
-			if (head.next == null && head.child == null)
-			{
-				prev = head;
-				return head;
-			}
-
-			if (head.child != null)
-			{
-				ListNode temp = head.next;
-
-				head.next = helper(head.child);
-				head.next.prev = head;
-				head.child = null;
-
-				if (prev != null)
-					prev.next = temp;
-				else
-					prev = head;
-
-				if (prev.next != null)
-				{
-					temp.prev = prev;
-					helper(temp);
-				}
-			}
-			else
-				head.next = helper(head.next);
-
-			return head;
-		}
-	}
+        private ListNode traverse(ListNode cur) {
+            if (cur == null) return null;
+            if (cur.next == null && cur.child == null) {
+                return cur;
+            }
+            if (cur.next == null) {
+                ListNode x = traverse(cur.child);
+                cur.next = cur.child;
+                cur.next.prev = cur;
+                cur.child = null;
+                return x;
+            }
+            ListNode next = cur.next;
+            if (cur.child != null) {
+                ListNode x = traverse(cur.child);
+                x.next = next;
+                next.prev = x;
+                cur.next = cur.child;
+                cur.next.prev = cur;
+                cur.child = null;
+            }
+            return traverse(next);
+        }
+    }
 }

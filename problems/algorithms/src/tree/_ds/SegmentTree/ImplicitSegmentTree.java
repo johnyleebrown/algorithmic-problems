@@ -11,6 +11,8 @@ import java.util.Deque;
  *
  * increment - creates interval nodes for the interval and increments the delta.
  * if intersects hi+lo / 2 intervals then we create.
+ *
+ * TODO impl w/o lazy prop
  */
 public class ImplicitSegmentTree implements SegmentTreeQuery {
     private Node root;

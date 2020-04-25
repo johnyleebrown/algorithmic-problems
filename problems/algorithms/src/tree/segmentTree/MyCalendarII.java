@@ -4,6 +4,10 @@ package tree.segmentTree;
  * 731
  */
 public class MyCalendarII {
+    /**
+     * Other way to go (which is not slower) - increment by 1, check max,
+     * decrement if >=3.
+     */
     public static class Solution {
         class MyCalendarTwo {
             SegmentTree t;
@@ -13,8 +17,9 @@ public class MyCalendarII {
             }
 
             public boolean book(int start, int end) {
-                if (t.max(start, end) > 2) return false;
-                t.update(start, end);
+                int x = t.max(start, end - 1);
+                if (x >= 3) return false;
+                t.update(start, end - 1);
                 return true;
             }
 
@@ -25,7 +30,7 @@ public class MyCalendarII {
                 Node root;
 
                 public SegmentTree() {
-                    root = new Node(0, (int) 1e9);
+                    root = new Node(0, 1_000_000_000);
                 }
 
                 public void update(int lo, int hi) {
@@ -36,11 +41,14 @@ public class MyCalendarII {
                     if (notIntersects(cur.lo, cur.hi, lo, hi)) {
                         return;
                     }
-                    if (overlaps(cur, lo, hi)) {
+
+                    if (covers(cur, lo, hi)) {
                         cur.delta += val;
                         return;
                     }
-                    int mid = (hi + lo) / 2;
+
+                    int mid = (cur.hi + cur.lo) / 2;
+
                     //prop
                     if (cur.left == null) cur.left = new Node(cur.lo, mid);
                     cur.left.delta += cur.delta;
@@ -48,14 +56,16 @@ public class MyCalendarII {
                         cur.right = new Node(mid + 1, cur.hi);
                     cur.right.delta += cur.delta;
                     cur.delta = 0;
+
                     //recursive
                     update(cur.left, lo, hi, val);
                     update(cur.right, lo, hi, val);
+
                     //update
                     cur.max = Math.max(cur.left.max + cur.left.delta, cur.right.max + cur.right.delta);
                 }
 
-                private boolean overlaps(Node cur, int lo, int hi) {
+                private boolean covers(Node cur, int lo, int hi) {
                     return lo <= cur.lo && hi >= cur.hi;
                 }
 
@@ -68,20 +78,12 @@ public class MyCalendarII {
                 }
 
                 public int max(Node cur, int lo, int hi, int delta) {
-                    if (notIntersects(cur.lo, cur.hi, lo, hi)) {
-                        return Integer.MIN_VALUE;
-                    }
-                    if (overlaps(cur, lo, hi)) {
-                        return cur.max + delta;
-                    }
-                    //prop
-                    //no prop, just send values to children
-                    //recurse
-                    int l = max(cur.left, lo, hi, delta);
-                    int r = max(cur.right, lo, hi, delta);
-                    //update
-                    //ret
-                    return Math.max(cur.max + delta, Math.max(l, r));
+                    if (cur == null || notIntersects(cur.lo, cur.hi, lo, hi))
+                        return 0;
+                    if (covers(cur, lo, hi)) return cur.max + cur.delta + delta;
+                    int l = cur.left == null ? cur.delta + delta : max(cur.left, lo, hi, cur.delta + delta);
+                    int r = cur.right == null ? cur.delta + delta : max(cur.right, lo, hi, cur.delta + delta);
+                    return Math.max(cur.max, Math.max(l, r));
                 }
 
                 private class Node {

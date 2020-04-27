@@ -1,17 +1,18 @@
 package tree._ds.SegmentTree;
 
+import java.util.Arrays;
+
 /**
- * @nochecker
+ * @nochecker RangeSlow
  *
- * RangeSlow
- *
- * Slow version of range increment.
+ *         Slow version of range increment.
  */
 public class SegmentTreeSlow implements SegmentTreeQuery {
 	private Integer[] ar;
 
 	public SegmentTreeSlow(int n) {
 		ar = new Integer[n];
+		Arrays.fill(ar, 0);
 	}
 
 	public void increment(int i, int j, int val) {

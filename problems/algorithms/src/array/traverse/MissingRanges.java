@@ -1,6 +1,6 @@
 package array.traverse;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -8,70 +8,30 @@ import java.util.List;
  */
 public class MissingRanges {
     class Solution {
-        private String sep = "->";
-        private List<String> ans = new ArrayList<>();
+        public List<String> findMissingRanges(int[] a, int l, int r) {
+            List<String> ans = new LinkedList<>();
+            int n = a.length;
+            if (r < l) return ans;
 
-        public List<String> findMissingRanges(int[] nums, int lower, int upper) {
-            int n = nums.length;
-
-            // just for cases of substraction of big numbers
-            long lo = lower, up = upper;
-
-            // special case
             if (n == 0) {
-                checkEmptyCase(lo, up);
+                if (l == r) ans.add(l + "");
+                else ans.add(l + "->" + r);
                 return ans;
             }
 
-            // other special case
-            if (n == 2 && nums[0] == lower && nums[1] == upper) {
-                checkRegularCase(lo, up);
-                return ans;
-            }
+            if (a[0] == 1 + l) ans.add(String.valueOf(l));
+            else if (a[0] > 1 + l) ans.add(l + "->" + (a[0] - 1));
 
-            // start case
-            if (nums[0] != lower) {
-                checkEdgeCase(lo, nums[0], lo, nums[0] - 1, lo);
-            }
-
-            // regular case
             for (int i = 0; i < n - 1; i++) {
-                checkRegularCase(nums[i], nums[i + 1]);
+                if (a[i + 1] <= 1 + a[i]) continue;
+                if (a[i + 1] == 2 + a[i]) ans.add(String.valueOf(a[i] + 1));
+                else ans.add((a[i] + 1) + "->" + (a[i + 1] - 1));
             }
 
-            // end case
-            if (nums[n - 1] != upper) {
-                checkEdgeCase(nums[n - 1], up, nums[n - 1] + 1, up, up);
-            }
+            if (r == 1 + a[n - 1]) ans.add(String.valueOf(r));
+            else if (r > 1 + a[n - 1]) ans.add((a[n - 1] + 1) + "->" + r);
 
             return ans;
         }
-
-        private void checkRegularCase(long l, long r) {
-            if (r - l == 2) {
-                ans.add(String.valueOf(r - 1));
-            } else if (r - l > 2) {
-                ans.add(String.valueOf((l + 1) + sep + (r - 1)));
-            }
-        }
-
-        private void checkEmptyCase(long l, long r) {
-            if (l == r) {
-                ans.add(String.valueOf(l));
-            } else {
-                ans.add(String.valueOf(l + sep + r));
-            }
-        }
-
-        private void checkEdgeCase(long l, long r, long lToAdd, long rToAdd, long extra) {
-            if (r - l == 1) {
-                ans.add(String.valueOf(extra));
-            } else {
-                ans.add(String.valueOf(lToAdd + sep + rToAdd));
-            }
-        }
-
     }
-
-
 }

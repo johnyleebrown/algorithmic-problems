@@ -1,28 +1,29 @@
 package design.queue;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * 346
  */
 public class MovingAverageFromDataStream {
-	private Queue<Integer> q;
-	private double sum = 0;
-	private int size;
+    public static class Solution {
+        class MovingAverage {
+            int d;
+            Deque<Integer> l;
+            double sum;
 
-	public MovingAverageFromDataStream(int s) {
-		q = new LinkedList<>();
-		size = s;
-	}
+            public MovingAverage(int size) {
+                d = size;
+                l = new ArrayDeque<>();
+            }
 
-	public double next(int val) {
-		if (q.size() == size) {
-			sum = sum - q.poll();
-		}
-
-		q.offer(val);
-		sum += val;
-		return sum / q.size();
-	}
+            public double next(int val) {
+                sum += val;
+                l.addLast(val);
+                if (l.size() > d) sum -= l.removeFirst();
+                return sum / Math.min(d, l.size());
+            }
+        }
+    }
 }

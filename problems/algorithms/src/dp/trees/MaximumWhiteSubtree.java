@@ -1,6 +1,6 @@
 package dp.trees;
 
-import util.ds.InputReader;
+import util.utility.reader.InputReader;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;

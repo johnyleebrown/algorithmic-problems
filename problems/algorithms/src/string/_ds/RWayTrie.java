@@ -5,6 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * RWayTrie
+ * (or prefix tree)
+ *
  * todo: pattern search add delete op
  *
  * Reference: https://github.com/kevin-wayne/algs4/blob/master/src/main/java/edu/princeton/cs/algs4/TrieST.java

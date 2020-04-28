@@ -1,6 +1,6 @@
 package util.utility;
 
-import util.ds.InputReader;
+import util.utility.reader.InputReader;
 
 public class Commander {
 	public static void main(String[] a) {

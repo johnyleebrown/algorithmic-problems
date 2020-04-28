@@ -1,6 +1,6 @@
 package twoPointers.slidingWindow.max;
 
-import util.ds.InputReader;
+import util.utility.reader.InputReader;
 
 import java.io.PrintWriter;
 import java.util.ArrayDeque;

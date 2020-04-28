@@ -2,7 +2,7 @@ package dp.subsequences;
 
 import java.util.Arrays;
 
-import static util.utility.Utility.getMaxLen3Strings;
+import static util.utility.StringUtils.getMaxLen3Strings;
 
 /**
  * 1143

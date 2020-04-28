@@ -1,6 +1,6 @@
 package util.utility;
 
-import util.ds.InputReader;
+import util.utility.reader.InputReader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,14 +26,25 @@ public class StringUtils {
 		int n = 50;
 		InputReader inputReader = new InputReader(System.in);
 		String[] lines = new String[n];
-		for (int i = 0; i < n; i++) {
-			lines[i] = inputReader.nextLine();
-		}
-		System.out.println();
-		for (int i = 0; i < n; i++) {
-			System.out.print("\"" + lines[i] + "\"");
-			if (i != n - 1) System.out.print(",");
-		}
-		System.out.println();
-	}
+        for (int i = 0; i < n; i++) {
+            lines[i] = inputReader.nextLine();
+        }
+        System.out.println();
+        for (int i = 0; i < n; i++) {
+            System.out.print("\"" + lines[i] + "\"");
+            if (i != n - 1) System.out.print(",");
+        }
+        System.out.println();
+    }
+
+    public static String getMaxLen3Strings(String a, String b, String c) {
+        return getMaxLen2Strings(a, getMaxLen2Strings(b, c));
+    }
+
+    public static String getMaxLen2Strings(String a, String b) {
+        if (a.length() > b.length())
+            return a;
+        else
+            return b;
+    }
 }

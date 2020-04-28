@@ -15,6 +15,10 @@ import java.util.Deque;
  * TODO impl w/o lazy prop
  */
 public class ImplicitSegmentTree implements SegmentTreeQuery {
+    enum Dir {
+        UP, DOWN, LEFT, RIGHT;
+    }
+
     private Node root;
     private AggregateFunction af;
 

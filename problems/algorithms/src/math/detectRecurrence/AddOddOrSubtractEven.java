@@ -1,6 +1,6 @@
 package math.detectRecurrence;
 
-import util.ds.InputReader;
+import util.utility.reader.InputReader;
 
 import java.io.PrintWriter;
 

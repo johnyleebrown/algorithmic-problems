@@ -1,8 +1,8 @@
 package dp.trees;
 
 import tree._ds.ExpressionTree;
-import util.ds.InputReader;
 import util.ds.TreeNode;
+import util.utility.reader.InputReader;
 
 import java.io.PrintWriter;
 

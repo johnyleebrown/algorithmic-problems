@@ -22,38 +22,42 @@ import java.util.*;
  * relax. Vertices that didn't change in the i'th cycle won't be added to the
  * queue.
  *
- * TODO add neg cycle find
  * https://algs4.cs.princeton.edu/44sp/BellmanFordSP.java.html
  */
 public class BellmanFord {
     private Deque<Integer> q; //queue of vertices to relax
-    private int[] distTo; // distance  of shortest s->v path
+    private double[] distTo; // distance  of shortest s->v path
     private boolean[] onQueue; // see if we need to add a vertex to queue
-
-    public BellmanFord(int n) {
-        distTo = new int[n];
-        Arrays.fill(distTo, Integer.MAX_VALUE);
-        q = new ArrayDeque<>();
-    }
+    private int count; // count of calls to relax
+    private int n;
+    private boolean cycle;
 
     /**
      * Compute sp from source to all vertices.
      */
-    public void compute(int s, Map<Integer, Map<Integer, Integer>> g) {
-
-        distTo[s] = 0;
-        q.addLast(s);
+    public BellmanFord(int n, int s, Map<Integer, Map<Integer, Double>> g) {
+        this.n = n;
+        onQueue = new boolean[n];
         onQueue[s] = true;
+        TreeMap<Integer, Integer> t;
 
+        distTo = new double[n];
+        Arrays.fill(distTo, Double.POSITIVE_INFINITY);
+        distTo[s] = 0;
+
+        q = new ArrayDeque<>();
+        q.addLast(s);
+
+        //&& !hasNegativeCycle()
         while (!q.isEmpty() && !hasNegativeCycle()) {
             int v = q.removeFirst();
-            relax(v, g);
             onQueue[v] = false;
+            relax(v, g);
         }
     }
 
-    private void relax(int v, Map<Integer, Map<Integer, Integer>> g) {
-        for (int w : g.getOrDefault(v, new HashMap<>()).keySet()) {
+    private void relax(int v, Map<Integer, Map<Integer, Double>> g) {
+        for (int w : g.get(v).keySet()) {
             if (distTo[w] > distTo[v] + g.get(v).get(w)) {
                 distTo[w] = distTo[v] + g.get(v).get(w);
                 if (!onQueue[w]) {
@@ -61,10 +65,50 @@ public class BellmanFord {
                     onQueue[w] = true;
                 }
             }
+            if (++count % n == 0) {
+//                cycle = false;
+                cycle = new DetectCycle<Double>().hasCycleWeightedDigraph(g);
+                if (hasNegativeCycle()) {
+                    return;
+                }
+            }
         }
     }
 
-    public boolean hasNegativeCycle() {
+    public boolean hasCycleWeightedDigraph(Map<Integer, Map<Integer, Double>> g) {
+        Set<Integer> globalSeen = new HashSet<>();
+        for (int v : g.keySet()) {
+            if (hasCycleWeightedDigraph(v, g, globalSeen, new HashSet<>())) {
+                return true;
+            }
+        }
         return false;
+    }
+
+    private boolean hasCycleWeightedDigraph(int v, Map<Integer, Map<Integer, Double>> g, Set<Integer> globalSeen, Set<Integer> localSeen) {
+        if (localSeen.contains(v)) {
+            return true;
+        }
+        if (globalSeen.contains(v)) {
+            return false;
+        }
+        localSeen.add(v);
+        globalSeen.add(v);
+
+        for (int w : g.getOrDefault(v, new HashMap<>()).keySet()) {
+            if (hasCycleWeightedDigraph(w, g, globalSeen, localSeen)) {
+                return true;
+            }
+        }
+        localSeen.remove(v);
+        return false;
+    }
+
+    public boolean hasNegativeCycle() {
+        return cycle;
+    }
+
+    public double[] getDistTo() {
+        return distTo;
     }
 }

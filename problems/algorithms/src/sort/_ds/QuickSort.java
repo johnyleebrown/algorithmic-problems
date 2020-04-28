@@ -5,7 +5,7 @@ import util.utility.Gen;
 import java.util.Arrays;
 
 import static sort._ds.Shuffle.shuffleIntArray;
-import static util.utility.Utility.exch;
+import static util.utility.ArrayUtils.exch;
 import static util.utility.Validation.isSorted;
 
 /**
@@ -24,62 +24,56 @@ import static util.utility.Validation.isSorted;
  * - For small arrays - insertion sort (20% faster)
  * @formatter:on
  */
-public class QuickSort
-{
-	public void sortIntArray(int[] a)
-	{
-		shuffleIntArray(a);
-		sort(a, 0, a.length - 1);
-		isSorted(a);
-	}
+public class QuickSort {
+    public static void main(String[] args) {
+        int n = 12;
+        int[] inp = Gen.genIntArray(n, n, false);
+        int[] copy = Arrays.copyOf(inp, inp.length);
 
-	private void sort(int[] a, int lo, int hi)
-	{
-		if (hi <= lo)
-			return;
-		int p = partition(a, lo, hi);
-		sort(a, lo, p - 1);
-		sort(a, p + 1, hi);
-	}
+        QuickSort s = new QuickSort();
+        s.sortIntArray(inp);
 
-	private int partition(int[] a, int lo, int hi)
-	{
-		int v = a[lo];
-		int i = lo;
-		int j = hi + 1;
+        Arrays.sort(copy);
+        if (Arrays.equals(inp, copy)) {
+            System.out.println("OK");
+        } else {
+            throw new RuntimeException("ERROR.");
+        }
+    }
 
-		while (true)
-		{
-			while (a[++i] < v)
-				if (i == hi) break;
+    public void sortIntArray(int[] a) {
+        shuffleIntArray(a);
+        sort(a, 0, a.length - 1);
+        isSorted(a);
+    }
 
-			while (a[--j] > v)
-				if (j == lo) break;
+    private void sort(int[] a, int lo, int hi) {
+        if (hi <= lo)
+            return;
+        int p = partition(a, lo, hi);
+        sort(a, lo, p - 1);
+        sort(a, p + 1, hi);
+    }
 
-			if (i >= j)
-				break;
+    private int partition(int[] a, int lo, int hi) {
+        int v = a[lo];
+        int i = lo;
+        int j = hi + 1;
 
-			exch(a, i, j);
-		}
+        while (true) {
+            while (a[++i] < v)
+                if (i == hi) break;
 
-		exch(a, lo, j);
-		return j;
-	}
+            while (a[--j] > v)
+                if (j == lo) break;
 
-	public static void main(String[] args)
-	{
-		int n = 12;
-		int[] inp = Gen.genIntArray(n, n, false);
-		int[] copy = Arrays.copyOf(inp, inp.length);
+            if (i >= j)
+                break;
 
-		QuickSort s = new QuickSort();
-		s.sortIntArray(inp);
+            exch(a, i, j);
+        }
 
-		Arrays.sort(copy);
-		if (Arrays.equals(inp, copy)) {
-			System.out.println("OK");
-		} else {
-			throw new RuntimeException("ERROR.");
-		}
-	}
+        exch(a, lo, j);
+        return j;
+    }
 }

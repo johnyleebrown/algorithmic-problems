@@ -59,7 +59,7 @@ public class MergeSort
 	public static void main(String[] args)
 	{
 		int n = 12;
-		int[] inp = Gen.genIntArray(n, n);
+		int[] inp = Gen.genIntArray(n, n, false);
 		int[] copy = Arrays.copyOf(inp, inp.length);
 
 		MergeSort s = new MergeSort();

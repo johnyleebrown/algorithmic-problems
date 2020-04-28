@@ -21,7 +21,7 @@ public class Sorts
 {
 	public static void qSort(int n)
 	{
-		int[] a = genIntArray(n, n);
+		int[] a = genIntArray(n, n, false);
 		final long startTime = System.currentTimeMillis();
 		Arrays.sort(a);
 		final long endTime = System.currentTimeMillis();

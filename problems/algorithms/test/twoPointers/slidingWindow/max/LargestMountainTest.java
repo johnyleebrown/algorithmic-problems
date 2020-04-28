@@ -2,6 +2,7 @@ package twoPointers.slidingWindow.max;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import sort.monotonicQueue.nearestValues.LargestMountain;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
@@ -69,6 +70,7 @@ class LargestMountainTest {
 
     @Test
     void randArrays() {
+        assertArrayEquals(s.solve(new int[]{0, 1, 0, 1, 0, 1, 0, 1, 0}), new int[]{0, 2});
         assertArrayEquals(s.solve(new int[]{7, 0, 5, 2, 3, 0, 7, 1, 6, 1}), new int[]{1, 5});
         assertArrayEquals(s.solve(new int[]{0, 2, 4, 0, 2, 1, 5, 1, 6, 0}), new int[]{3, 9});
         assertArrayEquals(s.solve(new int[]{4, 4, 4, 0, 5, 2, 0, 4, 4, 1}), new int[]{3, 6});

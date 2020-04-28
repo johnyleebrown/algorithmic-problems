@@ -1,4 +1,4 @@
-package twoPointers.slidingWindow.max;
+package sort.monotonicQueue.nearestValues;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -58,7 +58,7 @@ public class LargestMountain {
             public void push(Element cur) {
                 while (!q.isEmpty() && q.peekLast().val >= cur.val) {
                     if (mid != null && q.peekLast().val < mid) {
-                        updateMax(cur);
+                        updateAns(cur);
                     }
 
                     if (q.peekLast().val == cur.val) {
@@ -71,14 +71,14 @@ public class LargestMountain {
                 }
 
                 if (!q.isEmpty() && mid != null && q.peekLast().val < mid) {
-                    updateMax(cur);
+                    updateAns(cur);
                     mid = null;
                 }
 
                 q.addLast(cur);
             }
 
-            private void updateMax(Element e) {
+            private void updateAns(Element e) {
                 if (e.ind - q.peekLast().ind > right - left) {
                     left = q.peekLast().ind;
                     right = e.ind;

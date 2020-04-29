@@ -23,6 +23,10 @@ import java.util.*;
  * queue.
  *
  * https://algs4.cs.princeton.edu/44sp/BellmanFordSP.java.html
+ * https://algs4.cs.princeton.edu/44sp/
+ * https://github.com/kevin-wayne/algs4/blob/master/src/main/java/edu/princeton/cs/algs4/BellmanFordSP.java
+ *
+ * todo
  */
 public class BellmanFord {
     private Deque<Integer> q; //queue of vertices to relax

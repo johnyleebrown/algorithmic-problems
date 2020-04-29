@@ -1,8 +1,16 @@
 ### reference
 https://github.com/kevin-wayne/algs4/blob/master/src/main/java/edu/princeton/cs/algs4/LinearProbingHashST.java
 https://codeforces.com/blog/entry/60442?locale=ru
+https://www.youtube.com/watch?v=KqqOXndnvic
+https://www.youtube.com/watch?v=rLMikQTOVnI
+https://www.geeksforgeeks.org/top-20-hashing-technique-based-interview-questions/?ref=rp
+https://www.youtube.com/watch?v=rA1ZevamGDc
+https://habr.com/en/post/142589/
+https://codeforces.com/blog/entry/17507
 
 ### theory
+#### Cuckoo hashing - double hashing
+
 #### DJB Hash Function
 Magic Constant 5381:
   1. odd number

@@ -7,6 +7,9 @@ https://www.geeksforgeeks.org/top-20-hashing-technique-based-interview-questions
 https://www.youtube.com/watch?v=rA1ZevamGDc
 https://habr.com/en/post/142589/
 https://codeforces.com/blog/entry/17507
+https://codeforces.com/blog/entry/60445
+https://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C_%D0%9C%D0%BE%D1%80%D1%81%D0%B0_%E2%80%94_%D0%A2%D1%83%D1%8D
+https://e-maxx.ru/algo/string_hashes
 
 ### theory
 #### Cuckoo hashing - double hashing

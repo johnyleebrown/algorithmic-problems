@@ -1,13 +1,13 @@
 package dp.trees;
 
-import util.utility.reader.InputReader;
+import util.utils.reader.InputReader;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static util.utility.Out.printAr;
+import static util.utils.Out.printAr;
 
 /**
  * 627div3F

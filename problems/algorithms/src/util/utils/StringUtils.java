@@ -1,6 +1,6 @@
-package util.utility;
+package util.utils;
 
-import util.utility.reader.InputReader;
+import util.utils.reader.InputReader;
 
 import java.io.IOException;
 import java.nio.file.Files;

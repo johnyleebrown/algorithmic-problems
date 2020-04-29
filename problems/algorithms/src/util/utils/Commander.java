@@ -1,6 +1,6 @@
-package util.utility;
+package util.utils;
 
-import util.utility.reader.InputReader;
+import util.utils.reader.InputReader;
 
 public class Commander {
 	public static void main(String[] a) {

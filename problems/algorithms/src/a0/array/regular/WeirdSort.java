@@ -1,6 +1,6 @@
 package a0.array.regular;
 
-import util.utility.reader.InputReader;
+import util.utils.reader.InputReader;
 
 import java.io.PrintWriter;
 import java.util.HashSet;

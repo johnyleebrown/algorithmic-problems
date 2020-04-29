@@ -2,11 +2,11 @@ package dp.trees;
 
 import tree._ds.ExpressionTree;
 import util.ds.TreeNode;
-import util.utility.reader.InputReader;
+import util.utils.reader.InputReader;
 
 import java.io.PrintWriter;
 
-import static util.utility.Out.print;
+import static util.utils.Out.print;
 
 /**
  * 465Div2E

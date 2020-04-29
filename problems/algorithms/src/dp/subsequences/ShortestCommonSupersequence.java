@@ -4,7 +4,7 @@ import util.tester.Tester;
 
 import java.util.Arrays;
 
-import static util.utility.StringUtils.getMaxLen3Strings;
+import static util.utils.StringUtils.getMaxLen3Strings;
 
 /**
  * 1092

@@ -1,6 +1,6 @@
 package a0.two.regular;
 
-import util.utility.reader.InputReader;
+import util.utils.reader.InputReader;
 
 import java.io.PrintWriter;
 

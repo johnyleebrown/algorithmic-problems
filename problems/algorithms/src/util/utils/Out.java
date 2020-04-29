@@ -1,4 +1,4 @@
-package util.utility;
+package util.utils;
 
 import java.io.PrintWriter;
 import java.util.PriorityQueue;

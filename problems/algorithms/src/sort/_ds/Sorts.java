@@ -1,10 +1,10 @@
 package sort._ds;
 
-import util.utility.Gen;
+import util.utils.Gen;
 
 import java.util.Arrays;
 
-import static util.utility.Gen.genIntArray;
+import static util.utils.Gen.genIntArray;
 
 /**
  * Arrays.sort uses quick sort if the array contains elements of primitive type such as long or int. Quick sort has on

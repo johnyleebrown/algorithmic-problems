@@ -1,20 +1,10 @@
-package util.utility;
+package util.utils;
 
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
 public class Gen {
-    public static int[][] gen2DIntArray(int n, int m) {
-        final Random r = new Random();
-        int[][] a = new int[n][m];
-        int max = n * m;
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < m; j++)
-                a[i][j] = r.nextInt(max);
-        return a;
-    }
-
     public static int[] genIntArray(int n, int randomBoundary, boolean canRep) {
         final Random r = new Random();
         Set<Integer> set = new HashSet<>();
@@ -49,5 +39,19 @@ public class Gen {
     @SuppressWarnings({"unchecked"})
     private static <T> T getTFromInt(Random r, int randomBoundary) {
         return (T) new Integer(r.nextInt(randomBoundary));
+    }
+
+    public static class Two {
+        public static int[][] intAr(int n, int m, int randBoundary) {
+            Random r = new Random();
+            int[][] a = new int[n][m];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    a[i][j] = r.nextInt(randBoundary);
+                }
+            }
+            System.out.println("[done] - generation");
+            return a;
+        }
     }
 }

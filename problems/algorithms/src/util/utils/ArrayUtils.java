@@ -1,4 +1,4 @@
-package util.utility;
+package util.utils;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package util.tester;
 
-import util.utility.Timer;
+import util.utils.Timer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -68,14 +68,14 @@ public class Tester {
 	@SuppressWarnings({"unchecked"})
 	private Object exec(Object... o) {
 		try {
-			util.utility.Timer t = new Timer().start();
-			// invoke public solution method
-			Object result = method.invoke(classObject, o);
-			execTimes.add(t.end().getTotal());
-			// re-instantiate solution object
-			classObject = getNewSolutionInstance();
-			return result;
-		}
+            util.utils.Timer t = new Timer().start();
+            // invoke public solution method
+            Object result = method.invoke(classObject, o);
+            execTimes.add(t.end().getTotal());
+            // re-instantiate solution object
+            classObject = getNewSolutionInstance();
+            return result;
+        }
 		catch (IllegalAccessException | InvocationTargetException e) {
 			throw new RuntimeException(e.getCause());
 		}

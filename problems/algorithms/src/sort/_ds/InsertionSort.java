@@ -1,12 +1,12 @@
 package sort._ds;
 
-import util.utility.Gen;
+import util.utils.Gen;
 
 import java.util.Arrays;
 
 import static sort._ds.Shuffle.shuffleIntArray;
-import static util.utility.ArrayUtils.exch;
-import static util.utility.Validation.isSorted;
+import static util.utils.ArrayUtils.exch;
+import static util.utils.Validation.isSorted;
 
 /**
  * InsertionSort

@@ -1,4 +1,4 @@
-package util.utility;
+package util.utils;
 
 public class Validation
 {

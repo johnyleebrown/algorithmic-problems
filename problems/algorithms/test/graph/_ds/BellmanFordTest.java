@@ -1,7 +1,7 @@
 package graph._ds;
 
 import org.junit.jupiter.api.Test;
-import util.utility.reader.InputReader;
+import util.utils.reader.InputReader;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static util.utility.NumberUtils.formatDouble;
-import static util.utility.Other.getPathToCurrentFolder;
+import static util.utils.NumberUtils.formatDouble;
+import static util.utils.Other.getPathToCurrentFolder;
 
 class BellmanFordTest {
     @Test

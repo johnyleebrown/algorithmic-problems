@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static util.utility.ArrayUtils.parseString2dAr;
+import static util.utils.ArrayUtils.parseString2dAr;
 
 class DijkstraTest {
     @Test

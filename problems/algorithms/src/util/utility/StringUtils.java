@@ -47,4 +47,10 @@ public class StringUtils {
         else
             return b;
     }
+
+    public static boolean containsSubsequence(String src, String[] a) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : a) sb.append("(.*)").append(s);
+        return src.matches(sb.toString());
+    }
 }

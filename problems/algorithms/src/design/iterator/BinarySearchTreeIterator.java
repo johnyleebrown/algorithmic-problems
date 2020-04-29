@@ -1,7 +1,6 @@
 package design.iterator;
 
 import util.ds.TreeNode;
-import util.utility.reader.InputReader;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -10,36 +9,6 @@ import java.util.Deque;
  * 173
  */
 public class BinarySearchTreeIterator {
-    public static void main(String[] args) throws InterruptedException {
-        TreeNodeCustom t1 = new TreeNodeCustom(7);
-        TreeNodeCustom t1l = new TreeNodeCustom(3);
-        TreeNodeCustom t1r = new TreeNodeCustom(15);
-        t1.left = t1l;
-        t1.right = t1r;
-        TreeNodeCustom t3l = new TreeNodeCustom(9);
-        TreeNodeCustom t3r = new TreeNodeCustom(20);
-        t1r.left = t3l;
-        t1r.right = t3r;
-        Solution2.BSTIterator it = new Solution2.BSTIterator(t1);
-        InputReader in = new InputReader(System.in);
-        while (true) {
-            int x = in.nextInt();
-            if (x == 1) {
-                System.out.print("next: ");
-                System.out.println(it.next());
-            } else if (x == 2) {
-                System.out.print("has next: ");
-                System.out.println(it.hasNext());
-            } else if (x == 3) {
-                System.out.print("prev: ");
-                System.out.println(it.previous());
-            } else if (x == 4) {
-                System.out.print("has prev: ");
-                System.out.println(it.hasPrevious());
-            } else return;
-        }
-    }
-
     public static class Solution {
         class BSTIterator {
             Deque<TreeNode> st;
@@ -83,21 +52,21 @@ public class BinarySearchTreeIterator {
         public static class BSTIterator {
             private TreeNodeCustom cur;
             private Deque<TreeNodeCustom> st;
+            private TreeNodeCustom root;
 
             public BSTIterator(TreeNodeCustom root) {
                 st = new ArrayDeque<>();
-                addLefts(root);
-                cur = st.removeLast();
-            }
-
-            private void addLefts(TreeNodeCustom cur) {
-                while (cur != null) {
-                    st.add(cur);
-                    cur = cur.left;
-                }
+                this.root = root;
             }
 
             public int next() {
+                if (cur == null) {
+                    addLefts(root);
+                    TreeNodeCustom next = st.removeLast();
+                    cur = next;
+                    return next.val;
+                }
+
                 if (cur.next == null) {
                     addLefts(cur.right);
                     cur.next = st.removeLast();
@@ -109,7 +78,17 @@ public class BinarySearchTreeIterator {
                 return next.val;
             }
 
+            private void addLefts(TreeNodeCustom node) {
+                while (node != null) {
+                    st.add(node);
+                    node = node.left;
+                }
+            }
+
             public boolean hasNext() {
+                if (cur == null) {
+                    return root != null;
+                }
                 if (cur.next == null) {
                     return !st.isEmpty() || cur.right != null;
                 }

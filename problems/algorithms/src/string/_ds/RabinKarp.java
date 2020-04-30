@@ -55,9 +55,7 @@ public class RabinKarp {
      */
     public int search(String text) {
         int n = text.length();
-        if (n < m) {
-            throw new IllegalArgumentException("Text size is too small to search current pattern in.");
-        }
+        if (n < m) return -1;
 
         // compute the window size substring hash
         long rollingHash = hash(text, m); // rolling hash

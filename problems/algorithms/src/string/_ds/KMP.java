@@ -11,6 +11,7 @@ package string._ds;
  * problems:
  *
  * https://leetcode.com/problems/find-all-good-strings/
+ * https://leetcode.com/problems/shortest-palindrome/
  * https://leetcode.com/problems/longest-happy-prefix/
  */
 public class KMP {

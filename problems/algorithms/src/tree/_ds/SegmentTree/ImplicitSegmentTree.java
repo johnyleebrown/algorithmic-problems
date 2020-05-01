@@ -12,13 +12,10 @@ import java.util.Deque;
  * increment - creates interval nodes for the interval and increments the delta.
  * if intersects hi+lo / 2 intervals then we create.
  *
- * TODO impl w/o lazy prop
+ * TODO
+ * impl w/o lazy prop
  */
 public class ImplicitSegmentTree implements SegmentTreeQuery {
-    enum Dir {
-        UP, DOWN, LEFT, RIGHT;
-    }
-
     private Node root;
     private AggregateFunction af;
 
@@ -32,12 +29,14 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
         af = aggregateFunction;
     }
 
+    /**************************************************************************/
+
     public void increment(int a, int b, int val) {
         increment(root, a, b, val);
     }
 
     public void increment(Node cur, int a, int b, int val) {
-        if (cur == null || noIntersection(cur.lo, cur.hi, a, b)) {
+        if (notIntersects(cur, a, b)) {
             return;
         }
 
@@ -46,7 +45,7 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
             return;
         }
 
-        int mid = (cur.hi + cur.lo) / 2;
+        int mid = cur.lo + (cur.hi - cur.lo) / 2;
         if (cur.left == null) cur.left = new Node(cur.lo, mid);
         if (cur.right == null) cur.right = new Node(mid + 1, cur.hi);
 
@@ -59,34 +58,22 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
         update(cur);
     }
 
-    private void update(Node cur) {
-        if (af == AggregateFunction.MIN) {
-            cur.min = Math.min(cur.left.min + cur.left.delta, cur.right.min + cur.right.delta);
-        } else {
-            cur.max = Math.max(cur.left.max + cur.left.delta, cur.right.max + cur.right.delta);
-        }
-    }
+    /**************************************************************************/
 
     public int min(int a, int b) {
         return min(root, a, b);
     }
 
-    public int max(int a, int b) {
-        return min(root, a, b);
-    }
-
     private int min(Node cur, int lo, int hi) {
-        if (cur == null || noIntersection(cur.lo, cur.hi, lo, hi)) {
-            if (af == AggregateFunction.MIN) return Integer.MAX_VALUE;
-            else return Integer.MIN_VALUE;
+        if (notIntersects(cur, lo, hi)) {
+            return Integer.MAX_VALUE;
         }
 
         if (covers(cur, lo, hi)) {
-            if (af == AggregateFunction.MIN) return cur.delta + cur.min;
-            else return cur.delta + cur.max;
+            return cur.delta + cur.min;
         }
 
-        int mid = (cur.lo + cur.hi) / 2;
+        int mid = cur.lo + (cur.hi - cur.lo) / 2;
         if (cur.left == null) cur.left = new Node(cur.lo, mid);
         if (cur.right == null) cur.right = new Node(mid + 1, cur.hi);
 
@@ -97,8 +84,65 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
 
         update(cur);
 
-        if (af == AggregateFunction.MIN) return Math.min(left, right);
-        else return Math.max(left, right);
+        return Math.min(left, right);
+    }
+
+    /**************************************************************************/
+
+    public int max(int a, int b) {
+        return max(root, a, b);
+    }
+
+    private int max(Node cur, int a, int b) {
+        if (notIntersects(cur, a, b)) return Integer.MIN_VALUE;
+        if (covers(cur, a, b)) return cur.delta + cur.max;
+
+        int mid = cur.lo + (cur.hi - cur.lo) / 2;
+        if (cur.left == null) cur.left = new Node(cur.lo, mid);
+        if (cur.right == null) cur.right = new Node(mid + 1, cur.hi);
+
+        prop(cur);
+
+        int left = max(cur.left, a, b);
+        int right = max(cur.right, a, b);
+
+        update(cur);
+
+        return Math.max(left, right);
+    }
+
+    /**************************************************************************/
+
+    public int sum(int lo, int hi) {
+        return sum(root, lo, hi);
+    }
+
+    private int sum(Node cur, int lo, int hi) {
+        if (notIntersects(cur, lo, hi)) return 0;
+        if (covers(cur, lo, hi)) return cur.val + cur.delta;
+
+        int mid = cur.lo + (cur.hi - cur.lo) / 2;
+        if (cur.left == null) cur.left = new Node(cur.lo, mid);
+        if (cur.right == null) cur.right = new Node(mid + 1, cur.hi);
+
+        prop(cur);
+
+        int left = sum(cur.left, lo, hi);
+        int right = sum(cur.right, lo, hi);
+
+        update(cur);
+
+        return left + right;
+    }
+
+    /**************************************************************************/
+
+    private boolean notIntersects(Node cur, int lo, int hi) {
+        return lo > cur.hi || hi < cur.lo;
+    }
+
+    private boolean covers(Node root, int a, int b) {
+        return a <= root.lo && b >= root.hi;
     }
 
     private void prop(Node cur) {
@@ -107,13 +151,17 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
         cur.delta = 0;
     }
 
-    private boolean covers(Node root, int a, int b) {
-        return a <= root.lo && b >= root.hi;
+    private void update(Node cur) {
+        if (af == AggregateFunction.MIN) {
+            cur.min = Math.min(cur.left.min + cur.left.delta, cur.right.min + cur.right.delta);
+        } else if (af == AggregateFunction.MAX) {
+            cur.max = Math.max(cur.left.max + cur.left.delta, cur.right.max + cur.right.delta);
+        } else if (af == AggregateFunction.SUM) {
+            cur.val = cur.left.val + cur.left.delta + cur.right.val + cur.right.delta;
+        }
     }
 
-    private boolean noIntersection(int nodeLo, int nodeHi, int lo, int hi) {
-        return lo > nodeHi || hi < nodeLo;
-    }
+    /**************************************************************************/
 
     public void print() {
         print(root.lo, root.hi);
@@ -136,9 +184,11 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
         }
     }
 
+    /**************************************************************************/
+
     private class Node {
         int lo, hi;
-        int delta, min, max;
+        int delta, val, min, max;
         Node left, right;
 
         private Node(int lo, int hi) {

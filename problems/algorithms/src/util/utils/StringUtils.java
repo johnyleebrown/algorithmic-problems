@@ -5,6 +5,8 @@ import util.utils.reader.InputReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class StringUtils {
@@ -52,5 +54,30 @@ public class StringUtils {
         StringBuilder sb = new StringBuilder();
         for (String s : a) sb.append("(.*)").append(s);
         return src.matches(sb.toString());
+    }
+
+    /**
+     * [97,100],[51,65]
+     */
+    public static int[][] stringToAr(String s) {
+        String[] nums = s.split("[^0-9]");
+        int i = 0;
+        List<int[]> res = new ArrayList<>();
+        int[] local = new int[2];
+        for (String num : nums) {
+            if (!num.trim().isEmpty()) {
+                local[i++] = Integer.parseInt(num);
+                if (i == 2) {
+                    res.add(local);
+                    i = 0;
+                    local = new int[2];
+                }
+            }
+        }
+        int[][] ans = new int[res.size()][2];
+        for (int j = 0; j < res.size(); j++) {
+            ans[j] = res.get(j);
+        }
+        return ans;
     }
 }

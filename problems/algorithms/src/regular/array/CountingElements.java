@@ -1,7 +1,7 @@
 package regular.array;
 
 /**
- * Replace
+ * 1426
  *
  * ======
  *

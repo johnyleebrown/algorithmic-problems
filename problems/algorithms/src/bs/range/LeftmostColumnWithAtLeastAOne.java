@@ -3,7 +3,7 @@ package bs.range;
 import java.util.List;
 
 /**
- * LeftmostColumnWithAtLeastAOne
+ * 1428
  *
  * ======
  *

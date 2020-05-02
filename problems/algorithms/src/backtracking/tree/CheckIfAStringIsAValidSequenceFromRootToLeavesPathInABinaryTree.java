@@ -3,7 +3,7 @@ package backtracking.tree;
 import util.ds.TreeNode;
 
 /**
- * CheckIfAStringIsAValidSequenceFromRootToLeavesPathInABinaryTree
+ * 1430
  *
  * ======
  *

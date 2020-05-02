@@ -30,10 +30,10 @@ public class FirstBadVersion {
             int hi = n == Integer.MAX_VALUE ? n : n + 1;
             while (hi - lo > 1) {
                 int mid = lo + (hi - lo) / 2;
-                if (isBadVersion(mid)) {
-                    hi = mid;
-                } else {
+                if (!isBadVersion(mid)) {
                     lo = mid;
+                } else {
+                    hi = mid;
                 }
             }
             return hi;

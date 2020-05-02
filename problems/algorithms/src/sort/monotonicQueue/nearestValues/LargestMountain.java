@@ -95,4 +95,34 @@ public class LargestMountain {
             }
         }
     }
+
+    public static class Solution2 {
+        public int[] solve(int[] a) {
+            int n = a.length;
+            if (n < 3) return new int[0];
+            int maxLen = 0, ansJ = -1, ansI = -1;
+            for (int i = 0; i < n - 2; i++) {
+                for (int j = i + 1; j < n; j++) {
+                    if (j - i > 1) {
+                        boolean foundMountain = true;
+                        for (int k = j - 1; k > i; k--) {
+                            if (a[k] <= a[i] || a[k] <= a[j]) {
+                                foundMountain = false;
+                                break;
+                            }
+                        }
+                        if (foundMountain) {
+                            if (maxLen < j - i + 1) {
+                                maxLen = j - i + 1;
+                                ansI = i;
+                                ansJ = j;
+                            }
+                        }
+                    }
+                }
+            }
+            if (ansI == -1 || ansJ == -1) return new int[0];
+            return new int[]{ansI, ansJ};
+        }
+    }
 }

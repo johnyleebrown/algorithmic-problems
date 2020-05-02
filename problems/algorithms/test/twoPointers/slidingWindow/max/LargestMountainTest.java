@@ -8,49 +8,49 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class LargestMountainTest {
 
-    static LargestMountain.Solution s;
+    static LargestMountain.Solution2 s;
 
     @BeforeAll
     static void init() {
-        s = new LargestMountain.Solution();
+        s = new LargestMountain.Solution2();
     }
 
     @Test
     void shouldReturnCorrectAnswer_whenHaveDuplicatingNumbers() {
-        assertArrayEquals(s.solve(new int[]{5, 1, 3, 3, 3, 2}), new int[]{1, 5});
-        assertArrayEquals(s.solve(new int[]{5, 1, 3, 5, 3, 3, 2}), new int[]{1, 6});
-        assertArrayEquals(s.solve(new int[]{5, 1, 3, 5, 3, 3}), new int[]{2, 4});
-        assertArrayEquals(s.solve(new int[]{2, 3, 3, 6, 3}), new int[]{2, 4});
+        assertArrayEquals(new int[]{1, 5}, s.solve(new int[]{5, 1, 3, 3, 3, 2}));
+        assertArrayEquals(new int[]{1, 6}, s.solve(new int[]{5, 1, 3, 5, 3, 3, 2}));
+        assertArrayEquals(new int[]{2, 4}, s.solve(new int[]{5, 1, 3, 5, 3, 3}));
+        assertArrayEquals(new int[]{2, 4}, s.solve(new int[]{2, 3, 3, 6, 3}));
     }
 
     @Test
     void shouldReturnCorrectAnswer_whenLeftMountainEdgeIsLargerThenRight() {
-        assertArrayEquals(s.solve(new int[]{2, 2, 3, 1}), new int[]{1, 3});
+        assertArrayEquals(new int[]{1, 3}, s.solve(new int[]{2, 2, 3, 1}));
     }
 
     @Test
     void shouldReturnCorrectAnswer_whenLeftMountainEdgeIsSmallerThenRight() {
-        assertArrayEquals(s.solve(new int[]{1, 3, 60, 30}), new int[]{1, 3});
+        assertArrayEquals(new int[]{1, 3}, s.solve(new int[]{1, 3, 60, 30}));
     }
 
     @Test
     void shouldReturnEmptyArray_whenInputIsAMonotonicSequence() {
-        assertArrayEquals(s.solve(new int[]{5, 4, 3, 2, 1}), new int[0]);
-        assertArrayEquals(s.solve(new int[]{3, 2, 2, 1}), new int[0]);
-        assertArrayEquals(s.solve(new int[]{1, 2, 3, 4, 5}), new int[0]);
-        assertArrayEquals(s.solve(new int[]{1, 2, 3, 5, 5, 5, 6}), new int[0]);
+        assertArrayEquals(new int[0], s.solve(new int[]{5, 4, 3, 2, 1}));
+        assertArrayEquals(new int[0], s.solve(new int[]{3, 2, 2, 1}));
+        assertArrayEquals(new int[0], s.solve(new int[]{1, 2, 3, 4, 5}));
+        assertArrayEquals(new int[0], s.solve(new int[]{1, 2, 3, 5, 5, 5, 6}));
     }
 
     @Test
     void shouldReturnCorrectAnswer_whenHaveCrossingMountains() {
-        assertArrayEquals(s.solve(new int[]{1, 100, 1, 2, 2, 1}), new int[]{2, 5});
-        assertArrayEquals(s.solve(new int[]{2, 4, 5, 3, 6, 4, 7, 3}), new int[]{3, 7});
+        assertArrayEquals(new int[]{2, 5}, s.solve(new int[]{1, 100, 1, 2, 2, 1}));
+        assertArrayEquals(new int[]{3, 7}, s.solve(new int[]{2, 4, 5, 3, 6, 4, 7, 3}));
     }
 
     @Test
     void shouldReturnCorrectAnswer_whenHaveReversedMountain() {
-        assertArrayEquals(s.solve(new int[]{5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 5}), new int[]{8, 10});
-        assertArrayEquals(s.solve(new int[]{3, 2, 1, 3}), new int[0]);
+        assertArrayEquals(new int[]{8, 10}, s.solve(new int[]{5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 5}));
+        assertArrayEquals(new int[0], s.solve(new int[]{3, 2, 1, 3}));
     }
 
     @Test

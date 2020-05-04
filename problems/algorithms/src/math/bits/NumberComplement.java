@@ -1,13 +1,20 @@
 package math.bits;
 
 /**
- * 476 Given a positive integer, output its complement number. The complement
- * strategy is to flip the bits of its binary representation.
+ * 476
  */
 public class NumberComplement {
-	class Solution {
+	/**
+	 * Sum of n and it's complement is all ones. So we make all ones number
+	 * first by shifting left and adding 1 len(num) times. Then just subtract.
+	 */
+	public class Solution {
 		public int findComplement(int num) {
-			return ~num & (Integer.highestOneBit(num) - 1);
+			int n = 0;
+			while (n < num) {
+				n = (n << 1) | 1;
+			}
+			return n - num;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package sort.heap;
+package sort.heap.merge;
 
 import java.util.PriorityQueue;
 

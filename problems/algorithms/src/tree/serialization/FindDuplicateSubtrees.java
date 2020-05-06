@@ -79,7 +79,7 @@ public class FindDuplicateSubtrees {
             if (root == null) {
                 return ans;
             }
-
+            BitSet s = new BitSet();
             findDups(root);
 
             return ans;

@@ -12,7 +12,8 @@ import java.util.Set;
  *
  * Task.
  *
- * Given a binary tree root. Split the binary tree into two subtrees by removing 1 edge such that the product of the
+ * Given a binary tree root. Split the binary tree into two subtrees by removing
+ * 1 edge such that the product of the
  * sums of the subtrees are maximized.
  *
  * Since the answer may be too large, return it modulo 10^9 + 7.
@@ -21,34 +22,29 @@ import java.util.Set;
  *
  * Source: Leetcode
  */
-public class MaximumProductOfSplittedBinaryTree
-{
+public class MaximumProductOfSplittedBinaryTree {
 	/**
-	 * DFS. Count the total sum first. Count sums of all subtrees and cache them. Then iterate over all kinds of subtree
+	 * DFS. Count the total sum first. Count sums of all subtrees and cache
+	 * them. Then iterate over all kinds of subtree
 	 * sums and subtract in from total to find the max.
 	 */
-	class Solution
-	{
+	class Solution {
 		int mod = (int) (1e9) + 7;
 		Set<Long> sums = new HashSet<>();
 
-		public int maxProduct(TreeNode root)
-		{
+		public int maxProduct(TreeNode root) {
 			long total_sum = dfs(root);
 
 			long max = 0;
-			for (long current_sum : sums)
-			{
+			for (long current_sum : sums) {
 				max = Math.max(max, current_sum * (total_sum - current_sum));
 			}
 
 			return (int) (max % mod);
 		}
 
-		public long dfs(TreeNode root)
-		{
-			if (root == null)
-			{
+		public long dfs(TreeNode root) {
+			if (root == null) {
 				return 0;
 			}
 

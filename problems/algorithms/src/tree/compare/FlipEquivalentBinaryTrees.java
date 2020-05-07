@@ -5,27 +5,12 @@ import util.ds.TreeNode;
 /**
  * 951
  */
-public class FlipEquivalentBinaryTrees
-{
-	class Solution
-	{
-		public boolean flipEquiv(TreeNode root1, TreeNode root2)
-		{
-			// same subtrees
-			if (root1 == root2)
-			{
-				return true;
-			}
-
-			// if values match
-			if (root1 == null || root2 == null || root1.val != root2.val)
-			{
-				return false;
-			}
-
-			// values match but subtrees don't
-			return flipEquiv(root1.left, root2.left) && flipEquiv(root1.right, root2.right)
-					|| flipEquiv(root1.left, root2.right) && flipEquiv(root1.right, root2.left);
+public class FlipEquivalentBinaryTrees {
+	class Solution {
+		public boolean flipEquiv(TreeNode c1, TreeNode c2) {
+			if (c1 == null && c2 == null) return true;
+			if (c1 == null || c2 == null || c1.val != c2.val) return false;
+			return (flipEquiv(c1.left, c2.right) && flipEquiv(c1.right, c2.left)) || (flipEquiv(c1.right, c2.right) && flipEquiv(c1.left, c2.left));
 		}
 	}
 }

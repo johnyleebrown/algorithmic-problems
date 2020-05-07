@@ -4,58 +4,36 @@ import util.ds.ListNode;
 
 /**
  * 2
- *
- * =====
- *
- * Tests.
- *
- * [9,9] [9,9] [1] [] [1,2] [] [1,2] [3] [] [] [1] [9,9]
  */
-public class AddTwoNumbers
-{
-	/**
-	 * sum up reversed digits, cuz otherwise we would have to find the len we
-	 * can collect the digits, add, do a list creation, but we can do better
-	 *
-	 * we will iterate through the list creating a new list as we go but keeping
-	 * the link to the prev element, so if we could add a leftover there
-	 */
-	class Solution
-	{
-		public ListNode addTwoNumbers(ListNode l1, ListNode l2)
-		{
-			int leftOver = 0;
-			ListNode prev = null;
-			ListNode root = null;
-
-			while (l1 != null || l2 != null || leftOver != 0)
-			{
-				int one = 0;
-				if (l1 != null)
-				{
-					one = l1.val;
-					l1 = l1.next;
+public class AddTwoNumbers {
+	class Solution {
+		public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+			if (l1 == null) return l2;
+			if (l2 == null) return l1;
+			int rem = 0;
+			ListNode cur = null;
+			ListNode res = null;
+			while (!(l1 == null && l2 == null && rem == 0)) {
+				int a = l1 == null ? 0 : l1.val;
+				int b = l2 == null ? 0 : l2.val;
+				int sum = a + b + rem;
+				if (sum > 9) {
+					rem = 1;
+					sum = sum % 10;
+				} else {
+					rem = 0;
 				}
-
-				int two = 0;
-				if (l2 != null)
-				{
-					two = l2.val;
-					l2 = l2.next;
+				if (cur == null) {
+					cur = new ListNode(sum);
+					res = cur;
+				} else {
+					cur.next = new ListNode(sum);
+					cur = cur.next;
 				}
-
-				int sum = one + two + leftOver;
-				int res = sum % 10;
-
-				ListNode cur = new ListNode(res);
-				if (root == null) root = cur;
-				if (prev != null) prev.next = cur;
-				prev = cur;
-
-				leftOver = sum / 10;
+				if (l1 != null) l1 = l1.next;
+				if (l2 != null) l2 = l2.next;
 			}
-
-			return root;
+			return res;
 		}
 	}
 }

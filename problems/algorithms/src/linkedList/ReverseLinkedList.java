@@ -5,19 +5,15 @@ import util.ds.ListNode;
 /**
  * 206
  */
-public class ReverseLinkedList
-{
+public class ReverseLinkedList {
 	/**
 	 * Recursive.
 	 */
-	class Solution
-	{
+	class Solution {
 		ListNode last;
 
-		public ListNode reverseList(ListNode cur)
-		{
-			if (cur == null || cur.next == null)
-			{
+		public ListNode reverseList(ListNode cur) {
+			if (cur == null || cur.next == null) {
 				last = cur;
 				return cur;
 			}
@@ -32,15 +28,12 @@ public class ReverseLinkedList
 	/**
 	 * Iterative.
 	 */
-	class Solution2
-	{
-		public ListNode reverseList(ListNode head)
-		{
+	class Solution2 {
+		public ListNode reverseList(ListNode head) {
 			ListNode prev = null;
 			ListNode cur = head;
 			ListNode next = null;
-			while (cur != null)
-			{
+			while (cur != null) {
 				next = cur.next;
 				cur.next = prev;
 				prev = cur;

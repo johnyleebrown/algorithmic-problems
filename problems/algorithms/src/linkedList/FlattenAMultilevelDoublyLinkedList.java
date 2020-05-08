@@ -12,32 +12,41 @@ public class FlattenAMultilevelDoublyLinkedList {
      */
     public static class Solution {
         public ListNode flatten(ListNode head) {
-            traverse(head);
+            helper(head);
             return head;
         }
 
-        private ListNode traverse(ListNode cur) {
-            if (cur == null) return null;
+        ListNode helper(ListNode cur) {
+            // case 1
+            if (cur == null) {
+                return null;
+            }
+
+            // case 2 - end of line
             if (cur.next == null && cur.child == null) {
                 return cur;
             }
-            if (cur.next == null) {
-                ListNode x = traverse(cur.child);
-                cur.next = cur.child;
-                cur.next.prev = cur;
-                cur.child = null;
-                return x;
-            }
+
             ListNode next = cur.next;
+
+            // case 3 - have child - go there first
             if (cur.child != null) {
-                ListNode x = traverse(cur.child);
-                x.next = next;
-                next.prev = x;
+                ListNode last = helper(cur.child);
+
+                // relink 1
                 cur.next = cur.child;
-                cur.next.prev = cur;
+                cur.child.prev = cur;
                 cur.child = null;
+
+                // relink 2
+                if (next != null) {
+                    last.next = next;
+                    next.prev = last;
+                }
             }
-            return traverse(next);
+
+            // case 4 - go to next
+            return helper(next);
         }
     }
 }

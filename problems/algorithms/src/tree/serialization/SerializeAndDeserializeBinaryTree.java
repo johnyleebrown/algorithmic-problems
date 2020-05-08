@@ -5,6 +5,9 @@ import util.ds.TreeNode;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * SerializeAndDeserializeBinaryTree
+ */
 public class SerializeAndDeserializeBinaryTree {
     public static class Solution {
         public class Codec {

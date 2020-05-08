@@ -3,8 +3,6 @@ package graph._ds;
 import org.junit.jupiter.api.Test;
 import util.utils.reader.InputReader;
 
-import java.io.DataInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,14 +10,13 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static util.utils.NumberUtils.formatDouble;
-import static util.utils.Other.getPathToCurrentFolder;
+import static util.utils.Other.getReader;
 
 class BellmanFordTest {
     @Test
     void test1() throws IOException {
-        String file = getPathToCurrentFolder(this.getClass(), "test") + "/" + "tinyEWDn.txt";
-        DataInputStream reader = new DataInputStream(new FileInputStream(file));
-        InputReader r = new InputReader(reader);
+        InputReader r = new InputReader(getReader(this.getClass(), "tinyEWDn.txt"));
+
         Map<Integer, Map<Integer, Double>> g = new HashMap<>();
         int n = r.nextInt();
         int edges = r.nextInt();

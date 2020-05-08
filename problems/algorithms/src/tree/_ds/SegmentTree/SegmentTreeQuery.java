@@ -1,7 +1,7 @@
 package tree._ds.SegmentTree;
 
 /**
- * @nochecker SegmentTreeQuery
+ * @nochecker
  */
 public interface SegmentTreeQuery {
     void increment(int i, int j, int val);

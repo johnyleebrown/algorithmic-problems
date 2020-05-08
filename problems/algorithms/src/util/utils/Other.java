@@ -1,9 +1,6 @@
 package util.utils;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.FileSystems;
 
 public class Other {
@@ -17,8 +14,17 @@ public class Other {
         return externalPath + File.separator + internalPath.substring(0, internalPath.lastIndexOf(File.separator));
     }
 
-    public static DataInputStream getReader(Class c, String fileName) throws IOException {
-        String file = getPathToCurrentFolder(c, "test") + "/" + fileName;
-        return new DataInputStream(new FileInputStream(file));
+    public static DataInputStream getReader(Class c, String fileName) {
+        String file = null;
+        try {
+            file = getPathToCurrentFolder(c, "test") + "/" + fileName;
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+        try {
+            return new DataInputStream(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException();
+        }
     }
 }

@@ -1,9 +1,7 @@
 package unionFind.percolation;
 
-import java.util.Arrays;
-
 /**
- * $INSERT_PROBLEM_NUMBER
+ * FlappyBird
  *
  * ======
  *
@@ -30,66 +28,97 @@ public class FlappyBird {
      * to floor, if yes, then flappy bird can't reach end.
      */
     public static class Solution {
+        int[][] dirs = new int[][]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+
         public boolean canReachEnd(int[][] ar) {
             int n = ar.length;
-            UnionFind uf = new UnionFind();
-            return uf.isConnected(0, 1);
-        }
-
-        private class UnionFind {
-            Cell[][] parents;
-
-            public UnionFind(int[][] ar) {
-                int n = ar.length + 2;
-                int m = ar[0].length;
-                this.parents = new Cell[n][m];
-
-                Cell first = new Cell(0, 0);
-                Arrays.fill(parents[0], first);
-                Cell last = new Cell(n - 1, 0);
-                Arrays.fill(parents[n - 1], last);
-
-                for (int i = 1; i < n - 1; i++) {
-                    for (int j = 0; j < m; j++) {
-                        parents[i][j] = new Cell(i, j);
+            int m = ar[0].length;
+            UnionFind uf = new UnionFind(n, m);
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (ar[i][j] == 0) continue;
+                    int curI = i + 1;
+                    uf.add(curI, j);
+                    for (int[] dir : dirs) {
+                        int ni = dir[0] + curI;
+                        int nj = dir[1] + j;
+                        if (nj < 0 || nj >= m || uf.parents[ni][nj] == null)
+                            continue;
+                        uf.union(curI, j, ni, nj);
                     }
                 }
             }
 
+            return uf.isConnected(uf.parents[0][0], uf.parents[n + 2 - 1][0]);
+        }
+
+        private class UnionFind {
+            Cell[][] parents;
+            int[][] rank;
+
+            public UnionFind(int arN, int m) {
+                int n = arN + 2;
+                this.parents = new Cell[n][m];
+                rank = new int[n][m];
+
+                for (int j = 1; j < m; j++) {
+                    union(0, 0, 0, j);
+                }
+                for (int j = 1; j < m; j++) {
+                    union(n - 1, 0, n - 1, j);
+                }
+            }
+
             public boolean isConnected(Cell p, Cell q) {
-                return same(find(p), find(q));
+                return same(find(p.i, p.j), find(q.i, q.j));
             }
 
             private boolean same(Cell p, Cell q) {
-                return p.i == q.i && p.j == q.j && p.rank == q.rank;
+                return p.i == q.i && p.j == q.j;
             }
 
-            private void union(Cell p, Cell q) {
-                Cell parentP = find(p);
-                Cell parentQ = find(q);
+            private void union(int pi, int pj, int qi, int qj) {
+                Cell parentP = find(pi, pj);
+                Cell parentQ = find(qi, qj);
 
-                if (parentP == parentQ) return;
+                if (same(parentP, parentQ)) return;
 
-                if (parentP.rank > parentQ.rank) {
+                if (getRank(parentP) > getRank(parentQ)) {
                     parentQ.set(parentP);
-                } else if (parentP.rank < parentQ.rank) {
+                } else if (getRank(parentP) < getRank(parentQ)) {
                     parentP.set(parentQ);
                 } else {
                     parentQ.set(parentP);
-                    parentQ.rank++;
+                    rank[parentP.i][parentP.j]++;
                 }
             }
 
-            private Cell find(Cell p) {
-                while (!(p.i == parents[p.i][p.j].i && p.j == parents[p.i][p.j].j)) {
-                    // todo - add path compression
-                    p = parents[p.i][p.j];
+            private int getRank(Cell p) {
+                return rank[p.i][p.j];
+            }
+
+            public void add(int i, int j) {
+                if (parents[i][j] == null) parents[i][j] = new Cell(i, j);
+            }
+
+            private Cell find(int i, int j) {
+                add(i, j);
+                while (!s(parents[i][j], i, j)) {
+                    // todo add pc
+                    int newI = parents[i][j].i;
+                    int newJ = parents[i][j].j;
+                    i = newI;
+                    j = newJ;
                 }
-                return p;
+                return parents[i][j];
+            }
+
+            private boolean s(Cell p, int i, int j) {
+                return p.i == i && p.j == j;
             }
 
             private class Cell {
-                int i, j, rank;
+                int i, j;
 
                 public Cell(int i, int j) {
                     this.i = i;
@@ -99,6 +128,14 @@ public class FlappyBird {
                 public void set(Cell other) {
                     this.i = other.i;
                     this.j = other.j;
+                }
+
+                @Override
+                public String toString() {
+                    return "{" +
+                            "i=" + i +
+                            ",j=" + j +
+                            '}';
                 }
             }
         }

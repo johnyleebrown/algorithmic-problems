@@ -4,20 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TreeNode
-{
+public class TreeNode {
 	public int val;
-	public TreeNode left;
-	public TreeNode right;
+	public TreeNode left, right, next;
 	public boolean someFlag;
 
-	public TreeNode(int val)
-	{
+	public TreeNode(int val) {
 		this.val = val;
 	}
 
-	public TreeNode(boolean f)
-	{
+	public TreeNode(boolean f) {
 		someFlag = f;
 	}
 

@@ -15,9 +15,9 @@ public class RedundantConnection {
             return new int[]{};
         }
 
-        private class UnionFind {
-            private int[] parent;
-            private int[] rank;
+        private static class UnionFind {
+            private final int[] parent;
+            private final int[] rank;
 
             public UnionFind(int n) {
                 rank = new int[n];

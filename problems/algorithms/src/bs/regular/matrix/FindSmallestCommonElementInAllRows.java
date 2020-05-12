@@ -1,4 +1,4 @@
-package bs.regular;
+package bs.regular.matrix;
 
 import java.util.Arrays;
 

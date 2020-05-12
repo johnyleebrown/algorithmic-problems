@@ -1,4 +1,4 @@
-package graph.shortestPaths.bfs.board;
+package graph.shortestPaths.bfs.matrix;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

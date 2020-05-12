@@ -13,7 +13,7 @@ public class SeparateChainingHashST<Key, Value> {
 
     private int n;                                // number of key-value pairs
     private int m;                                // hash table size
-    private List[] st;  // array of linked-list symbol tables
+    private List<Integer>[] st;  // array of linked-list symbol tables
 
     public SeparateChainingHashST() {
         this(INIT_CAPACITY);
@@ -21,7 +21,7 @@ public class SeparateChainingHashST<Key, Value> {
 
     public SeparateChainingHashST(int m) {
         this.m = m;
-        st = new LinkedList[m];
+        st = new List[m];
         for (int i = 0; i < m; i++) {
             st[i] = new LinkedList<>();
         }

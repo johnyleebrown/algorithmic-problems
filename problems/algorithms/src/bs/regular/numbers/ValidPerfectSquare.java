@@ -1,4 +1,4 @@
-package bs.regular;
+package bs.regular.numbers;
 
 /**
  * 367

@@ -1,10 +1,6 @@
-package graph.shortestPaths.bfs.board;
+package graph.shortestPaths.bfs.matrix;
 
-import java.util.LinkedList;
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.List;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * 417

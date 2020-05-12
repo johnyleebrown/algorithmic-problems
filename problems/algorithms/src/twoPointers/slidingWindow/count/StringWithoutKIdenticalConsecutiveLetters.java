@@ -1,7 +1,5 @@
 package twoPointers.slidingWindow.count;
 
-import util.tester.Tester;
-
 /**
  * StringWithoutKIdenticalConsecutiveLetters
  *
@@ -18,21 +16,8 @@ import util.tester.Tester;
  * Source: Leetcode
  */
 public class StringWithoutKIdenticalConsecutiveLetters {
-    public static void main(String[] args) {
-        new Tester(new Solution())
-                .add("TFTFTF", 2).expect(true)
-                .add("TTFTTF", 2).expect(true)
-                .add("FFTFFT", 2).expect(true)
-                .add("TTT", 2).expect(false)
-                .add("FFF", 2).expect(false)
-                .add("FTTTF", 2).expect(false)
-                .add("TFFFT", 2).expect(false)
-                .add("TFFAAAAFT", 3).expect(false)
-                .run();
-    }
-
     public static class Solution {
-        public boolean solve(String s, int k) {
+        public static boolean solve(String s, int k) {
             int n = s.length();
             if (n == 0) return false;
             if (k > n) return true;

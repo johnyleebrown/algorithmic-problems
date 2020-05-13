@@ -8,47 +8,56 @@ import java.util.Map;
  * 737
  */
 public class SentenceSimilarityII {
-    class Solution {
-        public boolean areSentencesSimilarTwo(String[] words1, String[] words2, List<List<String>> pairs) {
-            if (words1.length != words2.length) {
-                return false;
+    public static class Solution {
+        public boolean areSentencesSimilarTwo(String[] w1, String[] w2, List<List<String>> pairs) {
+            if (w1.length != w2.length) return false;
+            UnionFind uf = new UnionFind();
+            for (List<String> p : pairs) {
+                uf.union(p.get(0), p.get(1));
             }
-
-            //save the relationship of child-parent, key is child and value is parent
-            Map<String, String> parent = new HashMap<>();
-
-            for (List<String> s : pairs) {
-                String p1 = findParent(s.get(0), parent);
-                String p2 = findParent(s.get(1), parent);
-
-                //if p1 doesn't equal to p2, we need setup relationship between them.
-                //make one as parent of the other. Here I make p2 as parent of p1.
-                if (!p1.equals(p2)) {
-                    parent.put(p1, p2);
-                }
+            for (int i = 0; i < w1.length; i++) {
+                if (w1[i].equals(w2[i])) continue;
+                if (uf.connected(w1[i], w2[i])) return false;
             }
-
-            int len = words1.length;
-            for (int i = 0; i < len; i++) {
-                String p1 = findParent(words1[i], parent);
-                String p2 = findParent(words2[i], parent);
-
-                //If no relationship found for p1 and p2, that means they're not similar word.
-                if (!p1.equals(p2)) {
-                    return false;
-                }
-            }
-
             return true;
         }
 
-        //Find the very top parent of s. If no parent found for s, return s itself.
-        String findParent(String s, Map<String, String> parent) {
-            if (parent.containsKey(s)) {
-                return findParent(parent.get(s), parent);
+        static class UnionFind {
+            Map<String, String> parents;
+            Map<String, Integer> rank;
+
+            UnionFind() {
+                parents = new HashMap<>();
+                rank = new HashMap<>();
             }
 
-            return s;
+            void union(String p, String q) {
+                String parentP = find(p);
+                String parentQ = find(q);
+                if (parentP.equals(parentQ)) return;
+                if (rank.get(parentP) > rank.get(parentQ)) {
+                    parents.put(parentQ, parentP);
+                } else if (rank.get(parentP) < rank.get(parentQ)) {
+                    parents.put(parentP, parentQ);
+                } else {
+                    parents.put(parentQ, parentP);
+                    rank.put(parentP, rank.get(parentP) + 1);
+                }
+            }
+
+            String find(String p) {
+                parents.putIfAbsent(p, p);
+                rank.putIfAbsent(p, 0);
+                while (!parents.get(p).equals(p)) {
+                    parents.put(p, parents.get(parents.get(p)));
+                    p = parents.get(p);
+                }
+                return p;
+            }
+
+            boolean connected(String p, String q) {
+                return !find(p).equals(find(q));
+            }
         }
     }
 }

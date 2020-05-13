@@ -19,17 +19,17 @@ import java.util.Map;
  */
 public class MinimumSizeSubarraySum {
     public static class Solution implements S {
-        public int solve(int s, int[] ar) {
+        public int solve(int target, int[] ar) {
             Map<Integer, Integer> m = new HashMap<>();
             m.put(0, -1);//base case
-            int pre = 0;
+            int sum = 0;
             int ans = Integer.MAX_VALUE;
             for (int i = 0; i < ar.length; i++) {
-                pre += ar[i];
-                if (m.containsKey(pre - s)) {
-                    ans = Math.min(ans, i - m.get(pre - s));
+                sum += ar[i];
+                if (m.containsKey(sum - target)) {
+                    ans = Math.min(ans, i - m.get(sum - target));
                 }
-                m.putIfAbsent(pre, i);
+                m.put(sum, i); // put the last value so the dist is always minimum
             }
             return ans;
         }
@@ -60,6 +60,4 @@ public class MinimumSizeSubarraySum {
     interface S {
         int solve(int s, int[] ar);
     }
-
-    ;
 }

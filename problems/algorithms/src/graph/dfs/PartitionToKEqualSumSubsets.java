@@ -19,50 +19,41 @@ import java.util.Arrays;
  *
  * 1 <= k <= len(nums) <= 16. 0 < nums[i] < 10000.
  */
-public class PartitionToKEqualSumSubsets
-{
-	class Solution
-	{
-		public boolean canPartitionKSubsets(int[] nums, int k)
-		{
-			int sum = Arrays.stream(nums).sum();
-			if (sum % k != 0) return false;
-			return dfs(new boolean[nums.length], nums, 0, k, sum / k, 0);
-		}
+public class PartitionToKEqualSumSubsets {
+    class Solution {
+        public boolean canPartitionKSubsets(int[] nums, int k) {
+            int sum = Arrays.stream(nums).sum();
+            if (sum % k != 0) return false;
+            return dfs(new boolean[nums.length], nums, 0, k, sum / k, 0);
+        }
 
-		private boolean dfs(boolean[] used, int[] nums, int curSum, int subsetNum, int maxSum, int currentIndex)
-		{
-			// if we have found all the subsets
-			if (subsetNum == 0)
-			{
-				return true;
-			}
+        private boolean dfs(boolean[] used, int[] nums, int curSum, int subsetNum, int maxSum, int currentIndex) {
+            // if we have found all the subsets
+            if (subsetNum == 0) {
+                return true;
+            }
 
-			// if if found 1 subset correctly
-			if (curSum == maxSum)
-			{
-				// cursum is now zero as we start over
-				return dfs(used, nums, 0, subsetNum - 1, maxSum, 0);
-			}
+            // if if found 1 subset correctly
+            if (curSum == maxSum) {
+                // cursum is now zero as we start over
+                return dfs(used, nums, 0, subsetNum - 1, maxSum, 0);
+            }
 
-			// go through each number in the array to find the right one
-			for (int i = currentIndex; i < nums.length; i++)
-			{
-				// we can't take the ones that were already used previously
-				if (!used[i])
-				{
-					// mark it as used so when in the recursion we won't take it
-					used[i] = true;
-					if (dfs(used, nums, curSum + nums[i], subsetNum, maxSum, i + 1))
-					{
-						return true;
-					}
-					// if the number isn't right for us, we mark it as not used
-					used[i] = false;
-				}
-			}
+            // go through each number in the array to find the right one
+            for (int i = currentIndex; i < nums.length; i++) {
+                // we can't take the ones that were already used previously
+                if (!used[i]) {
+                    // mark it as used so when in the recursion we won't take it
+                    used[i] = true;
+                    if (dfs(used, nums, curSum + nums[i], subsetNum, maxSum, i + 1)) {
+                        return true;
+                    }
+                    // if the number isn't right for us, we mark it as not used
+                    used[i] = false;
+                }
+            }
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 }

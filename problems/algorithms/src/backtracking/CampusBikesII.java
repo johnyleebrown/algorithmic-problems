@@ -1,5 +1,8 @@
 package backtracking;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 1066
  *
@@ -21,41 +24,97 @@ package backtracking;
  */
 public class CampusBikesII {
     /**
-     * For every worker w we are considering every bike i. Along the way
-     * counting the the min sum.
+     * Part I. Backtracking. O(m!/(m-n)!)
      */
-    class Solution {
-        private boolean[] used;
-        private int min = Integer.MAX_VALUE;
+    public static class Solution {
+        int ans = Integer.MAX_VALUE;
 
-        public int assignBikes(int[][] workers, int[][] bikes) {
-            used = new boolean[bikes.length];
-            generate(0, 0, workers, bikes);
-            return min;
+        public int assignBikes(int[][] w, int[][] b) {
+            gen(w, b, 0, 0, new boolean[b.length]);
+            return ans;
         }
 
-        private void generate(int sum, int w, int[][] workers, int[][] bikes) {
-            if (sum > min) {
-                return;
-            }
-
-            if (w == workers.length) {
-                min = Math.min(min, sum);
+        void gen(int[][] w, int[][] b, int curW, int sum, boolean[] seenBikes) {
+            if (curW == w.length) {
+                ans = Math.min(ans, sum);
             } else {
-                for (int i = 0; i < bikes.length; i++) {
-                    if (used[i]) {
-                        continue;
-                    }
-
-                    used[i] = true;
-                    generate(sum + getsum(workers[w], bikes[i]), w + 1, workers, bikes);
-                    used[i] = false;
+                for (int i = 0; i < b.length; i++) {
+                    if (seenBikes[i]) continue;
+                    seenBikes[i] = true;
+                    gen(w, b, curW + 1, sum + getDist(w, b, curW, i), seenBikes);
+                    seenBikes[i] = false;
                 }
             }
         }
 
-        private int getsum(int[] a, int[] b) {
-            return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+        int getDist(int[][] w, int[][] b, int curW, int curB) {
+            return Math.abs(w[curW][0] - b[curB][0]) + Math.abs(w[curW][1] - b[curB][1]);
+        }
+    }
+
+    /**
+     * Part II. DFS.
+     */
+    public static class Solution2 {
+        public int assignBikes(int[][] w, int[][] b) {
+            return gen(w, b, 0, 0, new boolean[b.length]);
+        }
+
+        int gen(int[][] w, int[][] b, int curW, int dist, boolean[] seenBikes) {
+            if (curW == w.length) {
+                return dist;
+            }
+            int ans = Integer.MAX_VALUE;
+            for (int i = 0; i < b.length; i++) {
+                if (seenBikes[i]) continue;
+                seenBikes[i] = true;
+                ans = Math.min(ans, gen(w, b, curW + 1, getDist(w, b, curW, i), seenBikes));
+                seenBikes[i] = false;
+            }
+
+            return ans + dist;
+        }
+
+        int getDist(int[][] w, int[][] b, int curW, int curB) {
+            return Math.abs(w[curW][0] - b[curB][0]) + Math.abs(w[curW][1] - b[curB][1]);
+        }
+    }
+
+    /**
+     * Part III. DFS+cache. O(n*(2^m)). 2^m states total, to get 1 state we need
+     * to go through n workers.
+     */
+    public static class Solution3 {
+        public int assignBikes(int[][] w, int[][] b) {
+            return gen(w, b, 0, 0, new HashMap<>()); // seen bikes bitset - min sum
+        }
+
+        int gen(int[][] w, int[][] b, int curW, int seenBikes, Map<Integer, Integer> cache) {
+            if (curW == w.length) {
+                return 0;
+            }
+            if (cache.containsKey(seenBikes)) {
+                return cache.get(seenBikes);
+            }
+            int ans = Integer.MAX_VALUE;
+            for (int i = 0; i < b.length; i++) {
+                if (seen(seenBikes, i)) continue;
+                ans = Math.min(ans, getDist(w, b, curW, i) + gen(w, b, curW + 1, setBit(seenBikes, i), cache));
+            }
+            cache.put(seenBikes, ans);
+            return cache.get(seenBikes);
+        }
+
+        boolean seen(int seenBikes, int i) {
+            return ((seenBikes >> (i)) & 1) == 1;
+        }
+
+        int setBit(int seenBikes, int i) {
+            return seenBikes | (1 << i);
+        }
+
+        int getDist(int[][] w, int[][] b, int curW, int curB) {
+            return Math.abs(w[curW][0] - b[curB][0]) + Math.abs(w[curW][1] - b[curB][1]);
         }
     }
 }

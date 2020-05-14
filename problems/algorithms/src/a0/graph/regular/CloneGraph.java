@@ -1,48 +1,26 @@
 package a0.graph.regular;
 
-import java.util.ArrayList;
+import util.ds.Node;
+
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 /**
  * 133
  */
-public class CloneGraph
-{
-	public UndirectedGraphNode solution(UndirectedGraphNode node)
-	{
-		if (node == null) return null;
-		return dfs(node, new HashMap<>());
-	}
+public class CloneGraph {
+    public static class Solution {
+        Map<Integer, Node> m = new HashMap<>();
 
-	private UndirectedGraphNode dfs(UndirectedGraphNode node, HashMap<Integer,
-			UndirectedGraphNode> map)
-	{
-		if (node == null) return null;
-		if (map.containsKey(node.label))
-		{
-			// wont go where already been, marked analogy
-			return map.get(node.label);
-		}
-		else
-		{
-			UndirectedGraphNode clone = new UndirectedGraphNode(node.label);
-			map.put(node.label, clone);
-			for (UndirectedGraphNode n : node.neighbors)
-				clone.neighbors.add(dfs(n, map));
-			return clone;
-		}
-	}
-
-	static class UndirectedGraphNode
-	{
-		int label;
-		List<UndirectedGraphNode> neighbors;
-
-		UndirectedGraphNode(int x)
-		{
-			label = x;
-			neighbors = new ArrayList<>();
-		}
-	}
+        public Node cloneGraph(Node cur) {
+            if (cur == null) return null;
+            if (m.containsKey(cur.val)) return m.get(cur.val);
+            Node copy = new Node(cur.val);
+            m.put(cur.val, copy);
+            for (Node n : cur.neighbors) {
+                copy.neighbors.add(cloneGraph(n));
+            }
+            return copy;
+        }
+    }
 }

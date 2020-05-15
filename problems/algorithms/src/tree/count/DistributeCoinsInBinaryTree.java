@@ -24,54 +24,49 @@ import util.tester.Tester;
  *
  * Source: Leetcode
  */
-public class DistributeCoinsInBinaryTree
-{
-	/**
-	 * Traversal and count. Let's say at each node we are asking a question how
-	 * many coins we need to send to the children nodes. If i need to send +2
-	 * coins for example, i need to send a coins with nom (1) 2 times, hence
-	 * res+=sum. If i the sum is -2 coins, it means that we can get 2 coins from
-	 * the children, it means to transfer those i still need to go 2 times, so
-	 * res+=abs(sum).
-	 */
-	private static class Solution
-	{
-		private int res;
+public class DistributeCoinsInBinaryTree {
+    public static void main(String[] args) {
+        new Tester(new Solution())
+                .add(new TreeNode("3,0,0")).expect(2)
+                .add(new TreeNode("0,3,0")).expect(3)
+                .add(new TreeNode("1,0,2")).expect(2)
+                .add(new TreeNode("1,0,0,null,3")).expect(4)
+                .run();
+    }
 
-		public int distributeCoins(TreeNode root)
-		{
-			res = 0;
-			helper(root);
-			return res;
-		}
+    /**
+     * Traversal and count. Let's say at each node we are asking a question how
+     * many coins we need to send to the children nodes. If i need to send +2
+     * coins for example, i need to send a coins with nom (1) 2 times, hence
+     * res+=sum. If i the sum is -2 coins, it means that we can get 2 coins from
+     * the children, it means to transfer those i still need to go 2 times, so
+     * res+=abs(sum).
+     */
+    private static class Solution {
+        private int res;
 
-		private int helper(TreeNode cur)
-		{
-			if (cur == null)
-				return 0;
+        public int distributeCoins(TreeNode root) {
+            res = 0;
+            helper(root);
+            return res;
+        }
 
-			int l = helper(cur.left);
-			int r = helper(cur.right);
+        private int helper(TreeNode cur) {
+            if (cur == null)
+                return 0;
 
-			// either we need to deliver sum of coins to the
-			// children nodes, or get form there, the path length is the same
-			res += Math.abs(l) + Math.abs(r);
+            int l = helper(cur.left);
+            int r = helper(cur.right);
 
-			// these are the same, but better to see the reasoning here
-			if (cur.val > 1)
-				return l + r - (cur.val - 1);
-			else
-				return l + r + (1 - cur.val);
-		}
-	}
+            // either we need to deliver sum of coins to the
+            // children nodes, or get form there, the path length is the same
+            res += Math.abs(l) + Math.abs(r);
 
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add(new TreeNode("3,0,0")).expect(2)
-				.add(new TreeNode("0,3,0")).expect(3)
-				.add(new TreeNode("1,0,2")).expect(2)
-				.add(new TreeNode("1,0,0,null,3")).expect(4)
-				.run();
-	}
+            // these are the same, but clearer to see the reasoning here
+            if (cur.val > 1)
+                return l + r - (cur.val - 1);
+            else
+                return l + r + 1;
+        }
+    }
 }

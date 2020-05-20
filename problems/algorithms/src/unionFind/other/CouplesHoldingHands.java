@@ -1,4 +1,4 @@
-package unionFind.regular;
+package unionFind.other;
 
 /**
  * 765

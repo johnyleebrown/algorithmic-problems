@@ -1,4 +1,4 @@
-package unionFind.regular;
+package unionFind.other;
 
 import java.util.LinkedList;
 import java.util.List;

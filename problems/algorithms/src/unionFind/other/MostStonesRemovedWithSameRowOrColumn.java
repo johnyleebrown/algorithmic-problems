@@ -1,4 +1,4 @@
-package unionFind.regular;
+package unionFind.other;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class PartitionLabels {
     /**
-     * @formatter:off
-     * $INSERT_EXPLANATION.
-     * @formatter:on
+     * Precount like in 76. Then like in 'count max number of intersecting
+     * intervals' wait until count is zero - this means that we have no
+     * intervals at the moment.
      */
     public static class Solution {
         public List<Integer> partitionLabels(String s) {

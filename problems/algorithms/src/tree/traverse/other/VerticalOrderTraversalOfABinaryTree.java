@@ -1,4 +1,4 @@
-package tree.traverse;
+package tree.traverse.other;
 
 import util.ds.TreeNode;
 

@@ -11,34 +11,28 @@ package twoPointers.slidingWindow.max;
  * characters.
  */
 public class LongestSubstringWithoutRepeatingCharacters {
-    static class Solution {
+    public static class Solution {
         public int lengthOfLongestSubstring(String s) {
             int l = 0;
-            int result = 0;
-            int repeatedCharsCount = 0;
-            int[] map = new int[256];
-
-            for (int r = 0; r < s.length(); r++) {
-                map[s.charAt(r)]++;
-                // the char began being repeated
-                if (map[s.charAt(r)] == 2) {
-                    repeatedCharsCount++;
+            char[] sc = s.toCharArray();
+            int[] c = new int[256];
+            boolean x = false;
+            int ans = 0;
+            for (int r = 0; r < sc.length; r++) {
+                c[sc[r]]++;
+                if (c[sc[r]] == 2) {
+                    x = true;
                 }
-
-                while (repeatedCharsCount > 0) {
-                    map[s.charAt(l)]--;
-                    // the char stopped being repeated
-                    if (map[s.charAt(l)] == 1) {
-                        repeatedCharsCount--;
+                while (x) {
+                    c[sc[l]]--;
+                    if (c[sc[l]] == 1) {
+                        x = false;
                     }
-
                     l++;
                 }
-
-                result = Math.max(result, r - l + 1);
+                ans = Math.max(ans, r - l + 1);
             }
-
-            return result;
+            return ans;
         }
     }
 }

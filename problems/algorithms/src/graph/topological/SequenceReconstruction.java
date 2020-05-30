@@ -26,7 +26,7 @@ public class SequenceReconstruction {
      * unique.
      * If a topological sort has the property that all pairs of consecutive
      * vertices in the topsort are connected by edges in the graph, then these
-     * edges form a directed Hamiltonian path. f a Hamiltonian path exists, the
+     * edges form a directed Hamiltonian path. If a Hamiltonian path exists, the
      * topological sort order is unique.
      *
      * Edge cases:

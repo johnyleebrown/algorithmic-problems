@@ -42,7 +42,7 @@ public class QuickSort {
     }
 
     public void sortIntArray(int[] a) {
-        shuffleIntArray(a);
+        shuffleIntArray(a); // guarantee against worst case
         sort(a, 0, a.length - 1);
         isSorted(a);
     }

@@ -2,12 +2,6 @@ package sort.heap;
 
 /**
  * 973
- *
- * =====
- *
- * Test.
- *
- * [[1,3],[-2,2]] 1 [[3,3],[5,-1],[-2,4]] 2 [[-2,10],[-4,-8],[10,7],[-4,-7]] 3
  */
 public class KClosestPointsToOrigin {
 	/**

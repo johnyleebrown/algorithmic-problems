@@ -1,4 +1,4 @@
-package dp.trees;
+package dp.acyclicGraph;
 
 import tree._ds.ExpressionTree;
 import util.ds.TreeNode;

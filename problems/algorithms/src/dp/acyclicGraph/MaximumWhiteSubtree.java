@@ -1,4 +1,4 @@
-package dp.trees;
+package dp.acyclicGraph;
 
 import util.utils.reader.InputReader;
 

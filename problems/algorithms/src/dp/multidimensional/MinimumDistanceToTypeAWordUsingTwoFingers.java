@@ -1,4 +1,4 @@
-package a0.dp;
+package dp.multidimensional;
 
 /**
  * 1320
@@ -37,17 +37,17 @@ public class MinimumDistanceToTypeAWordUsingTwoFingers {
 				int c = word.charAt(i + 1) - 'A';
 
 				for (int a = 0; a < 26; a++) {
-					dp[b] = Math.max(dp[b], dp[a] + d(b, c) - d(a, c));
+					dp[b] = Math.max(dp[b], dp[a] + helper(b, c) - helper(a, c));
 				}
 
 				save = Math.max(save, dp[b]);
-				result += d(b, c);
+				result += helper(b, c);
 			}
 
 			return result - save;
 		}
 
-		private int d(int a, int b) {
+		private int helper(int a, int b) {
 			return Math.abs(a / 6 - b / 6) + Math.abs(a % 6 - b % 6);
 		}
 	}

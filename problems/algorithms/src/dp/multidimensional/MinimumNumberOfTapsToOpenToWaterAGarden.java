@@ -1,4 +1,4 @@
-package a0.dp;
+package dp.multidimensional;
 
 import java.util.Arrays;
 

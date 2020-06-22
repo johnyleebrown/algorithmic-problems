@@ -1,4 +1,4 @@
-package dp.linear;
+package dp.linear.other;
 
 /**
  * 53

@@ -46,8 +46,7 @@ public class StudentAttendanceRecordII {
 		private void gen(int ind, char[] ca, int ac) {
 			if (ind == n) {
 				ans++;
-			}
-			else {
+			} else {
 				for (int i = 0; i < 3; i++) {
 					if (ind > 1 && ca[ind - 1] == 'L' && ca[ind - 2] == 'L' && b[i] == 'L')
 						continue;
@@ -58,6 +57,104 @@ public class StudentAttendanceRecordII {
 					ca[ind] = 0;
 				}
 			}
+		}
+	}
+
+	/**
+	 * Transition table = the state is number of 'A' in string and number of L the string ends with.
+	 *
+	 * @formatter:off
+	 * -----+---------------
+	 * INIT | A -- L -- P --
+	 * -----+---------------
+	 * A0L0 | A1L0 A0L1 A0L0
+	 * A0L1 | A1L0 A0L2 A0L0
+	 * A0L2 | A1L0 Done A0L0
+	 * A1L0 | Done A1L1 A1L0
+	 * A1L1 | Done A1L2 A1L0
+	 * A1L2 | Done Done A1L0
+	 * @formatter:on
+	 */
+	public static class Solution {
+		private static final int mod = 1_000_000_007;
+
+		public int checkRecord(int n) {
+			if (n == 0) {
+				return 0;
+			}
+			if (n == 1) {
+				return 3;
+			}
+			long[][][] dp = new long[n + 1][2][3]; // ind,ac,lc
+			for (int i = 0; i < 2; i++) {
+				Arrays.fill(dp[0][i], 1);
+			}
+			return (int) (dfs(n, 0, 0, dp) % mod);
+		}
+
+		private long dfs(int n, int ac, int lc, long[][][] dp) {
+			if (dp[n][ac][lc] != 0) {
+				return dp[n][ac][lc];
+			}
+
+			long res = 0;
+
+			if (ac == 0 && lc == 0) {
+				res += dfs(n - 1, 1, 0, dp) + dfs(n - 1, 0, 1, dp) + dfs(n - 1, 0, 0, dp);
+			} else if (ac == 0 && lc == 1) {
+				res += dfs(n - 1, 1, 0, dp) + dfs(n - 1, 0, 2, dp) + dfs(n - 1, 0, 0, dp);
+			} else if (ac == 0 && lc == 2) {
+				res += dfs(n - 1, 1, 0, dp) + dfs(n - 1, 0, 0, dp);
+			} else if (ac == 1 && lc == 0) {
+				res += dfs(n - 1, 1, 1, dp) + dfs(n - 1, 1, 0, dp);
+			} else if (ac == 1 && lc == 1) {
+				res += dfs(n - 1, 1, 2, dp) + dfs(n - 1, 1, 0, dp);
+			} else if (ac == 1 && lc == 2) {
+				res += dfs(n - 1, 1, 0, dp);
+			}
+
+			dp[n][ac][lc] = res % mod;
+			return res;
+		}
+	}
+
+	/**
+	 * This solution is for the same problem without the 'A's part.
+	 *
+	 * https://lectoriy.mipt.ru/lecture/CompTech-Informat-L03-Derbysh-141010.01#00:37:33
+	 */
+	public static class SolutionExtra {
+		public int checkRecord(int n) {
+			if (n == 1) {
+				return 3;
+			}
+			//keep the last 2 answers,1st letter,2nd letter
+			//a-0,l-1,p-2
+			long[][][] dp = new long[2][3][3];
+			//base
+			for (int i = 0; i < 3; i++) {
+				Arrays.fill(dp[0][i], 1);
+			}
+			dp[0][0][0] = 0;
+			int k = 1;
+			for (int i = 3; i <= n; i++, k = 1 - k) {
+				dp[k][2][2] = dp[1 - k][2][2] + dp[1 - k][0][2] + dp[1 - k][1][2];//PP
+				dp[k][2][0] = dp[1 - k][2][2] + dp[1 - k][1][2];//PA
+				dp[k][2][1] = dp[1 - k][2][2] + dp[1 - k][1][2] + dp[1 - k][0][2];//PL
+				dp[k][0][2] = dp[1 - k][2][0] + dp[1 - k][1][0];//AP
+				dp[k][1][2] = dp[1 - k][2][1] + dp[1 - k][1][1] + dp[1 - k][0][1];//LP
+				dp[k][1][1] = dp[1 - k][2][1] + dp[1 - k][0][1];//LL
+				dp[k][1][0] = dp[1 - k][1][1] + dp[1 - k][2][1];//LA
+				dp[k][0][1] = dp[1 - k][1][0] + dp[1 - k][2][0];//AL
+			}
+			long ans = 0;
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					ans += dp[1 - k][i][j];
+				}
+			}
+			int MOD = 1_000_000_007;
+			return (int) ans % MOD;
 		}
 	}
 
@@ -175,109 +272,6 @@ public class StudentAttendanceRecordII {
 				return 1;
 			}
 			return 0;
-		}
-	}
-
-	/**
-	 * Transition table = the state is number of 'A' in string and number of L the string ends with.
-	 *
-	 * @formatter:off
-	 * -----+---------------
-	 * INIT | A -- L -- P --
-	 * -----+---------------
-	 * A0L0 | A1L0 A0L1 A0L0
-	 * A0L1 | A1L0 A0L2 A0L0
-	 * A0L2 | A1L0 Done A0L0
-	 * A1L0 | Done A1L1 A1L0
-	 * A1L1 | Done A1L2 A1L0
-	 * A1L2 | Done Done A1L0
-	 * @formatter:on
-	 */
-	public static class Solution {
-		private static final int mod = 1_000_000_007;
-
-		public int checkRecord(int n) {
-			if (n == 0) {
-				return 0;
-			}
-			if (n == 1) {
-				return 3;
-			}
-			long[][][] dp = new long[n + 1][2][3]; // ind,ac,lc
-			for (int i = 0; i < 2; i++) {
-				Arrays.fill(dp[0][i], 1);
-			}
-			return (int) (dfs(n, 0, 0, dp) % mod);
-		}
-
-		private long dfs(int n, int ac, int lc, long[][][] dp) {
-			if (dp[n][ac][lc] != 0) {
-				return dp[n][ac][lc];
-			}
-
-			long res = 0;
-
-			if (ac == 0 && lc == 0) {
-				res += dfs(n - 1, 1, 0, dp) + dfs(n - 1, 0, 1, dp) + dfs(n - 1, 0, 0, dp);
-			}
-			else if (ac == 0 && lc == 1) {
-				res += dfs(n - 1, 1, 0, dp) + dfs(n - 1, 0, 2, dp) + dfs(n - 1, 0, 0, dp);
-			}
-			else if (ac == 0 && lc == 2) {
-				res += dfs(n - 1, 1, 0, dp) + dfs(n - 1, 0, 0, dp);
-			}
-			else if (ac == 1 && lc == 0) {
-				res += dfs(n - 1, 1, 1, dp) + dfs(n - 1, 1, 0, dp);
-			}
-			else if (ac == 1 && lc == 1) {
-				res += dfs(n - 1, 1, 2, dp) + dfs(n - 1, 1, 0, dp);
-			}
-			else if (ac == 1 && lc == 2) {
-				res += dfs(n - 1, 1, 0, dp);
-			}
-
-			dp[n][ac][lc] = res % mod;
-			return res;
-		}
-	}
-
-	/**
-	 * This solution is for the same problem without the 'A's part.
-	 *
-	 * https://lectoriy.mipt.ru/lecture/CompTech-Informat-L03-Derbysh-141010.01#00:37:33
-	 */
-	public static class SolutionExtra {
-		public int checkRecord(int n) {
-			if (n == 1) {
-				return 3;
-			}
-			//keep the last 2 answers,1st letter,2nd letter
-			//a-0,l-1,p-2
-			long[][][] dp = new long[2][3][3];
-			//base
-			for (int i = 0; i < 3; i++) {
-				Arrays.fill(dp[0][i], 1);
-			}
-			dp[0][0][0] = 0;
-			int k = 1;
-			for (int i = 3; i <= n; i++, k = 1 - k) {
-				dp[k][2][2] = dp[1 - k][2][2] + dp[1 - k][0][2] + dp[1 - k][1][2];//PP
-				dp[k][2][0] = dp[1 - k][2][2] + dp[1 - k][1][2];//PA
-				dp[k][2][1] = dp[1 - k][2][2] + dp[1 - k][1][2] + dp[1 - k][0][2];//PL
-				dp[k][0][2] = dp[1 - k][2][0] + dp[1 - k][1][0];//AP
-				dp[k][1][2] = dp[1 - k][2][1] + dp[1 - k][1][1] + dp[1 - k][0][1];//LP
-				dp[k][1][1] = dp[1 - k][2][1] + dp[1 - k][0][1];//LL
-				dp[k][1][0] = dp[1 - k][1][1] + dp[1 - k][2][1];//LA
-				dp[k][0][1] = dp[1 - k][1][0] + dp[1 - k][2][0];//AL
-			}
-			long ans = 0;
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 3; j++) {
-					ans += dp[1 - k][i][j];
-				}
-			}
-			int MOD = 1_000_000_007;
-			return (int) ans % MOD;
 		}
 	}
 }

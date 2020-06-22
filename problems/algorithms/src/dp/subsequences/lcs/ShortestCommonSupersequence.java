@@ -1,4 +1,4 @@
-package dp.subsequences;
+package dp.subsequences.lcs;
 
 import util.tester.Tester;
 
@@ -25,15 +25,19 @@ import static util.utils.StringUtils.getMaxLen3Strings;
  *
  * Source: Leetcode
  */
-public class ShortestCommonSupersequence
-{
+public class ShortestCommonSupersequence {
+	public static void main(String[] args) {
+		new Tester(new Solution())
+				.add("abac", "cab").expect("cabac").orExpect(null)
+				.add("cbcbacaab", "ababaabbbb").expect("cabacbacaabbbb").orExpect("cabcabacaabbbb")
+				.run();
+	}
+
 	/**
 	 * Find a lcs and then fill the result with leftovers from both strings.
 	 */
-	public static class Solution
-	{
-		public String shortestCommonSupersequence(String s1, String s2)
-		{
+	public static class Solution {
+		public String shortestCommonSupersequence(String s1, String s2) {
 			StringBuilder sb = new StringBuilder();
 
 			String lcs = longestCommonSubsequenceString(s1, s2);
@@ -42,17 +46,14 @@ public class ShortestCommonSupersequence
 			int s1Ind = 0;
 			int s2Ind = 0;
 
-			while (lcsInd < lcs.length())
-			{
-				while (s1.charAt(s1Ind) != lcs.charAt(lcsInd))
-				{
+			while (lcsInd < lcs.length()) {
+				while (s1.charAt(s1Ind) != lcs.charAt(lcsInd)) {
 					sb.append(s1.charAt(s1Ind));
 					s1Ind++;
 				}
 				s1Ind++;
 
-				while (s2.charAt(s2Ind) != lcs.charAt(lcsInd))
-				{
+				while (s2.charAt(s2Ind) != lcs.charAt(lcsInd)) {
 					sb.append(s2.charAt(s2Ind));
 					s2Ind++;
 				}
@@ -65,8 +66,7 @@ public class ShortestCommonSupersequence
 			return sb.toString() + s1.substring(s1Ind, s1.length()) + s2.substring(s2Ind, s2.length());
 		}
 
-		public String longestCommonSubsequenceString(String s1, String s2)
-		{
+		public String longestCommonSubsequenceString(String s1, String s2) {
 			int n = s1.length();
 			int m = s2.length();
 			String[][] ans = new String[n + 1][m + 1];
@@ -75,10 +75,8 @@ public class ShortestCommonSupersequence
 			for (int i = 0; i <= n; i++)
 				Arrays.fill(ans[i], "");
 
-			for (int i = 1; i <= n; i++)
-			{
-				for (int j = 1; j <= m; j++)
-				{
+			for (int i = 1; i <= n; i++) {
+				for (int j = 1; j <= m; j++) {
 					if (s1.charAt(i - 1) == s2.charAt(j - 1))
 						ans[i][j] = ans[i - 1][j - 1] + s1.charAt(i - 1);
 					else
@@ -88,13 +86,5 @@ public class ShortestCommonSupersequence
 
 			return ans[n][m];
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add("abac", "cab").expect("cabac").orExpect(null)
-				.add("cbcbacaab", "ababaabbbb").expect("cabacbacaabbbb").orExpect("cabcabacaabbbb")
-				.run();
 	}
 }

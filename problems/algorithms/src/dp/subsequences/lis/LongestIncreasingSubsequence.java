@@ -1,4 +1,4 @@
-package dp.linear.lis;
+package dp.subsequences.lis;
 
 import java.util.Arrays;
 

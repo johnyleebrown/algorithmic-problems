@@ -27,12 +27,9 @@ import java.util.HashMap;
  * You can always assume that maxChoosableInteger will not be larger than 20 and
  * desiredTotal will not be larger than 300.
  */
-public class CanIWin
-{
-    public static class Solution
-	{
-		public boolean canIWin(int maxChoosableInteger, int desiredTotal)
-		{
+public class CanIWin {
+	public static class Solution {
+		public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
 			if (((1 + maxChoosableInteger) * maxChoosableInteger) / 2 < desiredTotal)
 				return false;
 			if (desiredTotal <= 0) return true;
@@ -40,18 +37,14 @@ public class CanIWin
 			return helper(maxChoosableInteger, 0, desiredTotal, map);
 		}
 
-		private boolean helper(int max, int state, int total, HashMap<Integer, Boolean> map)
-		{
+		private boolean helper(int max, int state, int total, HashMap<Integer, Boolean> map) {
 			if (total <= 0) return false;
 			if (map.containsKey(state)) return map.get(state);
 
-			for (int i = 0; i < max; i++)
-			{
-				if ((state & (1 << i)) == 0)
-				{ // check which number is not used
+			for (int i = 0; i < max; i++) {
+				if ((state & (1 << i)) == 0) { // check which number is not used
 					int t = state | (1 << i); // next state
-					if (!helper(max, t, total - (max - i), map))
-					{ // if opponent loses, we win
+					if (!helper(max, t, total - (max - i), map)) { // if opponent loses, we win
 						map.put(state, true);
 						return true;
 					}

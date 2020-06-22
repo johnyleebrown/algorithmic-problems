@@ -1,4 +1,4 @@
-package dp.subsequences;
+package dp.subsequences.lcs;
 
 /**
  * 1458

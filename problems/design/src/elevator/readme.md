@@ -1,1 +1,0 @@
-Design a system to manage elevators in a building. Assume there are 2 elevators and no. of floors are not fixed.

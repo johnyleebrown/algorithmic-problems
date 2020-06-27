@@ -1,13 +1,43 @@
 package array.sum;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 15
  */
 public class ThreeSum {
+    /**
+     * Short version for the interview.
+     */
+    public static class SolutionForInterview {
+        public List<List<Integer>> threeSum(int[] ar) {
+            List<List<Integer>> ans = new LinkedList<>();
+            int n = ar.length;
+            if (n == 0) return ans;
+            Set<List<Integer>> set = new HashSet<>();
+            Arrays.sort(ar);
+            // -4 -1 -1 0 1 2
+            for (int i1 = 0; i1 < n - 2; i1++) {
+                int sum = 0 - ar[i1];
+                int i2 = i1 + 1;
+                int i3 = n - 1;
+                while (i2 < i3) {
+                    if (ar[i2] + ar[i3] == sum) {
+                        set.add(Arrays.asList(ar[i1], ar[i2], ar[i3]));
+                        i2++;
+                        i3--;
+                    } else if (ar[i2] + ar[i3] < sum) {
+                        i2++;
+                    } else {
+                        i3--;
+                    }
+                }
+            }
+            ans.addAll(set);
+            return ans;
+        }
+    }
+
     /**
      * Sort, ONE - pick one by one, TWO and THREE - find in [l,r].
      */

@@ -1,4 +1,4 @@
-package a0.two.regular;
+package hashtable.rollingHash;
 
 import java.math.BigInteger;
 import java.util.HashSet;

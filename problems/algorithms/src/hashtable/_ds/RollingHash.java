@@ -36,9 +36,23 @@ public class RollingHash {
         curHash = curHash * R + t.charAt(i);
     }
 
+    /**
+     * curHash = (a*r^2 + b*r^1 + c)
+     * curHash = d*r^3 + (a*r^2 + b*r^1 + c)
+     */
+    public void addFirst(int i, int pow) {
+        curHash = (t.charAt(i) * ((int) Math.pow(R, pow)) + curHash) % Q;
+    }
+
     public void pollFirst(int i) {
         curHash = curHash - t.charAt(i - m + 1) * ((int) Math.pow(R, m - 1));
         m--;
+    }
+
+    public long getHash(int i, int j, String s) {
+        // postfix hashes
+        long[] postFix = new long[s.length()];
+        return postFix[i] - postFix[j];
     }
 
     public void slideRight() {

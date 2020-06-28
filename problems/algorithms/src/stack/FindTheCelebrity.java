@@ -1,4 +1,6 @@
-package a0.graph.regular;
+package stack;
+
+import util.annotations.PredefinedMethod;
 
 import java.util.Stack;
 
@@ -30,40 +32,39 @@ import java.util.Stack;
  * Source: Leetcode
  */
 public class FindTheCelebrity {
-	/**
-	 * Check every two, add candidates to stack.
-	 */
-	public class Solution {
-		public int findCelebrity(int n) {
-			if (n <= 0)
-				return -1;
-			if (n == 1)
-				return 0;
+    /**
+     * Check every two, add candidates to stack.
+     */
+    public static class Solution {
+        public int findCelebrity(int n) {
+            if (n <= 0)
+                return -1;
+            if (n == 1)
+                return 0;
 
-			Stack<Integer> stack = new Stack<>();
-			for (int i = 0; i < n; i++)
-				stack.push(i);
+            Stack<Integer> stack = new Stack<>();
+            for (int i = 0; i < n; i++)
+                stack.push(i);
 
-			while (stack.size() > 1) {
-				int a = stack.pop();
-				int b = stack.pop();
+            while (stack.size() > 1) {
+                int a = stack.pop();
+                int b = stack.pop();
 
-				if (knows(a, b))
-					stack.push(b);
-				else
-					stack.push(a);
-			}
+                if (knows(a, b)) stack.push(b);
+                else stack.push(a);
+            }
 
-			int c = stack.pop();
-			for (int i = 0; i < n; i++)
-				if (i != c && (knows(c, i) || !knows(i, c)))
-					return -1;
+            int c = stack.pop();
+            for (int i = 0; i < n; i++)
+                if (i != c && (knows(c, i) || !knows(i, c)))
+                    return -1;
 
-			return c;
-		}
+            return c;
+        }
 
-		private boolean knows(int a, int b) {
-			return false;
-		}
-	}
+        @PredefinedMethod
+        private boolean knows(int a, int b) {
+            return false;
+        }
+    }
 }

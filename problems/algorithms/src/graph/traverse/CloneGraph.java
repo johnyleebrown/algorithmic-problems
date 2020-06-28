@@ -1,4 +1,4 @@
-package a0.graph.regular;
+package graph.traverse;
 
 import util.ds.Node;
 

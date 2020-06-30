@@ -1,4 +1,4 @@
-package backtracking.other;
+package backtracking.notdp;
 
 import java.util.HashMap;
 import java.util.Map;

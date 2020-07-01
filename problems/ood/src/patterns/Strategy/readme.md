@@ -1,0 +1,1 @@
+A strategy pattern defines a family of algorithms (strategies), encapsulates each one and makes them interchangeable.

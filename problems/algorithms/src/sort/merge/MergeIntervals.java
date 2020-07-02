@@ -9,30 +9,28 @@ import java.util.List;
  */
 public class MergeIntervals {
     public static class Solution {
-        public int[][] merge(int[][] a) {
-            Arrays.sort(a, (b, c) -> (b[0] - c[0]));
-            List<int[]> ansList = new ArrayList<>();
-            int n = a.length;
+        public int[][] merge(int[][] ar) {
+            int n = ar.length;
+            if (n == 0) return new int[0][];
+            Arrays.sort(ar, (a, b) -> a[0] - b[0]);
+            List<int[]> ans = new ArrayList<>();
             int i = 0;
             while (i < n) {
-                if (i + 1 < n && a[i][1] >= a[i + 1][0]) {
-                    int s = a[i][0];
-                    int e = a[i][1];
-                    while (i + 1 < n && e >= a[i + 1][0]) {
-                        e = Math.max(e, a[i + 1][1]);
-                        i++;
-                    }
-                    ansList.add(new int[]{s, e});
-                } else {
-                    ansList.add(a[i]);
+                int end = ar[i][1];
+                int j = i;
+                while (j + 1 < n && end >= ar[j + 1][0]) {
+                    end = Math.max(ar[j + 1][1], end);
+                    j++;
                 }
-                i++;
+                ans.add(new int[]{ar[i][0], end});
+                i = j + 1;
             }
-            int[][] ans = new int[ansList.size()][2];
-            for (int j = 0; j < ansList.size(); j++) {
-                ans[j] = ansList.get(j);
+            int[][] ret = new int[ans.size()][2];
+            int k = 0;
+            for (int[] x : ans) {
+                ret[k++] = x;
             }
-            return ans;
+            return ret;
         }
     }
 }

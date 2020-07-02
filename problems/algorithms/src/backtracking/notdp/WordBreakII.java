@@ -1,9 +1,6 @@
 package backtracking.notdp;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 140
@@ -71,13 +68,43 @@ public class WordBreakII {
      * DFS
      */
     public static class Solution2 {
-
     }
 
     /**
      * DFS + cache
      */
-    public static class Solution3 {
+    public static class Solution {
+        int n;
+        Set<String> set;
+        Map<String, List<String>> map;
 
+        public List<String> wordBreak(String s, List<String> d) {
+            n = s.length();
+            map = new HashMap<>();
+            set = new HashSet<>(d);
+            return gen2(s);
+        }
+
+        List<String> gen2(String s) {
+            if (map.containsKey(s)) {
+                return map.get(s);
+            }
+            List<String> ans = new LinkedList<>();
+            for (int i = 1; i <= s.length(); i++) {
+                String curPart = s.substring(0, i);
+                if (!set.contains(curPart)) continue;
+                if (i != s.length()) {
+                    String newPart = s.substring(i);
+                    List<String> ret = gen2(newPart);
+                    for (String x : ret) {
+                        ans.add(curPart + " " + x);
+                    }
+                } else {
+                    ans.add(curPart);
+                }
+            }
+            map.put(s, ans);
+            return ans;
+        }
     }
 }

@@ -7,6 +7,7 @@ public class Node {
     public List<Node> children;
     public List<Node> neighbors;
     public Node left, right, next;
+    public Node random;
 
     public Node(int val, List<Node> children) {
         this.val = val;

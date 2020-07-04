@@ -1,5 +1,6 @@
 package twoPointers.slidingWindow.count;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,11 +21,42 @@ import java.util.List;
  */
 public class PartitionLabels {
     /**
+     * Get ends of all chars, then record a substring when the end index is
+     * equal to cur index.
+     */
+    public static class Solution1 {
+        public List<Integer> partitionLabels(String s) {
+            List<Integer> ans = new ArrayList<>();
+
+            // record the last index of the each char
+            int[] lastIndexes = new int[26];
+            for (int i = 0; i < s.length(); i++) {
+                lastIndexes[s.charAt(i) - 'a'] = i;
+            }
+
+            // record the end index of the current sub string
+            int last = 0;
+            int start = 0;
+            for (int i = 0; i < s.length(); i++) {
+                last = Math.max(last, lastIndexes[s.charAt(i) - 'a']);
+
+                // reached the end of substring
+                if (last == i) {
+                    ans.add(last - start + 1);
+                    start = last + 1;
+                }
+            }
+
+            return ans;
+        }
+    }
+
+    /**
      * Precount like in 76. Then like in 'count max number of intersecting
      * intervals' wait until count is zero - this means that we have no
      * intervals at the moment.
      */
-    public static class Solution {
+    public static class Solution2 {
         public List<Integer> partitionLabels(String s) {
             List<Integer> ans = new LinkedList<>();
             if (s.length() == 0) return ans;

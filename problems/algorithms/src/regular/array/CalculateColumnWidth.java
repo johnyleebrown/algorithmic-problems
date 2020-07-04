@@ -11,7 +11,7 @@ import java.util.List;
  * Task.
  *
  * Given the maxWidth (characters that could fit in one line) and an array of
- * strings, fit the strings in a table and return the width of each column.
+ * strings, fit the strings in a table and return the width of each row.
  *
  * ======
  *
@@ -20,37 +20,37 @@ import java.util.List;
  */
 public class CalculateColumnWidth {
     public static void main(String[] args) {
-        System.out.println(Solution.calculateColumnWidth(
+        System.out.println(Solution.calculateRowsWidth(
                 new String[]{"IsAudioBuffer", "GetTimestamp", "SetTimestamp", "GetSampleRate", "GetSampleSize",
                         "GetNumberOfChannels", "GetNumberOfSamples", "GetDataBuffer", "GetChannel"}, 70));
 
-        System.out.println(Solution.calculateColumnWidth(
+        System.out.println(Solution.calculateRowsWidth(
                 new String[]{"abcde", "abcdvv"}, 10));
 
-        System.out.println(Solution.calculateColumnWidth(
+        System.out.println(Solution.calculateRowsWidth(
                 new String[]{"abcde", "abcdv"}, 10));
 
-        System.out.println(Solution.calculateColumnWidth(
+        System.out.println(Solution.calculateRowsWidth(
                 new String[]{"abcd", "abcdv"}, 10));
 
-        System.out.println(Solution.calculateColumnWidth(
+        System.out.println(Solution.calculateRowsWidth(
                 new String[]{"abcde", "abcd"}, 10));
 
-        System.out.println(Solution.calculateColumnWidth(
+        System.out.println(Solution.calculateRowsWidth(
                 new String[]{"abcde", "abcde"}, 5));
 
-        System.out.println(Solution.calculateColumnWidth(
+        System.out.println(Solution.calculateRowsWidth(
                 new String[]{"abcde", "abcd"}, 5));
 
-        System.out.println(Solution.calculateColumnWidth(
+        System.out.println(Solution.calculateRowsWidth(
                 new String[]{"abcd", "abcde"}, 5));
 
-        System.out.println(Solution.calculateColumnWidth(
+        System.out.println(Solution.calculateRowsWidth(
                 new String[]{"a", "abcde"}, 5));
     }
 
     public static class Solution {
-        public static List<Integer> calculateColumnWidth(String[] w, int maxWidth) {
+        public static List<Integer> calculateRowsWidth(String[] w, int maxWidth) {
             for (int i = 0; i < maxWidth; i++) {
                 System.out.print("#");
             }

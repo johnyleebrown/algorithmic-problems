@@ -19,63 +19,49 @@ package string.parseString;
  */
 public class BasicCalculatorII {
     /**
-     * If digit - parse digit all the way. Keep cur for global answer and st(for
-     * stack) for local answer that is being calculated with * and /.
+     * Helper approach - like if we had an task with brackets, we would go in
+     * recursion every bracket to calculate whatever there is in brackets.
+     *
+     * We split equation like so: helper() + helper() + ... helper()
+     * We go from ('+' or '-') to ('+' or '-')
      */
     public static class Solution {
-        int i = 0;
+        static int i;
 
         public int calculate(String s) {
+            i = 0;
             char[] ca = s.toCharArray();
-            Integer st = null;
-            char sign = 0;
-            boolean stMinus = false;
-            int cur = 0;
+            int ret = 0;
+            boolean pos = true;
             while (i < ca.length) {
-                char c = ca[i];
-                if (c != ' ') {
-                    if (Character.isDigit(c)) {
-                        int x = getNumber(ca);
-                        if (st == null) st = x;
-                        else st = calc(st, sign, x);
-                        continue;
-                    } else {
-                        if (c == '+' || c == '-') {
-                            if (stMinus) cur -= st;
-                            else cur += st;
-                            st = null;
-                            if (c == '-') {
-                                stMinus = true;
-                            } else {
-                                stMinus = false;
-                            }
-                        } else {
-                            sign = c;
-                        }
-                    }
+                int ans = helper(ca);
+                if (!pos) ret -= ans;
+                else ret += ans;
+                if (i >= ca.length) break;
+                pos = ca[i] != '-';
+                i++;
+            }
+            return ret;
+        }
+
+        private int helper(char[] ca) {
+            int ans = 1;
+            char sign = '*'; // default sign
+            int num = 0;
+            while (i < ca.length && ca[i] != '+' && ca[i] != '-') {
+                if (Character.isDigit(ca[i])) {
+                    num = num * 10 + ca[i] - '0';
+                } else if (ca[i] == '*' || ca[i] == '/') {
+                    if (sign == '*') ans *= num;
+                    else ans /= num;
+                    sign = ca[i];
+                    num = 0;
                 }
                 i++;
             }
-            if (stMinus) cur -= st;
-            else cur += st;
-            return cur;
-        }
-
-        int getNumber(char[] ca) {
-            int num = 0;
-            while (i < ca.length && Character.isDigit(ca[i])) {
-                num = num * 10 + (ca[i] - '0');
-                i++;
-            }
-            return num;
-        }
-
-        int calc(int a, char s, int b) {
-            if (s == '*') {
-                return a * b;
-            } else if (s == '/') {
-                return a / b;
-            } else return 1;
+            if (sign == '*') ans *= num;
+            else ans /= num;
+            return ans;
         }
     }
 }

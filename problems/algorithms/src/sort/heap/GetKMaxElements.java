@@ -27,6 +27,7 @@ public class GetKMaxElements {
             List<Integer> ans = new LinkedList<>();
             int n = heap.length;
             PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> b[1] - a[1]);
+
             q.add(new int[]{1, heap[1]});
             while (!q.isEmpty()) {
                 int[] el = q.poll();

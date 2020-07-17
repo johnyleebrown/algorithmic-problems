@@ -4,16 +4,9 @@ import java.util.Stack;
 
 /**
  * 20
- *
- * Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
- * The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
  */
 public class ValidParentheses {
-    /**
-     * Time complexity: O(n)
-     * Space complexity: O(n)
-     */
-    public static boolean solution(String s) {
+    public static boolean Solution1(String s) {
         Stack<Character> st = new Stack<>();
 
         for (char c : s.toCharArray()) {
@@ -24,5 +17,32 @@ public class ValidParentheses {
         }
 
         return st.isEmpty();
+    }
+
+    public static class Solution2 {
+        public boolean isValid(String s) {
+            Stack<Character> st = new Stack<>();
+            for (int i = 0; i < s.length(); i++) {
+                char curChar = s.charAt(i);
+                if (isClosingBracket(curChar)) {
+                    if (st.isEmpty() || !isSameTypeBrackets(st.pop(), curChar)) {
+                        return false;
+                    }
+                } else {
+                    st.add(curChar);
+                }
+            }
+            return st.size() == 0;
+        }
+
+        private boolean isClosingBracket(char c) {
+            return c == ')' || c == '}' || c == ']';
+        }
+
+        private boolean isSameTypeBrackets(char c1, char c2) {
+            return (c1 == '(' && c2 == ')')
+                    || (c1 == '[' && c2 == ']')
+                    || (c1 == '{' && c2 == '}');
+        }
     }
 }

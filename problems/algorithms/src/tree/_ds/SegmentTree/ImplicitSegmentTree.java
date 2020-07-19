@@ -14,6 +14,10 @@ import java.util.Deque;
  *
  * TODO
  * impl w/o lazy prop
+ *
+ * TODO
+ * create a version where we return a node not just AGR_FUN value
+ * check this out https://cp-algorithms.com/graph/lca.html
  */
 public class ImplicitSegmentTree implements SegmentTreeQuery {
     private Node root;
@@ -62,6 +66,11 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
 
     public int min(int a, int b) {
         return min(root, a, b);
+    }
+
+    // TODO - get index of the minimum
+    public int getMinIndex(int a, int b) {
+        return -1;
     }
 
     private int min(Node cur, int lo, int hi) {
@@ -190,6 +199,7 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
         int lo, hi;
         int delta, val, min, max;
         Node left, right;
+        int ind; // index
 
         private Node(int lo, int hi) {
             this.lo = lo;

@@ -6,40 +6,40 @@ import util.ds.ListNode;
  * 206
  */
 public class ReverseLinkedList {
-	/**
-	 * Recursive.
-	 */
-	class Solution {
-		ListNode last;
-
-		public ListNode reverseList(ListNode cur) {
-			if (cur == null || cur.next == null) {
-				last = cur;
-				return cur;
+    /**
+     * Recursive - pick nodes on the way back.
+     */
+    public static class Solution {
+        public ListNode reverseList(ListNode h) {
+			if (h == null) {
+				return null;
 			}
-			ListNode r = reverseList(cur.next);
-			cur.next = null;
-			last.next = cur;
-			last = cur;
-			return r;
-		}
-	}
-
-	/**
-	 * Iterative.
-	 */
-	class Solution2 {
-		public ListNode reverseList(ListNode head) {
-			ListNode prev = null;
-			ListNode cur = head;
-			ListNode next = null;
-			while (cur != null) {
-				next = cur.next;
-				cur.next = prev;
-				prev = cur;
-				cur = next;
+			if (h.next == null) {
+				return h;
 			}
-			return prev;
-		}
-	}
+            ListNode first = reverseList(h.next);
+            ListNode next = h.next;
+            next.next = h;
+            h.next = null;
+            return first;
+        }
+    }
+
+    /**
+     * Iterative.
+     */
+    public static class Solution2 {
+        public ListNode reverseList(ListNode head) {
+            ListNode prev = null;
+            ListNode cur = head;
+            ListNode next = null;
+            while (cur != null) {
+                next = cur.next;
+                cur.next = prev;
+                prev = cur;
+                cur = next;
+            }
+            return prev;
+        }
+    }
 }

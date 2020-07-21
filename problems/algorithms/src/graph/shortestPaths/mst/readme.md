@@ -1,4 +1,4 @@
-### MST
+## MST
 - Minimum Spanning Tree
 - is a subgraph, sum of which edges has the minimum weight (subgraph should be acyclic and including all the vertices(spanning))
 
@@ -20,4 +20,4 @@
 - the edges that we can't use (whose vertices are already added) we leave in PQ - that is why it's called lazy impl
 
 ### Eager Prim's MST:
-
+- https://algs4.cs.princeton.edu/43mst/

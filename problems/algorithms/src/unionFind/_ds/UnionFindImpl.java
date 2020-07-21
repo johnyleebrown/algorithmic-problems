@@ -2,6 +2,9 @@ package unionFind._ds;
 
 /**
  * UnionFind
+ *
+ * TODO add impl with map cuz in practice UF nodes might not be just ints
+ *  can create UFNode class
  */
 public class UnionFindImpl implements UnionFind {
     private final int[] parent;
@@ -21,7 +24,9 @@ public class UnionFindImpl implements UnionFind {
         int parentP = find(p);
         int parentQ = find(q);
 
-        if (parentP == parentQ) return;
+        if (parentP == parentQ) {
+            return;
+        }
 
         // we want to link smaller tree(set) to larger one
         if (rank[parentP] > rank[parentQ]) {

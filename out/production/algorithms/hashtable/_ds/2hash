@@ -1,0 +1,212 @@
+import java.io.OutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.BufferedWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
+import java.util.Random;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
+import java.math.BigInteger;
+import java.io.InputStream;
+
+/**
+ * Built using CHelper plug-in
+ * Actual solution is at the top
+ */
+public class Main {
+    public static void main(String[] args) {
+        InputStream inputStream = System.in;
+        OutputStream outputStream = System.out;
+        InputReader in = new InputReader(inputStream);
+        OutputWriter out = new OutputWriter(outputStream);
+        TaskE solver = new TaskE();
+        solver.solve(1, in, out);
+        out.close();
+    }
+
+    static class TaskE {
+        static final int multiplier = 541;
+        static final Random rnd = new Random();
+        static final int mod1 = BigInteger.valueOf((int) (1e9 + rnd.nextInt((int) 1e9))).nextProbablePrime().intValue();
+        static final int mod2 = BigInteger.valueOf((int) (1e9 + rnd.nextInt((int) 1e9))).nextProbablePrime().intValue();
+        static final int invMultiplier1 = BigInteger.valueOf(multiplier).modInverse(BigInteger.valueOf(mod1)).intValue();
+        static final int invMultiplier2 = BigInteger.valueOf(multiplier).modInverse(BigInteger.valueOf(mod2)).intValue();
+
+        public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int n = in.nextInt();
+            String[] strs = new String[n];
+            int L = 0;
+            for (int i = 0; i < n; i++) {
+                strs[i] = in.next();
+                L += strs[i].length();
+            }
+
+            int l = 0;
+            Hashing H = new Hashing(L);
+//        String ans = new String();
+            for (int i = 0; i < n; i++) {
+                Hashing h = new Hashing(strs[i].length());
+                for (int j = 0; j < strs[i].length(); j++) h.add(j, strs[i].charAt(j));
+                int l1 = l, l2 = strs[i].length();
+                int common = 0;
+                for (int j = 1; j <= l1 && j <= l2; j++) {
+                    if (H.getHash(l1 - j, j) == h.getHash(0, j)) common = j;
+                }
+
+                for (int j = common; j < l2; j++) {
+                    H.add(l, strs[i].charAt(j));
+                    out.print(strs[i].charAt(j));
+                    l++;
+                }
+            }
+//        out.println(ans);
+        }
+
+        public class Hashing {
+            long[] hash1;
+            long[] hash2;
+            long[] inv1;
+            long[] inv2;
+            long p1;
+            long p2;
+
+            public Hashing(int n) {
+                hash1 = new long[n + 1];
+                hash2 = new long[n + 1];
+                inv1 = new long[n + 1];
+                inv2 = new long[n + 1];
+                inv1[0] = 1;
+                inv2[0] = 1;
+                p1 = p2 = 1;
+            }
+
+            void add(int i, char j) {
+                hash1[i + 1] = (hash1[i] + j * p1) % mod1;
+                p1 = p1 * multiplier % mod1;
+                inv1[i + 1] = inv1[i] * invMultiplier1 % mod1;
+                hash2[i + 1] = (hash2[i] + j * p2) % mod2;
+                p2 = p2 * multiplier % mod2;
+                inv2[i + 1] = inv2[i] * invMultiplier2 % mod2;
+            }
+
+            public long getHash(int i, int len) {
+                return (((hash1[i + len] - hash1[i] + mod1) * inv1[i] % mod1) << 32)
+                        + (hash2[i + len] - hash2[i] + mod2) * inv2[i] % mod2;
+            }
+
+        }
+
+    }
+
+    static class InputReader {
+        private InputStream stream;
+        private byte[] buf = new byte[1024];
+        private int curChar;
+        private int numChars;
+        private InputReader.SpaceCharFilter filter;
+
+        public InputReader(InputStream stream) {
+            this.stream = stream;
+        }
+
+        public int read() {
+            if (numChars == -1) {
+                throw new InputMismatchException();
+            }
+            if (curChar >= numChars) {
+                curChar = 0;
+                try {
+                    numChars = stream.read(buf);
+                } catch (IOException e) {
+                    throw new InputMismatchException();
+                }
+                if (numChars <= 0) {
+                    return -1;
+                }
+            }
+            return buf[curChar++];
+        }
+
+        public int nextInt() {
+            int c = read();
+            while (isSpaceChar(c)) c = read();
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
+            do {
+                if (c < '0' || c > '9')
+                    throw new InputMismatchException();
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        public String next() {
+            int c;
+            while (isSpaceChar(c = this.read())) {
+                ;
+            }
+
+            StringBuilder result = new StringBuilder();
+            result.appendCodePoint(c);
+
+            while (!isSpaceChar(c = this.read())) {
+                result.appendCodePoint(c);
+            }
+
+            return result.toString();
+        }
+
+        public boolean isSpaceChar(int c) {
+            if (filter != null) {
+                return filter.isSpaceChar(c);
+            }
+            return isWhitespace(c);
+        }
+
+        public static boolean isWhitespace(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public interface SpaceCharFilter {
+            public boolean isSpaceChar(int ch);
+
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+    }
+}
+

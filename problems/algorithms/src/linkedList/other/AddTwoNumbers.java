@@ -6,34 +6,22 @@ import util.ds.ListNode;
  * 2
  */
 public class AddTwoNumbers {
-	class Solution {
+	public static class Solution {
 		public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-			if (l1 == null) return l2;
-			if (l2 == null) return l1;
-			int rem = 0;
-			ListNode cur = null;
-			ListNode res = null;
-			while (!(l1 == null && l2 == null && rem == 0)) {
-				int a = l1 == null ? 0 : l1.val;
-				int b = l2 == null ? 0 : l2.val;
-				int sum = a + b + rem;
-				if (sum > 9) {
-					rem = 1;
-					sum = sum % 10;
-				} else {
-					rem = 0;
-				}
-				if (cur == null) {
-					cur = new ListNode(sum);
-					res = cur;
-				} else {
-					cur.next = new ListNode(sum);
-					cur = cur.next;
-				}
-				if (l1 != null) l1 = l1.next;
-				if (l2 != null) l2 = l2.next;
+			return f(l1, l2, 0);
+		}
+
+		ListNode f(ListNode l1, ListNode l2, int rem) {
+			if (l1 == null && l2 == null) {
+				if (rem == 1) return new ListNode(1);
+				else return null;
 			}
-			return res;
+			if (l1 == null && rem == 0) return l2;
+			else if (l2 == null && rem == 0) return l1;
+			int val = (l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + rem;
+			ListNode ret = new ListNode(val % 10);
+			ret.next = f(l1 == null ? null : l1.next, l2 == null ? null : l2.next, val < 10 ? 0 : 1);
+			return ret;
 		}
 	}
 }

@@ -9,6 +9,7 @@ import sys
 # NOTICE
 ## use quotation marks when there are apostrophes in the title
 
+ppath='/Users/greg/Documents/'
 
 def read_from_file(file_path):
     file = open(file_path, 'r', encoding='utf-8')
@@ -24,7 +25,7 @@ def write_to_file(name, new_data):
 
 
 def add_package_info_if_needed(path, new_data):
-    eliminate_path_for_pckg = '/Volumes/Greg/projects/algorithmic-problems/problems/algorithms/src'
+    eliminate_path_for_pckg = ppath+'projects/algorithmic-problems/problems/algorithms/src'
     package_folders = path[len(eliminate_path_for_pckg):].split('/')
     if len(package_folders) > 1:
         package_info = 'package ' + '.'.join(package_folders)[1:] + ';\n\n'
@@ -52,7 +53,7 @@ def insert_class_name(template, new_file_name):
 
 
 def get_template(new_file_name):
-    path = '/Volumes/Greg/projects/algorithmic-problems/tools/create_solution/'
+    path = ppath+'projects/algorithmic-problems/tools/create_solution/'
     p = path+'template'
     if sys.argv[-1] == '-t':
         p+='_t'

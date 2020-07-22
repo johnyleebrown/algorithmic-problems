@@ -9,7 +9,7 @@ public class TopKFrequentWords {
 	/**
 	 * Bucket sort.
 	 */
-	class Solution {
+	public static class Solution {
 		public List<String> topKFrequent(String[] words, int k) {
 			Map<String, Integer> map = new HashMap<>();
 			for (String w : words) {

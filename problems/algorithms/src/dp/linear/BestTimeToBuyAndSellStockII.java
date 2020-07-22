@@ -1,4 +1,4 @@
-package array.minmax;
+package dp.linear;
 
 /**
  * 122

@@ -63,4 +63,35 @@ public class FindLeavesOfBinaryTree {
 			return Math.max(l, r) + 1;
 		}
 	}
+
+	/**
+	 * Simplified version.
+	 *
+	 * We actually can add lists to position from bottom-up as well because we start adding smth
+	 * to the answer in the bottom - the size of ans correlates with the depths from bottom-up.
+	 *
+	 * Also adding the node itself, not when we step back in recursion and add the children.
+	 */
+	public static class Solution2 {
+		public List<List<Integer>> findLeaves(TreeNode root) {
+			List<List<Integer>> ans = new ArrayList<>();
+			if (root == null) return ans;
+			h(root, ans);
+			return ans;
+		}
+
+		int h(TreeNode cur, List<List<Integer>> ans) {
+			int l = cur.left == null ? 0 : h(cur.left, ans);
+			int r = cur.right == null ? 0 : h(cur.right, ans);
+
+			int insertPosition = Math.max(l, r);
+			if (ans.size() == insertPosition) {
+				ans.add(new ArrayList<>());
+			}
+
+			ans.get(insertPosition).add(cur.val);
+
+			return insertPosition + 1;
+		}
+	}
 }

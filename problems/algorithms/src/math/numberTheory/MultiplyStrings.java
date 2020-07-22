@@ -39,25 +39,33 @@ public class MultiplyStrings {
 
 		String h(String num1, String num2) {
 			StringBuilder ans = new StringBuilder();
-			int rem2 = 0, rem = 0;
-			for (int i = num2.length() - 1, k = 0; i >= 0; i--, k++, rem = rem2 = 0) {
+			int sumRemainder = 0, multRemainder = 0;
+
+			for (int i = num2.length() - 1, k = 0; i >= 0; i--, k++, multRemainder = sumRemainder = 0) {
 				int cur2 = getint(num2.charAt(i));
 				for (int j = num1.length() - 1, t = 0; j >= 0; j--, t++) {
 					int cur1 = getint(num1.charAt(j));
-					int x = cur1 * cur2 + rem;
-					rem = x / 10;
-					int ip = ans.length() - 1 - k - t;
-					int val = x % 10 + rem2;
-					if (ip < 0) {
+					int x = cur1 * cur2 + multRemainder;
+					multRemainder = x / 10;
+
+					int insertPos = ans.length() - 1 - k - t;
+					int val = x % 10 + sumRemainder;
+					if (insertPos < 0) {
 						ans.insert(0, tochar(val % 10));
 					} else {
-						val += getint(ans.charAt(ip));
-						ans.setCharAt(ip, tochar(val % 10));
+						val += getint(ans.charAt(insertPos));
+						ans.setCharAt(insertPos, tochar(val % 10));
 					}
-					rem2 = val / 10;
+
+					sumRemainder = val / 10;
 				}
-				if (rem2 + rem != 0) ans.insert(0, tochar(rem2 + rem));
+
+				// if we finished calculations for the digit but have remainders left
+				if (sumRemainder + multRemainder != 0) {
+					ans.insert(0, tochar(sumRemainder + multRemainder));
+				}
 			}
+
 			return ans.toString();
 		}
 

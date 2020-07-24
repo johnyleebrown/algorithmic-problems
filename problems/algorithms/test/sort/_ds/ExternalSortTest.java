@@ -1,5 +1,7 @@
-package sort._ds.externalSort;
+package sort._ds;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.utils.Generator;
 import util.utils.reader.IOUtils;
@@ -16,14 +18,24 @@ import static util.utils.reader.IOUtils.createReader;
 
 class ExternalSortTest {
 
+	@BeforeEach
+	void setUp() {
+		System.out.println("[TEST] start");
+	}
+
+	@AfterEach
+	void tearDown() {
+		System.out.println("[TEST] end");
+	}
+
 	/**
 	 * Check if it is sorted.
 	 *
-	 * Limit each temp file by 1000 lines.
+	 * Limit each temp file by 10_000 lines.
 	 * Total number in input file is 1M.
 	 */
 	@Test
-	void limit_1K_total_1M() throws IOException {
+	void limit_10K_total_1M() throws IOException {
 
 		// generate file
 		String inputFileName = "randomNumbers_1M.txt";
@@ -33,6 +45,36 @@ class ExternalSortTest {
 
 		// sort
 		int limit = 10_000;
+		System.out.println("limit: " + limit);
+
+		ExternalSort e = new ExternalSort(inputFileName, limit);
+		String resultFileName = e.sort();
+
+		// checks
+		performChecks(inputFileName, resultFileName, e);
+
+		// cleanup
+		IOUtils.removeFile(inputFileName);
+		IOUtils.removeFile(resultFileName);
+	}
+
+	/**
+	 * Check if it is sorted.
+	 *
+	 * Limit each temp file by 1000K*X lines.
+	 * Total number in input file is 1M.
+	 */
+	@Test
+	void limit_1KX_total_1M() throws IOException {
+
+		// generate file
+		String inputFileName = "randomNumbers_1M.txt";
+		int n = 1_000_000; // number of items
+		Generator.generateFileWithNumbers(n, 1_000_000, inputFileName);
+		System.out.println("total number of items: " + n);
+
+		// sort
+		int limit = new Random().nextInt(n - 1000) + 1000;
 		System.out.println("limit: " + limit);
 
 		ExternalSort e = new ExternalSort(inputFileName, limit);
@@ -107,18 +149,6 @@ class ExternalSortTest {
 		IOUtils.removeFile(resultFileName);
 	}
 
-	private Map<Integer, Integer> getInputCounts(String input) throws IOException {
-		Map<Integer, Integer> counts = new HashMap<>();
-		BufferedReader r = createReader(input);
-		String curLine = r.readLine();
-		while (curLine != null) {
-			int cur = Integer.parseInt(curLine);
-			counts.put(cur, counts.getOrDefault(cur, 0) + 1);
-			curLine = r.readLine();
-		}
-		return counts;
-	}
-
 	private void performChecks(String inputFileName, String resultFileName, ExternalSort e) throws IOException {
 
 		Map<Integer, Integer> resultCounts = new HashMap<>();
@@ -127,6 +157,8 @@ class ExternalSortTest {
 		BufferedReader r = createReader(resultFileName);
 		String curLine = r.readLine();
 		int prev = Integer.MIN_VALUE;
+
+		System.out.println("checking if next is not smaller than prev..");
 
 		while (curLine != null) {
 			int cur = Integer.parseInt(curLine);
@@ -140,13 +172,25 @@ class ExternalSortTest {
 			curLine = r.readLine();
 		}
 
-		// check counts
-		assertEquals(e.getInputNumberOfItems(), resultNumberOfItems);
-
-		int batch = resultNumberOfItems / 10;
-
 		// check the data itself
-		Map<Integer, Integer> inputCounts = getInputCounts(inputFileName);
+		int inputNumberOfItems = 0;
+		Map<Integer, Integer> inputCounts = new HashMap<>();
+		BufferedReader inputReader = createReader(inputFileName);
+		String inputCurLine = inputReader.readLine();
+		while (inputCurLine != null) {
+			int cur = Integer.parseInt(inputCurLine);
+			inputCounts.put(cur, inputCounts.getOrDefault(cur, 0) + 1);
+			inputCurLine = inputReader.readLine();
+			inputNumberOfItems++;
+		}
+
+		System.out.println("checking sizes..");
+
+		// check sizes
+		assertEquals(inputNumberOfItems, resultNumberOfItems);
+
+		System.out.println("checking counts..");
+		int batch = resultNumberOfItems / 10;
 		int checkedCount = 0;
 		for (int resultKey : resultCounts.keySet()) {
 			if (checkedCount % batch == 0) System.out.println("checked " + checkedCount + " items");

@@ -1,4 +1,4 @@
-package sort._ds.externalSort;
+package sort._ds;
 
 import java.io.*;
 import java.util.*;
@@ -11,8 +11,6 @@ import static util.utils.reader.IOUtils.*;
  * https://neerc.ifmo.ru/wiki/index.php?title=Алгоритмы_во_внешней_памяти._Базовые_конструкции
  *
  * TODO
- * - remove files after
- * - more result checks (check if numbers are the same)
  * - replace limit with file sizes limit
  */
 public class ExternalSort {
@@ -22,10 +20,8 @@ public class ExternalSort {
 
 	private final BufferedReader r;
 	private final int limit; // lines per temp file limit
-	private int inputNumberOfItems;
 
 	public ExternalSort(String fileName, int limit) throws FileNotFoundException {
-		inputNumberOfItems = 0;
 		this.limit = limit;
 		r = createReader(fileName);
 	}
@@ -73,9 +69,7 @@ public class ExternalSort {
 				cur = r.readLine();
 				batchSize++;
 			}
-			inputNumberOfItems += batchSize;
 			w.close();
-			cur = r.readLine();
 			fileCount++;
 		}
 
@@ -212,9 +206,5 @@ public class ExternalSort {
 			wr.newLine();
 		}
 		wr.close();
-	}
-
-	public int getInputNumberOfItems() {
-		return inputNumberOfItems;
 	}
 }

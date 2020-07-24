@@ -11,3 +11,4 @@
 *.jar
 .swp
 /*/*/classes
+.kotlin_module

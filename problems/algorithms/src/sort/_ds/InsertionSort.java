@@ -1,6 +1,6 @@
 package sort._ds;
 
-import util.utils.Gen;
+import util.utils.Generator;
 
 import java.util.Arrays;
 
@@ -14,7 +14,7 @@ import static util.utils.Validation.isSorted;
 public class InsertionSort {
     public static void main(String[] args) {
         int n = 12;
-        int[] inp = Gen.genIntArray(n, n, false);
+        int[] inp = Generator.genIntArray(n, n, false);
         int[] copy = Arrays.copyOf(inp, inp.length);
 
         InsertionSort s = new InsertionSort();

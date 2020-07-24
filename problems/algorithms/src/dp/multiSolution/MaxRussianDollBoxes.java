@@ -1,4 +1,4 @@
-package util;
+package dp.multiSolution;
 
 import java.util.Arrays;
 

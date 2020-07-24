@@ -1,10 +1,10 @@
 package sort._ds;
 
-import util.utils.Gen;
+import util.utils.Generator;
 
 import java.util.Arrays;
 
-import static util.utils.Gen.genIntArray;
+import static util.utils.Generator.genIntArray;
 
 /**
  * Arrays.sort uses quick sort if the array contains elements of primitive type such as long or int.
@@ -31,7 +31,7 @@ public class Sorts {
 	}
 
 	public static <T> void mergeSort(int n, Class<T> cls) {
-		T[] a = Gen.genArray(n, n);
+		T[] a = Generator.genArray(n, n);
 		final long startTime = System.currentTimeMillis();
 		Arrays.sort(a);
 		final long endTime = System.currentTimeMillis();

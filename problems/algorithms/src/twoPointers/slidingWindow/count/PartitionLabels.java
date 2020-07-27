@@ -1,7 +1,6 @@
 package twoPointers.slidingWindow.count;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -20,80 +19,83 @@ import java.util.List;
  * Source: Leetcode
  */
 public class PartitionLabels {
-    /**
-     * Get ends of all chars, then record a substring when the end index is
-     * equal to cur index.
-     */
-    public static class Solution1 {
-        public List<Integer> partitionLabels(String s) {
-            List<Integer> ans = new ArrayList<>();
 
-            // record the last index of the each char
-            int[] lastIndexes = new int[26];
-            for (int i = 0; i < s.length(); i++) {
-                lastIndexes[s.charAt(i) - 'a'] = i;
-            }
+	/**
+	 * Think about the problem of maximum number of intersecting intervals.
+	 * We keep count of intersecting intervals and increment when the interval starts, decrement
+	 * when it ends. All we need to do is find starts and ends of each char.
+	 */
+	public static class Solution {
+		public List<Integer> partitionLabels(String s) {
+			List<Integer> ans = new ArrayList<>();
+			int n = s.length();
 
-            // record the end index of the current sub string
-            int last = 0;
-            int start = 0;
-            for (int i = 0; i < s.length(); i++) {
-                last = Math.max(last, lastIndexes[s.charAt(i) - 'a']);
+			// start and ends of chars
+			int[][] intervals = new int[26][2];
+			for (int i = 0; i < n; i++) {
+				int curChar = s.charAt(i) - 'a';
+				if (intervals[curChar][0] == 0) {
+					intervals[curChar][0] = i;
+				}
+				intervals[curChar][1] = i;
+			}
 
-                // reached the end of substring
-                if (last == i) {
-                    ans.add(last - start + 1);
-                    start = last + 1;
-                }
-            }
+			// because we might have overwritten 0 index char start position
+			intervals[s.charAt(0) - 'a'][0] = 0;
 
-            return ans;
-        }
-    }
+			int cur = 0;
+			int prev = -1;
+			for (int i = 0; i < n; i++) {
+				int curChar = s.charAt(i) - 'a';
 
-    /**
-     * Precount like in 76. Then like in 'count max number of intersecting
-     * intervals' wait until count is zero - this means that we have no
-     * intervals at the moment.
-     */
-    public static class Solution2 {
-        public List<Integer> partitionLabels(String s) {
-            List<Integer> ans = new LinkedList<>();
-            if (s.length() == 0) return ans;
+				// if we are at start
+				if (intervals[curChar][0] == i) {
+					cur++;
+				}
 
-            // get all counts
-            char[] chars = s.toCharArray();
-            int[] cc = new int[26];
-            for (int i = 0; i < chars.length; i++) {
-                cc[chars[i] - 'a']++;
-            }
+				// if we are at end
+				if (intervals[curChar][1] == i) {
+					cur--;
+				}
 
-            int count = 0;
-            boolean[] seen = new boolean[26];
-            int l = 0;
-            for (int r = 0; r < chars.length; r++) {
-                int x = chars[r] - 'a';
-                cc[x]--;
+				// if we don't have overlapping intervals at the moment
+				if (cur == 0) {
+					ans.add(i - prev);
+					prev = i;
+				}
+			}
+			return ans;
+		}
+	}
 
-                // start interval
-                if (!seen[x]) {
-                    seen[x] = true;
-                    count++;
-                }
+	/**
+	 * Get ends of all chars, then record a substring when the end index is
+	 * equal to cur index.
+	 */
+	public static class Solution1 {
+		public List<Integer> partitionLabels(String s) {
+			List<Integer> ans = new ArrayList<>();
 
-                // end interval
-                if (cc[x] == 0) {
-                    count--;
-                }
+			// record the last index of the each char
+			int[] lastIndexes = new int[26];
+			for (int i = 0; i < s.length(); i++) {
+				lastIndexes[s.charAt(i) - 'a'] = i;
+			}
 
-                // found all intersecting intervals
-                if (count == 0) {
-                    ans.add(r - l + 1);
-                    l = r + 1;
-                }
-            }
+			// record the end index of the current sub string
+			int last = 0;
+			int start = 0;
+			for (int i = 0; i < s.length(); i++) {
+				last = Math.max(last, lastIndexes[s.charAt(i) - 'a']);
 
-            return ans;
-        }
-    }
+				// reached the end of substring
+				if (last == i) {
+					ans.add(last - start + 1);
+					start = last + 1;
+				}
+			}
+
+			return ans;
+		}
+	}
 }

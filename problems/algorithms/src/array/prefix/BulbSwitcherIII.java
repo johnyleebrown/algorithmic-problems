@@ -20,21 +20,17 @@ package array.prefix;
  *
  * Source: Leetcode
  */
-public class BulbSwitcherIII
-{
+public class BulbSwitcherIII {
 	/**
 	 * Checked if prefix sum would work, so SF. We increment count if at moment
 	 * i sum of turned on bulbs is the same as target.
 	 */
-	public static class Solution
-	{
-		public int numTimesAllBlue(int[] a)
-		{
+	public static class Solution {
+		public int numTimesAllBlue(int[] a) {
 			int prefixSum = 0;
 			int prefixTarget = 0;
 			int ans = 0;
-			for (int i = 0; i < a.length; i++)
-			{
+			for (int i = 0; i < a.length; i++) {
 				prefixSum += a[i];
 				prefixTarget += i + 1;
 				if (prefixSum == prefixTarget)

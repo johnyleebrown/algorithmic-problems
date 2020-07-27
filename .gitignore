@@ -9,6 +9,6 @@
 *__pycache__/
 *.pyc
 *.jar
-.swp
+*.swp
 /*/*/classes
-.kotlin_module
+*.kotlin_module

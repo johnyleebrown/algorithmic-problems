@@ -63,4 +63,16 @@ public class IslandPerimeter {
 			return ans;
 		}
 	}
+
+	/**
+	 * We move only through cells on perimeter, although it would make more sense if the matrix
+	 * is huge.
+	 *
+	 * We start from moving Right, and each time we change our dir to dir-1, so we could
+	 * actually move through perimeter. If we would start from going Bottom, we would start from
+	 * dir+1 each time.
+	 */
+	public static class Solution2 {
+		// TODO
+	}
 }

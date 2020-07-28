@@ -7,35 +7,44 @@ import java.util.Set;
  * 694
  */
 public class NumberOfDistinctIslands {
-    class Solution {
-        public int numDistinctIslands(int[][] grid) {
-            Set<String> set = new HashSet<>();
+	/**
+	 * Create a path of dfs for each island with string builder, mark end of recursion as well.
+	 */
+	public static class Solution {
+		private static final int[][] dirs = new int[][]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+		private int n, m;
 
-            for (int i = 0; i < grid.length; i++)
-                for (int j = 0; j < grid[i].length; j++) {
-                    if (grid[i][j] != 0) {
-                        StringBuilder sb = new StringBuilder();
-                        dfs(grid, i, j, sb, "o");
-                        grid[i][j] = 0;
-                        set.add(sb.toString());
-                    }
-                }
+		public int numDistinctIslands(int[][] ar) {
+			n = ar.length;
+			if (n == 0) return 0;
+			m = ar[0].length;
+			if (m == 0) return 0;
+			Set<String> set = new HashSet<>();
+			boolean[][] seen = new boolean[n][m];
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < m; j++) {
+					StringBuilder sb = new StringBuilder();
+					dfs(i, j, ar, sb, 4, seen); // start
+					if (sb.length() > 0) set.add(sb.toString());
+				}
+			}
+			return set.size();
+		}
 
-            return set.size();
-        }
+		private void dfs(int i, int j, int[][] ar, StringBuilder sb, int curDir, boolean[][] seen) {
+			if (!isValid(i, j) || seen[i][j] || ar[i][j] != 1) {
+				return;
+			}
+			sb.append(curDir);
+			seen[i][j] = true;
+			for (int dir = 0; dir < 4; dir++) {
+				dfs(i + dirs[dir][0], j + dirs[dir][1], ar, sb, dir, seen);
+			}
+			sb.append(5); // end
+		}
 
-        private void dfs(int[][] grid, int i, int j, StringBuilder sb, String dir) {
-            if (i < 0 || i == grid.length || j < 0 || j == grid[i].length || grid[i][j] == 0) {
-                return;
-            }
-
-            sb.append(dir);
-            grid[i][j] = 0;
-            dfs(grid, i - 1, j, sb, "u");
-            dfs(grid, i + 1, j, sb, "d");
-            dfs(grid, i, j - 1, sb, "l");
-            dfs(grid, i, j + 1, sb, "r");
-            sb.append("b"); // back
-        }
-    }
+		private boolean isValid(int i, int j) {
+			return i >= 0 && j >= 0 && i < n && j < m;
+		}
+	}
 }

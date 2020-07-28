@@ -1,98 +1,107 @@
 package unionFind.other;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 305
  */
 public class NumberOfIslandsII {
-    class Solution {
-        int count;
-        int[][] dirs = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-        boolean[][] seen;
+	public static class Solution {
+		private static final int[][] dirs = new int[][]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 
-        
-        public List<Integer> numIslands2(int m, int n, int[][] positions) {
-            int temp = n;
-            n = m;
-            m = temp;
-            seen = new boolean[n][m];
-            List<Integer> ans = new LinkedList<>();
-            UF uf = new UF(n, m);
+		public List<Integer> numIslands2(int n, int m, int[][] ar) {
+			List<Integer> ans = new ArrayList<>();
+			if (n == 0 || m == 0) {
+				return ans;
+			}
+			UF uf = new UF(n, m);
+			for (int[] cell : ar) {
+				uf.add(cell[0], cell[1]);
+				ans.add(uf.getCount());
+			}
+			return ans;
+		}
 
-            for (int[] p : positions) {
-                if (!seen[p[0]][p[1]]) {
-                    count++;
+		private class UF {
+			Cell[][] par;
+			int c;
+			int[][] rank;
+			int n, m;
 
-                    for (int[] dir : dirs) {
-                        int exI = dir[0] + p[0];
-                        int exJ = dir[1] + p[1];
-                        if (!isInBounds(exI, exJ, n, m)) {
-                            continue;
-                        }
-                        uf.union(exI, exJ, p[0], p[1]);
-                    }
-                }
+			public UF(int n, int m) {
+				this.n = n;
+				this.m = m;
+				rank = new int[n][m];
+				par = new Cell[n][m];
+			}
 
-                ans.add(count);
-            }
-            return ans;
-        }
+			public void union(int i1, int j1, int i2, int j2) {
 
-        private boolean isInBounds(int i, int j, int n, int m) {
-            return i >= 0 && j >= 0 && i < n && j < m;
-        }
+				Cell p1 = find(i1, j1);
+				Cell p2 = find(i2, j2);
 
-        // parent[i][j][p] - i, j - coord
-        private class UF {
-            int[][][] parents;
+				if (p1.equals(p2)) {
+					return;
+				}
 
-            public UF(int n, int m) {
-                this.parents = new int[n][m][2];
+				if (rank[p1.i][p1.j] > rank[p2.i][p2.j]) {
+					par[p2.i][p2.j] = p1;
+				} else if (rank[p1.i][p1.j] < rank[p2.i][p2.j]) {
+					par[p1.i][p1.j] = p2;
+				} else {
+					rank[p1.i][p1.j]++;
+					par[p2.i][p2.j] = p1;
+				}
 
-                for (int i = 0; i < n; i++) {
-                    for (int j = 0; j < m; j++) {
-                        this.parents[i][j][0] = i;
-                        this.parents[i][j][1] = j;
-                    }
-                }
-            }
+				c--;
+			}
 
-            public void union(int exI, int exJ, int newI, int newJ) {
-                // set a flag that there is a value there
-                seen[newI][newJ] = true;
+			public void add(int i, int j) {
+				if (par[i][j] != null) return;
+				par[i][j] = new Cell(i, j);
+				c++;
+				for (int[] d : dirs) {
+					int newi = i + d[0];
+					int newj = j + d[1];
+					if (isValid(newi, newj) && par[newi][newj] != null) {
+						union(i, j, newi, newj);
+					}
+				}
+			}
 
-                // was it set?
-                if (!seen[exI][exJ]) {
-                    return;
-                }
+			private boolean isValid(int i, int j) {
+				return i >= 0 && j >= 0 && i < n && j < m;
+			}
 
-                // find parent of ex
-                int[] neightboorParentCell = find(exI, exJ);
-                int neigboorParentI = neightboorParentCell[0];
-                int neigboorParentJ = neightboorParentCell[1];
+			private Cell find(int i, int j) {
+				Cell cur = par[i][j];
+				while (cur != par[cur.i][cur.j]) {
+					Cell p = par[cur.i][cur.j];
+					Cell pp = par[p.i][p.j];
+					par[cur.i][cur.j] = pp;
+					cur = pp;
+				}
+				return cur;
+			}
 
-                // if parents are the same - one component already
-                if (neigboorParentI == newI && neigboorParentJ == newJ) {
-                    return;
-                }
+			public int getCount() {
+				return c;
+			}
+		}
 
-                // set a new parent of neightboor
-                this.parents[neigboorParentI][neigboorParentJ][0] = newI;
-                this.parents[neigboorParentI][neigboorParentJ][1] = newJ;
+		private class Cell {
+			int i, j;
 
-                // reduce count cuz we are merging islands
-                count--;
-            }
+			public Cell(int i, int j) {
+				this.i = i;
+				this.j = j;
+			}
 
-            public int[] find(int i, int j) {
-                if (parents[i][j][0] == i && parents[i][j][1] == j) {
-                    return parents[i][j];
-                }
-
-                return find(parents[i][j][0], parents[i][j][1]);
-            }
-        }
-    }
+			public boolean equals(Object o) {
+				Cell other = (Cell) o;
+				return other.i == this.i && other.j == this.j;
+			}
+		}
+	}
 }

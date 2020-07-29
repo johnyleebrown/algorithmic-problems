@@ -2,49 +2,71 @@ package bs.greedy;
 
 /**
  * 1011
+ *
+ * ======
+ *
+ * Task.
+ *
+ * A conveyor belt has packages that must be shipped from one port to another within D days.
+ *
+ * The i-th package on the conveyor belt has a weight of weights[i].  Each day, we load the ship
+ * with packages on the conveyor belt (in the order given by weights). We may not load more weight
+ * than the maximum weight capacity of the ship.
+ *
+ * Return the least weight capacity of the ship that will result in all the packages on the conveyor
+ * belt being shipped within D days.
+ *
+ * ======
+ *
+ * Source: Leetcode
  */
 public class CapacityToShipPackagesWithinDDays {
-    /**
-     * We operate with used days here - so if we used > days than needed =>
-     * capacity is too small => need to increase it, lo = mid + 1, or else.
-     *
-     * Use different version of binary search because we don't discard mid, when
-     * we change hi.
-     */
-    public static class Solution {
-        public int shipWithinDays(int[] a, int d) {
-            int lo = getMax(a);
-            int hi = 25_000_001;
-            while (hi - lo > 0) {
-                int mid = lo + (hi - lo) / 2;
-                if (usedMoreDaysThanNeeded(mid, a, d)) {
-                    lo = mid + 1;
-                } else {
-                    hi = mid;
-                }
-            }
-            return lo;
-        }
+	/**
+	 * Try different ship's capacities using binary search.
+	 */
+	public static class Solution {
+		public int shipWithinDays(int[] ar, int maxDays) {
 
-        private int getMax(int[] a) {
-            int max = a[0];
-            for (int i = 0; i < a.length; i++) {
-                max = Math.max(max, a[i]);
-            }
-            return max;
-        }
+			// get lo and hi
+			int lo = 1;
+			int sum = 0;
+			for (int s : ar) {
+				lo = Math.max(lo, s);
+				sum += s;
+			}
+			int hi = sum;
 
-        private boolean usedMoreDaysThanNeeded(int cap, int[] a, int d) {
-            int sum = 0;
-            int day = 0;
-            for (int i = 0; i < a.length; i++) {
-                sum += a[i];
-                if (sum > cap) {
-                    sum = a[i];
-                    day++;
-                }
-            }
-            return day >= d;
-        }
-    }
+			while (hi - lo >= 0) {
+				int cap = lo + (hi - lo) / 2;
+
+				// how many days it will take us to transfer all the cargo
+				// with the ship's capacity cap
+				int days = countDaysForCap(cap, ar);
+
+				// good - can afford to reduce cap
+				if (days <= maxDays) {
+					hi = cap - 1;
+				}
+				// bad - need a bigger cap
+				else {
+					lo = cap + 1;
+				}
+			}
+
+			return lo;
+		}
+
+		private int countDaysForCap(int cap, int[] ar) {
+			int days = 1;
+			int curLoad = 0;
+			for (int w : ar) {
+				curLoad += w;
+				if (curLoad > cap) {
+					days++;
+					curLoad = w;
+				}
+			}
+			return days;
+		}
+	}
 }

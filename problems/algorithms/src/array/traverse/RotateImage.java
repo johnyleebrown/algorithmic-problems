@@ -1,4 +1,4 @@
-package a0.array.regular;
+package array.traverse;
 
 import com.sun.tools.javac.util.Pair;
 

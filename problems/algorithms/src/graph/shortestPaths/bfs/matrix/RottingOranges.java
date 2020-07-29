@@ -74,11 +74,11 @@ public class RottingOranges {
             return mins == -1 ? 0 : mins;
         }
 
-        boolean isValid(int i, int j, int n, int m) {
+        private boolean isValid(int i, int j, int n, int m) {
             return i >= 0 && j >= 0 && i < n && j < m;
         }
 
-        class Cell {
+        private static class Cell {
             int i, j;
 
             Cell(int ii, int jj) {

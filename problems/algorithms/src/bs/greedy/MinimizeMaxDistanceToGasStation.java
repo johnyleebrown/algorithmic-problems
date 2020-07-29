@@ -20,34 +20,44 @@ package bs.greedy;
  * Source: Leetcode
  */
 public class MinimizeMaxDistanceToGasStation {
-    /**
-     * We operate with number of gas stations. Good condition - we put >= k gas
-     * stations it means that dist is too low => need to increase it, lo = mid +
-     * 1.
-     */
-    public static class Solution {
-        public double minmaxGasDist(int[] a, int k) {
-            double eps = 1e-6;
-            double lo = -1;
-            double hi = 1e8 + 1;
-            while (hi - lo > eps) {
-                double mid = lo + (hi - lo) / 2;
-                if (k < getStationsForMaxDist(a, mid)) { // dist < x
-                    lo = mid;
-                } else { // dist >= x
-                    hi = mid;
-                }
-            }
-            return hi;
-        }
+	/**
+	 * We operate with number of gas stations. Good condition - we put >= k gas
+	 * stations it means that dist is too low => need to increase it, lo = mid +
+	 * 1.
+	 */
+	public static class Solution {
+		public double minmaxGasDist(int[] a, int k) {
+			double eps = 1e-6;
+			double lo = 0;
+			double hi = 1e8;
 
-        private int getStationsForMaxDist(int[] a, double maxDist) {
-            int n = a.length;
-            int count = 0; // count of stations we can insert
-            for (int i = 0; i < n - 1; i++) {
-                count += Math.ceil((a[i + 1] - a[i]) / maxDist) - 1;
-            }
-            return count;
-        }
-    }
+			while (hi - lo > eps) {
+				double mid = lo + (hi - lo) / 2;
+				int countStations = countStationsForMaxDist(a, mid);
+
+				// dist < x
+				if (countStations <= k) {
+					hi = mid;
+				}
+
+				// dist >= x
+				else {
+					lo = mid;
+				}
+			}
+
+			return lo;
+		}
+
+		/**
+		 * Count of stations we can insert.
+		 */
+		private int countStationsForMaxDist(int[] a, double maxDist) {
+			int count = 0;
+			for (int i = 0; i < a.length - 1; i++) {
+				count += Math.ceil((a[i + 1] - a[i]) / maxDist) - 1;
+			}
+			return count;
+		}
+	}
 }

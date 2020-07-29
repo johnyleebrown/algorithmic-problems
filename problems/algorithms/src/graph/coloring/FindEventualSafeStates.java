@@ -6,36 +6,37 @@ import java.util.List;
 /**
  * 802
  */
-public class FindEventualSafeStates
-{
-	class Solution
-	{
-		private boolean[] seen, marked, memo;
+public class FindEventualSafeStates {
+	public static class Solution {
+		private boolean[] seenCycle, globalSeen, memo;
 		private List<Integer> ans;
 
-		public List<Integer> eventualSafeNodes(int[][] graph)
-		{
+		public List<Integer> eventualSafeNodes(int[][] graph) {
 			ans = new ArrayList<>();
-			seen = new boolean[graph.length];
+			seenCycle = new boolean[graph.length];
 			memo = new boolean[graph.length];
-			marked = new boolean[graph.length];
-			for (int v = 0; v < graph.length; v++)
-				if (dfs(v, graph)) ans.add(v);
+			globalSeen = new boolean[graph.length];
+			for (int v = 0; v < graph.length; v++) {
+				if (dfs(v, graph)) {
+					ans.add(v);
+				}
+			}
 			return ans;
 		}
 
-		private boolean dfs(int v, int[][] graph)
-		{
-			if (marked[v]) return memo[v];
-			marked[v] = true;
-			if (seen[v]) return false;
-			seen[v] = true;
+		private boolean dfs(int v, int[][] graph) {
+			if (globalSeen[v]) return memo[v];
+			globalSeen[v] = true;
+			if (seenCycle[v]) return false;
+			seenCycle[v] = true;
 
 			boolean localans = true;
-			for (int w : graph[v]) localans &= dfs(w, graph);
+			for (int w : graph[v]) {
+				localans &= dfs(w, graph);
+			}
 
 			memo[v] = localans;
-			seen[v] = false;
+			seenCycle[v] = false;
 
 			return localans;
 		}

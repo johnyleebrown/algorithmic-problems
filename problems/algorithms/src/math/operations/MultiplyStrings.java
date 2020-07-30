@@ -1,4 +1,4 @@
-package math.numberTheory;
+package math.operations;
 
 /**
  * 43

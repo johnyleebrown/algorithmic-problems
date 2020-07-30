@@ -1,4 +1,4 @@
-package bs.modified.valueSearch;
+package bs.valueSearch;
 
 /**
  * 378

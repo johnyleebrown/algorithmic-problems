@@ -20,30 +20,31 @@ public class LongestRepeatingCharacterReplacement {
 	 * the string. We want to find max(end - start + 1) when (end - start + 1) -
 	 * maxNumberOfSameChars <= k.
 	 */
-	class Solution {
+	public static class Solution {
 		public int characterReplacement(String s, int k) {
 			int l = 0;
-			int[] map = new int[256];
-			int maxLen = 0;
+			int[] counts = new int[26];
+			int ans = 0;
 			int popularCharCount = 0;
 
 			for (int r = 0; r < s.length(); r++) {
 				// right window side char counter
-				map[s.charAt(r)]++;
+				counts[s.charAt(r)]++;
 
 				// updating popular char count
-				popularCharCount = Math.max(popularCharCount, map[s.charAt(r)]);
+				popularCharCount = Math.max(popularCharCount, counts[s.charAt(r)]);
 
 				// moving left window side if operationsNeededCount is not what we want
+				// bad condition
 				while (countOperationsNeededForWindow(r, l, popularCharCount) > k) {
-					map[s.charAt(l)]--;
+					counts[s.charAt(l)]--;
 					l++;
 				}
 
-				maxLen = Math.max(maxLen, r - l + 1);
+				ans = Math.max(ans, r - l + 1);
 			}
 
-			return maxLen;
+			return ans;
 		}
 
 		private int countOperationsNeededForWindow(int r, int l, int popularCharCount) {

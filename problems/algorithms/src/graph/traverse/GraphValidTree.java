@@ -55,12 +55,12 @@ public class GraphValidTree {
 			if (cycleSeen[v]) {
 				return false;
 			}
-			cycleSeen[v] = true;
-
 			// if seen before
 			if (seen[v]) {
 				return true;
 			}
+
+			cycleSeen[v] = true;
 			seen[v] = true;
 
 			if (g[v] != null) {

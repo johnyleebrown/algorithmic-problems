@@ -9,48 +9,49 @@ import java.util.Map;
  * 207
  */
 public class CourseSchedule {
-    public static class Solution {
-        private boolean[] seen;
-        private boolean[] recursionStack;
-        private Map<Integer, List<Integer>> g;
+	public static class Solution {
+		public boolean canFinish(int n, int[][] pre) {
 
-        public boolean canFinish(int n, int[][] prerequisites) {
-            seen = new boolean[n];
-            recursionStack = new boolean[n];
-            g = new HashMap<>();
+			// create graph
+			Map<Integer, List<Integer>> g = new HashMap<>();
+			for (int[] p : pre) {
+				g.putIfAbsent(p[0], new ArrayList<>());
+				g.get(p[0]).add(p[1]);
+				g.putIfAbsent(p[1], new ArrayList<>());
+			}
 
-            for (int[] p : prerequisites) {
-                g.putIfAbsent(p[1], new ArrayList<>());
-                g.get(p[1]).add(p[0]);
-            }
+			// check for a cycle - if can finish all courses
+			return !hasCycle(g, n);
+		}
 
-            return !hasCycle();
-        }
+		boolean hasCycle(Map<Integer, List<Integer>> g, int n) {
+			boolean[] globalSeen = new boolean[n];
+			for (int v : g.keySet()) {
+				if (hasCycleDfs(v, new boolean[n], globalSeen, g)) {
+					return true;
+				}
+			}
+			return false;
+		}
 
-        private boolean hasCycle() {
-            for (int v : g.keySet()) {
-                if (dfs(v)) {
-                    return true;
-                }
-            }
-            return false;
-        }
+		boolean hasCycleDfs(int v, boolean[] cycleSeen, boolean[] globalSeen, Map<Integer, List<Integer>> g) {
+			if (cycleSeen[v]) {
+				return true;
+			}
+			if (globalSeen[v]) {
+				return false;
+			}
+			cycleSeen[v] = true;
+			globalSeen[v] = true;
 
-        private boolean dfs(int v) {
-            if (recursionStack[v]) return true;
-            if (seen[v]) return false;
+			for (int w : g.get(v)) {
+				if (hasCycleDfs(w, cycleSeen, globalSeen, g)) {
+					return true;
+				}
+			}
 
-            recursionStack[v] = true;
-            seen[v] = true;
-
-            for (int w : g.getOrDefault(v, new ArrayList<>())) {
-                if (dfs(w)) {
-                    return true;
-                }
-            }
-
-            recursionStack[v] = false;
-            return false;
-        }
-    }
+			cycleSeen[v] = false;
+			return false;
+		}
+	}
 }

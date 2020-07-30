@@ -1,4 +1,4 @@
-package math.numberTheory;
+package math.numberTheory.primes;
 
 import java.util.Arrays;
 

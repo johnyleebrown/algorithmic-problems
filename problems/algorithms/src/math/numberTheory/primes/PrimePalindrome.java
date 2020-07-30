@@ -1,4 +1,4 @@
-package math.numberTheory;
+package math.numberTheory.primes;
 
 /**
  * 867
@@ -11,44 +11,34 @@ package math.numberTheory;
  * palindrome if it reads the same from left to right as it does from right to
  * left. For example, 12321 is a palindrome.
  */
-public class PrimePalindrome
-{
+public class PrimePalindrome {
 	/**
 	 * Brute force
 	 */
-	class Solution1
-	{
-		public int primePalindrome(int N)
-		{
+	class Solution1 {
+		public int primePalindrome(int N) {
 			if (N == 1 || N == 2) return 2;
 			int x = N;
-			while (true)
-			{
+			while (true) {
 				if (checkPrime(x) && checkPalindrome(x)) return x;
 				x++;
 			}
 		}
 
-		public boolean checkPrime(int num)
-		{
+		public boolean checkPrime(int num) {
 			int half = num / 2;
-			for (int i = 2; i <= half; i++)
-			{
-				if (num % i == 0)
-				{
+			for (int i = 2; i <= half; i++) {
+				if (num % i == 0) {
 					return false;
 				}
 			}
 			return true;
 		}
 
-		public boolean checkPalindrome(int num)
-		{
+		public boolean checkPalindrome(int num) {
 			String s = Integer.toString(num);
-			for (int i = 0, j = s.length() - 1; i <= s.length() / 2; i++, j--)
-			{
-				if (s.charAt(i) != s.charAt(j))
-				{
+			for (int i = 0, j = s.length() - 1; i <= s.length() / 2; i++, j--) {
+				if (s.charAt(i) != s.charAt(j)) {
 					return false;
 				}
 			}
@@ -56,23 +46,19 @@ public class PrimePalindrome
 		}
 	}
 
-	class Solution3
-	{
+	class Solution3 {
 		/**
 		 * optimized O(1), O(n)
 		 */
-		public int primePalindrome(int N)
-		{
-			while (true)
-			{
+		public int primePalindrome(int N) {
+			while (true) {
 				if (N == reverse(N) && isPrime(N)) return N;
 				N++;
 				if (10_000_000 < N && N < 100_000_000) N = 100_000_000;
 			}
 		}
 
-		public boolean isPrime(int N)
-		{
+		public boolean isPrime(int N) {
 			if (N < 2) return false;
 			int R = (int) Math.sqrt(N);
 			for (int d = 2; d <= R; ++d)
@@ -80,11 +66,9 @@ public class PrimePalindrome
 			return true;
 		}
 
-		public int reverse(int N)
-		{
+		public int reverse(int N) {
 			int ans = 0;
-			while (N > 0)
-			{
+			while (N > 0) {
 				ans = 10 * ans + (N % 10);
 				N /= 10;
 			}

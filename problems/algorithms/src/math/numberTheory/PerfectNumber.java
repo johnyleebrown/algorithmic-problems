@@ -2,8 +2,6 @@ package math.numberTheory;
 
 /**
  * 507
- * Now, given an integer n, write a function that returns true when it is a perfect number and false when it is not.
- * The input number n will not exceed 100,000,000. (1e8)
  */
 public class PerfectNumber {
     /**

@@ -9,6 +9,9 @@ public class Sqrt {
 	 * numbers | 123456789
 	 * sqrt's  | 111222223
 	 * power   | 111444449
+	 * so, we want to take the max on the left side, hence lo
+	 * good   | bad
+	 * 1114(4)|4449
 	 */
 	public static class Solution {
 		public int mySqrt(int x) {

@@ -19,7 +19,8 @@ def read_from_file(file_path):
 
 
 def parse_snip_names():
-    from_dir = '/Volumes/Greg/projects/algorithmic-problems/tools/snippets/data'
+    s='/Users/greg/Documents'
+    from_dir = s+'/projects/algorithmic-problems/tools/snippets/data'
     names = []
     names_to_path_map = {}
     default_p = from_dir + '/'

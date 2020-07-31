@@ -1,4 +1,4 @@
-package math.greedy;
+package greedy;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -23,8 +23,7 @@ public class FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsK {
      * Proof by minimal counter example.
      * We assume that there is an optimal solution. We can try to replace some
      * step of the optimal solution to the step from our greedy solution
-     * without
-     * loosing it's optimality.
+     * without loosing it's optimality.
      * Let's say greedy solution: 17=13+3+1
      * And we say here is an optimal one: 17=8+8+1
      * We replace first step with the step from our solution: 17=13+2+2,

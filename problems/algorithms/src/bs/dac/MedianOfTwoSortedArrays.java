@@ -61,7 +61,8 @@ public class MedianOfTwoSortedArrays {
 				int mid1 = (lo + hi) / 2;
 
 				// since we want to have almost the same number of elements on the left
-				// and on the right we substract mid1
+				// and on the right we subtract mid1, if we would take (x+y+1)/2 - this and with
+				// mid1 it means number of elements on the left partitions would be bigger
 				int mid2 = k - mid1;
 
 				// maxLeftAr1 = ar1[mid1-1], simple, but if we mid1 is 0
@@ -84,6 +85,7 @@ public class MedianOfTwoSortedArrays {
 
 					// size is odd - we need 1 middle element only
 					else {
+						// mid=(0+5)/2 for example, so we take mid and not mid-1 elements
 						return Math.max(maxLeftPartAr1, maxLeftPartAr2);
 					}
 				}

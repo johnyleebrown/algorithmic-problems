@@ -39,7 +39,6 @@ public class SearchInRotatedSortedArrayII {
 
 			while (hi - lo >= 0) {
 				int mid = lo + (hi - lo) / 2;
-				System.out.println("> " + mid);
 				if (x == a[mid]) {
 					return true;
 				}
@@ -47,7 +46,13 @@ public class SearchInRotatedSortedArrayII {
 				// 1 step: where mid at
 				// less than lo = right part
 				if (a[mid] < a[lo]) {
+
 					// 2 step: where target at
+
+					// ar = [7,8,1,2,3,4,5,6] mid = 3
+					// we go left if
+					// - either number is in the left part
+					// - or it is smaller than us (and is in the right part with us)
 					if (x > a[hi] || x < a[mid]) {
 						hi = mid - 1;
 					} else {
@@ -57,15 +62,24 @@ public class SearchInRotatedSortedArrayII {
 
 				// more than hi = left part
 				else if (a[mid] > a[hi]) {
+
 					// 2 step: where target at
+
+					// ar = [4,5,6,7,0,1,2] mid = 6
+					// we go right if
+					// - either target is in the right part
+					// - or bigger than us (and in the left part with us)
 					if (x < a[lo] || x > a[mid]) {
 						lo = mid + 1;
 					} else {
 						hi = mid - 1;
 					}
-				} else {
-					// ADDED, at a duplicate => move
-					// also lo++ works but smh slower on leetcode
+				}
+
+				// if none of those = we got a regular sub array
+				// so do a regular BS
+				else {
+					// ADDED
 					if (a[lo] == a[hi]) {
 						hi--;
 					} else {

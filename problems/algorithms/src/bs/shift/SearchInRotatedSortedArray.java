@@ -10,7 +10,7 @@ public class SearchInRotatedSortedArray {
 	 */
 	public static class Solution {
 		public int search(int[] a, int x) {
-
+			
 			int n = a.length;
 
 			// edge

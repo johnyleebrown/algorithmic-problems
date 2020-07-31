@@ -18,29 +18,23 @@ package twoPointers.slidingWindow.min;
  *
  * Return 0 if the string is already balanced.
  */
-public class ReplaceTheSubstringForBalancedString
-{
-	static class Solution
-	{
-		public int balancedString(String s)
-		{
+public class ReplaceTheSubstringForBalancedString {
+	static class Solution {
+		public int balancedString(String s) {
 			int n = s.length();
 			int k = n / 4;
 			// bad chars - unique chars that should be replaced
 			int badCharsTotalCount = 0;
 			int[] map = new int[26];
 
-			for (int i = 0; i < n; i++)
-			{
+			for (int i = 0; i < n; i++) {
 				map[s.charAt(i) - 'A']++;
-				if (map[s.charAt(i) - 'A'] == k + 1)
-				{
+				if (map[s.charAt(i) - 'A'] == k + 1) {
 					badCharsTotalCount++;
 				}
 			}
 
-			if (badCharsTotalCount == 0)
-			{
+			if (badCharsTotalCount == 0) {
 				return 0;
 			}
 
@@ -48,22 +42,18 @@ public class ReplaceTheSubstringForBalancedString
 			int badCharsWindowCount = 0;
 			int l = 0;
 
-			for (int r = 0; r < n; r++)
-			{
+			for (int r = 0; r < n; r++) {
 				map[s.charAt(r) - 'A']--;
-				if (map[s.charAt(r) - 'A'] == k)
-				{
+				if (map[s.charAt(r) - 'A'] == k) {
 					badCharsWindowCount++;
 				}
 
 				// reducing window size when we have good conditions
-				while (badCharsWindowCount == badCharsTotalCount)
-				{
+				while (badCharsWindowCount == badCharsTotalCount) {
 					result = Math.min(result, r - l + 1);
 
 					map[s.charAt(l) - 'A']++;
-					if (map[s.charAt(l) - 'A'] == k + 1)
-					{
+					if (map[s.charAt(l) - 'A'] == k + 1) {
 						badCharsWindowCount--;
 					}
 

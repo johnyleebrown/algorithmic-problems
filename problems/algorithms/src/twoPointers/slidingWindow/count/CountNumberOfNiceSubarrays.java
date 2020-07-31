@@ -11,7 +11,7 @@ package twoPointers.slidingWindow.count;
  * if there are k odd numbers on it. Return the number of nice sub-arrays.
  */
 public class CountNumberOfNiceSubarrays {
-    static class Solution {
+    public static class Solution {
         public int numberOfSubarrays(int[] nums, int k) {
             return numberOfSubarraysAtMostK(nums, k) - numberOfSubarraysAtMostK(nums, k - 1);
         }

@@ -1,8 +1,9 @@
 package twoPointers.slidingWindow.anagram;
 
-import util.tester.Tester;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 30
@@ -16,16 +17,13 @@ import java.util.*;
  * concatenation of each word in words exactly once and without any intervening
  * characters.
  */
-public class SubstringWithConcatenationOfAllWords
-{
+public class SubstringWithConcatenationOfAllWords {
 	/**
 	 * Usual sliding window, but here we compare local count to global count and
 	 * we use a word len as a step instead of 1.
 	 */
-	public static class Solution
-	{
-		public List<Integer> findSubstring(String s, String[] words)
-		{
+	public static class Solution {
+		public List<Integer> findSubstring(String s, String[] words) {
 			List<Integer> res = new ArrayList<>();
 			if (s.length() == 0 || words.length == 0) return res;
 			int n = s.length();
@@ -35,27 +33,22 @@ public class SubstringWithConcatenationOfAllWords
 			int totalUniqueWords = map.size();
 			int targetLength = m * words.length;
 
-			for (int start = 0; start < m; start++)
-			{
+			for (int start = 0; start < m; start++) {
 				int uniqueWordsCount = 0;
 				int l = start;
 				Map<String, Integer> localMap = new HashMap<>();
 
-				for (int r = start; r <= n - m; r += m)
-				{
+				for (int r = start; r <= n - m; r += m) {
 					String wordAtR = substr(s, r, r + m);
-					if (map.containsKey(wordAtR))
-					{
+					if (map.containsKey(wordAtR)) {
 						localMap.put(wordAtR, localMap.getOrDefault(wordAtR, 0) + 1);
 						if (map.get(wordAtR) - localMap.get(wordAtR) == 0)
 							uniqueWordsCount++;
 					}
 
-					if (targetLength == r - l)
-					{
+					if (targetLength == r - l) {
 						String wordAtL = substr(s, l, l + m);
-						if (map.containsKey(wordAtL))
-						{
+						if (map.containsKey(wordAtL)) {
 							localMap.put(wordAtL, localMap.getOrDefault(wordAtL, 0) - 1);
 							if (map.get(wordAtL) - localMap.get(wordAtL) == 1)
 								uniqueWordsCount--;
@@ -72,18 +65,8 @@ public class SubstringWithConcatenationOfAllWords
 			return res;
 		}
 
-		private String substr(String s, int i, int j)
-		{
+		private String substr(String s, int i, int j) {
 			return s.substring(i, j);
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add("lingmindraboofooowingdingbarrwingmonkeypoundcake", new String[]{"fooo", "barr", "wing", "ding", "wing"}).expect(Arrays.asList(13))
-				.add("aaaaaa", new String[]{"aaa", "aaa"}).expect(Arrays.asList(0))
-				.add("aaaaaaaa", new String[]{"aa", "aa", "aa"}).expect(Arrays.asList(0, 2, 1))
-				.run();
 	}
 }

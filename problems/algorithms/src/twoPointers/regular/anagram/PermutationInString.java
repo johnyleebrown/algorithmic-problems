@@ -17,10 +17,12 @@ package twoPointers.regular.anagram;
  */
 public class PermutationInString {
 	/**
+	 * Optimal.
+	 *
 	 * Since we know the window size is fixed - we will be moving that window and determining
 	 * what is and what is not in that window.
 	 */
-	public static class Solution {
+	public static class Solution1 {
 		public boolean checkInclusion(String s1, String s2) {
 
 			int n1 = s1.length();
@@ -61,6 +63,47 @@ public class PermutationInString {
 				}
 				if (hits == unique) {
 					return true;
+				}
+			}
+
+			return false;
+		}
+	}
+
+	/**
+	 * Sliding window.
+	 */
+	public static class Solution2 {
+		public boolean checkInclusion(String s1, String s2) {
+			if (s1.length() > s2.length()) {
+				return false;
+			}
+
+			int[] map = new int[26];
+			for (int i = 0; i < s1.length(); i++) {
+				map[s1.charAt(i) - 'a']++;
+			}
+
+			int matchedLettersCount = 0;
+			int l = 0;
+
+			for (int r = 0; r < s2.length(); r++) {
+				map[s2.charAt(r) - 'a']--;
+				if (map[s2.charAt(r) - 'a'] >= 0) {
+					matchedLettersCount++;
+				}
+
+				while (matchedLettersCount == s1.length()) {
+					if (r - l + 1 == s1.length()) {
+						return true;
+					}
+
+					map[s2.charAt(l) - 'a']++;
+					if (map[s2.charAt(l) - 'a'] >= 1) {
+						matchedLettersCount--;
+					}
+
+					l++;
 				}
 			}
 

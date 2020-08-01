@@ -19,7 +19,6 @@ import java.util.List;
  * Source: Leetcode
  */
 public class PartitionLabels {
-
 	/**
 	 * Think about the problem of maximum number of intersecting intervals.
 	 * We keep count of intersecting intervals and increment when the interval starts, decrement

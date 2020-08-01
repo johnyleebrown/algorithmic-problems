@@ -1,4 +1,4 @@
-package twoPointers.regular;
+package twoPointers.regular.other;
 
 /**
  * 457

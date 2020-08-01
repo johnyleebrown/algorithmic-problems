@@ -1,4 +1,4 @@
-package twoPointers.math;
+package twoPointers.regular.math;
 
 import java.util.HashMap;
 import java.util.Map;

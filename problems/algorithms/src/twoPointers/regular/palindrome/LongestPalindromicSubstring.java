@@ -1,4 +1,4 @@
-package twoPointers.palindrome;
+package twoPointers.regular.palindrome;
 
 /**
  * 5

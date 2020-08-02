@@ -33,6 +33,7 @@ public class MinimumWindowSubsequence {
      * right. If while going backwards we find letter from T at position < than
      * in pos that we saved - we break - meaning we can't optimize [i,k] answer
      * to [i2,k].
+     * TODO - why? i thought we always take the first char we find when we go right?
      */
     public static class Solution {
         int minL = 0;
@@ -88,14 +89,14 @@ public class MinimumWindowSubsequence {
             return getAns(minLen, minL, S);
         }
 
-        void recordAns(int k, int i) {
+        private void recordAns(int k, int i) {
             if (minLen > k - i) {
                 minLen = k - i;
                 minL = i;
             }
         }
 
-        String getAns(int len, int l, String s) {
+        private String getAns(int len, int l, String s) {
             if (len == Integer.MAX_VALUE) return "";
             return s.substring(l, l + len + 1);
         }

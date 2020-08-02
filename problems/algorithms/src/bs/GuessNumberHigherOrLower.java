@@ -1,4 +1,4 @@
-package a0.array.regular;
+package bs;
 
 /**
  * 374

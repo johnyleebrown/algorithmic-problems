@@ -66,12 +66,4 @@ public class RotateImage {
             matrix[row2][col2] = temp;
         }
     }
-
-    public static void main(String[] args) {
-        int[][] s = new int[][]{
-                {1, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}
-        };
-    }
 }

@@ -1,4 +1,4 @@
-package array.prefix;
+package array.prefix.other;
 
 import java.util.Random;
 

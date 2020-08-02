@@ -1,4 +1,4 @@
-package a0.array.regular;
+package sort.other;
 
 import util.utils.reader.InputReader;
 
@@ -34,47 +34,38 @@ import java.util.Set;
  *
  * ======
  *
- * Source: Leetcode
+ * Source: Codeforces
  */
-public class WeirdSort
-{
+public class WeirdSort {
 	/**
 	 * Swap if a[i + 1] < a[i], if it can't be done, return no, otherwise yes.
 	 *
 	 * Other solution: sort ranges of swap indexes, then check if the array is
 	 * sorted.
 	 */
-	private static class Solution
-	{
-		private static void s(InputReader in, PrintWriter out)
-		{
+	private static class Solution {
+		private static void s(InputReader in, PrintWriter out) {
 			int n = in.nextInt();
 			int m = in.nextInt();
 			int[] a = new int[n];
-			for (int i = 0; i < n; i++)
-			{
+			for (int i = 0; i < n; i++) {
 				a[i] = in.nextInt();
 			}
 
 			Set<Integer> set = new HashSet<>();
-			for (int i = 0; i < m; i++)
-			{
+			for (int i = 0; i < m; i++) {
 				set.add(in.nextInt() - 1);
 			}
 
-			while (true)
-			{
+			while (true) {
 				int e = -1;
 				boolean bad = false;
 
-				for (int i = 0; i < n - 1; i++)
-				{
-					if (a[i] > a[i + 1])
-					{
+				for (int i = 0; i < n - 1; i++) {
+					if (a[i] > a[i + 1]) {
 						bad = true;
 
-						if (set.contains(i))
-						{
+						if (set.contains(i)) {
 							int t = a[i + 1];
 							a[i + 1] = a[i];
 							a[i] = t;
@@ -87,16 +78,12 @@ public class WeirdSort
 					}
 				}
 
-				if (e == -1)
-				{
+				if (e == -1) {
 					// if found out that there are 2 consecutive elements that we consider bad
 					// and we didn't swap them
-					if (bad)
-					{
+					if (bad) {
 						out.println("NO");
-					}
-					else
-					{
+					} else {
 						out.println("YES");
 					}
 					return;

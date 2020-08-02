@@ -28,17 +28,18 @@ public class LongestSubstringWithAtMostKDistinctCharacters {
 
 				// bad condition
 				while (distinctChats > k) {
+
 					// remove left edge char from sliding window
 					counts[s.charAt(l)]--;
 					if (counts[s.charAt(l)] == 0) {
 						distinctChats--;
 					}
+
 					l++;
 				}
 
 				ans = Math.max(ans, r - l + 1);
 			}
-
 
 			return ans;
 		}

@@ -1,4 +1,4 @@
-package string.parseString;
+package string.parseString.other;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,9 +29,7 @@ import java.util.Map;
  */
 public class RomanToInteger {
     /**
-     * @formatter:off
-     * $INSERT_EXPLANATION.
-     * @formatter:on
+     * SF.
      */
     public static class Solution {
         public int romanToInt(String s) {

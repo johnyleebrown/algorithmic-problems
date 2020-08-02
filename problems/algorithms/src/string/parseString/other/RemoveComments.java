@@ -1,4 +1,4 @@
-package string.parseString;
+package string.parseString.other;
 
 import java.util.ArrayList;
 import java.util.List;

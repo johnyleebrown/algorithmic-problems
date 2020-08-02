@@ -1,4 +1,4 @@
-package string.parseString;
+package string.parseString.other;
 
 import java.math.BigInteger;
 
@@ -30,15 +30,12 @@ import java.math.BigInteger;
  *
  * Source: Leetcode
  */
-public class StringToInteger
-{
+public class StringToInteger {
 	/**
 	 * SF.
 	 */
-	class Solution
-	{
-		public int myAtoi(String s)
-		{
+	public static class Solution {
+		public int myAtoi(String s) {
 			int n = s.length();
 			if (n == 0)
 				return 0;
@@ -47,26 +44,20 @@ public class StringToInteger
 			StringBuilder sb = new StringBuilder();
 			boolean minus = false;
 
-			while (i < n)
-			{
-				if (!Character.isDigit(s.charAt(i)) && s.charAt(i) != '+' && s.charAt(i) != '-' && s.charAt(i) != ' ')
-				{
+			while (i < n) {
+				if (!Character.isDigit(s.charAt(i)) && s.charAt(i) != '+' && s.charAt(i) != '-' && s.charAt(i) != ' ') {
 					return 0;
 				}
-				if ((s.charAt(i) == '+' || s.charAt(i) == '-') && i + 1 < n && !Character.isDigit(s.charAt(i + 1)))
-				{
+				if ((s.charAt(i) == '+' || s.charAt(i) == '-') && i + 1 < n && !Character.isDigit(s.charAt(i + 1))) {
 					return 0;
 				}
-				if (i > 0 && Character.isDigit(s.charAt(i)) && s.charAt(i - 1) == '-')
-				{
+				if (i > 0 && Character.isDigit(s.charAt(i)) && s.charAt(i - 1) == '-') {
 					minus = true;
 				}
-				while (i < n && Character.isDigit(s.charAt(i)))
-				{
+				while (i < n && Character.isDigit(s.charAt(i))) {
 					sb.append(s.charAt(i++));
 				}
-				if (i > 0 && Character.isDigit(s.charAt(i - 1)) && i < n && !Character.isDigit(s.charAt(i)))
-				{
+				if (i > 0 && Character.isDigit(s.charAt(i - 1)) && i < n && !Character.isDigit(s.charAt(i))) {
 					break;
 				}
 				i++;
@@ -82,10 +73,10 @@ public class StringToInteger
 				pr = new BigInteger(sb.toString());
 
 			return pr.compareTo(new BigInteger(String.valueOf(Integer.MAX_VALUE))) == 1
-					? Integer.MAX_VALUE
-					: pr.compareTo(new BigInteger(String.valueOf(Integer.MIN_VALUE))) == -1
-					? Integer.MIN_VALUE
-					: pr.intValue();
+			       ? Integer.MAX_VALUE
+			       : pr.compareTo(new BigInteger(String.valueOf(Integer.MIN_VALUE))) == -1
+			         ? Integer.MIN_VALUE
+			         : pr.intValue();
 		}
 	}
 }

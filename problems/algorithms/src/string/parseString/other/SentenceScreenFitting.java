@@ -1,4 +1,4 @@
-package string.parseString;
+package string.parseString.other;
 
 /**
  * 418

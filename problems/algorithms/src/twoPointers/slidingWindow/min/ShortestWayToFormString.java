@@ -16,7 +16,6 @@ public class ShortestWayToFormString {
             int[][] pos = invert(S);
             int sInd = 0;
             int ans = 0;
-
             for (char c : T.toCharArray()) {
                 // cant find in whole word
                 if (pos[0][c - 'a'] == -1) {

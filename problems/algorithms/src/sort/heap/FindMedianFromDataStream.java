@@ -29,54 +29,54 @@ import java.util.PriorityQueue;
  * Source: Leetcode
  */
 public class FindMedianFromDataStream {
-    /**
-     * Keep 2 PQs - each corresponds to half of the stream:
-     * max: 5 4 3 2 1
-     * min: 6 7 8 9 10
-     *
-     * 1 case - add 3
-     * max 1
-     * min 2
-     * max 3 1
-     * min 2
-     * max 1
-     * min 2 3
-     *
-     * 2 case - add 4
-     * max 1
-     * min 2 3
-     * max 1
-     * min 2 3 4
-     * max 4 1
-     * min 2 3
-     */
-    public static class Solution {
-        public static class MedianFinder {
+	/**
+	 * Keep 2 PQs - each corresponds to half of the stream:
+	 * max: 5 4 3 2 1
+	 * min: 6 7 8 9 10
+	 *
+	 * 1 case - add 3
+	 * max 1
+	 * min 2
+	 * max 3 1
+	 * min 2
+	 * max 1
+	 * min 2 3
+	 *
+	 * 2 case - add 4
+	 * max 1
+	 * min 2 3
+	 * max 1
+	 * min 2 3 4
+	 * max 4 1
+	 * min 2 3
+	 */
+	public static class Solution {
+		public static class MedianFinder {
 
-            PriorityQueue<Integer> min, max;
+			PriorityQueue<Integer> min, max;
 
-            public MedianFinder() {
-                min = new PriorityQueue<>((a, b) -> a - b);
-                max = new PriorityQueue<>((a, b) -> b - a);
-            }
+			public MedianFinder() {
+				min = new PriorityQueue<>((a, b) -> a - b);
+				max = new PriorityQueue<>((a, b) -> b - a);
+			}
 
-            public void addNum(int num) {
-                if (min.size() > max.size()) {
-                    min.add(num);
-                    max.add(min.poll());
-                } else {
-                    max.add(num);
-                    min.add(max.poll());
-                }
-            }
+			public void addNum(int num) {
+				if (min.size() > max.size()) {
+					min.add(num);
+					max.add(min.poll());
+				} else {
+					max.add(num);
+					min.add(max.poll());
+				}
+			}
 
-            public double findMedian() {
-                if (min.size() == max.size()) {
-                    return (((double) min.peek()) + ((double) max.peek())) / 2;
-                } else {
-                    return (double) min.peek();
-                }
-            }
-        }
-    }
+			public double findMedian() {
+				if (min.size() == max.size()) {
+					return (((double) min.peek()) + ((double) max.peek())) / 2;
+				} else {
+					return (double) min.peek();
+				}
+			}
+		}
+	}
 }

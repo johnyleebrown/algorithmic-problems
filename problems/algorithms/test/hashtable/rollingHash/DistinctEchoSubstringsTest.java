@@ -1,6 +1,5 @@
-package a0.two.regular;
+package hashtable.rollingHash;
 
-import hashtable.rollingHash.DistinctEchoSubstrings;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

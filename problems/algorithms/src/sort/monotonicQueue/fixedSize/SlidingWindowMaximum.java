@@ -15,9 +15,6 @@ import sort.monotonicQueue.ds.impl.DecreasingMonotonicQueueDefault;
  * Return the max sliding window.
  */
 public class SlidingWindowMaximum {
-	/**
-	 * https://medium.com/@luxy622/leetcode-by-category-monotonic-queue-ecc8b7a8b87d
-	 */
 	static class Solution {
 		public int[] maxSlidingWindow(int[] nums, int k) {
 			if (nums.length == 0) {

@@ -6,16 +6,12 @@ import java.util.List;
 /**
  * 77
  */
-public class Combinations
-{
-	class Solution
-	{
+public class Combinations {
+	class Solution {
 		private List<List<Integer>> list = new ArrayList<>();
 
-		public List<List<Integer>> combine(int n, int k)
-		{
-			if (k < 1)
-			{
+		public List<List<Integer>> combine(int n, int k) {
+			if (k < 1) {
 				return list;
 			}
 
@@ -23,16 +19,11 @@ public class Combinations
 			return list;
 		}
 
-		private void generate(List<Integer> combination, int start, int k, int n)
-		{
-			if (k == combination.size())
-			{
+		private void generate(List<Integer> combination, int start, int k, int n) {
+			if (k == combination.size()) {
 				list.add(new ArrayList<>(combination));
-			}
-			else
-			{
-				for (int i = start; i <= n; i++)
-				{
+			} else {
+				for (int i = start; i <= n; i++) {
 					combination.add(i);
 					generate(combination, i + 1, k, n);
 					combination.remove(combination.size() - 1);

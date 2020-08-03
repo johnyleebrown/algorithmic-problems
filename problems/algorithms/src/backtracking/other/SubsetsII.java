@@ -5,14 +5,11 @@ import java.util.*;
 /**
  * 90
  */
-public class SubsetsII
-{
-	class Solution1
-	{
+public class SubsetsII {
+	class Solution1 {
 		private List<List<Integer>> combinations = new LinkedList<>();
 
-		public List<List<Integer>> subsetsWithDup(int[] nums)
-		{
+		public List<List<Integer>> subsetsWithDup(int[] nums) {
 			if (nums == null || nums.length == 0) return new LinkedList<>();
 			Arrays.sort(nums);
 			Set<String> seen = new HashSet<>();
@@ -21,12 +18,10 @@ public class SubsetsII
 		}
 
 		private void generate(String cur, Set<String> seen,
-		                      int start, List<Integer> combination, int[] nums)
-		{
+		                      int start, List<Integer> combination, int[] nums) {
 			if (!seen.add(cur)) return;
 			combinations.add(new LinkedList<>(combination));
-			for (int i = start; i < nums.length; i++)
-			{
+			for (int i = start; i < nums.length; i++) {
 				combination.add(nums[i]);
 				generate(cur + "-" + nums[i], seen, i + 1, combination, nums);
 				combination.remove(combination.size() - 1);
@@ -37,13 +32,11 @@ public class SubsetsII
 	/**
 	 * Sol with checking for dups in array
 	 */
-	class Solution
-	{
+	class Solution {
 
 		private List<List<Integer>> combinations = new LinkedList<>();
 
-		public List<List<Integer>> subsetsWithDup(int[] nums)
-		{
+		public List<List<Integer>> subsetsWithDup(int[] nums) {
 			if (nums == null || nums.length == 0) return new LinkedList<>();
 			// sorting to find dups easier later
 			Arrays.sort(nums);
@@ -51,11 +44,9 @@ public class SubsetsII
 			return combinations;
 		}
 
-		private void generate(int start, List<Integer> combination, int[] nums)
-		{
+		private void generate(int start, List<Integer> combination, int[] nums) {
 			combinations.add(new LinkedList<>(combination));
-			for (int i = start; i < nums.length; i++)
-			{
+			for (int i = start; i < nums.length; i++) {
 				// so we don't start again with the same number
 				// we are alright to be getting this number in the combinations
 				// but don't want dups

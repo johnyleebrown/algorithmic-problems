@@ -37,8 +37,7 @@ public class ContiguousArray {
 			for (int i = 0; i < ar.length; i++) {
 				if (ar[i] == 0) {
 					pre0++;
-				}
-				else {
+				} else {
 					pre1++;
 				}
 

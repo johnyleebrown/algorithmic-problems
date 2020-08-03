@@ -20,6 +20,7 @@ import java.util.Map;
  */
 public class SplitArrayIntoConsecutiveSubsequences {
     /**
+     * TODO redo damn good problem
      * - We iterate through the array once to get the frequency of all the
      * elements in the array
      * - We iterate through the array once more and for each element we either

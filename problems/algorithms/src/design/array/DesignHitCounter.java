@@ -23,6 +23,7 @@ package design.array;
  */
 public class DesignHitCounter {
     /**
+     * TODO *from the interview should ve paid more attention to that
      * Keep the cache size 300. Collect all hits with times > 300 - current.
      */
     public static class HitCounter {

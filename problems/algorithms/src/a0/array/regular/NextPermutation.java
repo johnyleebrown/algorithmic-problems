@@ -4,13 +4,17 @@ import java.util.Arrays;
 
 /**
  * 31
- *
- * Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
- * If such arrangement is not possible, it must rearrange it as the lowest possible order (ie, sorted in ascending order).
- * The replacement must be in-place and use only constant extra memory.
- * Here are some examples. Inputs are in the left-hand column and its corresponding outputs are in the right-hand column.
  */
 public class NextPermutation {
+
+    /*
+
+    Find the largest index k such that nums[k] < nums[k + 1]. If no such index exists, just reverse nums and done.
+    Find the largest index l > k such that nums[k] < nums[l].
+    Swap nums[k] and nums[l].
+    Reverse the sub-array nums[k + 1:].
+     */
+
     /**
      * Intuitive: find ceiling to the right iterating from the end
      * Here i don't take into account descending factor

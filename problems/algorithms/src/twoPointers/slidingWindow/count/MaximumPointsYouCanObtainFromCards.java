@@ -44,6 +44,7 @@ public class MaximumPointsYouCanObtainFromCards {
 			int r = k + 1;
 			int l = 0;
 			while (r < n) {
+				// remove left, add right
 				slidingSum += -ar[l++] + ar[r++];
 				ans = Math.max(ans, totalSum - slidingSum);
 			}

@@ -7,15 +7,12 @@ import java.util.Set;
 /**
  * 996
  */
-public class NumberOfSquarefulArrays
-{
-	class Solution
-	{
+public class NumberOfSquarefulArrays {
+	class Solution {
 		private Set<String> seenStr = new HashSet<>();
 		private boolean[] seen;
 
-		public int numSquarefulPerms(int[] A)
-		{
+		public int numSquarefulPerms(int[] A) {
 			if (A.length == 0) return 0;
 			seen = new boolean[A.length];
 			Arrays.sort(A); // optimization
@@ -23,13 +20,10 @@ public class NumberOfSquarefulArrays
 			return seenStr.size();
 		}
 
-		private void generate(int[] A, String s, int c, Integer prev)
-		{
+		private void generate(int[] A, String s, int c, Integer prev) {
 			if (c == A.length) seenStr.add(s);
-			else
-			{
-				for (int i = 0; i < A.length; i++)
-				{
+			else {
+				for (int i = 0; i < A.length; i++) {
 					if (seen[i]) continue;
 					// optimization
 					if (i > 0 && A[i - 1] == A[i] && !seen[i - 1]) continue;
@@ -42,8 +36,7 @@ public class NumberOfSquarefulArrays
 			}
 		}
 
-		private boolean isSq(Integer prev, int cur)
-		{
+		private boolean isSq(Integer prev, int cur) {
 			int sum = prev + cur;
 			int x = (int) Math.sqrt(sum);
 			return x * x != sum;

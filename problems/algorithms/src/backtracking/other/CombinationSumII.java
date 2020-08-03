@@ -7,14 +7,11 @@ import java.util.List;
 /**
  * 40
  */
-public class CombinationSumII
-{
-	class Solution
-	{
+public class CombinationSumII {
+	class Solution {
 		private List<List<Integer>> combinations = new ArrayList<>();
 
-		public List<List<Integer>> combinationSum2(int[] candidates, int target)
-		{
+		public List<List<Integer>> combinationSum2(int[] candidates, int target) {
 			if (candidates == null || candidates.length == 0)
 				return combinations;
 
@@ -25,27 +22,20 @@ public class CombinationSumII
 			return combinations;
 		}
 
-		public void backtrack(int[] nums, List<Integer> combination, int start,
-		                      int leftOver)
-		{
-			if (leftOver < 0)
-			{
+		public void backtrack(int[] nums, List<Integer> combination, int start, int leftOver) {
+			if (leftOver < 0) {
 				return;
 			}
-			if (leftOver == 0)
-			{
+			if (leftOver == 0) {
 				combinations.add(new ArrayList<>(combination));
-			}
-			else
-			{
-				for (int i = start; i < nums.length; i++)
-				{
+			} else {
+				for (int i = start; i < nums.length; i++) {
 					// optimization
 					if (nums[i] > leftOver) break;
 
-					// optimization
-					// i != start means not the first one 
+					// i != start means not the first one
 					// and not the first one in recursion
+					// avoid duplicates, ex [1,1,2,5] sum=8
 					if (i != start && nums[i] == nums[i - 1]) continue;
 
 					combination.add(nums[i]);

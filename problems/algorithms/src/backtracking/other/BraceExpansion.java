@@ -31,8 +31,7 @@ public class BraceExpansion {
 						}
 						i++;
 					}
-				}
-				else {
+				} else {
 					curL.add(s.charAt(i));
 				}
 				l.add(curL);
@@ -48,8 +47,7 @@ public class BraceExpansion {
 		private void gen(List<List<Character>> l, int curInd, String[] res, char[] cur) {
 			if (curInd == l.size()) {
 				res[ind++] = String.valueOf(cur);
-			}
-			else {
+			} else {
 				for (int j = 0; j < l.get(curInd).size(); j++) {
 					cur[curInd] = l.get(curInd).get(j);
 					gen(l, curInd + 1, res, cur);
@@ -85,8 +83,7 @@ public class BraceExpansion {
 						}
 						i++;
 					}
-				}
-				else {
+				} else {
 					counts[s.charAt(i) - 'a']++;
 					c++;
 				}
@@ -110,8 +107,7 @@ public class BraceExpansion {
 		private void gen(List<char[]> l, int curInd, String[] res, char[] cur) {
 			if (curInd == l.size()) {
 				res[ind++] = String.valueOf(cur);
-			}
-			else {
+			} else {
 				for (int j = 0; j < l.get(curInd).length; j++) {
 					cur[curInd] = l.get(curInd)[j];
 					gen(l, curInd + 1, res, cur);
@@ -126,8 +122,8 @@ public class BraceExpansion {
 
 	public static void main(String[] args) {
 		new Tester(new S1())
-				.add("{a,b}c{d,e}f").expect(new String[]{"acdf", "acef", "bcdf", "bcef"})
-				.add("{a,b,c}d{e,f}").expect(new String[]{"ade", "adf", "bde", "bdf", "cde", "cdf"})
-				.run();
+		.add("{a,b}c{d,e}f").expect(new String[]{"acdf", "acef", "bcdf", "bcef"})
+		.add("{a,b,c}d{e,f}").expect(new String[]{"ade", "adf", "bde", "bdf", "cde", "cdf"})
+		.run();
 	}
 }

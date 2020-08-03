@@ -7,28 +7,22 @@ import java.util.List;
 /**
  * 47
  */
-public class PermutationsII
-{
-	class Solution
-	{
+public class PermutationsII {
+	class Solution {
 		private List<List<Integer>> combinations = new ArrayList<>();
 
-		public List<List<Integer>> permuteUnique(int[] nums)
-		{
+		public List<List<Integer>> permuteUnique(int[] nums) {
 			if (nums == null || nums.length == 0) return new ArrayList<>();
 			Arrays.sort(nums);
 			generate(new boolean[nums.length], new ArrayList<>(), nums);
 			return combinations;
 		}
 
-		private void generate(boolean[] seen, List<Integer> combination, int[] nums)
-		{
+		private void generate(boolean[] seen, List<Integer> combination, int[] nums) {
 			if (combination.size() == nums.length)
 				combinations.add(new ArrayList<>(combination));
-			else
-			{
-				for (int i = 0; i < nums.length; i++)
-				{
+			else {
+				for (int i = 0; i < nums.length; i++) {
 					// we dont want to take into account values 
 					// that we ve seen before while in recursion
 					if (seen[i]) continue;

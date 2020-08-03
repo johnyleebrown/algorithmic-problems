@@ -18,39 +18,44 @@ import java.util.Arrays;
  * Source: Leetcode
  */
 public class ThreeSumClosest {
-    /**
-     * Same as {@link ThreeSum} with light mods.
-     */
-    public static class Solution {
-        public int threeSumClosest(int[] nums, int t) {
-            Arrays.sort(nums);
-            int n = nums.length;
-            int ans = 0;
-            int sum = Integer.MAX_VALUE;
-            for (int i = 0; i < n - 2; i++) {
-                if (i > 0 && nums[i] == nums[i - 1]) continue;
-                int left = i + 1;
-                int right = n - 1;
-                while (left < right) {
-                    int s = nums[i] + nums[left] + nums[right];
-                    if (s <= t) {
-                        while (left + 1 < right && nums[left] == nums[left + 1]) {
-                            left++;
-                        }
-                        left++;
-                    } else {
-                        while (right - 1 > left && nums[right] == nums[right - 1]) {
-                            right--;
-                        }
-                        right--;
-                    }
-                    if (Math.abs(t - s) < sum) {
-                        sum = Math.abs(t - s);
-                        ans = s;
-                    }
-                }
-            }
-            return ans;
-        }
-    }
+	/**
+	 * Same as {@link ThreeSum} with light mods.
+	 */
+	public static class Solution {
+		public int threeSumClosest(int[] ar, int t) {
+
+		    Arrays.sort(ar);
+			int n = ar.length;
+			int ans = 0;
+			int sum = Integer.MAX_VALUE;
+
+			for (int i = 0; i < n - 2; i++) {
+
+			    if (i > 0 && ar[i] == ar[i - 1]) continue;
+				int left = i + 1;
+				int right = n - 1;
+
+				while (left < right) {
+					int localSum = ar[i] + ar[left] + ar[right];
+					if (localSum <= t) {
+						while (left + 1 < right && ar[left] == ar[left + 1]) {
+							left++;
+						}
+						left++;
+					} else {
+						while (right - 1 > left && ar[right] == ar[right - 1]) {
+							right--;
+						}
+						right--;
+					}
+					if (Math.abs(t - localSum) < sum) {
+						sum = Math.abs(t - localSum);
+						ans = localSum;
+					}
+				}
+			}
+
+			return ans;
+		}
+	}
 }

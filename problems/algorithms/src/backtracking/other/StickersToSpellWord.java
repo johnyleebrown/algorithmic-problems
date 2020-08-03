@@ -6,10 +6,8 @@ import java.util.List;
 /**
  * 691
  */
-public class StickersToSpellWord
-{
-	class Solution
-	{
+public class StickersToSpellWord {
+	class Solution {
 		private int ans = Integer.MAX_VALUE;
 
 		private static final int BASE = 0, CUR = 1;
@@ -18,13 +16,11 @@ public class StickersToSpellWord
 		private boolean[] targetSeen;
 		private int[] localCounter;
 
-		private void fillDict()
-		{
+		private void fillDict() {
 			// todo
 		}
 
-		public int minStickers(String[] stickers, String target)
-		{
+		public int minStickers(String[] stickers, String target) {
 			dict = new int[stickers.length][123][2];
 			targetSeen = new boolean[target.length()];
 			localCounter = new int[stickers.length];
@@ -34,29 +30,22 @@ public class StickersToSpellWord
 			return ans == Integer.MAX_VALUE ? -1 : ans;
 		}
 
-		private void generate(int leftOver)
-		{
-			if (leftOver == 0)
-			{
+		private void generate(int leftOver) {
+			if (leftOver == 0) {
 				// todo
 				// looop over localCounter
 				int curAns = 0;
 				ans = Math.min(ans, curAns);
-			}
-			else
-			{
+			} else {
 				List<Integer> stickers = new ArrayList<>();
-				for (int word = 0; word < stickers.size(); word++)
-				{
-					for (int letter = 0; letter < targetSeen.length; letter++)
-					{
+				for (int word = 0; word < stickers.size(); word++) {
+					for (int letter = 0; letter < targetSeen.length; letter++) {
 						if (targetSeen[letter]) continue;
 						targetSeen[letter] = true;
 
-						if (dict[word][letter][BASE] != 0)
-						{
+						if (dict[word][letter][BASE] != 0) {
 							localCounter[word] = Math.max(localCounter[word],
-									(++dict[word][letter][CUR] / dict[word][letter][BASE]));
+							(++dict[word][letter][CUR] / dict[word][letter][BASE]));
 							generate(leftOver - 1);
 						}
 

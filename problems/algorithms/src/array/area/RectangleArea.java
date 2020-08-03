@@ -16,22 +16,20 @@ package array.area;
  *
  * Source: Leetcode
  */
-public class RectangleArea
-{
+public class RectangleArea {
 	/**
 	 * Area + area - overlap. For overlap use min, max;
 	 */
-	private static class Solution
-	{
-		public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H)
-		{
+	private static class Solution {
+		public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
 			int area = (C - A) * (D - B) + (G - E) * (H - F);
 			int rightMin = Math.min(C, G);
 			int leftMax = Math.max(A, E);
 			int topMin = Math.min(D, H);
 			int botMax = Math.max(B, F);
-			if (rightMin > leftMax && topMin > botMax)
+			if (rightMin > leftMax && topMin > botMax) {
 				area -= (rightMin - leftMax) * (topMin - botMax);
+			}
 			return area;
 		}
 	}

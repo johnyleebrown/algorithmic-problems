@@ -3,34 +3,24 @@ package backtracking.other;
 /**
  * 526
  */
-public class BeautifulArrangement
-{
-	class Solution
-	{
+public class BeautifulArrangement {
+	class Solution {
 		private int count = 0;
 
-		public int countArrangement(int N)
-		{
+		public int countArrangement(int N) {
 			generate(N, new boolean[N + 1], 1);
 			return count;
 		}
 
-		private void generate(int N, boolean[] seen, int j)
-		{
-			if (j == N + 1)
-			{
+		private void generate(int N, boolean[] seen, int j) {
+			if (j == N + 1) {
 				count++;
-			}
-			else
-			{
-				for (int i = 1; i <= N; i++)
-				{
-					if (seen[i])
-					{
+			} else {
+				for (int i = 1; i <= N; i++) {
+					if (seen[i]) {
 						continue;
 					}
-					if (!isB(i, j))
-					{
+					if (!isB(i, j)) {
 						continue;
 					}
 
@@ -41,8 +31,7 @@ public class BeautifulArrangement
 			}
 		}
 
-		private boolean isB(int val, int i)
-		{
+		private boolean isB(int val, int i) {
 			return i % val == 0 || val % i == 0;
 		}
 	}

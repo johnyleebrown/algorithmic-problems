@@ -17,32 +17,26 @@ import java.util.Map;
  *
  * Link: https://codeforces.com/group/pgkaqF4igo/contest/256854
  */
-public class MaxBooksToRead
-{
-	static class Solution
-	{
-		public void solve(int testNumber, InputReader in, PrintWriter out)
-		{
+public class MaxBooksToRead {
+	static class Solution {
+		public void solve(int testNumber, InputReader in, PrintWriter out) {
 			int n = in.nextInt();
 			int t = in.nextInt();
 			int[] times = new int[n];
-			for (int i = 0; i < n; i++)
-			{
+			for (int i = 0; i < n; i++) {
 				times[i] = in.nextInt();
 			}
 			int l = 0;
 			int count = 0;
 			int result = 0;
-			for (int r = 0; r < n; r++)
-			{
+			for (int r = 0; r < n; r++) {
 				// use right window boundary
 				count += times[r];
 
 				// for max type of problems we need while condition to the opposite of good condition
 				// good condition is count == K
 				// if zerosCount is less than K - means we don't have enough data
-				while (count > t)
-				{
+				while (count > t) {
 					// use left window boundary
 					count -= times[l];
 
@@ -61,20 +55,17 @@ public class MaxBooksToRead
 			int[] res = new int[n];
 			Deque<Integer> q = new ArrayDeque<>();
 			Map<Integer, Integer> map = new HashMap<>();
-			for (int i = nums2.length - 1; i >= 0; i--)
-			{
-				while (!q.isEmpty() && nums2[i]>=q.peekLast())
-				{
+			for (int i = nums2.length - 1; i >= 0; i--) {
+				while (!q.isEmpty() && nums2[i] >= q.peekLast()) {
 					q.removeLast();
 				}
 				if (!q.isEmpty())
-					map.put(nums2[i],-1);
+					map.put(nums2[i], -1);
 				else
 					map.put(nums2[i], q.peekLast());
 				q.addLast(nums2[i]);
 			}
-			for (int i = 0; i < n; i++)
-			{
+			for (int i = 0; i < n; i++) {
 				int x = nums1[i];
 				res[i] = map.get(x);
 			}

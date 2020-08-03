@@ -19,4 +19,31 @@ public class BestTimeToBuyAndSellStockII {
 			return ans;
 		}
 	}
+
+	/**
+	 * DP.
+	 */
+	public static class Solution2 {
+		Integer[] dp;
+
+		public int maxProfit(int[] ar) {
+			dp = new Integer[ar.length];
+			return f(0, ar);
+		}
+
+		public int f(int start, int[] ar) {
+			if (start >= ar.length) return 0;
+			if (dp[start] != null) return dp[start];
+			int ans = 0;
+			for (int i = start; i < ar.length - 1; i++) {
+				for (int j = i + 1; j < ar.length; j++) {
+					if (ar[j] > ar[i]) {
+						ans = Math.max(ans, ar[j] - ar[i] + f(j + 1, ar));
+					}
+				}
+			}
+			dp[start] = ans;
+			return ans;
+		}
+	}
 }

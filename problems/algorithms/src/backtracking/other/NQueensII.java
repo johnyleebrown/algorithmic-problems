@@ -5,18 +5,15 @@ import util.tester.Tester;
 /**
  * 52
  */
-public class NQueensII
-{
-	private static class Solution
-	{
+public class NQueensII {
+	private static class Solution {
 		boolean[] js;
 		boolean[] d1;
 		boolean[] d2;
 		long c;
 		int n;
 
-		public long totalNQueens(int n)
-		{
+		public long totalNQueens(int n) {
 			this.n = n;
 			js = new boolean[n];
 			d1 = new boolean[n + n];
@@ -25,16 +22,11 @@ public class NQueensII
 			return c;
 		}
 
-		void gen(int i)
-		{
-			if (i == n)
-			{
+		void gen(int i) {
+			if (i == n) {
 				c++;
-			}
-			else
-			{
-				for (int j = 0; j < n; j++)
-				{
+			} else {
+				for (int j = 0; j < n; j++) {
 					if (js[j]) continue;
 					if (d1[i + j]) continue;
 					if (d2[n + i - j]) continue;
@@ -53,11 +45,10 @@ public class NQueensII
 		}
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		new Tester(new Solution())
-				.add(8).expect(92)
-				.add(14).expect(365596)
-				.run();
+		.add(8).expect(92)
+		.add(14).expect(365596)
+		.run();
 	}
 }

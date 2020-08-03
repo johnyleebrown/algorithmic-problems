@@ -3,7 +3,6 @@ package tree.serialization;
 import util.ds.TreeNode;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class SerializeAndDeserializeBST {
 
 			// same preorder here
 			public TreeNode deserialize(String data) {
-				return desHelper(new LinkedList<>(Arrays.asList(data.split("s"))));
+				return desHelper(Arrays.asList(data.split("s")));
 			}
 
 			// 2|1|nn3|nn

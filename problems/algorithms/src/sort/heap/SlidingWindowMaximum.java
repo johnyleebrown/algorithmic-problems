@@ -14,36 +14,30 @@ import java.util.PriorityQueue;
  * in the window. Each time the sliding window moves right by one position.
  * Return the max sliding window.
  */
-public class SlidingWindowMaximum
-{
+public class SlidingWindowMaximum {
 	/**
 	 * Priority queue.
 	 */
-	static class Solution1
-	{
-		public int[] maxSlidingWindow(int[] nums, int k)
-		{
-			if (nums.length == 0)
-			{
+	static class Solution1 {
+		public int[] maxSlidingWindow(int[] ar, int k) {
+			if (ar.length == 0) {
 				return new int[]{};
 			}
 
 			PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
 
 			int r = 0;
-			for (; r < k - 1; r++)
-			{
-				pq.add(nums[r]);
+			for (; r < k - 1; r++) {
+				pq.add(ar[r]);
 			}
 
-			int[] result = new int[nums.length - k + 1];
+			int[] result = new int[ar.length - k + 1];
 
 			int l = 0;
-			for (; r < nums.length; r++)
-			{
-				pq.add(nums[r]);
+			for (; r < ar.length; r++) {
+				pq.add(ar[r]);
 				result[l] = pq.peek();
-				pq.remove(nums[l]);
+				pq.remove(ar[l]);
 
 				l++;
 			}

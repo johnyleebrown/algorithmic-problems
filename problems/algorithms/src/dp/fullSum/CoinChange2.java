@@ -19,11 +19,9 @@ public class CoinChange2 {
 				for (int j = 1; j <= n; j++) {
 					if (i > coins[j - 1]) { // we can this coin to (cur amount - nominal of cur coin) combination
 						dp[i][j] = dp[i - coins[j - 1]][j] + dp[i][j - 1];
-					}
-					else if (coins[j - 1] == i) { // haven't used this method before
+					} else if (coins[j - 1] == i) { // haven't used this method before
 						dp[i][j] = dp[i][j - 1] + 1;
-					}
-					else { // cant cover
+					} else { // cant cover
 						dp[i][j] = dp[i][j - 1];
 					}
 				}

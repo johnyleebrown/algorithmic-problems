@@ -20,39 +20,44 @@ package dp.linear.forward;
  * Source: Leetcode
  */
 public class JumpGame {
-    public static class Solution {
-        public boolean canJump(int[] a) {
-            int max = 0;
-            for (int i = 0; i < a.length; i++) {
-                if (i > max) return false;
-                max = Math.max(max, i + a[i]);
-            }
-            return true;
-        }
-    }
+	/**
+	 * Drag max reach with you, if we cross, the false.
+	 */
+	public static class Solution {
+		public boolean canJump(int[] a) {
+			int max = 0;
+			for (int i = 0; i < a.length; i++) {
+				if (i > max) {
+					return false;
+				}
+				max = Math.max(max, i + a[i]);
+			}
+			return true;
+		}
+	}
 
-    /**
-     * DP solution.
-     */
-    public static class Solution2 {
-        public boolean canJump(int[] a) {
-            return dfs(0, new Boolean[a.length], a);
-        }
+	/**
+	 * DP solution.
+	 */
+	public static class Solution2 {
+		public boolean canJump(int[] a) {
+			return dfs(0, new Boolean[a.length], a);
+		}
 
-        private boolean dfs(int i, Boolean[] dp, int[] a) {
-            if (i >= a.length) {
-                return false;
-            }
-            if (i == a.length - 1) {
-                return true;
-            }
-            if (dp[i] != null) return dp[i];
-            boolean ans = false;
-            for (int j = i + a[i]; j >= i + 1; j--) {
-                ans = ans || dfs(j, dp, a);
-            }
-            dp[i] = ans;
-            return ans;
-        }
-    }
+		private boolean dfs(int i, Boolean[] dp, int[] a) {
+			if (i >= a.length) {
+				return false;
+			}
+			if (i == a.length - 1) {
+				return true;
+			}
+			if (dp[i] != null) return dp[i];
+			boolean ans = false;
+			for (int j = i + a[i]; j >= i + 1; j--) {
+				ans = ans || dfs(j, dp, a);
+			}
+			dp[i] = ans;
+			return ans;
+		}
+	}
 }

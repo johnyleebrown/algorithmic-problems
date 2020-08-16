@@ -51,9 +51,6 @@ def main(win):
             elif k == os.linesep:
                 path = datas_map[cur_key]
                 pyperclip.copy(read_from_file(path))
-                #cur_line = 0
-                #key = ''
-                #win.clear()
                 exit(0)
             elif k == 'KEY_UP':
                 cur_line -= 1
@@ -81,8 +78,5 @@ def main(win):
         except Exception as e:
             pass
 
-
-curses.wrapper(main)
-
-# todo
-## search with prefix tree
+if __name__ == "__main__":
+    curses.wrapper(main)

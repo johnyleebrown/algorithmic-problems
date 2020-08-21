@@ -2,42 +2,46 @@ package string._ds;
 
 import org.junit.jupiter.api.Test;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.Base64;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RabinKarpTest {
-    @Test
-    void test1() {
-        String[][] tests = new String[][]{
-                {"abacadabrabracabracadabrabrabracad", "abracadabra"},
-                {"abacadabrabracabracadabrabrabracad", "rab"},
-                {"abacadabrabracabracadabrabrabracad", "bcara"},
-                {"abacadabrabracabracadabrabrabracad", "rabrabracad"},
-                {"abacadabrabracabracadabrabrabracad", "abacad"}
-        };
+	@Test
+	void test1() {
+		String text = "abacadabrabracabracadabrabrabracad";
+		String pattern = "abracadabra";
+		RabinKarp rk = new RabinKarp(pattern);
+		assertEquals(text.indexOf(pattern), rk.search(text));
+	}
 
-        for (String[] test : tests) {
-            String text = test[0];
-            String pattern = test[1];
-            RabinKarp rk = new RabinKarp(pattern);
-            assertEquals(text.indexOf(pattern), rk.search(text));
-        }
-    }
+	@Test
+	void test2() {
+		String text = "abacadabrabracabracadabrabrabracad";
+		String pattern = "rab";
+		RabinKarp rk = new RabinKarp(pattern);
+		assertEquals(text.indexOf(pattern), rk.search(text));
+	}
 
-    @Test
-    void name() throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        String s = "#123#";
-        byte[] hash = digest.digest(s.getBytes(StandardCharsets.UTF_8));
-        System.out.println(Arrays.toString(hash));
-    }
+	@Test
+	void test3() {
+		String text = "abacadabrabracabracadabrabrabracad";
+		String pattern = "bcara";
+		RabinKarp rk = new RabinKarp(pattern);
+		assertEquals(text.indexOf(pattern), rk.search(text));
+	}
 
-    public String s(byte[] s) {
-        return Base64.getEncoder().encodeToString(s);
-    }
+	@Test
+	void test4() {
+		String text = "abacadabrabracabracadabrabrabracad";
+		String pattern = "rabrabracad";
+		RabinKarp rk = new RabinKarp(pattern);
+		assertEquals(text.indexOf(pattern), rk.search(text));
+	}
+
+	@Test
+	void test5() {
+		String text = "abacadabrabracabracadabrabrabracad";
+		String pattern = "abacad";
+		RabinKarp rk = new RabinKarp(pattern);
+		assertEquals(text.indexOf(pattern), rk.search(text));
+	}
 }

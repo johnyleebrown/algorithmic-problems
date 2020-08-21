@@ -66,7 +66,7 @@ public class RabinKarp {
         for (int i = m; i < n; i++) {
             // slide
             rollingHash = removeFirst(rollingHash, text, i);
-            rollingHash = addChar(rollingHash, text, i);
+            rollingHash = addLast(rollingHash, text, i);
 
             //check for match
             int offset = i - m + 1;
@@ -84,14 +84,14 @@ public class RabinKarp {
      * = curHash - firstChar*RMQ%Q + Q (java mod)
      */
     private long removeFirst(long rollingHash, String text, int i) {
-        return (rollingHash + Q - RMQ * text.charAt(i - m) % Q) % Q;
+        return (rollingHash - (RMQ * text.charAt(i - m)) % Q + Q) % Q;
     }
 
     /**
      * = curHash*R + charAt(i)
      */
-    private long addChar(long rollingHash, String text, int i) {
-        return (rollingHash * R + text.charAt(i)) % Q;
+    private long addLast(long rollingHash, String text, int i) {
+        return ((rollingHash * R) % Q + text.charAt(i)) % Q;
     }
 
     private boolean lasVegasCheck(String text, int j) {

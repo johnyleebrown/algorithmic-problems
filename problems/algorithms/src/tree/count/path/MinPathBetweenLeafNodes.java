@@ -1,4 +1,4 @@
-package tree.count;
+package tree.count.path;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

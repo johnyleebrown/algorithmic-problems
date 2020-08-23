@@ -5,6 +5,8 @@ import curses
 import os
 import pyperclip
 
+ppath="/Users/grigorii/Desktop"
+
 
 def touch_open(filename, *args, **kwargs):
     open(filename, "a").close()
@@ -19,8 +21,7 @@ def read_from_file(file_path):
 
 
 def parse_snip_names():
-    s='/Users/greg/Documents'
-    from_dir = s+'/projects/algorithmic-problems/tools/snippets/data'
+    from_dir = ppath+'/projects/algorithmic-problems/tools/snippets/data'
     names = []
     names_to_path_map = {}
     default_p = from_dir + '/'
@@ -77,6 +78,7 @@ def main(win):
 
         except Exception as e:
             pass
+
 
 if __name__ == "__main__":
     curses.wrapper(main)

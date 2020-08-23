@@ -9,7 +9,9 @@ import sys
 # NOTICE
 ## use quotation marks when there are apostrophes in the title
 
-ppath='/Users/greg/Documents/'
+
+ppath='/Users/grigorii/Desktop/'
+
 
 def read_from_file(file_path):
     file = open(file_path, 'r', encoding='utf-8')

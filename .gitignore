@@ -12,3 +12,4 @@
 *.swp
 /*/*/classes
 *.kotlin_module
+out/

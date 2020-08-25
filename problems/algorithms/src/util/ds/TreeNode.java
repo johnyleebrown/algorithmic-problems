@@ -1,12 +1,10 @@
 package util.ds;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class TreeNode {
     public int val;
-    public TreeNode left, right, next;
+    public TreeNode left, right, next, parent;
     public boolean someFlag;
 
     public TreeNode(int val) {
@@ -29,7 +27,7 @@ public class TreeNode {
     /**
      * Supposedly balanced tree as input, hence base * 2 - size of the level.
      */
-    public TreeNode buildFromStringArray(String s) {
+    public static TreeNode buildFromStringArray(String s) {
         String[] sAr = s.split(",");
         int n = sAr.length;
         if (n == 1) return createNode(sAr, 0);
@@ -64,7 +62,7 @@ public class TreeNode {
         return root;
     }
 
-    private TreeNode createNode(String[] a, int i) {
+    private static TreeNode createNode(String[] a, int i) {
         String s = a[i];
         try {
             int curNum = Integer.parseInt(s);
@@ -115,6 +113,19 @@ public class TreeNode {
             if (noNullsAtLevelFlag)
                 System.out.println(local);
         }
+    }
+
+    public static Map<Integer, Integer> collectValues(TreeNode root) {
+        Map<Integer, Integer> valuesToCountsMap = new HashMap<>();
+        traverse(root, valuesToCountsMap);
+        return valuesToCountsMap;
+    }
+
+    private static void traverse(TreeNode root, Map<Integer, Integer> valuesToCountsMap) {
+        if (root==null) return;
+        valuesToCountsMap.put(root.val, valuesToCountsMap.getOrDefault(root.val,0)+1);
+        traverse(root.left,valuesToCountsMap);
+        traverse(root.right,valuesToCountsMap);
     }
 
     @Override

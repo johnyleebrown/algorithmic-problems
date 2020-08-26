@@ -1,7 +1,5 @@
 package array.traverse;
 
-import com.sun.tools.javac.util.Pair;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,6 +33,15 @@ public class RotateImage {
             matrix[newi][newj] = num;
             if (newi == originalI && newj == originalJ) return;
             replace(matrix, originalI, originalJ, 0 + newj, (matrix.length - 1) - newi, temp, set);
+        }
+
+        class Pair{
+            int i,j;
+
+            public Pair(int i, int j) {
+                this.i = i;
+                this.j = j;
+            }
         }
     }
 

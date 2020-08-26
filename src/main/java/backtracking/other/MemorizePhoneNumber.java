@@ -1,7 +1,5 @@
 package backtracking.other;
 
-import util.tester.Tester;
-
 import java.util.*;
 
 /**
@@ -244,52 +242,5 @@ public class MemorizePhoneNumber {
 					arr[r] = cnt;
 			}
 		}
-	}
-
-	public static void main(String[] args) {
-
-		List<List<Integer>> l = new ArrayList<>();
-		//(12)(33)(44)(555)(66)
-		l.add(Arrays.asList(1, 2));
-		l.add(Arrays.asList(3, 3));
-		l.add(Arrays.asList(4, 4));
-		l.add(Arrays.asList(5, 5, 5));
-		l.add(Arrays.asList(6, 6));
-		new Tester(new Solution1())
-		.add(new int[]{1, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6}).expect(l)
-		.run();
-		/*
-		List<List<Integer>> l1 = new ArrayList<>();
-		//(12)(33)(44)(55)(56)
-		l1.add(Arrays.asList(1,2));
-		l1.add(Arrays.asList(3,3));
-		l1.add(Arrays.asList(4,4));
-		l1.add(Arrays.asList(5,5));
-		l1.add(Arrays.asList(5,6));
-		new Tester(new Solution1())
-				.add(new int[]{1,2,3,3,4,4,5,5,5,6}).expect(l1)
-				.run();
-*/
-		/*
-		List<List<Integer>> l2 = new ArrayList<>();
-		l2.add(Arrays.asList(7,7,4));
-		l2.add(Arrays.asList(7,7,4));
-
-
-
-		//774-774
-		List<List<Integer>> l3 = new ArrayList<>();
-		l3.add(Arrays.asList(7,7));
-		l3.add(Arrays.asList(4,7));
-		l3.add(Arrays.asList(7,4));
-		// 77-47-74
-		new Tester(new Solution1())
-				.add(new int[]{7,7,4,7,7,4}).expect(l2).orExpect(l3)
-				.run();
- */
-
-		new Tester(new Solution3())
-		.add("1233445556").expect("(12)(33)(44)(55)(56)")
-		.run();
 	}
 }

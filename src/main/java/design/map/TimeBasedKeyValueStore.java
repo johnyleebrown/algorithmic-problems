@@ -9,89 +9,83 @@ public class TimeBasedKeyValueStore {
 	/**
 	 * Binary search solution.
 	 */
-	class Solution1 {
-		class Node {
-			final String value;
-			final int timeStamp;
+	public static class Solution {
+		public static class TimeMap {
+			static Map<String, List<Crab>> m;
 
-			public Node(String value, int timeStamp) {
-				this.value = value;
-				this.timeStamp = timeStamp;
-			}
-		}
-
-		Map<String, List<Node>> timeMap = new HashMap<>();
-
-		public Solution1() {
-		}
-
-		public void set(String key, String value, int timestamp) {
-			if (!timeMap.containsKey(key)) {
-				timeMap.put(key, new ArrayList<>());
+			public TimeMap() {
+				m = new HashMap<>();
 			}
 
-			timeMap.get(key).add(new Node(value, timestamp));
-		}
-
-		public String get(String key, int timestamp) {
-			if (!timeMap.containsKey(key)) {
-				return "";
+			public void set(String k, String v, int t) {
+				m.putIfAbsent(k, new ArrayList<>());
+				m.get(k).add(new Crab(t, v));
 			}
 
-			Node returnValue = binarySearch(timeMap.get(key), timestamp);
-			return returnValue == null ? "" : returnValue.value;
-		}
-
-		private Node binarySearch(final List<Node> nodes, int timeStamp) {
-			if (nodes.isEmpty()) {
-				return null;
+			public String get(String k, int t) {
+				if (!m.containsKey(k)) {
+					return "";
+				}
+				int ind = bs(t, m.get(k));
+				if (ind < 0) {
+					return "";
+				}
+				return m.get(k).get(ind).v;
 			}
 
-			int low = 0, high = nodes.size() - 1;
-			Node returnValue = null;
+			private int bs(int x, List<Crab> l) {
+				int lo = -1, hi = l.size();
+				while (hi - lo > 1) {
+					int mid = lo + (hi - lo) / 2;
+					if (l.get(mid).t <= x) {
+						lo = mid;
+					} else {
+						hi = mid;
+					}
+				}
+				return lo;
+			}
 
-			while (low <= high) {
-				int mid = low + (high - low) / 2;
-				final Node current = nodes.get(mid);
+			static class Crab {
+				Integer t;
+				String v;
 
-				if (current.timeStamp == timeStamp) {
-					return returnValue = nodes.get(mid);
-				} else if (current.timeStamp > timeStamp) {
-					high = mid - 1;
-				} else {
-					returnValue = current;
-					low = mid + 1;
+				Crab(int tt, String vv) {
+					t = tt;
+					v = vv;
 				}
 			}
-
-			return returnValue;
 		}
 	}
-
 
 	/**
 	 * TreeMap solution.
 	 *
 	 * Set O(n + log(m)), get O(log(m)), where n - keys and m - times
 	 */
-	class Solution2 {
-		Map<String, TreeMap<Integer, String>> m = new HashMap<>();
+	public static class Solution2 {
+		public static class TimeMap {
+			static Map<String, TreeMap<Integer, String>> m;
 
-		public Solution2() {
-		}
-
-		public void set(String key, String value, int timestamp) {
-			m.putIfAbsent(key, new TreeMap<>());
-			m.get(key).put(timestamp, value);
-		}
-
-		public String get(String key, int timestamp) {
-			if (!m.containsKey(key)) {
-				return "";
+			public TimeMap() {
+				m = new HashMap<>();
 			}
 
-			Integer f = m.get(key).floorKey(timestamp);
-			return f == null ? "" : m.get(key).get(f);
+			public void set(String k, String v, int timestamp) {
+				m.putIfAbsent(k, new TreeMap<>());
+				m.get(k).put(timestamp, v);
+			}
+
+			public String get(String k, int timestamp) {
+				if (!m.containsKey(k)) {
+					return "";
+				}
+				Map.Entry<Integer, String> e = m.get(k).floorEntry(timestamp);
+				if (e == null) {
+					return "";
+				}
+				return e.getValue();
+			}
 		}
 	}
 }

@@ -22,35 +22,32 @@ public class ThreeSumClosest {
 	 * Same as {@link ThreeSum} with light mods.
 	 */
 	public static class Solution {
-		public int threeSumClosest(int[] ar, int t) {
+		public int threeSumClosest(int[] ar, int x) {
 
-		    Arrays.sort(ar);
+			Arrays.sort(ar);
 			int n = ar.length;
+			int diff = Integer.MAX_VALUE;
 			int ans = 0;
-			int sum = Integer.MAX_VALUE;
 
-			for (int i = 0; i < n - 2; i++) {
+			for (int i1 = 0; i1 < n - 2; i1++) {
 
-			    if (i > 0 && ar[i] == ar[i - 1]) continue;
-				int left = i + 1;
-				int right = n - 1;
+				int sum = x - ar[i1];
+				int i2 = i1 + 1;
+				int i3 = n - 1;
 
-				while (left < right) {
-					int localSum = ar[i] + ar[left] + ar[right];
-					if (localSum <= t) {
-						while (left + 1 < right && ar[left] == ar[left + 1]) {
-							left++;
-						}
-						left++;
-					} else {
-						while (right - 1 > left && ar[right] == ar[right - 1]) {
-							right--;
-						}
-						right--;
+				while (i2 < i3) {
+					int y = Math.abs(ar[i2] + ar[i3] - sum);
+					if (y < diff) {
+						diff = y;
+						ans = ar[i2] + ar[i3] + ar[i1];
 					}
-					if (Math.abs(t - localSum) < sum) {
-						sum = Math.abs(t - localSum);
-						ans = localSum;
+
+					if (ar[i2] + ar[i3] == sum) {
+						return ans;
+					} else if (ar[i2] + ar[i3] < sum) {
+						i2++;
+					} else {
+						i3--;
 					}
 				}
 			}

@@ -1,5 +1,6 @@
 package array.traverse;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +8,67 @@ import java.util.List;
  * 54
  */
 public class SpiralMatrix {
-	class Solution {
+	public static class Solution {
+		enum dir {
+			U, D, L, R;
+		}
+
+		public List<Integer> spiralOrder(int[][] ar) {
+			List<Integer> ans = new ArrayList<>();
+			if (ar == null) {
+				return ans;
+			}
+			int n = ar.length;
+			if (n == 0) {
+				return ans;
+			}
+			int m = ar[0].length;
+			if (m == 0) {
+				return ans;
+			}
+			dir d = dir.R;
+			int i = 0;
+			int j = 0;
+			int c = m * n;
+			int x = 0;
+			while (--c >= 0) {
+				ans.add(ar[i][j]);
+				if (d == dir.R) {
+					if (j != m - 1 - x) {
+						j++;
+					} else {
+						i++;
+						d = dir.D;
+					}
+				} else if (d == dir.D) {
+					if (i != n - 1 - x) {
+						i++;
+					} else {
+						j--;
+						d = dir.L;
+					}
+				} else if (d == dir.L) {
+					if (j != x) {
+						j--;
+					} else {
+						i--;
+						d = dir.U;
+						x++;
+					}
+				} else {
+					if (i != x) {
+						i--;
+					} else {
+						j++;
+						d = dir.R;
+					}
+				}
+			}
+			return ans;
+		}
+	}
+
+	public static class Solution2 {
 		public List<Integer> spiralOrder(int[][] a) {
 			List<Integer> res = new LinkedList<>();
 			int n = a.length;

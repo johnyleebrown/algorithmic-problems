@@ -40,7 +40,10 @@ public class GroupAnagrams {
 	public static class Solution2 {
 		public List<List<String>> groupAnagrams(String[] ar) {
 			List<List<String>> ans = new LinkedList<>();
-			if (ar.length == 0) return ans;
+			if (ar.length == 0) {
+				return ans;
+			}
+
 			Map<String, List<String>> m = new HashMap<>();
 			for (String s : ar) {
 				int[] ca = new int[26];
@@ -51,6 +54,7 @@ public class GroupAnagrams {
 				m.putIfAbsent(key, new LinkedList<>());
 				m.get(key).add(s);
 			}
+
 			ans.addAll(m.values());
 			return ans;
 		}

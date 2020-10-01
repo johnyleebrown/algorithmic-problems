@@ -35,26 +35,21 @@ public class LineReflection {
 			int min = Integer.MAX_VALUE;
 			int max = Integer.MIN_VALUE;
 
-			Set<Long> set = new HashSet<>();
+			Set<String> set = new HashSet<>();
 			for (int[] a : ar) {
-				set.add(hash(a[0], a[1]));
+				set.add(a[0] + "," + a[1]);
 				min = Math.min(min, a[0]);
 				max = Math.max(max, a[0]);
 			}
 
 			int sum = min + max;
 			for (int[] a : ar) {
-				long h = hash(sum - a[0], a[1]);
-				if (!set.contains(h)) {
+				if (!set.contains(sum - a[0] + "," + a[1])) {
 					return false;
 				}
 			}
 
 			return true;
-		}
-
-		private long hash(int x, int y) {
-			return mx * x + y;
 		}
 	}
 }

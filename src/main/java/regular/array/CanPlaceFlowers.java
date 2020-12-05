@@ -9,20 +9,15 @@ public class CanPlaceFlowers {
 			if (n == 0) {
 				return true;
 			}
-			if (flowerbed.length == 1 && flowerbed[0] == 0 && n == 1) {
-				return true;
-			}
-			int i = 0;
-			int count = 0;
-			while (i < flowerbed.length) {
-				if (flowerbed[i] == 0 && (i == 0 || flowerbed[i - 1] == 0) && (i == flowerbed.length - 1 || flowerbed[i + 1] == 0)) {
-					flowerbed[i++] = 1;
-					count++;
+			int planted = 0;
+			for (int i = 0; i < flowerbed.length; i++) {
+				if (flowerbed[i] != 1 && (i == 0 || flowerbed[i - 1] == 0) && (i == flowerbed.length - 1 || flowerbed[i + 1] == 0)) {
+					planted += 1;
+					if (planted >= n) {
+						return true;
+					}
+					i += 1;
 				}
-				if (count >= n) {
-					return true;
-				}
-				i++;
 			}
 			return false;
 		}

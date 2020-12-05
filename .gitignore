@@ -14,3 +14,4 @@
 *.kotlin_module
 out/
 target/
+.gradle/

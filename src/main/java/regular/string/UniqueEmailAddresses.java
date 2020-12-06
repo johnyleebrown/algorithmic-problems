@@ -34,11 +34,6 @@ import java.util.Set;
  * https://leetcode.com/problems/unique-email-addresses/
  */
 public class UniqueEmailAddresses {
-	/**
-	 * @formatter:off
-     * $INSERT_EXPLANATION.
-     * @formatter:on
-	 */
 	public static class Solution {
 		public int numUniqueEmails(String[] emails) {
 			Set<String> set = new HashSet<>();

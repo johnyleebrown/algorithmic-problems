@@ -1,5 +1,8 @@
 package graph.dfs;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 388
  *
@@ -38,7 +41,7 @@ package graph.dfs;
  */
 public class LongestAbsoluteFilePath {
 	/**
-	 * Recursive
+	 * Recursive. 90%.
 	 */
 	public static class Solution {
 
@@ -80,6 +83,49 @@ public class LongestAbsoluteFilePath {
 
 		private class Ind {
 			int v;
+		}
+	}
+
+	/**
+	 * Iterative. 90%.
+	 */
+	public static class Solution2 {
+		public int lengthLongestPath(String input) {
+
+			int ans = Integer.MIN_VALUE;
+			String[] ar = input.split("\n");
+
+			// put the accumulative length at the each level, only folders
+			// we always put the last length because we know that the last is only relevant
+			Map<Integer, Integer> m = new HashMap<>();
+			// zero level edge case
+			m.put(-1, 0);
+
+			for (String s : ar) {
+				int curLevel = getCurLevel(s);
+				// full length without slash
+				int len = m.get(curLevel - 1) + s.length() - curLevel;
+				if (isFile(s)) {
+					// if file we cant record a full length on this level
+					ans = Math.max(ans, len);
+				} else {
+					m.put(curLevel, len + 1);
+				}
+			}
+
+			return ans == Integer.MIN_VALUE ? 0 : ans;
+		}
+
+		private int getCurLevel(String s) {
+			int j = 0;
+			while (s.charAt(j) == '\t') {
+				j++;
+			}
+			return j;
+		}
+
+		private boolean isFile(String s) {
+			return s.contains(".");
 		}
 	}
 }

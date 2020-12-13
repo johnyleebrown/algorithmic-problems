@@ -22,8 +22,10 @@ package tree._ds.SegmentTree;
 public class SegmentTree implements SegmentTreeQuery {
     int n;
 
+    // we keep intervals(segments) in our tree, so each node has start and end of its interval
+    // in lo we keep starts and in hi we keep ends
     int[] lo, hi;
-    int[] delta, val;
+    int[] delta, values;
     int[] min, max, sum;
 
     AggregateFunction af;
@@ -34,7 +36,7 @@ public class SegmentTree implements SegmentTreeQuery {
         lo = new int[4 * n + 1];
         hi = new int[4 * n + 1];
         delta = new int[4 * n + 1];
-        val = new int[4 * n + 1];
+        values = new int[4 * n + 1];
 
         af = aggregateFunction;
         if (af == AggregateFunction.MIN) {
@@ -51,6 +53,10 @@ public class SegmentTree implements SegmentTreeQuery {
     }
 
     /**
+     * the idea is to split our big interval(0..n) into smaller intervals and keep it as a tree
+     * fill in lo and hi arrays with starts and ends of intervals that we will have in our
+     * interval(segment) tree
+     * we start at index=1, each node has children at 2*i and at 2*i+1
      * [a,b] range for init i - current node
      */
     private void init(int i, int a, int b) {
@@ -82,9 +88,11 @@ public class SegmentTree implements SegmentTreeQuery {
      */
     public void increment(int i, int a, int b, int val) {
         // 1 case : no cover
-        if (notIntersects(i, a, b)) return;
+        if (notIntersects(i, a, b)) {
+            return;
+        }
 
-        // 2 case : a,b is in ith node
+        // 2 case : a,b fully covers ith node
         if (covers(i, a, b)) {
             delta[i] += val;
             return;
@@ -117,10 +125,14 @@ public class SegmentTree implements SegmentTreeQuery {
      */
     private int min(int i, int a, int b) {
         // 1 case : no cover
-        if (notIntersects(i, a, b)) return Integer.MAX_VALUE;
+        if (notIntersects(i, a, b)) {
+            return Integer.MAX_VALUE;
+        }
 
-        // 2 case : ith node covers [a,b]
-        if (covers(i, a, b)) return min[i] + delta[i];
+        // 2 case : [a,b] fully covers ith node
+        if (covers(i, a, b)) {
+            return min[i] + delta[i];
+        }
 
         prop(i);
 
@@ -139,8 +151,14 @@ public class SegmentTree implements SegmentTreeQuery {
     }
 
     private int max(int i, int a, int b) {
-        if (notIntersects(i, a, b)) return Integer.MIN_VALUE;
-        if (covers(i, a, b)) return max[i] + delta[i];
+        if (notIntersects(i, a, b)) {
+            return Integer.MIN_VALUE;
+        }
+
+        // 2 case : [a,b] fully covers ith node
+        if (covers(i, a, b)) {
+            return max[i] + delta[i];
+        }
 
         prop(i);
 
@@ -160,8 +178,14 @@ public class SegmentTree implements SegmentTreeQuery {
     }
 
     private int sum(int i, int a, int b) {
-        if (notIntersects(i, a, b)) return 0;
-        if (covers(i, a, b)) return val[i] + delta[i];
+        if (notIntersects(i, a, b)) {
+            return 0;
+        }
+
+        // 2 case : [a,b] fully covers ith node
+        if (covers(i, a, b)) {
+            return values[i] + delta[i];
+        }
 
         prop(i);
 
@@ -199,7 +223,7 @@ public class SegmentTree implements SegmentTreeQuery {
         } else if (af == AggregateFunction.MAX) {
             max[i] = Math.max(max[2 * i] + delta[2 * i], max[2 * i + 1] + delta[2 * i + 1]);
         } else if (af == AggregateFunction.SUM) {
-            val[i] = val[2 * i] + delta[2 * i] + val[2 * i + 1] + delta[2 * i + 1];
+            values[i] = values[2 * i] + delta[2 * i] + values[2 * i + 1] + delta[2 * i + 1];
         }
     }
 

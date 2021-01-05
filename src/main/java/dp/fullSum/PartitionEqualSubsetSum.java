@@ -4,44 +4,114 @@ import java.util.Arrays;
 
 /**
  * 416
+ *
+ * ======
+ *
+ * Given a non-empty array nums containing only positive integers, find if the array can be
+ * partitioned into two subsets such that the sum of elements in both subsets is equal.
+ *
+ *
+ *
+ * Example 1:
+ *
+ * Input: nums = [1,5,11,5]
+ * Output: true
+ * Explanation: The array can be partitioned as [1, 5, 5] and [11].
+ * Example 2:
+ *
+ * Input: nums = [1,2,3,5]
+ * Output: false
+ * Explanation: The array cannot be partitioned into equal sum subsets.
+ *
+ *
+ * Constraints:
+ *
+ * 1 <= nums.length <= 200
+ * 1 <= nums[i] <= 100
+ *
+ * ======
+ *
+ * https://leetcode.com/problems/partition-equal-subset-sum/
  */
 public class PartitionEqualSubsetSum {
+	/*
+	Subproblem - does some subset's sum from 0 to i equals to x?
+    2 parameters here - i and x - so 2d array for cache [i][sum] - [n][totalSum]
+    Recurrence relation = dfs(nums,i+1,sum-nums[i],dp)||dfs(nums,i+1,sum,dp)
+    Either we add number at i or not
+	 */
+
 	/**
-	 * Either we add i or not.
+	 * Top-down
 	 */
 	public static class Solution {
-		public boolean canPartition(int[] ar) {
-			int sum = 0;
-			int max = ar[0];
-			for (int i : ar) {
-				max = Math.max(max, i);
-				sum += i;
+		public boolean canPartition(int[] nums) {
+			int sum = Arrays.stream(nums).sum();
+
+			// edge case
+			if ((sum & 1) == 1) {
+				return false;
 			}
-			if (sum % 2 == 1) return false;
-			int target = sum / 2;
-			if (max > target) return false;
-			Arrays.sort(ar); // we go from right to faster gain sum
-			return dfs(ar.length - 1, 0, target, ar);
+
+			sum /= 2;
+
+			// edge case
+			for (int num : nums) {
+				if (num > sum) {
+					return false;
+				}
+			}
+
+			return dfs(nums, 0, sum, new Boolean[nums.length][sum + 1]);
 		}
 
-		private boolean dfs(int i, int sum, int target, int[] ar) {
-			if (i < 0 || sum > target) return false;
-			if (sum == target) return true;
-			return dfs(i - 1, sum + ar[i], target, ar)
-			       || dfs(i - 1, sum, target, ar);
+		private boolean dfs(int[] nums, int i, int sum, Boolean[][] dp) {
+			if (sum < 0) {
+				return false;
+			}
+			if (i == nums.length) {
+				return false;
+			}
+			if (nums[i] == sum) {
+				return true;
+			}
+			if (dp[i][sum] != null) {
+				return dp[i][sum];
+			}
+			boolean ans = dfs(nums, i + 1, sum - nums[i], dp) || dfs(nums, i + 1, sum, dp);
+			dp[i][sum] = ans;
+			return ans;
 		}
 	}
 
-
+	/**
+	 * Bottom-up
+	 */
 	public static class Solution2 {
 		public boolean canPartition(int[] nums) {
 			int sum = Arrays.stream(nums).sum();
-			if ((sum & 1) == 1) return false;
+
+			// edge case
+			if ((sum & 1) == 1) {
+				return false;
+			}
+
 			sum /= 2;
-			for (int num : nums) if (num > sum) return false;
+
+			// edge case
+			for (int num : nums) {
+				if (num > sum) {
+					return false;
+				}
+			}
+
 			boolean[][] dp = new boolean[nums.length][sum + 1];
-			for (int i = 0; i < nums.length; i++) dp[i][0] = false;
-			for (int i = 0; i <= sum; i++) dp[0][i] = nums[0] == i;
+
+			// base
+			for (int i = 0; i <= sum; i++) {
+				dp[0][i] = nums[0] == i;
+			}
+
 			for (int i = 1; i < nums.length; i++) {
 				for (int j = 1; j <= sum; j++) {
 					if (j >= nums[i]) {
@@ -51,15 +121,10 @@ public class PartitionEqualSubsetSum {
 					}
 				}
 			}
+
 			return dp[nums.length - 1][sum];
 		}
-
-
-    /*
-    [1,2,3,5,6,3]
-    subproblem - does some subset's sum from 0 to i equals to x?
-    2 parameters here - i and x - so 2d array for cache [i][sum] - [n][totalSum]
-    recurrence relation=dfs(nums,i+1,sum-nums[i],dp)||dfs(nums,i+1,sum,dp);
-    */
 	}
+
+
 }

@@ -61,15 +61,23 @@ public class KEmptySlots {
 			int r = k + 1;
 			int ans = Integer.MAX_VALUE;
 
+			// iterate until the window edge hit the end of an array
 			while (r < n) {
+
+				// if we scanned the whole window and it was ok
 				if (i == r) {
 					ans = Math.min(ans, Math.max(ar[l], ar[r]));
 					l = i;
 					r = i + k + 1;
-				} else if (ar[l] > ar[i] || ar[r] > ar[i]) {
+				}
+
+				// if while scanning the window we found some bulbs
+				// that were turned on before left or right
+				else if (ar[l] > ar[i] || ar[r] > ar[i]) {
 					l = i;
 					r = i + k + 1;
 				}
+
 				i++;
 			}
 

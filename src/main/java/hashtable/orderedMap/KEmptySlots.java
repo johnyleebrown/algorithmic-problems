@@ -45,10 +45,14 @@ import java.util.TreeMap;
  * ======
  *
  * https://leetcode.com/problems/k-empty-slots/
+ *
+ * ======
+ *
+ * https://www.notion.so/683-K-Empty-Slots-d779473d03c8405799c42a5cf51e23bb
  */
 public class KEmptySlots {
 	/**
-	 * https://www.notion.so/683-K-Empty-Slots-d779473d03c8405799c42a5cf51e23bb
+	 * Not optimized
 	 */
 	public static class Solution1 {
 		public int kEmptySlots(int[] ar, int k) {
@@ -56,7 +60,7 @@ public class KEmptySlots {
 			int n = ar.length;
 			TreeMap<Integer, Integer> m = new TreeMap<>();
 
-			// in the beginning all the lamps are nurned off
+			// in the beginning all the lamps are turned off
 			m.put(0, n - 1);
 
 			for (int i = 0; i < n; i++) {
@@ -92,8 +96,6 @@ public class KEmptySlots {
 
 	/**
 	 * Optimized
-	 *
-	 * https://www.notion.so/683-K-Empty-Slots-d779473d03c8405799c42a5cf51e23bb
 	 */
 	public static class Solution2 {
 		public int kEmptySlots(int[] ar, int k) {
@@ -101,7 +103,7 @@ public class KEmptySlots {
 			int n = ar.length;
 			TreeMap<Integer, Integer> m = new TreeMap<>();
 
-			// in the beginning all the lamps are nurned off
+			// in the beginning all the lamps are turned off
 			m.put(0, n - 1);
 
 			// in the beginning there is 1 segment that has length > k
@@ -127,26 +129,26 @@ public class KEmptySlots {
 					return i + 1;
 				}
 
+				// if the segment that we are splitting might be good
+				// (might contains segment of length k)
+				if (end - start + 1 > k) countBigger--;
+
 				// if the first new segment might be good
-				// (might containt segment of length k)
+				// (might contains segment of length k)
 				if (curInd - start > k) countBigger++;
 
 				// if the second new segment might be good
-				// (might containt segment of length k)
+				// (might contains segment of length k)
 				if (end - curInd > k) countBigger++;
 
-				// if the segment that we are splitting might be good
-				// (might containt segment of length k)
-				if (end - start + 1 > k) countBigger--;
-
 				// if we have no more good segments
-				// (that might containt segment of length k)
+				// (that might contains segment of length k)
 				if (countBigger <= 0) return -1;
 
 				// replace old segment with new one
 				m.put(start, curInd - 1);
 
-				// add secondnew segment
+				// add second new segment
 				m.put(curInd + 1, end);
 			}
 

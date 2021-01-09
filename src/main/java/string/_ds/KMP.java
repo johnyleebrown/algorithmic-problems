@@ -21,9 +21,9 @@ public class KMP {
      * the substring ending at that position. Prefix number is the length of the largest
      * substring that is both a prefix and a suffix of a string.
      * For "ababbaba" the largest substring that is a prefix and a suffix is "aba".
-     * For "ab" it is "ab".
-     * For "a" it is "a".
+     * For "ab" it is "".
      * For "ababb" it is empty.
+     * But it can't be the whole string.
      * @param pattern pattern that we want to search for in text
      * @return the prefix array
      */

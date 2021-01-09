@@ -51,7 +51,8 @@ public class ImplementStrStr {
 
         private long hash(String s, int n) {
             long h = 0;
-            for (int i = 0; i < n; i++) h = (h * R + s.charAt(i)) % Q;
+            for (int i = 0; i < n; i++)
+                h = (h * R + s.charAt(i)) % Q;
             return h;
         }
 

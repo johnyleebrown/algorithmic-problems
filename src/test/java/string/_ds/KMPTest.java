@@ -3,6 +3,7 @@ package string._ds;
 import org.junit.jupiter.api.Test;
 import util.utils.Generator;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,10 +14,11 @@ class KMPTest {
 
 		KMP kmp = new KMP();
 
-		String pattern = "ababbaba";
+		String pattern = "aacecaaa";
 		String text = createTextWithPatternInside(pattern);
 
 		int[] prefixArray = kmp.getPrefixArray(pattern);
+		System.out.println(Arrays.toString(prefixArray));
 
 		int startingPosition = text.indexOf(pattern);
 		int actualResult = kmp.searchText(prefixArray, pattern, text);

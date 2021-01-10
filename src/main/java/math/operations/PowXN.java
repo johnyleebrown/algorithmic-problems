@@ -4,27 +4,27 @@ package math.operations;
  * 50
  */
 public class PowXN {
+	/**
+	 * Using binary pow.
+	 * http://e-maxx.ru/algo/binary_pow
+	 */
 	public static class Solution {
 		public double myPow(double x, int n) {
-			if (n == 0) return 1;
-			if (x == 1) return 1;
-			if (x == -1) {
-				if (n % 2 == 0) return 1;
-				else return -1;
+			if (n == 0) {
+				return 1;
 			}
-			if (n == Integer.MIN_VALUE) return 0;
-			if (n < 0) {
-				n = -n;
-				x = 1 / x;
+			if (n == 1) {
+				return x;
 			}
-			double ret = 1.0;
-			while (n > 0) {
-				if ((n & 1) != 0)
-					ret *= x;
-				x = x * x;
-				n = n >> 1;
+			if (n == -1) {
+				return 1 / x;
 			}
-			return ret;
+			if ((n & 1) == 0) {
+				double half = myPow(x, n / 2);
+				return half * half;
+			} else {
+				return myPow(x, n - 1) * x;
+			}
 		}
 	}
 }

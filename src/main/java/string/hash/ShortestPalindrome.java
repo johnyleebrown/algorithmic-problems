@@ -40,7 +40,7 @@ public class ShortestPalindrome {
 		private long Q;
 		private int R;
 		private long[] rp;
-		private long modinverse;
+		private long modInverse;
 
 		public String shortestPalindrome(String s) {
 
@@ -70,12 +70,12 @@ public class ShortestPalindrome {
 			Q = getRandomPrime();
 			R = 256;
 			rp = computeRadixPowers(s.length());
-			modinverse = BigInteger.valueOf(R).modInverse(BigInteger.valueOf(Q)).longValue();
+			modInverse = BigInteger.valueOf(R).modInverse(BigInteger.valueOf(Q)).longValue();
 		}
 
 		private long removeLast(long hashOrigin, String origin, int i) {
 			long curChar = origin.charAt(i);
-			return ((hashOrigin - curChar) * modinverse) % Q;
+			return ((hashOrigin - curChar) * modInverse) % Q;
 		}
 
 		private long removeFirst(long hashReversed, String reversed, int i) {

@@ -1,5 +1,7 @@
 package string._ds;
 
+import java.util.Arrays;
+
 /**
  * This implementation uses a version of the Knuth-Morris-Pratt substring search
  * algorithm.
@@ -67,5 +69,28 @@ public class KMP {
             }
         }
         return -1;
+    }
+
+    /**
+     * origin: "aacecaaa"
+     * reversed: "aaacecaa"
+     * p[]: [2, 1, 0, 0, 0, 2, 1, 0, -1]
+     */
+    private int[] calculatePrefixArrayOfReversedString(String s) {
+        int n = s.length();
+        int[] p = new int[n + 1];
+        p[n] = -1;
+
+        for (int i = n - 1; i >= 0; i--) {
+            int k = p[i + 1];
+            while (k >= 0) {
+                if (s.charAt(i) == s.charAt(n - 1 - k)) {
+                    break;
+                }
+                k = p[n - k];
+            }
+            p[i] = k + 1;
+        }
+        return p;
     }
 }

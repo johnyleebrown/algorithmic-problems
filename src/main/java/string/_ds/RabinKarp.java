@@ -23,12 +23,14 @@ public class RabinKarp {
 	private final int R; // radix, supposed to be random if q is prime
 	private final long Q; // large prime for mod
 	private final long rPower;
+	private final long modInverse;
 
 	public RabinKarp(String pattern) {
 		this.pattern = pattern;
 		m = pattern.length();
 		R = 256;
 		Q = getRandPrime();
+		modInverse = BigInteger.valueOf(R).modInverse(BigInteger.valueOf(Q)).longValue();
 
 		// compute pattern hash
 		patHash = hash(pattern, m);
@@ -100,6 +102,15 @@ public class RabinKarp {
 	 */
 	private long addLast(long rollingHash, String text, int i) {
 		return ((rollingHash * R) % Q + text.charAt(i)) % Q;
+	}
+
+	/**
+	 * = (curHash - charAt(i)) * modInverse
+	 * we want to divide by R, but it was modded previously
+	 * this is why we need to multiply by modinverse
+	 */
+	private long removeLast(long hashOrigin, char c) {
+		return ((hashOrigin - c) * modInverse) % Q;
 	}
 
 	private boolean lasVegasCheck(String text, int j) {

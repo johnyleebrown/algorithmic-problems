@@ -220,8 +220,8 @@ public class NextClosestTime {
 
 	/**
 	 * Generate all variations with backtracking and then find the closest.
+	 * Check {@link backtracking.numbers.NextClosestTime}
 	 */
 	public static class Solution4 {
-
 	}
 }

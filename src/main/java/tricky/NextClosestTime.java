@@ -1,7 +1,9 @@
 package tricky;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 681
@@ -186,5 +188,40 @@ public class NextClosestTime {
 		private boolean check(Set<Integer> set, int[] d2) {
 			return set.contains(d2[0]) && set.contains(d2[1]) && set.contains(d2[2]) && set.contains(d2[3]);
 		}
+	}
+
+	/**
+	 * Same thing as in S1 but with TreeSet
+	 */
+	public static class Solution3 {
+		public String nextClosestTime(String time) {
+			char[] res = time.toCharArray();
+			Character[] digits = new Character[]{res[0], res[1], res[3], res[4]};
+			TreeSet<Character> set = new TreeSet<Character>(Arrays.asList(digits));
+
+			res[4] = next(set, res[4], '9');
+			if (time.charAt(4) < res[4]) return new String(res);
+
+			res[3] = next(set, res[3], '5');
+			if (time.charAt(3) < res[3]) return new String(res);
+
+			res[1] = next(set, res[1], res[0] == '2' ? '3' : '9');
+			if (time.charAt(1) < res[1]) return new String(res);
+
+			res[0] = next(set, res[0], '2');
+			return new String(res);
+		}
+
+		private char next(TreeSet<Character> set, char c, char limit) {
+			Character n = set.higher(c);
+			return n == null || n > limit ? set.first() : n;
+		}
+	}
+
+	/**
+	 * Generate all variations with backtracking and then find the closest.
+	 */
+	public static class Solution4 {
+
 	}
 }

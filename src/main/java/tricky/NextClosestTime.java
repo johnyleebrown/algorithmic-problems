@@ -1,5 +1,8 @@
 package tricky;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 681
  *
@@ -45,6 +48,11 @@ public class NextClosestTime {
 	 * key insight
 	 * if we haven't found the next number some position
 	 * then the next best for that position would be the smallest number of all
+	 *
+	 * the idea for this solution is to find the next number for each of the numbers starting
+	 * from the right
+	 * if we cant find it then we set it to the smallest one we have
+	 * example: 12:34 => 12:41 is the next
 	 */
 	public static class Solution {
 		public String nextClosestTime(String t) {
@@ -52,6 +60,7 @@ public class NextClosestTime {
 			int[] next = new int[4];
 
 			int min = Integer.MAX_VALUE;
+			// find next number for each
 			for (int i = 0; i < 4; i++) {
 				min = Math.min(min, ans[i]);
 				next[i] = 10;
@@ -63,29 +72,119 @@ public class NextClosestTime {
 			}
 
 			for (int i = 3; i >= 0; i--) {
-				int x = bs(ans, next, i);
+				int x = getNext(ans, next, i);
+				// if we couldnt find the next
 				if (x == 10) {
 					ans[i] = min;
-				} else {
+				}
+				// found the next, set the next and return the answer
+				else {
 					ans[i] = x;
-					return getAns(ans);
+					return getAnswer(ans);
 				}
 			}
 
-			return getAns(ans);
+			return getAnswer(ans);
 		}
 
-		private String getAns(int[] ans) {
+		private String getAnswer(int[] ans) {
 			return ans[0] + "" + ans[1] + ":" + ans[2] + "" + ans[3];
 		}
 
-		private int bs(int[] ans, int[] next, int i) {
+		private int getNext(int[] ans, int[] next, int i) {
 			int x = next[i];
 			if (x == 10) return 10;
 			if (i == 2 && x > 5) return 10;
 			else if (i == 1 && ans[0] == 2 && x > 3) return 10;
 			else if (i == 0 && x > 2) return 10;
 			else return x;
+		}
+	}
+
+	/**
+	 * We have 3600 minutes in 1 day, so increment minute by minute.
+	 * We have a while loop where we increment position by position
+	 * So if we want to incr 00:59 we would increment
+	 * index 3 => 00:50 then
+	 * ind2 => 00:00 then
+	 * ind1 => 01:00
+	 */
+	public static class Solution2 {
+		public String nextClosestTime(String s) {
+			// add minute b minute and see if we have the numbers
+			int[] d2 = new int[4];
+			Set<Integer> set = new HashSet<>();
+			for (int i = 0; i < s.length(); i++) {
+				if (i == 2) {
+					continue;
+				}
+				int x = Integer.parseInt(String.valueOf(s.charAt(i)));
+				if (i < 2) {
+					d2[i] = x;
+				} else {
+					d2[i - 1] = x;
+				}
+				set.add(x);
+			}
+
+			int position = 4;
+			// flag that shows that it is not a temporary result cuz we incr pos by position
+			boolean ready = false;
+			int count = 3600;
+			while (--count >= 0) {
+				if (position == 4) { // xx:xy
+					if (d2[3] == 9) {
+						position = 3;
+						d2[3] = 0;
+						ready = false;
+					} else {
+						d2[3]++;
+						ready = true;
+					}
+				} else if (position == 3) { // xx:yx
+					if (d2[2] == 5) {
+						position = 2;
+						d2[2] = 0;
+						ready = false;
+					} else {
+						d2[2]++;
+						position = 4;
+						ready = true;
+					}
+				} else if (position == 2) { // xy:xx
+					if (d2[1] == 9 || (d2[1] == 3 && d2[0] == 2)) {
+						position = 1;
+						d2[1] = 0;
+						ready = false;
+					} else {
+						d2[1]++;
+						position = 4;
+						ready = true;
+					}
+				} else { // yx:xx
+					if (d2[0] == 2) {
+						d2[0] = 0;
+						ready = false;
+					} else {
+						d2[0]++;
+						ready = true;
+					}
+					position = 4;
+				}
+
+				if (ready && check(set, d2)) {
+					return d2[0] + "" + d2[1] + ":" + d2[2] + "" + d2[3];
+				}
+			}
+
+			return s;
+		}
+
+		/**
+		 * check if we have all the numbers from the original
+		 */
+		private boolean check(Set<Integer> set, int[] d2) {
+			return set.contains(d2[0]) && set.contains(d2[1]) && set.contains(d2[2]) && set.contains(d2[3]);
 		}
 	}
 }

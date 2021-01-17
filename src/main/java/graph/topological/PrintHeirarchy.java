@@ -1,4 +1,4 @@
-package graph._ds;
+package graph.topological;
 
 import java.util.*;
 

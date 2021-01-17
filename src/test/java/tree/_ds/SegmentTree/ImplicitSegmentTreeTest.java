@@ -9,17 +9,18 @@ import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ImplicitSegmentTreeTest {
 
-    SegmentTreeSlow rs;
-    SegmentTree st;
-    ImplicitSegmentTree ist;
+    SegmentTreeSlow segmentTreeSlow;
+    SegmentTree segmentTree;
+    ImplicitSegmentTree implicitSegmentTree;
 
     void initTrees(int n, AggregateFunction f) {
-        rs = new SegmentTreeSlow(n);
-        st = new SegmentTree(n, f);
-        ist = new ImplicitSegmentTree(n, f);
+        segmentTreeSlow = new SegmentTreeSlow(n);
+        segmentTree = new SegmentTree(n, f);
+        implicitSegmentTree = new ImplicitSegmentTree(n, f);
     }
 
     /**************************************************************************/
@@ -30,10 +31,10 @@ class ImplicitSegmentTreeTest {
         int countTests = 1_000;
 
         initTrees(maxNumber, AggregateFunction.MIN);
-        initTest1(rs);
-        initTest1(st);
-        initTest1(ist);
-        List<SegmentTreeQuery> l = new LinkedList<>(Arrays.asList(rs, st, ist));
+        initTest1(segmentTreeSlow);
+        initTest1(segmentTree);
+        initTest1(implicitSegmentTree);
+        List<SegmentTreeQuery> l = new LinkedList<>(Arrays.asList(segmentTreeSlow, segmentTree, implicitSegmentTree));
 
         Random r = new Random();
         int[] result = new int[3];
@@ -42,7 +43,8 @@ class ImplicitSegmentTreeTest {
             for (int j = 0; j < l.size(); j++) {
                 result[j] = l.get(j).min(interval[0], interval[1]);
             }
-            assertEquals(result[0], result[1], result[2]);
+            assertEquals(result[0], result[1]);
+            assertEquals(result[0], result[2]);
         }
     }
 
@@ -68,9 +70,9 @@ class ImplicitSegmentTreeTest {
         int n = 30;
         initTrees(n, AggregateFunction.MAX);
 
-        initTest1(rs);
-        initTest1(st);
-        initTest1(ist);
+        initTest1(segmentTreeSlow);
+        initTest1(segmentTree);
+        initTest1(implicitSegmentTree);
 
         Random r = new Random();
         int step = n / 2;
@@ -80,8 +82,9 @@ class ImplicitSegmentTreeTest {
                 int b = r.nextInt(n);
                 while (b < a) b = r.nextInt(n);
 
-                int rs_max = rs.max(a, b), st_max = st.max(a, b), ist_max = ist.max(a, b);
-                assertEquals(rs_max, st_max, ist_max);
+                int rs_max = segmentTreeSlow.max(a, b), st_max = segmentTree.max(a, b), ist_max = implicitSegmentTree.max(a, b);
+                assertEquals(rs_max, st_max);
+                assertEquals(rs_max, ist_max);
             }
         }
     }
@@ -97,9 +100,9 @@ class ImplicitSegmentTreeTest {
         int n = 150;
         initTrees(n, AggregateFunction.MAX);
 
-        initTest2(rs);
-        initTest2(st);
-        initTest2(ist);
+        initTest2(segmentTreeSlow);
+        initTest2(segmentTree);
+        initTest2(implicitSegmentTree);
 
         Random r = new Random();
         int step = n / 2;
@@ -109,8 +112,9 @@ class ImplicitSegmentTreeTest {
                 int b = r.nextInt(n);
                 while (b < a) b = r.nextInt(n);
 
-                int rs_max = rs.max(a, b), st_max = st.max(a, b), ist_max = ist.max(a, b);
-                assertEquals(rs_max, st_max, ist_max);
+                int rs_max = segmentTreeSlow.max(a, b), st_max = segmentTree.max(a, b), ist_max = implicitSegmentTree.max(a, b);
+                assertEquals(rs_max, st_max);
+                assertEquals(rs_max, ist_max);
             }
         }
     }
@@ -132,20 +136,21 @@ class ImplicitSegmentTreeTest {
         int maxNumber = 1_000;
         int countTests = 1_000;
         initTrees(maxNumber, AggregateFunction.SUM);
-        List<SegmentTreeQuery> l = new LinkedList<>(Arrays.asList(rs, st, ist));
+        List<SegmentTreeQuery> l = new LinkedList<>(Arrays.asList(segmentTreeSlow, segmentTree, implicitSegmentTree));
         fillData(countIntervals, maxIncrement, maxNumber, l);
         test_Increment_Sum(countTests, maxNumber, l);
     }
 
-    private void test_Increment_Sum(int countTests, int maxNumber, List<SegmentTreeQuery> l) {
+    private void test_Increment_Sum(int countTests, int maxNumber, List<SegmentTreeQuery> trees) {
         int[][] results = new int[countTests][3]; //3 types of rmq
         Random r = new Random();
         for (int i = 0; i < countTests; i++) {
             int[] interval = getInterval(r, maxNumber);
-            for (int j = 0; j < l.size(); j++) {
-                results[i][j] = l.get(j).sum(interval[0], interval[1]);
+            for (int j = 0; j < trees.size(); j++) {
+                results[i][j] = trees.get(j).sum(interval[0], interval[1]);
             }
-            assertEquals(results[i][0], results[i][1], results[i][2]);
+            assertEquals(results[i][1], results[i][0]);
+            assertEquals(results[i][2], results[i][0]);
         }
     }
 
@@ -153,7 +158,10 @@ class ImplicitSegmentTreeTest {
         int[][] randomIncrements = genRandomIntervalIncrements(countIntervals, maxIncrement, maxNumber);
         for (SegmentTreeQuery q : l) {
             for (int[] i : randomIncrements) {
-                q.increment(i[0], i[1], i[2]); //lo,hi,val
+                // i = lo,hi,val
+                for (int j = i[0]; j <= i[1]; j++) {
+                    q.increment(j, j, i[2]);
+                }
             }
         }
     }

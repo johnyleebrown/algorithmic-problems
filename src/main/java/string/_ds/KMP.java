@@ -1,7 +1,5 @@
 package string._ds;
 
-import java.util.Arrays;
-
 /**
  * This implementation uses a version of the Knuth-Morris-Pratt substring search
  * algorithm.

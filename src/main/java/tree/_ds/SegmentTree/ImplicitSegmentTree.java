@@ -20,8 +20,9 @@ import java.util.Deque;
  * check this out https://cp-algorithms.com/graph/lca.html
  */
 public class ImplicitSegmentTree implements SegmentTreeQuery {
-    private Node root;
-    private AggregateFunction af;
+
+    private final Node root;
+    private final AggregateFunction af;
 
     public ImplicitSegmentTree(int n) {
         root = new Node(0, n);
@@ -53,7 +54,7 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
         if (cur.left == null) cur.left = new Node(cur.lo, mid);
         if (cur.right == null) cur.right = new Node(mid + 1, cur.hi);
 
-        prop(cur);
+        propagate(cur);
 
         increment(cur.left, a, b, val);
         increment(cur.right, a, b, val);
@@ -86,7 +87,7 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
         if (cur.left == null) cur.left = new Node(cur.lo, mid);
         if (cur.right == null) cur.right = new Node(mid + 1, cur.hi);
 
-        prop(cur);
+        propagate(cur);
 
         int left = min(cur.left, lo, hi);
         int right = min(cur.right, lo, hi);
@@ -110,7 +111,7 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
         if (cur.left == null) cur.left = new Node(cur.lo, mid);
         if (cur.right == null) cur.right = new Node(mid + 1, cur.hi);
 
-        prop(cur);
+        propagate(cur);
 
         int left = max(cur.left, a, b);
         int right = max(cur.right, a, b);
@@ -134,7 +135,7 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
         if (cur.left == null) cur.left = new Node(cur.lo, mid);
         if (cur.right == null) cur.right = new Node(mid + 1, cur.hi);
 
-        prop(cur);
+        propagate(cur);
 
         int left = sum(cur.left, lo, hi);
         int right = sum(cur.right, lo, hi);
@@ -151,10 +152,10 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
     }
 
     private boolean covers(Node root, int a, int b) {
-        return a <= root.lo && b >= root.hi;
+        return a <= root.lo && root.hi <= b;
     }
 
-    private void prop(Node cur) {
+    private void propagate(Node cur) {
         cur.left.delta += cur.delta;
         cur.right.delta += cur.delta;
         cur.delta = 0;
@@ -174,32 +175,37 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
 
     public void print() {
         print(root.lo, root.hi);
+        System.out.println("=============");
     }
 
     public void print(int a, int b) {
         Deque<Node> q = new ArrayDeque<>();
         q.add(root);
+        int level = 0;
         while (!q.isEmpty()) {
             int size = q.size();
             while (--size >= 0) {
                 Node cur = q.removeFirst();
-                System.out.print("i: [" + cur.lo + ", " + cur.hi + "] ");
-                System.out.print("d: [" + cur.delta + "], ");
-                System.out.print("m: [" + cur.min + "] | ");
+                System.out.print("level: " + level + ", ");
+                System.out.print("ind: [" + cur.lo + ", " + cur.hi + "] ");
+                System.out.print("delta: " + cur.delta + ", ");
+                System.out.print("min: " + cur.min + ", ");
+                System.out.print("max: " + cur.max + ", ");
+                System.out.print("sum: " + cur.val + " | ");
                 if (cur.left != null) q.addLast(cur.left);
                 if (cur.right != null) q.addLast(cur.right);
             }
+            level++;
             System.out.println();
         }
     }
 
     /**************************************************************************/
 
-    private class Node {
+    private static class Node {
         int lo, hi;
         int delta, val, min, max;
         Node left, right;
-        int ind; // index
 
         private Node(int lo, int hi) {
             this.lo = lo;

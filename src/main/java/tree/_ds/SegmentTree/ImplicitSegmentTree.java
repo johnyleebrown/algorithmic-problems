@@ -209,9 +209,17 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
         }
     }
 
+    public Node getRoot() {
+        return root;
+    }
+
+    public int getN() {
+        return n;
+    }
+
     /**************************************************************************/
 
-    private static class Node {
+    public static class Node {
         int lo, hi;
         int delta, val, min, max;
         Node left, right;
@@ -220,10 +228,6 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
             this.lo = lo;
             this.hi = hi;
         }
-    }
-
-    public int getN() {
-        return n;
     }
 }
 

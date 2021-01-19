@@ -23,13 +23,16 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
 
     private final Node root;
     private final AggregateFunction af;
+    private final int n;
 
     public ImplicitSegmentTree(int n) {
+        this.n = n;
         root = new Node(0, n);
         af = AggregateFunction.MIN;
     }
 
     public ImplicitSegmentTree(int n, AggregateFunction aggregateFunction) {
+        this.n = n;
         root = new Node(0, n);
         af = aggregateFunction;
     }
@@ -200,6 +203,12 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
         }
     }
 
+    public void fillFromAr(int[] a) {
+        for (int i = 0; i < a.length; i++) {
+            this.increment(i, i, a[i]);
+        }
+    }
+
     /**************************************************************************/
 
     private static class Node {
@@ -211,6 +220,10 @@ public class ImplicitSegmentTree implements SegmentTreeQuery {
             this.lo = lo;
             this.hi = hi;
         }
+    }
+
+    public int getN() {
+        return n;
     }
 }
 

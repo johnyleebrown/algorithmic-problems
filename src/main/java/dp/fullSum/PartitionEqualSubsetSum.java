@@ -42,7 +42,7 @@ public class PartitionEqualSubsetSum {
 	 */
 
 	/**
-	 * Top-down
+	 * Recursive Top-down
 	 */
 	public static class Solution1 {
 		public boolean canPartition(int[] a) {
@@ -76,7 +76,7 @@ public class PartitionEqualSubsetSum {
 	}
 
 	/**
-	 * Improved dfs.
+	 * Recursive Top-down Improved.
 	 * You can spot that we always make a call to ind + 1 and none other. So we don't really need
 	 * to keep those parameters because we linearly move towards the end.
 	 */

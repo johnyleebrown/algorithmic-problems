@@ -44,50 +44,74 @@ public class PartitionEqualSubsetSum {
 	/**
 	 * Top-down
 	 */
-	public static class Solution {
-		public boolean canPartition(int[] nums) {
-			int sum = Arrays.stream(nums).sum();
-
-			// edge case
-			if ((sum & 1) == 1) {
-				return false;
-			}
-
+	public static class Solution1 {
+		public boolean canPartition(int[] a) {
+			int sum = 0;
+			for (int i : a) sum += i;
+			if ((sum & 1) == 1) return false;
 			sum /= 2;
-
-			// edge case
-			for (int num : nums) {
-				if (num > sum) {
-					return false;
-				}
-			}
-
-			return dfs(nums, 0, sum, new Boolean[nums.length][sum + 1]);
+			return dfs(a, sum, 0, new Boolean[sum + 1][a.length]);
 		}
 
-		private boolean dfs(int[] nums, int i, int sum, Boolean[][] dp) {
-			if (sum < 0) {
-				return false;
-			}
-			if (i == nums.length) {
-				return false;
-			}
-			if (nums[i] == sum) {
+		boolean dfs(int[] a, int sum, int ind, Boolean[][] dp) {
+
+			// why this goes first? because we might miss out a chance to return true
+			// if that would be later
+			if (sum == 0) {
 				return true;
 			}
-			if (dp[i][sum] != null) {
-				return dp[i][sum];
+
+			if (ind >= a.length || sum < 0) {
+				return false;
 			}
-			boolean ans = dfs(nums, i + 1, sum - nums[i], dp) || dfs(nums, i + 1, sum, dp);
-			dp[i][sum] = ans;
-			return ans;
+
+			if (dp[sum][ind] != null) {
+				return dp[sum][ind];
+			}
+
+			dp[sum][ind] = dfs(a, sum - a[ind], ind + 1, dp) || dfs(a, sum, ind + 1, dp);
+
+			return dp[sum][ind];
+		}
+	}
+
+	/**
+	 * Improved dfs.
+	 * You can spot that we always make a call to ind + 1 and none other. So we don't really need
+	 * to keep those parameters because we linearly move towards the end.
+	 */
+	public static class Solution2 {
+		public boolean canPartition(int[] a) {
+			int sum = 0;
+			for (int i : a) sum += i;
+			if ((sum & 1) == 1) return false;
+			sum /= 2;
+			return dfs(a, sum, 0, new Boolean[sum + 1]);
+		}
+
+		boolean dfs(int[] a, int sum, int ind, Boolean[] dp) {
+
+			if (sum == 0) {
+				return true;
+			}
+
+			if (ind >= a.length || sum < 0) {
+				return false;
+			}
+			if (dp[sum] != null) {
+				return dp[sum];
+			}
+
+			dp[sum] = dfs(a, sum - a[ind], ind + 1, dp) || dfs(a, sum, ind + 1, dp);
+
+			return dp[sum];
 		}
 	}
 
 	/**
 	 * Bottom-up
 	 */
-	public static class Solution2 {
+	public static class Solution3 {
 		public boolean canPartition(int[] nums) {
 			int sum = Arrays.stream(nums).sum();
 

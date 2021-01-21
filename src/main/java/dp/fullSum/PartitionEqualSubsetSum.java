@@ -1,7 +1,5 @@
 package dp.fullSum;
 
-import java.util.Arrays;
-
 /**
  * 416
  *
@@ -109,46 +107,57 @@ public class PartitionEqualSubsetSum {
 	}
 
 	/**
-	 * Bottom-up
+	 * Bottom-up Iterative
 	 */
 	public static class Solution3 {
-		public boolean canPartition(int[] nums) {
-			int sum = Arrays.stream(nums).sum();
-
-			// edge case
-			if ((sum & 1) == 1) {
-				return false;
-			}
-
+		public boolean canPartition(int[] a) {
+			int sum = 0;
+			for (int i : a) sum += i;
+			if ((sum & 1) == 1) return false;
 			sum /= 2;
-
-			// edge case
-			for (int num : nums) {
-				if (num > sum) {
-					return false;
-				}
-			}
-
-			boolean[][] dp = new boolean[nums.length][sum + 1];
-
+			int n = a.length;
+			boolean[][] dp = new boolean[sum + 1][n];
 			// base
-			for (int i = 0; i <= sum; i++) {
-				dp[0][i] = nums[0] == i;
+			for (int i = 0; i < sum + 1; i++) {
+				dp[i][0] = i == a[0];
 			}
-
-			for (int i = 1; i < nums.length; i++) {
-				for (int j = 1; j <= sum; j++) {
-					if (j >= nums[i]) {
-						dp[i][j] = dp[i - 1][j - nums[i]] || dp[i - 1][j];
+			for (int i = 1; i < sum + 1; i++) {
+				for (int j = 1; j < n; j++) {
+					if (i - a[j] >= 0) {
+						dp[i][j] = dp[i - a[j]][j - 1] || dp[i][j - 1];
 					} else {
-						dp[i][j] = dp[i - 1][j];
+						dp[i][j] = dp[i][j - 1];
 					}
 				}
 			}
-
-			return dp[nums.length - 1][sum];
+			return dp[sum][n - 1];
 		}
 	}
 
-
+	/**
+	 * Bottom-up Iterative Optimized
+	 * Using 1d
+	 * Here we go from right to left because we want to reuse the answers from previous
+	 * iteration, otherwise we will rewrite them.
+	 * And also we are going until we hit i == a[j] because other numbers will result in sum < 0.
+	 */
+	public static class Solution4 {
+		public boolean canPartition(int[] a) {
+			int sum = 0;
+			for (int i : a) sum += i;
+			if ((sum & 1) == 1) return false;
+			sum /= 2;
+			boolean[] dp = new boolean[sum + 1];
+			// base
+			for (int i = 0; i < sum + 1; i++) {
+				dp[i] = i == a[0];
+			}
+			for (int j = 1; j < a.length; j++) {
+				for (int i = sum; i >= a[j]; i--) {
+					dp[i] = dp[i - a[j]] || dp[i];
+				}
+			}
+			return dp[sum];
+		}
+	}
 }

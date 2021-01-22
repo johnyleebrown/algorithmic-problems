@@ -1,4 +1,4 @@
-package dp.fullSum;
+package dp.knapsack01;
 
 /**
  * 416

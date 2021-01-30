@@ -1,6 +1,6 @@
 package tree.bst;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 /**
  * 783

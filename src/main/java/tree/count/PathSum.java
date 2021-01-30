@@ -1,6 +1,6 @@
 package tree.count;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 /**
  * 112

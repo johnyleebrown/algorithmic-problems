@@ -51,4 +51,29 @@ class ValidIteratorTest {
             assertTrue(c.getI() != c.getJ());
         }
     }
+
+    private class Cell {
+        private int i, j;
+
+        public Cell(int i, int j) {
+            this.i = i;
+            this.j = j;
+        }
+
+        public int getI() {
+            return i;
+        }
+
+        public int getJ() {
+            return j;
+        }
+
+        @Override
+        public String toString() {
+            return "Cell{" +
+                   "i=" + i +
+                   ", j=" + j +
+                   '}';
+        }
+    }
 }

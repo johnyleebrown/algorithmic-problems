@@ -1,6 +1,6 @@
 package tree.path;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;

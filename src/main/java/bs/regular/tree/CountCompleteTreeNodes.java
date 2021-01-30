@@ -1,6 +1,6 @@
 package bs.regular.tree;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 import java.util.LinkedList;
 import java.util.List;

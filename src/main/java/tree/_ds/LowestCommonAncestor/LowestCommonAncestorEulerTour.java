@@ -3,7 +3,7 @@ package tree._ds.LowestCommonAncestor;
 import tree._ds.SegmentTree.AggregateFunction;
 import tree._ds.SegmentTree.SegmentTree;
 import tree._ds.SegmentTree.SegmentTreeQuery;
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;

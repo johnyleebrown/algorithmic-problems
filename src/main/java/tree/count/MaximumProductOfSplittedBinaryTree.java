@@ -1,6 +1,6 @@
 package tree.count;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 import java.util.HashSet;
 import java.util.Set;

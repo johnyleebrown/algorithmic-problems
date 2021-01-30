@@ -1,6 +1,6 @@
 package tree.count.values;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 package tree.complete;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 import util.tester.Tester;
 
 import java.util.ArrayDeque;

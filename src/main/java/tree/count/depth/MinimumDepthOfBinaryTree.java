@@ -1,6 +1,6 @@
 package tree.count.depth;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 /**
  * 111

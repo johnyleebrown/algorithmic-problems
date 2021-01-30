@@ -1,6 +1,6 @@
 package tree.modify;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 /**
  * 617

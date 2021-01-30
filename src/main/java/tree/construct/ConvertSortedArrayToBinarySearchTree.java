@@ -1,6 +1,6 @@
 package tree.construct;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 /**
  * 108

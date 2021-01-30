@@ -1,6 +1,6 @@
 package tree.count.path;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 /**
  * 742

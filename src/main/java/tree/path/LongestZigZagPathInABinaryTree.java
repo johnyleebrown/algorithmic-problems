@@ -1,6 +1,6 @@
 package tree.path;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 import util.tester.Tester;
 
 /**

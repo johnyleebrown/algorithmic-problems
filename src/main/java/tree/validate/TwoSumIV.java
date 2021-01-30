@@ -1,6 +1,6 @@
 package tree.validate;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 import java.util.*;
 

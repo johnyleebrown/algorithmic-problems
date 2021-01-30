@@ -1,6 +1,6 @@
 package tree.serialization;
 
-import util.ds.TreeNode;
+import _commons.TreeNode;
 
 /**
  * 606

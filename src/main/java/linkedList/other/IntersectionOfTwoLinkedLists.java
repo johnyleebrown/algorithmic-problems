@@ -1,43 +1,35 @@
 package linkedList.other;
 
-import util.ds.ListNode;
+import commons.ListNode;
 
 /**
  * 160
  */
-public class IntersectionOfTwoLinkedLists
-{
-	public class Solution
-	{
-		public ListNode getIntersectionNode(ListNode headA, ListNode headB)
-		{
+public class IntersectionOfTwoLinkedLists {
+	public class Solution {
+		public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
 			int lenA = length(headA), lenB = length(headB);
 
 			// move headA and headB to the same start point
-			while (lenA > lenB)
-			{
+			while (lenA > lenB) {
 				headA = headA.next;
 				lenA--;
 			}
-			while (lenA < lenB)
-			{
+			while (lenA < lenB) {
 				headB = headB.next;
 				lenB--;
 			}
 			// find the intersection until end
-			while (headA != headB)
-			{
+			while (headA != headB) {
 				headA = headA.next;
 				headB = headB.next;
 			}
 			return headA;
 		}
 
-		private int length(ListNode node)
-		{
+		private int length(ListNode node) {
 			int length = 0;
-			while (node != null)
-			{
+			while (node != null) {
 				node = node.next;
 				length++;
 			}
@@ -45,13 +37,11 @@ public class IntersectionOfTwoLinkedLists
 		}
 
 		// O(m*n), O(n)
-		public ListNode getIntersectionNode2(ListNode headA, ListNode headB)
-		{
+		public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
 			if (headA == null || headB == null) return null;
 			ListNode a = headA;
 			ListNode b = headB;
-			while (a != b)
-			{
+			while (a != b) {
 				a = a == null ? headB : a.next;
 				b = b == null ? headA : b.next;
 			}

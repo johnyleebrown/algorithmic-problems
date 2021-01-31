@@ -1,6 +1,6 @@
 package graph.greedy;
 
-import util.utils.reader.InputReader;
+import reader.InputReader;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -40,32 +40,24 @@ import java.util.Set;
  *
  * Source: Codeforces
  */
-public class PerfectKeyboard
-{
+public class PerfectKeyboard {
 	/**
 	 * Let's say each letter is a graph node. By connecting nodes we are saying
 	 * that letters can be put side by side.
 	 */
-	private class Solution
-	{
+	private class Solution {
 		/**
 		 * Connecting 2 letters on the graph. Can't connect when we already put
 		 * these 2 letters on the graph, and these 2 letters are not connected
 		 * yet, this tells us that these letters are not side by side to each
 		 * other and since each node can only have 2 vertices, we exit.
 		 */
-		private boolean connect(Map<Character, Set<Character>> m, char c1, char c2, boolean[] seen)
-		{
-			if (c1 == c2 || (m.get(c1).contains(c2) && m.get(c2).contains(c1)))
-			{
+		private boolean connect(Map<Character, Set<Character>> m, char c1, char c2, boolean[] seen) {
+			if (c1 == c2 || (m.get(c1).contains(c2) && m.get(c2).contains(c1))) {
 				return true;
-			}
-			else if (m.get(c1).size() == 2 || m.get(c2).size() == 2)
-			{
+			} else if (m.get(c1).size() == 2 || m.get(c2).size() == 2) {
 				return false;
-			}
-			else if (seen[c1 - 'a'] && seen[c2 - 'a'])
-			{
+			} else if (seen[c1 - 'a'] && seen[c2 - 'a']) {
 				return false;
 			}
 
@@ -81,21 +73,17 @@ public class PerfectKeyboard
 		 * Using dfs traverse graph from starting point, don't go to visited
 		 * places. Assemble a variant of a keyboard.
 		 */
-		private StringBuilder getVariant(Map<Character, Set<Character>> m, char start)
-		{
+		private StringBuilder getVariant(Map<Character, Set<Character>> m, char start) {
 			StringBuilder sb = new StringBuilder();
 			Set<Character> s = new HashSet<>();
 			char cur = start;
 
-			while (!s.contains(cur))
-			{
+			while (!s.contains(cur)) {
 				sb.append(cur);
 				s.add(cur);
 
-				for (char child : m.get(cur))
-				{
-					if (!s.contains(child))
-					{
+				for (char child : m.get(cur)) {
+					if (!s.contains(child)) {
 						cur = child;
 					}
 				}
@@ -109,11 +97,9 @@ public class PerfectKeyboard
 		 * not possible - exit. Then assemble a keyboard by going from some
 		 * starting position and then by filling out the rest of the keys.
 		 */
-		private void s(String s, InputReader in, PrintWriter out)
-		{
+		private void s(String s, InputReader in, PrintWriter out) {
 			Map<Character, Set<Character>> m = new HashMap<>();
-			for (int i = 0; i < 26; i++)
-			{
+			for (int i = 0; i < 26; i++) {
 				m.put((char) (i + 'a'), new HashSet<>());
 			}
 
@@ -123,25 +109,21 @@ public class PerfectKeyboard
 			// starting point to assemble the keyboard
 			char start = s.charAt(0);
 
-			for (int i = 0; i < n - 1; i++)
-			{
+			for (int i = 0; i < n - 1; i++) {
 				char c1 = s.charAt(i);
 				char c2 = s.charAt(i + 1);
 
 				// if can't put letters side by side - exit
-				if (!connect(m, c1, c2, seen))
-				{
+				if (!connect(m, c1, c2, seen)) {
 					out.println("NO");
 					return;
 				}
 
 				// we choose any starting point
-				if (m.get(c1).size() == 1)
-				{
+				if (m.get(c1).size() == 1) {
 					start = c1;
 				}
-				if (m.get(c2).size() == 1)
-				{
+				if (m.get(c2).size() == 1) {
 					start = c2;
 				}
 			}
@@ -149,23 +131,18 @@ public class PerfectKeyboard
 			StringBuilder sb = null;
 
 			// edge case
-			if (s.length() == 1)
-			{
+			if (s.length() == 1) {
 				sb = new StringBuilder(s);
 				seen[s.charAt(0) - 'a'] = true;
-			}
-			else
-			{
+			} else {
 				sb = getVariant(m, start);
 			}
 
 			// final touch - fill keyboard with other letters
-			for (int i = 0; i < 26; i++)
-			{
+			for (int i = 0; i < 26; i++) {
 				char cur = (char) (i + 'a');
 
-				if (!seen[i])
-				{
+				if (!seen[i]) {
 					sb.append(cur);
 				}
 			}
@@ -174,11 +151,9 @@ public class PerfectKeyboard
 			out.println(sb.toString());
 		}
 
-		public void solve(InputReader in, PrintWriter out)
-		{
+		public void solve(InputReader in, PrintWriter out) {
 			int t = in.nextInt();
-			while (--t >= 0)
-			{
+			while (--t >= 0) {
 				s(in.nextLine(), in, out);
 			}
 		}

@@ -1,7 +1,6 @@
 package tree.bst;
 
-import _commons.TreeNode;
-import util.tester.Tester;
+import commons.TreeNode;
 
 /**
  * 1373
@@ -17,29 +16,24 @@ import util.tester.Tester;
  *
  * Source: Leetcode
  */
-public class MaximumSumBSTInBinaryTree
-{
+public class MaximumSumBSTInBinaryTree {
 	/**
 	 * If subtree is a bst, find max sum in it. To optimize - go from the
 	 * bottom, post order and check if bst then compare sums.
 	 */
-	public static class Solution
-	{
+	public static class Solution {
 		private int max = 0;
 
-		public int maxSumBST(TreeNode root)
-		{
+		public int maxSumBST(TreeNode root) {
 			traverseTree(root);
 			return max;
 		}
 
-		private void traverseTree(TreeNode cur)
-		{
+		private void traverseTree(TreeNode cur) {
 			if (cur == null)
 				return;
 
-			if (isValidBST(cur))
-			{
+			if (isValidBST(cur)) {
 				findMaxSum(cur);
 				return;
 			}
@@ -48,8 +42,7 @@ public class MaximumSumBSTInBinaryTree
 			traverseTree(cur.right);
 		}
 
-		private int findMaxSum(TreeNode cur)
-		{
+		private int findMaxSum(TreeNode cur) {
 			if (cur == null)
 				return 0;
 			int l = findMaxSum(cur.left);
@@ -59,33 +52,16 @@ public class MaximumSumBSTInBinaryTree
 			return all;
 		}
 
-		private boolean isValidBST(TreeNode cur)
-		{
+		private boolean isValidBST(TreeNode cur) {
 			return f(cur, null, null);
 		}
 
-		private boolean f(TreeNode cur, Integer min, Integer max)
-		{
+		private boolean f(TreeNode cur, Integer min, Integer max) {
 			if (cur == null)
 				return true;
 			if (max != null && cur.val >= max || min != null && cur.val <= min)
 				return false;
 			return f(cur.left, min, cur.val) && f(cur.right, cur.val, max);
 		}
-
-		public Solution()
-		{
-		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add(new TreeNode("1,4,3,2,4,2,5,null,null,null,null,null,null,4,6")).expect(20)
-				.add(new TreeNode("4,3,null,1,2")).expect(2)
-				.add(new TreeNode("-4,-2,-5")).expect(0)
-				.add(new TreeNode("2,1,3")).expect(6)
-				.add(new TreeNode("5,4,8,3,null,6,3")).expect(7)
-				.run();
 	}
 }

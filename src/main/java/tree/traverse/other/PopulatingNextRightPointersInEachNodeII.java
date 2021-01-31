@@ -1,7 +1,7 @@
 package tree.traverse.other;
 
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 /**
  * 117

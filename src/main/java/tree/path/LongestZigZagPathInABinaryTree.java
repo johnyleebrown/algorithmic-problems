@@ -1,7 +1,6 @@
 package tree.path;
 
-import _commons.TreeNode;
-import util.tester.Tester;
+import commons.TreeNode;
 
 /**
  * 1372
@@ -28,26 +27,21 @@ import util.tester.Tester;
  *
  * Source: Leetcode
  */
-public class LongestZigZagPathInABinaryTree
-{
+public class LongestZigZagPathInABinaryTree {
 	/**
 	 * SF.
 	 */
-	public static class Solution
-	{
+	public static class Solution {
 		private int max = 0;
 
-		public int longestZigZag(TreeNode root)
-		{
+		public int longestZigZag(TreeNode root) {
 			traverse(root.left, 0, true);
 			traverse(root.right, 0, false);
 			return max;
 		}
 
-		private void traverse(TreeNode cur, int x, boolean left)
-		{
-			if (cur == null)
-			{
+		private void traverse(TreeNode cur, int x, boolean left) {
+			if (cur == null) {
 				max = Math.max(x, max);
 				return;
 			}
@@ -56,22 +50,11 @@ public class LongestZigZagPathInABinaryTree
 			{
 				traverse(cur.right, x + 1, !left);
 				traverse(cur.left, 0, left);
-			}
-			else // right node for root
+			} else // right node for root
 			{
 				traverse(cur.left, x + 1, !left);
 				traverse(cur.right, 0, left);
 			}
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add(new TreeNode("1,null,1,1,1,null,null,1,1,null,1,null,null,null,1,null,1")).expect(3)
-				.add(new TreeNode("1")).expect(0)
-				.add(new TreeNode("1,null,1")).expect(1)
-				.add(new TreeNode("1,1,1,null,1,null,null,1,1,null,1")).expect(4)
-				.run();
 	}
 }

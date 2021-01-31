@@ -1,6 +1,6 @@
 package backtracking.tree;
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 /**
  * 1430

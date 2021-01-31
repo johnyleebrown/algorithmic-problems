@@ -1,6 +1,6 @@
 package linkedList.other;
 
-import util.ds.ListNode;
+import commons.ListNode;
 
 import java.util.HashSet;
 import java.util.Set;

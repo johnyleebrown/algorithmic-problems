@@ -1,9 +1,6 @@
 package string.trie;
 
-import util.tester.Tester;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,21 +21,18 @@ import java.util.List;
  *
  * Source: Leetcode
  */
-public class WordSearchII
-{
+public class WordSearchII {
 	/**
 	 * Trie + dfs. The trick here is to set to false isEnd once we ve added to
 	 * res, or use set.
 	 */
-	private static class Solution
-	{
+	private static class Solution {
 		private int[][] dirs = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 		private List<String> res = new ArrayList<>();
 		private int n, m;
 		private Node root;
 
-		public List<String> findWords(char[][] b, String[] words)
-		{
+		public List<String> findWords(char[][] b, String[] words) {
 			n = b.length;
 			m = b[0].length;
 			Trie t = new Trie();
@@ -51,8 +45,7 @@ public class WordSearchII
 			return res;
 		}
 
-		private void dfs(int i, int j, char[][] b, Node curNode, boolean[][] seen)
-		{
+		private void dfs(int i, int j, char[][] b, Node curNode, boolean[][] seen) {
 			// check if is valid
 			if (i < 0 || j < 0 || i >= n || j >= m)
 				return;
@@ -66,8 +59,7 @@ public class WordSearchII
 			curNode = curNode.get(curChar);
 
 			// add to ans
-			if (curNode.isEnd)
-			{
+			if (curNode.isEnd) {
 				res.add(curNode.val);
 				curNode.isEnd = false;
 			}
@@ -81,16 +73,13 @@ public class WordSearchII
 			seen[i][j] = false;
 		}
 
-		private class Trie
-		{
+		private class Trie {
 			private Node root = new Node();
 
-			public void put(String word)
-			{
+			public void put(String word) {
 				Node cur = root;
 				int n = word.length();
-				for (int i = 0; i < n; i++)
-				{
+				for (int i = 0; i < n; i++) {
 					char c = word.charAt(i);
 					if (cur.get(c) == null)
 						cur.put(c);
@@ -101,33 +90,22 @@ public class WordSearchII
 			}
 		}
 
-		private class Node
-		{
+		private class Node {
 			boolean isEnd = false;
 			Node[] children = new Node[256];
 			String val = null;
 
-			public void put(char c)
-			{
+			public void put(char c) {
 				children[c] = new Node();
 			}
 
-			public Node get(char c)
-			{
+			public Node get(char c) {
 				return children[c];
 			}
 
-			public boolean contains(char c)
-			{
+			public boolean contains(char c) {
 				return children[c] != null;
 			}
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add(new char[][]{{'a','b','c'},{'a','e','d'},{'a','f','g'}}, new String[]{"abcdefg","gfedcbaaa","eaabcdgfa","befa","dgc","ade"}).expect(Arrays.asList("abcdefg","befa","eaabcdgfa","gfedcbaaa")).expectAnyOrder()
-				.run();
 	}
 }

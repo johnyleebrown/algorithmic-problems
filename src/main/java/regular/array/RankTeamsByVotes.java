@@ -1,7 +1,5 @@
 package regular.array;
 
-import util.tester.Tester;
-
 import java.util.PriorityQueue;
 
 /**
@@ -31,22 +29,17 @@ import java.util.PriorityQueue;
  *
  * Source: Leetcode
  */
-public class RankTeamsByVotes
-{
+public class RankTeamsByVotes {
 	/**
 	 * SF.
 	 */
-	private static class Solution
-	{
-		public String rankTeams(String[] v)
-		{
+	private static class Solution {
+		public String rankTeams(String[] v) {
 			boolean[] seen = new boolean[26];
 			int[][] c = new int[26][v[0].length() + 1];
 
-			for (String s : v)
-			{
-				for (int i = 0; i < s.length(); i++)
-				{
+			for (String s : v) {
+				for (int i = 0; i < s.length(); i++) {
 					int ch = s.charAt(i) - 'A';
 					c[ch][i]++;
 					seen[ch] = true;
@@ -73,28 +66,14 @@ public class RankTeamsByVotes
 			return sb.toString();
 		}
 
-		private class CharAndPositionsCounts
-		{
+		private class CharAndPositionsCounts {
 			char ch;
 			int[] counts;
 
-			public CharAndPositionsCounts(char ch, int[] counts)
-			{
+			public CharAndPositionsCounts(char ch, int[] counts) {
 				this.ch = ch;
 				this.counts = counts;
 			}
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add(new String[]{"ABC", "ACB", "ABC", "ACB", "ACB"}).expect("ACB")
-				.add(new String[]{"WXYZ", "XYZW"}).expect("XWYZ")
-				.add(new String[]{"ZMNAGUEDSJYLBOPHRQICWFXTVK"}).expect("ZMNAGUEDSJYLBOPHRQICWFXTVK")
-				.add(new String[]{"BCA", "CAB", "CBA", "ABC", "ACB", "BAC"}).expect("ABC")
-				.add(new String[]{"M", "M", "M", "M"}).expect("M")
-				.add(new String[]{"FVSHJIEMNGYPTQOURLWCZKAX", "AITFQORCEHPVJMXGKSLNZWUY", "OTERVXFZUMHNIYSCQAWGPKJL", "VMSERIJYLZNWCPQTOKFUHAXG", "VNHOZWKQCEFYPSGLAMXJIUTR", "ANPHQIJMXCWOSKTYGULFVERZ", "RFYUXJEWCKQOMGATHZVILNSP", "SCPYUMQJTVEXKRNLIOWGHAFZ", "VIKTSJCEYQGLOMPZWAHFXURN", "SVJICLXKHQZTFWNPYRGMEUAO", "JRCTHYKIGSXPOZLUQAVNEWFM", "NGMSWJITREHFZVQCUKXYAPOL", "WUXJOQKGNSYLHEZAFIPMRCVT", "PKYQIOLXFCRGHZNAMJVUTWES", "FERSGNMJVZXWAYLIKCPUQHTO", "HPLRIUQMTSGYJVAXWNOCZEKF", "JUVWPTEGCOFYSKXNRMHQALIZ", "MWPIAZCNSLEYRTHFKQXUOVGJ", "EZXLUNFVCMORSIWKTYHJAQPG", "HRQNLTKJFIEGMCSXAZPYOVUW", "LOHXVYGWRIJMCPSQENUAKTZF", "XKUTWPRGHOAQFLVYMJSNEIZC", "WTCRQMVKPHOSLGAXZUEFYNJI"}).expect("VWFHSJARNPEMOXLTUKICZGYQ")
-				.run();
 	}
 }

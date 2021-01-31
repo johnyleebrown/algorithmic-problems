@@ -1,7 +1,6 @@
 package tree.count;
 
-import _commons.TreeNode;
-import util.tester.Tester;
+import commons.TreeNode;
 
 /**
  * 979
@@ -25,14 +24,6 @@ import util.tester.Tester;
  * Source: Leetcode
  */
 public class DistributeCoinsInBinaryTree {
-    public static void main(String[] args) {
-        new Tester(new Solution())
-                .add(new TreeNode("3,0,0")).expect(2)
-                .add(new TreeNode("0,3,0")).expect(3)
-                .add(new TreeNode("1,0,2")).expect(2)
-                .add(new TreeNode("1,0,0,null,3")).expect(4)
-                .run();
-    }
 
     /**
      * Traversal and count. Let's say at each node we are asking a question how

@@ -1,6 +1,6 @@
 package twoPointers.regular.other;
 
-import util.utils.reader.InputReader;
+import reader.InputReader;
 
 import java.io.PrintWriter;
 

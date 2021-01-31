@@ -1,7 +1,7 @@
 package tree.traverse.other;
 
 import org.junit.jupiter.api.Test;
-import _commons.TreeNode;
+import commons.TreeNode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

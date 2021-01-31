@@ -1,6 +1,6 @@
 package tree.compare;
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 /**
  * 951

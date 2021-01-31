@@ -1,4 +1,4 @@
-package bs;
+package bs.regular;
 
 /**
  * 374

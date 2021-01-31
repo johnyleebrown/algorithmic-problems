@@ -1,7 +1,5 @@
 package backtracking.other;
 
-import util.tester.Tester;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,9 +8,6 @@ import java.util.List;
  * 1087
  */
 public class BraceExpansion {
-	/**
-	 * SF.
-	 */
 	public static class S1 {
 		private static int ind;
 
@@ -115,15 +110,5 @@ public class BraceExpansion {
 				}
 			}
 		}
-
-		public S2() {
-		}
-	}
-
-	public static void main(String[] args) {
-		new Tester(new S1())
-		.add("{a,b}c{d,e}f").expect(new String[]{"acdf", "acef", "bcdf", "bcef"})
-		.add("{a,b,c}d{e,f}").expect(new String[]{"ade", "adf", "bde", "bdf", "cde", "cdf"})
-		.run();
 	}
 }

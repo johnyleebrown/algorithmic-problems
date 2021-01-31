@@ -1,7 +1,7 @@
 package graph.shortest_paths.bfs.tree;
 
 import org.junit.jupiter.api.Test;
-import _commons.TreeNode;
+import commons.TreeNode;
 
 import java.util.Arrays;
 import java.util.Iterator;

@@ -1,25 +1,21 @@
 package linkedList.other;
 
-import util.ds.ListNode;
+import commons.ListNode;
 
 /**
  * 234
  */
-public class PalindromeLinkedList
-{
-	class Solution
-	{
+public class PalindromeLinkedList {
+	class Solution {
 		private boolean ans = true;
 
-		public boolean isPalindrome(ListNode head)
-		{
+		public boolean isPalindrome(ListNode head) {
 			if (head == null) return true;
 			helper(head, head.next);
 			return ans;
 		}
 
-		private ListNode helper(ListNode slow, ListNode fast)
-		{
+		private ListNode helper(ListNode slow, ListNode fast) {
 			if (fast == null) return slow.next;
 			ListNode x = slow.next; // trick
 			if (fast.next != null) x = helper(slow.next, fast.next.next);

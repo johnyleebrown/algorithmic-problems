@@ -1,10 +1,8 @@
 package dp.subsequences.commonSubsequences.lcs;
 
-import util.tester.Tester;
-
 import java.util.Arrays;
 
-import static util.utils.StringUtils.getMaxLen3Strings;
+import static utils.StringUtils.getMaxLen3Strings;
 
 /**
  * 1092
@@ -26,12 +24,6 @@ import static util.utils.StringUtils.getMaxLen3Strings;
  * Source: Leetcode
  */
 public class ShortestCommonSupersequence {
-	public static void main(String[] args) {
-		new Tester(new Solution())
-				.add("abac", "cab").expect("cabac").orExpect(null)
-				.add("cbcbacaab", "ababaabbbb").expect("cabacbacaabbbb").orExpect("cabcabacaabbbb")
-				.run();
-	}
 
 	/**
 	 * Find a lcs and then fill the result with leftovers from both strings.

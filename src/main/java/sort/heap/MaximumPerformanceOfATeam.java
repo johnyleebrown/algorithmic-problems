@@ -1,7 +1,5 @@
 package sort.heap;
 
-import util.tester.Tester;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -69,14 +67,5 @@ public class MaximumPerformanceOfATeam {
 				this.efficiency = efficiency;
 			}
 		}
-
-		public Solution() {
-		}
-	}
-
-	public static void main(String[] args) {
-		new Tester(new Solution())
-				.add(6, new int[]{2, 10, 3, 1, 5, 8}, new int[]{5, 4, 3, 9, 7, 2}, 2).expect(60)
-				.run();
 	}
 }

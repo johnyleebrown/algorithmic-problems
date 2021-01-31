@@ -1,7 +1,5 @@
 package math.detectRecurrence;
 
-import util.tester.Tester;
-
 /**
  * 1359
  *
@@ -18,25 +16,20 @@ import util.tester.Tester;
  *
  * Source: Leetcode
  */
-public class CountAllValidPickupAndDeliveryOptions
-{
+public class CountAllValidPickupAndDeliveryOptions {
 	/**
 	 * Straightforward. Do some examples.
 	 */
-	private static class Solution
-	{
+	private static class Solution {
 		private final static long mod = (long) (1e9) + 7;
 
-		public int countOrders(int n)
-		{
+		public int countOrders(int n) {
 			long start = 1;
 			long sum = 1;
 			long prod = 1;
 
-			while (--n > 0)
-			{
-				for (int i = 0; i < 2; i++)
-				{
+			while (--n > 0) {
+				for (int i = 0; i < 2; i++) {
 					start++;
 					sum += start;
 				}
@@ -46,12 +39,5 @@ public class CountAllValidPickupAndDeliveryOptions
 
 			return (int) prod;
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add(18).expect(368349166)
-				.run();
 	}
 }

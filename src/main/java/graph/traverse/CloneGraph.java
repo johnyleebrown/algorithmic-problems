@@ -1,6 +1,6 @@
 package graph.traverse;
 
-import util.ds.Node;
+import commons.Node;
 
 import java.util.HashMap;
 import java.util.Map;

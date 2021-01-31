@@ -1,6 +1,6 @@
 package tree.traverse.other;
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 import java.util.HashMap;
 import java.util.Map;

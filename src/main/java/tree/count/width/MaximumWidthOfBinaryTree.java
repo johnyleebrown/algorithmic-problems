@@ -1,6 +1,6 @@
 package tree.count.width;
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

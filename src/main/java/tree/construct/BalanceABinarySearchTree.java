@@ -1,7 +1,6 @@
 package tree.construct;
 
-import _commons.TreeNode;
-import util.tester.Tester;
+import commons.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,24 +24,20 @@ import java.util.List;
  *
  * Source: Leetcode
  */
-public class BalanceABinarySearchTree
-{
+public class BalanceABinarySearchTree {
 	/**
 	 * SF.
 	 */
-	public static class Solution
-	{
+	public static class Solution {
 		private int ind;
 		private List<Integer> nodes = new ArrayList<>();
 
-		public TreeNode balanceBST(TreeNode root)
-		{
+		public TreeNode balanceBST(TreeNode root) {
 			collectNodesValues(root, nodes);
 			return buildTree(nodes.size());
 		}
 
-		private TreeNode buildTree(int count)
-		{
+		private TreeNode buildTree(int count) {
 			if (count <= 0)
 				return null;
 			int half = (count - 1) / 2;
@@ -54,24 +49,12 @@ public class BalanceABinarySearchTree
 			return cur;
 		}
 
-		private void collectNodesValues(TreeNode cur, List<Integer> l)
-		{
+		private void collectNodesValues(TreeNode cur, List<Integer> l) {
 			if (cur == null)
 				return;
 			collectNodesValues(cur.left, l);
 			l.add(cur.val);
 			collectNodesValues(cur.right, l);
 		}
-
-		public Solution()
-		{
-		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add(new TreeNode("1,null,2,null,3,null,4,null,null")).expect(new TreeNode("2,1,3,null,null,null,4"))
-				.run();
 	}
 }

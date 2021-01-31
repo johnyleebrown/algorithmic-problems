@@ -1,6 +1,6 @@
 package tree.lca;
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 /**
  * 236

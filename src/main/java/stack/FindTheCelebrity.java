@@ -1,7 +1,5 @@
 package stack;
 
-import util.annotations.PredefinedMethod;
-
 import java.util.Stack;
 
 /**
@@ -62,7 +60,6 @@ public class FindTheCelebrity {
             return c;
         }
 
-        @PredefinedMethod
         private boolean knows(int a, int b) {
             return false;
         }

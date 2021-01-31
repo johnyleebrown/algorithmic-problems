@@ -1,6 +1,6 @@
 package tree.traverse.postorder;
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 import java.util.LinkedList;
 import java.util.List;

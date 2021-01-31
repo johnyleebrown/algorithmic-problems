@@ -1,6 +1,6 @@
 package tree.traverse.other;
 
-import util.ds.Node;
+import commons.Node;
 
 /**
  * 116

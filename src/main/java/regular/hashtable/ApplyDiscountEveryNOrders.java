@@ -1,6 +1,6 @@
 package regular.hashtable;
 
-import util.tester.Tester;
+import tester.Tester;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,20 +26,17 @@ import java.util.Map;
  *
  * Source: Leetcode
  */
-public class ApplyDiscountEveryNOrders
-{
+public class ApplyDiscountEveryNOrders {
 	/**
 	 * Straightforward.
 	 */
-	private static class Cashier
-	{
+	private static class Cashier {
 		private int customerCount = 0;
 		private int n;
 		private int d;
 		private Map<Integer, Integer> m = new HashMap<>();
 
-		public Cashier(int n, int discount, int[] p, int[] pr)
-		{
+		public Cashier(int n, int discount, int[] p, int[] pr) {
 			this.n = n;
 			this.d = discount;
 
@@ -47,8 +44,7 @@ public class ApplyDiscountEveryNOrders
 				m.put(p[i], pr[i]);
 		}
 
-		public double getBill(int[] p, int[] a)
-		{
+		public double getBill(int[] p, int[] a) {
 			int s = 0;
 			for (int i = 0; i < p.length; i++)
 				s += m.get(p[i]) * a[i];
@@ -60,22 +56,8 @@ public class ApplyDiscountEveryNOrders
 			else return s;
 		}
 
-		private double getSumWithPriceCut(double x)
-		{
+		private double getSumWithPriceCut(double x) {
 			return x - (d * x) / 100;
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Cashier(3, 50, new int[]{1, 2, 3, 4, 5, 6, 7}, new int[]{101, 201, 301, 401, 301, 201, 101}))
-				.add(new int[]{1, 2}, new int[]{1, 2}).expect(503D)
-				.add(new int[]{3, 7}, new int[]{10, 10}).expect(4020D)
-				.add(new int[]{1, 2, 3, 4, 5, 6, 7}, new int[]{1, 1, 1, 1, 1, 1, 1}).expect(803.5)
-				.add(new int[]{4}, new int[]{10}).expect(4010D)
-				.add(new int[]{7, 3}, new int[]{10, 10}).expect(4020D)
-				.add(new int[]{7, 5, 3, 1, 6, 4, 2}, new int[]{10, 10, 10, 9, 9, 9, 7}).expect(7382D)
-				.add(new int[]{2, 3, 5}, new int[]{5, 3, 2}).expect(2510D)
-				.run();
 	}
 }

@@ -1,6 +1,6 @@
 package tree.construct;
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 /**
  * 654

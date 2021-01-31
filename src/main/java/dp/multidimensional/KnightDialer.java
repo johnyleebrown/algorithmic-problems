@@ -1,7 +1,5 @@
 package dp.multidimensional;
 
-import util.tester.Tester;
-
 /**
  * 935
  *
@@ -24,22 +22,19 @@ import util.tester.Tester;
  *
  * Source: Leetcode
  */
-public class KnightDialer
-{
+public class KnightDialer {
 	/**
 	 * Linear dp. If we have calculated an item before we use it. The trick is
 	 * to use a dp array for each kind of n.
 	 */
-	public static class Solution
-	{
+	public static class Solution {
 		int[][] dirs = new int[][]{{1, 2}, {2, 1}, {-1, 2}, {1, -2}, {-1, -2}, {2, -1}, {-2, 1}, {-2, -1}};
 		int[][][] dp;
 		int n = 4;
 		int m = 3;
 		int mod = (int) (1e9) + 7;
 
-		public int knightDialer(int target)
-		{
+		public int knightDialer(int target) {
 			// number of variants to get from i,j at some level of recursion
 			dp = new int[target + 1][n][m];
 			int res = 0;
@@ -49,8 +44,7 @@ public class KnightDialer
 			return res;
 		}
 
-		private int dfs(int i, int j, int target)
-		{
+		private int dfs(int i, int j, int target) {
 			if (i < 0 || j < 0 || i >= n || j >= m || (i == 3 && j == 0) || (i == 3 && j == 2))
 				return 0;
 			if (target == 1)
@@ -61,16 +55,5 @@ public class KnightDialer
 				dp[target][i][j] = (dp[target][i][j] + dfs(i + d[0], j + d[1], target - 1)) % mod;
 			return dp[target][i][j];
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		new Tester(new Solution())
-				.add(1).expect(10)
-				.add(2).expect(20)
-				.add(3).expect(46)
-				.add(17).expect(4942848)
-				.add(161).expect(533302150)
-				.run();
 	}
 }

@@ -1,7 +1,5 @@
 package backtracking.other;
 
-import util.tester.Tester;
-
 /**
  * 52
  */
@@ -43,12 +41,5 @@ public class NQueensII {
 				}
 			}
 		}
-	}
-
-	public static void main(String[] args) {
-		new Tester(new Solution())
-		.add(8).expect(92)
-		.add(14).expect(365596)
-		.run();
 	}
 }

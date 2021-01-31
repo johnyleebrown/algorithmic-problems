@@ -1,6 +1,6 @@
 package tree.modify;
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;

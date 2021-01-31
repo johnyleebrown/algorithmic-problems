@@ -1,7 +1,6 @@
 package design.iterator;
 
 import org.junit.jupiter.api.Test;
-import util.ds.Cell;
 
 import java.util.LinkedList;
 import java.util.List;

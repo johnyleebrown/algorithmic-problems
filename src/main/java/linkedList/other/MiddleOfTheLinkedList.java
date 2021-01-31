@@ -1,19 +1,15 @@
 package linkedList.other;
 
-import util.ds.ListNode;
+import commons.ListNode;
 
 /**
  * 876
  */
-public class MiddleOfTheLinkedList
-{
-	class Solution
-	{
-		public ListNode middleNode(ListNode head)
-		{
+public class MiddleOfTheLinkedList {
+	class Solution {
+		public ListNode middleNode(ListNode head) {
 			ListNode runner = head;
-			while (runner != null && runner.next != null)
-			{
+			while (runner != null && runner.next != null) {
 				head = head.next;
 				runner = runner.next.next;
 			}

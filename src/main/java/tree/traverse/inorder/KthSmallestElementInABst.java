@@ -1,6 +1,6 @@
 package tree.traverse.inorder;
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 import java.util.Stack;
 

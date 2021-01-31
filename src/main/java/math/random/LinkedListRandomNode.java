@@ -1,6 +1,6 @@
 package math.random;
 
-import util.ds.ListNode;
+import commons.ListNode;
 
 import java.util.Random;
 
@@ -17,31 +17,25 @@ import java.util.Random;
  * Follow up: What if the linked list is extremely large and its length is
  * unknown to you? Could you solve this efficiently without using extra space?
  */
-public class LinkedListRandomNode
-{
-	class Solution
-	{
+public class LinkedListRandomNode {
+	class Solution {
 		private ListNode head;
 		private Random r;
 
-		public Solution(ListNode head)
-		{
+		public Solution(ListNode head) {
 			this.head = head;
 			r = new Random();
 		}
 
-		public int getRandom()
-		{
+		public int getRandom() {
 			int result = 0;
 			int countNodes = 0;
 			ListNode cur = head;
 
-			while (cur != null)
-			{
+			while (cur != null) {
 				countNodes++;
 
-				if (r.nextInt(countNodes) == 0)
-				{
+				if (r.nextInt(countNodes) == 0) {
 					result = head.val;
 				}
 

@@ -1,6 +1,6 @@
 package sort.merge;
 
-import util.ds.ListNode;
+import commons.ListNode;
 
 /**
  * 21

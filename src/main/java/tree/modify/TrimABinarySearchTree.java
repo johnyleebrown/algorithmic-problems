@@ -1,6 +1,6 @@
 package tree.modify;
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 /**
  * 669

@@ -1,7 +1,7 @@
 package graph.shortest_paths.bfs.tree;
 
 
-import _commons.TreeNode;
+import commons.TreeNode;
 
 import java.util.LinkedList;
 import java.util.List;

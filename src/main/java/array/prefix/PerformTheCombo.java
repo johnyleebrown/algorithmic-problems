@@ -1,6 +1,6 @@
 package array.prefix;
 
-import util.utils.reader.InputReader;
+import reader.InputReader;
 
 import java.io.PrintWriter;
 import java.util.Arrays;

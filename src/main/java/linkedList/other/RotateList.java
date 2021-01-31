@@ -1,6 +1,6 @@
 package linkedList.other;
 
-import util.ds.ListNode;
+import commons.ListNode;
 
 /**
  * 61

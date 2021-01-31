@@ -1,6 +1,6 @@
 package math.detectRecurrence;
 
-import util.utils.reader.InputReader;
+import reader.InputReader;
 
 import java.io.PrintWriter;
 
@@ -24,15 +24,12 @@ import java.io.PrintWriter;
  *
  * Source: Codeforces
  */
-public class AddOddOrSubtractEven
-{
+public class AddOddOrSubtractEven {
 	/**
 	 * SF.
 	 */
-	private static class Solution
-	{
-		private static void s(InputReader in, PrintWriter out)
-		{
+	private static class Solution {
+		private static void s(InputReader in, PrintWriter out) {
 			int a = in.nextInt();
 			int b = in.nextInt();
 			if (a == b)

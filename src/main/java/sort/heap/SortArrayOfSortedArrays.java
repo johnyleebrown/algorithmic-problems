@@ -1,7 +1,5 @@
 package sort.heap;
 
-import util.tester.Tester;
-
 import java.util.PriorityQueue;
 
 /**
@@ -18,16 +16,10 @@ import java.util.PriorityQueue;
  * [19, 21, 23, 25, 27]]
  */
 public class SortArrayOfSortedArrays {
-    public static void main(String[] args) {
-        new Tester(new Solution2())
-                .add(new int[][]{{5, 12, 17, 21, 23}, {1, 2, 4, 6, 8}, {12, 14, 18, 19, 27}, {3, 7, 9, 15, 25}}).expect(new int[][]{{1, 2, 3, 4, 5}, {6, 7, 8, 9, 12}, {12, 14, 15, 17, 18}, {19, 21, 23, 25, 27}})
-                .run();
-    }
-
     /**
      * Use pq O(n*m) + O(n*m*log(n*m)) + O(n*m*log(n*m))
      */
-    private static class Solution1 {
+    public static class Solution1 {
         public int[][] sort(int[][] a) {
             PriorityQueue<Integer> pq = new PriorityQueue<>();
             for (int[] ints : a)
@@ -45,7 +37,7 @@ public class SortArrayOfSortedArrays {
      * element in the lowest row in the right position. Complexity: need to go
      * through m*n/2 cells apprx + sort and swaps will take n/2*m^2.
      */
-    private static class Solution2 {
+    public static class Solution2 {
         public int[][] sort(int[][] a) {
             int n = a.length;
             int m = a[0].length;

@@ -1,7 +1,5 @@
 package dp.linear.circular;
 
-import util.tester.Tester;
-
 import java.util.Arrays;
 
 /**
@@ -67,16 +65,5 @@ public class HouseRobberII {
 			dp[i] = Math.max(dfs(i - 1, dp, a), dfs(i - 2, dp, a) + a[i - 1]);
 			return dp[i];
 		}
-
-		public Solution() {
-		}
-	}
-
-	public static void main(String[] args) {
-		new Tester(new Solution())
-				.add(new int[]{2, 3, 2}).expect(3)
-				.add(new int[]{1, 2, 3, 1}).expect(4)
-				.add(new int[]{1, 23, 12, 13, 31, 7, 8, 5, 1, 3, 6, 9, 7, 4, 2, 21}).expect(99)
-				.run();
 	}
 }

@@ -1,12 +1,12 @@
 package dp.multi_solution;
 
 import org.junit.jupiter.api.Test;
-import util.utils.Generator;
-import util.utils.Timer;
+import utils.TimeUtils;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import static generators.ArrayGenerator.genIntArray2d;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MaxRussianDollBoxesTest {
@@ -33,7 +33,7 @@ class MaxRussianDollBoxesTest {
 
 	@Test
 	void stressTest() {
-		int[][] in = Generator.Two.intAr(10_000, 3, 1_000);
+		int[][] in = genIntArray2d(10_000, 3, 1_000);
 
 		List<MaxRussianDollBoxes.Solution> solutions = new LinkedList<>();
 		solutions.add(new MaxRussianDollBoxes.Solution1());
@@ -43,7 +43,7 @@ class MaxRussianDollBoxesTest {
 		List<Integer> answers = new LinkedList<>();
 		for (MaxRussianDollBoxes.Solution solution : solutions) {
 			System.out.println("[start] - test " + answers.size());
-			Timer t = new Timer().start();
+			TimeUtils.Timer t = new TimeUtils.Timer().start();
 			int ans = solution.solve(in);
 			t.end().printResult();
 			System.out.println("Ans: " + ans);

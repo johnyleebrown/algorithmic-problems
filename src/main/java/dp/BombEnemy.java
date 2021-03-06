@@ -29,9 +29,16 @@ package dp;
  */
 public class BombEnemy {
 	/**
-	 * BF.
+	 * DP
 	 */
-	public static class Solution {
+	public static class Solution3 {
+
+	}
+
+	/**
+	 * BF
+	 */
+	public static class Solution1 {
 		public int maxKilledEnemies(char[][] a) {
 			int n = a.length;
 			if (n == 0) return 0;
@@ -72,6 +79,56 @@ public class BombEnemy {
 					ans = Math.max(ans, e);
 				}
 			}
+			return ans == Integer.MIN_VALUE ? 0 : ans;
+		}
+	}
+
+	/**
+	 * Pre - accum sum, l to r, u to b and r to l, b to u
+	 */
+	public static class Solution2 {
+		public int maxKilledEnemies(char[][] a) {
+			int n = a.length;
+			if (n == 0) return 0;
+			int m = a[0].length;
+			if (m == 0) return 0;
+
+			int[][] preIR = new int[n][m], preJR = new int[n][m];
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < m; j++) {
+					if (a[i][j] != 'W') {
+						int cur = a[i][j] == 'E' ? 1 : 0;
+						preJR[i][j] = j > 0 ? preJR[i][j - 1] + cur : cur;
+						preIR[i][j] = i > 0 ? preIR[i - 1][j] + cur : cur;
+					}
+				}
+			}
+
+			int[][] preIL = new int[n][m], preJL = new int[n][m];
+			for (int i = n - 1; i >= 0; i--) {
+				for (int j = m - 1; j >= 0; j--) {
+					if (a[i][j] != 'W') {
+						int cur = a[i][j] == 'E' ? 1 : 0;
+						preIL[i][j] = i < n - 1 ? preIL[i + 1][j] + cur : cur;
+						preJL[i][j] = j < m - 1 ? preJL[i][j + 1] + cur : cur;
+					}
+				}
+			}
+
+			int ans = Integer.MIN_VALUE;
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < m; j++) {
+					if (a[i][j] == '0') {
+						int left = j > 0 ? preJR[i][j - 1] : 0;
+						int up = i > 0 ? preIR[i - 1][j] : 0;
+						int right = j + 1 < m ? preJL[i][j + 1] : 0;
+						int down = i + 1 < n ? preIL[i + 1][j] : 0;
+						int local = left + right + up + down;
+						ans = Math.max(ans, local);
+					}
+				}
+			}
+
 			return ans == Integer.MIN_VALUE ? 0 : ans;
 		}
 	}

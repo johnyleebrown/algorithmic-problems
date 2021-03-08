@@ -1,4 +1,4 @@
-package dp;
+package dp.other;
 
 /**
  * 361. Bomb Enemy
@@ -163,7 +163,9 @@ public class BombEnemy {
     }
   }
 
-  /** More pre. */
+  /**
+   * More pre. Use rowcount and columnsCount variables.
+   */
   public static class Solution4 {
     public int maxKilledEnemies(char[][] a) {
       int n = a.length;

@@ -120,7 +120,7 @@ public class BombEnemy {
     }
   }
 
-  /** prev optimized */
+  /** Pre. Prev optimized. */
   public static class Solution3 {
     public int maxKilledEnemies(char[][] a) {
       int n = a.length;
@@ -163,6 +163,7 @@ public class BombEnemy {
     }
   }
 
+  /** More pre. */
   public static class Solution4 {
     public int maxKilledEnemies(char[][] a) {
       int n = a.length;
@@ -225,8 +226,8 @@ public class BombEnemy {
   }
 
   /**
-   * 2 pointer - one from left to right and from up to bottom and second from bottom right corner.
-   * If they cross we start counting answer.
+   * Pre. 2 pointer - one from left to right and from up to bottom and second from bottom right
+   * corner. If they cross we start counting answer.
    */
   public static class Solution5 {
     public int maxKilledEnemies(char[][] a) {
@@ -282,6 +283,58 @@ public class BombEnemy {
         ans = Math.max(ans, ret[i][j]);
       }
       return ans;
+    }
+  }
+
+  /**
+   * Smart count.
+   */
+  public static class Solution6 {
+    public int maxKilledEnemies(char[][] a) {
+      int n = a.length;
+      if (n == 0) return 0;
+      int m = a[0].length;
+      if (m == 0) return 0;
+
+      int ans = Integer.MIN_VALUE;
+      int rowCount = 0;
+      int[] columnCount = new int[m];
+
+      for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+
+          // calculate row count
+          if (j == 0 || a[i][j - 1] == 'W') {
+            int k = j;
+            rowCount = 0;
+            while (k < m && a[i][k] != 'W') {
+              if (a[i][k] == 'E') {
+                rowCount++;
+              }
+              k++;
+            }
+          }
+
+          // calculate column count
+          if (i == 0 || a[i - 1][j] == 'W') {
+            int k = i;
+            columnCount[j] = 0;
+            while (k < n && a[k][j] != 'W') {
+              if (a[k][j] == 'E') {
+                columnCount[j]++;
+              }
+              k++;
+            }
+          }
+
+          // update the answer
+          if (a[i][j] == '0') {
+            ans = Math.max(ans, rowCount + columnCount[j]);
+          }
+        }
+      }
+
+      return ans == Integer.MIN_VALUE ? 0 : ans;
     }
   }
 }

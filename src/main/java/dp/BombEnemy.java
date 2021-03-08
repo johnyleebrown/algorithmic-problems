@@ -25,12 +25,6 @@ package dp;
  */
 public class BombEnemy {
   /**
-   * DP
-   */
-  public static class SolutionN {
-  }
-
-  /**
    * BF
    */
   public static class Solution1 {
@@ -227,6 +221,67 @@ public class BombEnemy {
       }
 
       return ans == Integer.MIN_VALUE ? 0 : ans;
+    }
+  }
+
+  /**
+   * 2 pointer - one from left to right and from up to bottom and second from bottom right corner.
+   * If they cross we start counting answer.
+   */
+  public static class Solution5 {
+    public int maxKilledEnemies(char[][] a) {
+      int n = a.length;
+      if (n == 0) return 0;
+      int m = a[0].length;
+      if (m == 0) return 0;
+
+      int[][] ret = new int[n][m];
+      int rowCount1 = 0, rowCount2 = 0;
+      int[] columnsCount1 = new int[m], columnsCount2 = new int[m];
+      int meetI = n / 2, meetJ = n % 2 == 0 ? 0 : m / 2;
+      boolean crossedPaths = false;
+      int ans = Integer.MIN_VALUE;
+
+      for (int i1 = 0, i2 = n - 1; i1 < n; i1++, i2--) {
+        for (int j1 = 0, j2 = m - 1; j1 < m; j1++, j2--) {
+          rowCount1 = updateVars(a, i1, j1, rowCount1, columnsCount1, 0, n, m);
+          rowCount2 = updateVars(a, i2, j2, rowCount2, columnsCount2, -1, n - 1, m - 1);
+
+          if (!crossedPaths && i1 == meetI && j1 == meetJ) {
+            crossedPaths = true;
+          }
+
+          ans = updateAns(a, i1, j1, ans, rowCount1, columnsCount1, crossedPaths, ret);
+          ans = updateAns(a, i2, j2, ans, rowCount2, columnsCount2, crossedPaths, ret);
+        }
+      }
+
+      return ans == Integer.MIN_VALUE ? 0 : ans;
+    }
+
+    private int updateVars(
+    char[][] a, int i, int j, int rowCount, int[] columnsCount, int lo, int hiI, int hiJ) {
+      int e = a[i][j] == 'E' ? 1 : 0;
+      if (a[i][j] != 'W') {
+        columnsCount[j] = i > lo && i < hiI ? columnsCount[j] + e : e;
+        rowCount = j > lo && j < hiJ ? rowCount + e : e;
+      } else {
+        columnsCount[j] = 0;
+        rowCount = 0;
+      }
+      return rowCount;
+    }
+
+    private int updateAns(
+    char[][] a, int i, int j, int ans, int rc, int[] cc, boolean cp, int[][] ret) {
+      if (a[i][j] != '0') {
+        return ans;
+      }
+      ret[i][j] += rc + cc[j];
+      if (cp) {
+        ans = Math.max(ans, ret[i][j]);
+      }
+      return ans;
     }
   }
 }

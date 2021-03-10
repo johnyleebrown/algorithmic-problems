@@ -1,0 +1,43 @@
+name: main
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: Run Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Java
+        if: steps.diffset.outputs.java_files
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Java Codestyle
+        if: steps.diffset.outputs.java_files
+        run: |
+          echo "installing google-java-format..."
+          curl -sL -o google-java-format.jar \
+            https://github.com/google/google-java-format/releases/download/google-java-format-1.9/google-java-format-1.9-all-deps.jar
+          echo "checking java files"
+          java -jar ./google-java-format.jar --dry-run --set-exit-if-changed ${{ steps.diffset.outputs.java_files }}
+
+  run_tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Java
+        if: steps.diffset.outputs.java_files
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Tests
+        run: mvn test

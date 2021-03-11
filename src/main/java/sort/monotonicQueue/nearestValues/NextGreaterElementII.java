@@ -1,65 +1,75 @@
 package sort.monotonicQueue.nearestValues;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 
 /**
  * 503
  *
- * ======
+ * <p>======
  *
- * Task.
+ * <p>Task.
  *
- * Given a circular array (the next element of the last element is the first
- * element of the array), print the Next Greater Number for every element. The
- * Next Greater Number of a number x is the first greater number to its
- * traversing-order next in the array, which means you could search circularly
- * to find its next greater number. If it doesn't exist, output -1 for this
- * number.
+ * <p>Given a circular array (the next element of the last element is the first element of the
+ * array), print the Next Greater Number for every element. The Next Greater Number of a number x is
+ * the first greater number to its traversing-order next in the array, which means you could search
+ * circularly to find its next greater number. If it doesn't exist, output -1 for this number.
  *
- * ======
+ * <p>======
  *
- * Source: Leetcode
+ * <p>Source: Leetcode
  */
 public class NextGreaterElementII {
-	/**
-	 * Circularly using Decreasing MQ to input all elements twice. So if we
-	 * didn't get any results after first iteration, do it again.
-	 */
-	class Solution {
-		public int[] nextGreaterElements(int[] nums) {
-			int n = nums.length;
-			int[] result = new int[n];
-			DecreasingMQ q = new DecreasingMQ();
+  /**
+   * Circularly using Decreasing MQ to input all elements twice. So if we didn't get any results
+   * after first iteration, do it again.
+   */
+  public static class Solution {
+    public int[] nextGreaterElements(int[] ar) {
+      MQImpl mq = new MQImpl(ar.length);
+      for (int i = 0; i < ar.length; i++) {
+        mq.push(new Pair(ar[i], i));
+      }
+      for (int i = 0; i < ar.length; i++) {
+        mq.push(new Pair(ar[i], i));
+      }
+      return mq.ans;
+    }
 
-			int times = 2;
-			while (--times >= 0) {
-				for (int i = n - 1; i >= 0; i--) {
-					result[i] = q.push(nums[i]);
-				}
-			}
+    interface MQ {
+      void push(Pair e);
+    }
 
-			return result;
-		}
+    private class MQImpl implements MQ {
 
-		private class DecreasingMQ {
-			private Deque<Integer> q = new ArrayDeque<>();
+      Deque<Pair> q = new ArrayDeque<>();
+      int[] ans;
 
-			public int push(int val) {
-				while (!q.isEmpty() && val >= q.peekLast()) {
-					q.removeLast();
-				}
+      MQImpl(int n) {
+        ans = new int[n];
+        Arrays.fill(ans, -1);
+      }
 
-				int nearestMax = -1;
+      public void push(Pair e) {
+        // rem
+        while (!q.isEmpty() && q.peekLast().val < e.val) {
+          Pair p = q.peekLast();
+          ans[p.ind] = e.val;
+          q.removeLast();
+        }
+        // add
+        q.addLast(e);
+      }
+    }
 
-				if (!q.isEmpty()) {
-					nearestMax = q.peekLast();
-				}
+    private class Pair {
+      int val, ind;
 
-				q.addLast(val);
-
-				return nearestMax;
-			}
-		}
-	}
+      Pair(int v, int i) {
+        val = v;
+        ind = i;
+      }
+    }
+  }
 }

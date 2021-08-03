@@ -31,7 +31,7 @@ package twoPointers.slidingWindow.max;
  * https://leetcode.com/problems/max-consecutive-ones-ii/
  */
 public class MaxConsecutiveOnesII {
-	static class Solution {
+	public static class Solution1 {
 		public int findMaxConsecutiveOnes(int[] nums) {
 			int l = 0;
 			int zeros = 0;
@@ -53,6 +53,22 @@ public class MaxConsecutiveOnesII {
 			}
 
 			return max;
+		}
+	}
+
+	public static class Solution2 {
+		public int findMaxConsecutiveOnes(int[] nums) {
+			int prevPrev = -1;
+			int prev = -1;
+			int ans = 0;
+			for (int i = 0; i <= nums.length; i++) {
+				if (i == nums.length || nums[i] == 0) {
+					ans = Math.max(ans, i - prevPrev - 1);
+					prevPrev = prev;
+					prev = i;
+				}
+			}
+			return ans;
 		}
 	}
 }

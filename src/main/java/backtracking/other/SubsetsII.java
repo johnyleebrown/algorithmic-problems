@@ -3,57 +3,49 @@ package backtracking.other;
 import java.util.*;
 
 /**
- * 90
+ * 90. Subsets II
+ *
+ * Given an integer array nums that may contain duplicates, return all possible subsets (the power
+ * set).
+ *
+ * The solution set must not contain duplicate subsets. Return the solution in any order.
+ *
+ * Example 1:
+ *
+ * Input: nums = [1,2,2]
+ * Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+ * Example 2:
+ *
+ * Input: nums = [0]
+ * Output: [[],[0]]
+ *
+ *
+ * Constraints:
+ *
+ * 1 <= nums.length <= 10
+ * -10 <= nums[i] <= 10
+ *
+ * https://leetcode.com/problems/subsets-ii/
  */
 public class SubsetsII {
-	class Solution1 {
-		private List<List<Integer>> combinations = new LinkedList<>();
-
-		public List<List<Integer>> subsetsWithDup(int[] nums) {
-			if (nums == null || nums.length == 0) return new LinkedList<>();
-			Arrays.sort(nums);
-			Set<String> seen = new HashSet<>();
-			generate("", seen, 0, new LinkedList<>(), nums);
-			return combinations;
-		}
-
-		private void generate(String cur, Set<String> seen,
-		                      int start, List<Integer> combination, int[] nums) {
-			if (!seen.add(cur)) return;
-			combinations.add(new LinkedList<>(combination));
-			for (int i = start; i < nums.length; i++) {
-				combination.add(nums[i]);
-				generate(cur + "-" + nums[i], seen, i + 1, combination, nums);
-				combination.remove(combination.size() - 1);
-			}
-		}
-	}
-
 	/**
 	 * Sol with checking for dups in array
 	 */
-	class Solution {
-
-		private List<List<Integer>> combinations = new LinkedList<>();
-
+	public static class Solution {
 		public List<List<Integer>> subsetsWithDup(int[] nums) {
-			if (nums == null || nums.length == 0) return new LinkedList<>();
-			// sorting to find dups easier later
+			List<List<Integer>> ans = new ArrayList<>();
 			Arrays.sort(nums);
-			generate(0, new LinkedList<>(), nums);
-			return combinations;
+			gen(nums, ans, new ArrayList<>(), 0);
+			return ans;
 		}
 
-		private void generate(int start, List<Integer> combination, int[] nums) {
-			combinations.add(new LinkedList<>(combination));
-			for (int i = start; i < nums.length; i++) {
-				// so we don't start again with the same number
-				// we are alright to be getting this number in the combinations
-				// but don't want dups
-				if (i != start && nums[i] == nums[i - 1]) continue;
-				combination.add(nums[i]);
-				generate(i + 1, combination, nums);
-				combination.remove(combination.size() - 1);
+		void gen(int[] nums, List<List<Integer>> res, List<Integer> cur, int i) {
+			res.add(new ArrayList<>(cur));
+			for (int j = i; j < nums.length; j++) {
+				if (j != i && nums[j] == nums[j - 1]) continue;
+				cur.add(nums[j]);
+				gen(nums, res, cur, j + 1);
+				cur.remove(cur.size() - 1);
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-package stack;
+package stack.parentheses;
 
 import java.util.Stack;
 
@@ -9,6 +9,7 @@ import java.util.Stack;
 public class MinimumNumberOfSwapsToMakeTheStringBalanced {
 	/**
 	 * When we encounter disbalance ']' - swap with bracket '[' closest to the end.
+	 * Seems like the most optimal way to find balance.
 	 */
 	public static class Solution1 {
 		public int minSwaps(String s) {

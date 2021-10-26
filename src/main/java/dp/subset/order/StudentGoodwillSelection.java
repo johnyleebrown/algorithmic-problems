@@ -1,5 +1,6 @@
 package dp.subset.order;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,12 +26,16 @@ import java.util.Set;
  * <p>https://leetcode.com/discuss/interview-question/1531799/Amazon-SDE-coding-assessment
  */
 public class StudentGoodwillSelection {
+  interface Solution {
+    public int solve(int n, int[] goodwill, int[] heights, int k);
+  }
+
   /**
    * BF Backtracking
    *
    * <p>must be unique students (indexes) - set of sets - set of hashes
    */
-  public static class Solution1 {
+  public static class Solution1 implements Solution {
     public int solve(int n, int[] goodwill, int[] heights, int k) {
       Set<String> set = new HashSet<>();
       for (int i = 0; i < n; i++) {
@@ -59,6 +64,84 @@ public class StudentGoodwillSelection {
         dfs(sum, j, goodwill, heights, k, set, sb);
       }
       sb.delete(sb.length() - curIndexString.length(), sb.length());
+    }
+  }
+
+  public static class Solution2 implements Solution {
+    public int solve(int n, int[] goodwill, int[] heights, int k) {
+      Set<String> set = new HashSet<>();
+      for (int i = 0; i < n; i++) {
+        dfs(0, i, goodwill, heights, k, set, new StringBuilder());
+      }
+      return set.size();
+    }
+
+    public int dfs(
+        int sum, int i, int[] goodwill, int[] heights, int k, Set<String> set, StringBuilder sb) {
+      sum += goodwill[i];
+      // record current subset
+      String curIndexString = "," + i;
+      sb.append(curIndexString);
+      // record result
+      int res = 0;
+      if (sum > k) {
+        if (set.add(sb.toString())) {
+          res++;
+        }
+      }
+      // make the next choice
+      for (int j = i + 1; j < goodwill.length; j++) {
+        if (heights[j] <= heights[i]) {
+          continue;
+        }
+        int x = dfs(sum, j, goodwill, heights, k, set, sb);
+        res += x;
+      }
+      sb.delete(sb.length() - curIndexString.length(), sb.length());
+      return res;
+    }
+  }
+
+  public static class Solution3 implements Solution {
+    public int solve(int n, int[] goodwill, int[] heights, int k) {
+      int sum = 0;
+      for (int i = 0; i < n; i++) {
+        sum += goodwill[i];
+      }
+      int[][] dp = new int[sum + 1][n];
+      for (int i = 0; i < dp.length; i++) {
+        for (int j = 0; j < dp[0].length; j++) {
+          dp[i][j] = -1;
+        }
+      }
+      int res = 0;
+      for (int i = 0; i < n; i++) {
+        res += dfs(goodwill[i], i, goodwill, heights, k, dp);
+      }
+      System.out.println("dp arr:");
+      for (int i = 0; i < dp.length; i++) {
+        System.out.println(Arrays.toString(dp[i]));
+      }
+      return res;
+    }
+
+    public int dfs(int sum, int i, int[] goodwill, int[] heights, int k, int[][] dp) {
+      if (dp[sum][i] != -1) {
+        return dp[sum][i];
+      }
+      // record result
+      dp[sum][i] = 0;
+      if (sum > k) {
+        dp[sum][i]++;
+      }
+      // make the next choice
+      for (int j = i + 1; j < goodwill.length; j++) {
+        if (heights[j] <= heights[i]) {
+          continue;
+        }
+        dp[sum][i] += dfs(sum + goodwill[j], j, goodwill, heights, k, dp);
+      }
+      return dp[sum][i];
     }
   }
 }

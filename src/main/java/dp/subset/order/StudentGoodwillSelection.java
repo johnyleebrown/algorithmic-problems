@@ -102,35 +102,25 @@ public class StudentGoodwillSelection {
     }
   }
 
+  /** Top-Down */
   public static class Solution3 implements Solution {
     public int solve(int n, int[] goodwill, int[] heights, int k) {
       int sum = 0;
       for (int i = 0; i < n; i++) {
         sum += goodwill[i];
       }
-      int[][] dp = new int[sum + 1][n];
-      for (int i = 0; i < dp.length; i++) {
-        for (int j = 0; j < dp[0].length; j++) {
-          dp[i][j] = -1;
-        }
-      }
       int res = 0;
       for (int i = 0; i < n; i++) {
-        res += dfs(goodwill[i], i, goodwill, heights, k, dp);
-      }
-      System.out.println("dp arr:");
-      for (int i = 0; i < dp.length; i++) {
-        System.out.println(Arrays.toString(dp[i]));
+        res += dfs(goodwill[i], i, goodwill, heights, k, new int[sum + 1][n]);
       }
       return res;
     }
 
     public int dfs(int sum, int i, int[] goodwill, int[] heights, int k, int[][] dp) {
-      if (dp[sum][i] != -1) {
+      if (dp[sum][i] != 0) {
         return dp[sum][i];
       }
       // record result
-      dp[sum][i] = 0;
       if (sum > k) {
         dp[sum][i]++;
       }
@@ -142,6 +132,32 @@ public class StudentGoodwillSelection {
         dp[sum][i] += dfs(sum + goodwill[j], j, goodwill, heights, k, dp);
       }
       return dp[sum][i];
+    }
+  }
+
+  /** Bottom-Up */
+  public static class Solution4 implements Solution {
+    public int solve(int n, int[] goodwill, int[] heights, int k) {
+      int[] dp = new int[n + 1];
+      for (int i = 0; i < n; i++) {
+        if (goodwill[i] > k) {
+          dp[i]++;
+        }
+        int prevChosen = i; // not needed?
+        for (int j = i - 1; j >= 0; j--) {
+          if (heights[j] >= heights[i]) {
+            continue;
+          }
+          // if good
+          // prev = cur
+          // dp[i] += dp[j]
+        }
+      }
+      int res = 0;
+      for (int i = 0; i < n; i++) {
+        res += dp[i];
+      }
+      return res;
     }
   }
 }

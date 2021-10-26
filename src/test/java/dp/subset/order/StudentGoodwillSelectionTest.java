@@ -16,6 +16,18 @@ class StudentGoodwillSelectionTest {
   StudentGoodwillSelection.Solution2 solution2;
   StudentGoodwillSelection.Solution3 solution3;
   List<Solution> solutionList;
+  int[] bigAr1 =
+      new int[] {
+        91, 146, 860, 421, 974, 339, 860, 686, 40, 637, 189, 589, 320, 424, 827, 954, 437, 500, 895,
+        57, 336, 755, 255, 813, 862, 727, 589, 231, 665, 267, 466, 572, 658, 686, 623, 460, 517,
+        233, 736, 159, 328, 122, 126, 602, 457, 33, 591, 951, 996
+      };
+  int[] bigAr2 =
+      new int[] {
+        450, 800, 83, 711, 488, 891, 705, 848, 90, 13, 813, 244, 109, 879, 682, 255, 567, 334, 306,
+        525, 718, 412, 847, 279, 617, 973, 305, 20, 697, 788, 546, 759, 515, 3, 954, 486, 605, 698,
+        895, 19, 506, 206, 396, 979, 636, 187, 573, 435, 525
+      };
 
   @BeforeEach
   void start() {
@@ -23,6 +35,24 @@ class StudentGoodwillSelectionTest {
     solution2 = new StudentGoodwillSelection.Solution2();
     solution3 = new StudentGoodwillSelection.Solution3();
     solutionList = Arrays.asList(solution1, solution2, solution3);
+  }
+
+  @Test
+  void speedTest1() {
+    int result = solution1.solve(49, bigAr1, bigAr2, 7000);
+    assertEquals(19, result);
+  }
+
+  @Test
+  void speedTest2() {
+    int result = solution2.solve(49, bigAr1, bigAr2, 7000);
+    assertEquals(19, result);
+  }
+
+  @Test
+  void speedTest3() {
+    int result = solution3.solve(49, bigAr1, bigAr2, 7000);
+    assertEquals(19, result);
   }
 
   @Test

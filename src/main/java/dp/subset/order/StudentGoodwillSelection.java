@@ -52,9 +52,8 @@ public class StudentGoodwillSelection {
       sb.append(curIndexString);
       // record result
       if (sum > k) {
-        if (!set.add(sb.toString())) {
-          System.out.println(sb.toString());
-        }
+        set.add(sb.toString());
+        System.out.println(sb);
       }
       // make the next choice
       for (int j = i + 1; j < goodwill.length; j++) {
@@ -143,18 +142,18 @@ public class StudentGoodwillSelection {
         if (goodwill[i] > k) {
           dp[i]++;
         }
-        int prevChosen = i; // not needed?
         for (int j = i - 1; j >= 0; j--) {
           if (heights[j] >= heights[i]) {
             continue;
           }
-          // if good
-          // prev = cur
-          // dp[i] += dp[j]
+          if (goodwill[i] + goodwill[j] > k) {
+            dp[i] += dp[j];
+          }
         }
       }
+      System.out.println(Arrays.toString(dp));
       int res = 0;
-      for (int i = 0; i < n; i++) {
+      for (int i = 0; i < dp.length; i++) {
         res += dp[i];
       }
       return res;

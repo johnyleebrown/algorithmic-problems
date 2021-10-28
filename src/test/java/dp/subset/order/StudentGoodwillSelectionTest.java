@@ -1,11 +1,11 @@
 package dp.subset.order;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import dp.subset.order.StudentGoodwillSelection.Solution;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +15,7 @@ class StudentGoodwillSelectionTest {
   StudentGoodwillSelection.Solution1 solution1;
   StudentGoodwillSelection.Solution2 solution2;
   StudentGoodwillSelection.Solution3 solution3;
+  StudentGoodwillSelection.Solution4 solution4;
   List<Solution> solutionList;
   int[] bigAr1 =
       new int[] {
@@ -34,25 +35,36 @@ class StudentGoodwillSelectionTest {
     solution1 = new StudentGoodwillSelection.Solution1();
     solution2 = new StudentGoodwillSelection.Solution2();
     solution3 = new StudentGoodwillSelection.Solution3();
-    solutionList = Arrays.asList(solution1, solution2, solution3);
+    solution4 = new StudentGoodwillSelection.Solution4();
+    solutionList =
+        Arrays.asList(
+            solution1, solution2, solution3
+            //        , solution4
+            );
   }
 
   @Test
-  void speedTest1() {
-    int result = solution1.solve(49, bigAr1, bigAr2, 7000);
-    assertEquals(19, result);
-  }
+  void loadTest() {
+    List<Double> times = new ArrayList<>();
+    for (StudentGoodwillSelection.Solution s : solutionList) {
+      double start = (double) System.nanoTime();
+      int result = s.solve(49, bigAr1, bigAr2, 7000);
+      double elapsedTime = ((double) System.nanoTime()) - start;
 
-  @Test
-  void speedTest2() {
-    int result = solution2.solve(49, bigAr1, bigAr2, 7000);
-    assertEquals(19, result);
-  }
-
-  @Test
-  void speedTest3() {
-    int result = solution3.solve(49, bigAr1, bigAr2, 7000);
-    assertEquals(19, result);
+      System.out.printf("solution [%s]\n", s.getClass().getSimpleName());
+      if (!times.isEmpty()) {
+        for (int i = 0; i < times.size(); i++) {
+          double compareWithTime = times.get(i);
+          double x = ((compareWithTime / elapsedTime) * 100);
+          DecimalFormat formatter = new DecimalFormat("#0");
+          System.out.println(String.format("Faster than [%s] by [%s%%]", i, formatter.format(x)));
+        }
+      } else {
+        System.out.println("--nothing to compare with--");
+      }
+      times.add(elapsedTime);
+      assertEquals(19, result);
+    }
   }
 
   @Test
@@ -109,257 +121,5 @@ class StudentGoodwillSelectionTest {
       int result = s.solve(1, new int[] {1}, new int[] {1}, 2);
       assertEquals(0, result);
     }
-  }
-
-  @Test
-  void testSolution1Dfs() {
-    StudentGoodwillSelection.Solution1 solution1 = new StudentGoodwillSelection.Solution1();
-    HashSet<String> stringSet = new HashSet<String>();
-    solution1.dfs(
-        1,
-        1,
-        new int[] {1, 1, 1, 1},
-        new int[] {1, 1, 1, 1},
-        1,
-        stringSet,
-        new StringBuilder("foo"));
-    assertEquals(1, stringSet.size());
-  }
-
-  @Test
-  void testSolution1Dfs2() {
-    // TODO: This test is incomplete.
-    //   Reason: R004 No meaningful assertions found.
-    //   Diffblue Cover was unable to create an assertion.
-    //   Make sure that fields modified by dfs(int, int, int[], int[], int, Set, StringBuilder)
-    //   have package-private, protected, or public getters.
-    //   See https://diff.blue/R004 to resolve this issue.
-
-    StudentGoodwillSelection.Solution1 solution1 = new StudentGoodwillSelection.Solution1();
-    HashSet<String> set = new HashSet<String>();
-    solution1.dfs(
-        0, 1, new int[] {1, 1, 1, 1}, new int[] {1, 1, 1, 1}, 1, set, new StringBuilder("foo"));
-  }
-
-  @Test
-  void testSolution1Dfs3() {
-    StudentGoodwillSelection.Solution1 solution1 = new StudentGoodwillSelection.Solution1();
-    HashSet<String> set = new HashSet<String>();
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            solution1.dfs(
-                1,
-                4,
-                new int[] {1, 1, 1, 1},
-                new int[] {1, 1, 1, 1},
-                1,
-                set,
-                new StringBuilder("foo")));
-  }
-
-  @Test
-  void testSolution1Dfs4() {
-    StudentGoodwillSelection.Solution1 solution1 = new StudentGoodwillSelection.Solution1();
-    HashSet<String> set = new HashSet<String>();
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            solution1.dfs(
-                1,
-                1,
-                new int[] {0, 0, 0, 0, 0, 0, 0, 0},
-                new int[] {1, 1, 1, 1},
-                1,
-                set,
-                new StringBuilder("foo")));
-  }
-
-  @Test
-  void testSolution1Dfs5() {
-    StudentGoodwillSelection.Solution1 solution1 = new StudentGoodwillSelection.Solution1();
-    HashSet<String> stringSet = new HashSet<String>();
-    solution1.dfs(
-        1,
-        1,
-        new int[] {1, 1, 1, 1},
-        new int[] {1, 0, 1, 1},
-        1,
-        stringSet,
-        new StringBuilder("foo"));
-    assertEquals(3, stringSet.size());
-  }
-
-  @Test
-  void testSolution1Solve() {
-    assertEquals(
-        0,
-        (new StudentGoodwillSelection.Solution1())
-            .solve(1, new int[] {1, 1, 1, 1}, new int[] {1, 1, 1, 1}, 1));
-    assertEquals(
-        1,
-        (new StudentGoodwillSelection.Solution1())
-            .solve(1, new int[] {4, 1, 1, 1}, new int[] {1, 1, 1, 1}, 1));
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            (new StudentGoodwillSelection.Solution1())
-                .solve(1, new int[] {}, new int[] {1, 1, 1, 1}, 1));
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            (new StudentGoodwillSelection.Solution1())
-                .solve(1, new int[] {0, 0, 0, 0, 0, 0, 0, 0}, new int[] {1, 1, 1, 1}, 1));
-    assertEquals(
-        3,
-        (new StudentGoodwillSelection.Solution1())
-            .solve(1, new int[] {1, 1, 1, 1}, new int[] {0, 1, 1, 1}, 1));
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            (new StudentGoodwillSelection.Solution1())
-                .solve(1, new int[] {0, 0, 0, 0, 0, 0, 0, 0}, new int[] {0, 1, 1, 1}, 1));
-    assertEquals(
-        0,
-        (new StudentGoodwillSelection.Solution1())
-            .solve(1, new int[] {1, 1, 1, 1}, new int[] {1, 1, 1, 1}, 1));
-    assertEquals(
-        1,
-        (new StudentGoodwillSelection.Solution1())
-            .solve(1, new int[] {4, 1, 1, 1}, new int[] {1, 1, 1, 1}, 1));
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            (new StudentGoodwillSelection.Solution1())
-                .solve(1, new int[] {}, new int[] {1, 1, 1, 1}, 1));
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            (new StudentGoodwillSelection.Solution1())
-                .solve(1, new int[] {0, 0, 0, 0, 0, 0, 0, 0}, new int[] {1, 1, 1, 1}, 1));
-    assertEquals(
-        3,
-        (new StudentGoodwillSelection.Solution1())
-            .solve(1, new int[] {1, 1, 1, 1}, new int[] {0, 1, 1, 1}, 1));
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            (new StudentGoodwillSelection.Solution1())
-                .solve(1, new int[] {0, 0, 0, 0, 0, 0, 0, 0}, new int[] {0, 1, 1, 1}, 1));
-  }
-
-  @Test
-  void testSolution2Dfs() {
-    StudentGoodwillSelection.Solution2 solution2 = new StudentGoodwillSelection.Solution2();
-    HashSet<String> stringSet = new HashSet<String>();
-    assertEquals(
-        1,
-        solution2.dfs(
-            1,
-            1,
-            new int[] {1, 1, 1, 1},
-            new int[] {1, 1, 1, 1},
-            1,
-            stringSet,
-            new StringBuilder("foo")));
-    assertEquals(1, stringSet.size());
-  }
-
-  @Test
-  void testSolution2Dfs2() {
-    StudentGoodwillSelection.Solution2 solution2 = new StudentGoodwillSelection.Solution2();
-    HashSet<String> set = new HashSet<String>();
-    assertEquals(
-        0,
-        solution2.dfs(
-            0,
-            1,
-            new int[] {1, 1, 1, 1},
-            new int[] {1, 1, 1, 1},
-            1,
-            set,
-            new StringBuilder("foo")));
-  }
-
-  @Test
-  void testSolution2Dfs3() {
-    StudentGoodwillSelection.Solution2 solution2 = new StudentGoodwillSelection.Solution2();
-    HashSet<String> set = new HashSet<String>();
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            solution2.dfs(
-                1,
-                4,
-                new int[] {1, 1, 1, 1},
-                new int[] {1, 1, 1, 1},
-                1,
-                set,
-                new StringBuilder("foo")));
-  }
-
-  @Test
-  void testSolution2Dfs4() {
-    StudentGoodwillSelection.Solution2 solution2 = new StudentGoodwillSelection.Solution2();
-    HashSet<String> set = new HashSet<String>();
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            solution2.dfs(
-                1,
-                1,
-                new int[] {0, 0, 0, 0, 0, 0, 0, 0},
-                new int[] {1, 1, 1, 1},
-                1,
-                set,
-                new StringBuilder("foo")));
-  }
-
-  @Test
-  void testSolution2Dfs5() {
-    StudentGoodwillSelection.Solution2 solution2 = new StudentGoodwillSelection.Solution2();
-    HashSet<String> stringSet = new HashSet<String>();
-    assertEquals(
-        3,
-        solution2.dfs(
-            1,
-            1,
-            new int[] {1, 1, 1, 1},
-            new int[] {1, 0, 1, 1},
-            1,
-            stringSet,
-            new StringBuilder("foo")));
-    assertEquals(3, stringSet.size());
-  }
-
-  @Test
-  void testSolution2Solve() {
-    assertEquals(
-        0,
-        (new StudentGoodwillSelection.Solution2())
-            .solve(1, new int[] {1, 1, 1, 1}, new int[] {1, 1, 1, 1}, 1));
-    assertEquals(
-        1,
-        (new StudentGoodwillSelection.Solution2())
-            .solve(1, new int[] {4, 1, 1, 1}, new int[] {1, 1, 1, 1}, 1));
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            (new StudentGoodwillSelection.Solution2())
-                .solve(1, new int[] {}, new int[] {1, 1, 1, 1}, 1));
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            (new StudentGoodwillSelection.Solution2())
-                .solve(1, new int[] {0, 0, 0, 0, 0, 0, 0, 0}, new int[] {1, 1, 1, 1}, 1));
-    assertEquals(
-        3,
-        (new StudentGoodwillSelection.Solution2())
-            .solve(1, new int[] {1, 1, 1, 1}, new int[] {0, 1, 1, 1}, 1));
-    assertThrows(
-        ArrayIndexOutOfBoundsException.class,
-        () ->
-            (new StudentGoodwillSelection.Solution2())
-                .solve(1, new int[] {0, 0, 0, 0, 0, 0, 0, 0}, new int[] {0, 1, 1, 1}, 1));
   }
 }

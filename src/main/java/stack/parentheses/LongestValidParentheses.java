@@ -26,7 +26,7 @@ public class LongestValidParentheses {
    * because we are not inserting the matching ones. Also make sure that we always have a left edge
    * for the window to calc max length.
    */
-  public static class Solution {
+  public static class Solution1 {
     public int longestValidParentheses(String s) {
       Deque<Integer> st = new ArrayDeque<>();
       int res = 0;
@@ -100,7 +100,7 @@ public class LongestValidParentheses {
       if (n == 0) {
         return 0;
       }
-      // find well formed parens and mark them on the array
+      // find well-formed parens and mark them on the array
       boolean[] wellFormedLocations = new boolean[n];
       List<Par> st = new ArrayList<>();
       for (int i = 0; i < n; i++) {

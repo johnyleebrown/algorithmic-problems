@@ -5,20 +5,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-/**
- * 32
- *
- * <p>======
- *
- * <p>Task.
- *
- * <p>Given a string containing just the characters '(' and ')', find the length of the longest
- * valid (well-formed) parentheses substring.
- *
- * <p>======
- *
- * <p>Source: Leetcode
- */
+/** 32 */
 public class LongestValidParentheses {
   /**
    * Same idea as with valid parenthesis - add '(' and the pop it when we at matching ')'. If that

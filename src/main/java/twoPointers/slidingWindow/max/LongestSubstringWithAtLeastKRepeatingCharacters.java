@@ -1,17 +1,11 @@
 package twoPointers.slidingWindow.max;
 
 /**
- * 395
- *
- * ======
- *
- * Task.
- *
- * Find the length of the longest substring T of a given string (consists of
- * lowercase letters only) such that every character in T appears no less than k
- * times.
+ * 395. Longest Substring with At Least K Repeating Characters
+ * https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/
  */
 public class LongestSubstringWithAtLeastKRepeatingCharacters {
+
 	/**
 	 * Using sliding window technique for a number(from 1 to 26) of unique
 	 * characters. Updating result only when ensured that all chars in the
@@ -21,6 +15,7 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters {
 	 * to the window, like number if unique characters in it.
 	 */
 	static class Solution {
+
 		public int longestSubstring(String s, int k) {
 			if (s == null || s.length() == 0) {
 				return 0;
@@ -34,7 +29,8 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters {
 			int result = 0;
 
 			for (int i = 1; i <= uniqueCharsCount; i++) {
-				result = Math.max(result, getLongestSubstringForNumberOfUniqueChars(s, k, i));
+				result = Math.max(result,
+						getLongestSubstringForNumberOfUniqueChars(s, k, i));
 			}
 
 			return result;
@@ -57,7 +53,8 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters {
 			return uniqueCharsCount;
 		}
 
-		private int getLongestSubstringForNumberOfUniqueChars(String s, int k, int uniqueCharsCountTarget) {
+		private int getLongestSubstringForNumberOfUniqueChars(String s, int k,
+				int uniqueCharsCountTarget) {
 			int l = 0;
 			int result = 0;
 			int[] map = new int[26];
@@ -100,6 +97,73 @@ public class LongestSubstringWithAtLeastKRepeatingCharacters {
 			}
 
 			return result;
+		}
+	}
+
+	/**
+	 * same just countUniqueLetters is different
+	 */
+	public static class Solution2 {
+
+		public int longestSubstring(String s, int k) {
+			int longestSubstringLength = 0;
+			int uniqueLettersCount = countUniqueLetters(s);
+			for (int i = 1; i <= uniqueLettersCount; i++) {
+				longestSubstringLength = Math.max(longestSubstringLength,
+						longestSubstringHelper(s, k, i));
+			}
+			return longestSubstringLength;
+		}
+
+		public int countUniqueLetters(String s) {
+			int uniqueLettersMask = 0;
+			int uniqueLettersCount = 0;
+			for (int i = 0; i < s.length(); i++) {
+				int letterIndex = (s.charAt(i) - 'a');
+				int mask = (1 << letterIndex);
+				if ((uniqueLettersMask & mask) == 0) {
+					uniqueLettersCount++;
+				}
+				uniqueLettersMask |= mask;
+			}
+			return uniqueLettersCount;
+		}
+
+		public int longestSubstringHelper(String s, int k, int uniqueCount) {
+			int uniqueLetterCount = 0;
+			int goodLetterCount = 0;
+			int[] letterCountsArray = new int[26];
+			int longestSubstringLength = 0;
+
+			for (int r = 0, l = 0; r < s.length(); r++) {
+
+				int rightCharIndex = s.charAt(r) - 'a';
+				letterCountsArray[rightCharIndex]++;
+				if (letterCountsArray[rightCharIndex] == 1) {
+					uniqueLetterCount++;
+				}
+				if (letterCountsArray[rightCharIndex] == k) {
+					goodLetterCount++;
+				}
+
+				while (uniqueLetterCount > uniqueCount) {
+					int leftCharIndex = s.charAt(l) - 'a';
+					letterCountsArray[leftCharIndex]--;
+					if (letterCountsArray[leftCharIndex] == 0) {
+						uniqueLetterCount--;
+					}
+					if (letterCountsArray[leftCharIndex] == k - 1) {
+						goodLetterCount--;
+					}
+					l++;
+				}
+
+				if (goodLetterCount == uniqueCount) {
+					longestSubstringLength = Math.max(longestSubstringLength, r - l + 1);
+				}
+			}
+
+			return longestSubstringLength;
 		}
 	}
 }

@@ -4,16 +4,19 @@ package dp.linear.back;
  * 746
  */
 public class MinCostClimbingStairs {
-	public static int solution(int[] values) {
-		int[] a = new int[values.length + 1];
-		// the i-th step has cost cost[i]
-		a[0] = values[0];
-		a[1] = values[1];
-		for (int i = 2; i <= values.length; i++) {
-			// the ending's cost is zero
-			int val = i != values.length ? values[i] : 0;
-			a[i] = Math.min(a[i - 1], a[i - 2]) + val;
-		}
-		return a[values.length];
-	}
+
+  class Solution {
+
+    public int minCostClimbingStairs(int[] cost) {
+      int n = cost.length + 1;
+      int[] dp = new int[n];
+      dp[0] = cost[0];
+      dp[1] = cost[1];
+      for (int i = 2; i < n; i++) {
+        dp[i] =
+            Math.min(dp[i - 1], dp[i - 2]) + (i == cost.length ? 0 : cost[i]);
+      }
+      return dp[n - 1];
+    }
+  }
 }

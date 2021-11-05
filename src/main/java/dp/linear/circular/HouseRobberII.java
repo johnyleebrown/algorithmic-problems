@@ -4,66 +4,36 @@ import java.util.Arrays;
 
 /**
  * 213
- *
- * ======
- *
- * Task.
- *
- * You are a professional robber planning to rob houses along a street. Each
- * house has a certain amount of money stashed. All houses at this place are
- * arranged in a circle. That means the first house is the neighbor of the last
- * one. Meanwhile, adjacent houses have security system connected and it will
- * automatically contact the police if two adjacent houses were broken into on
- * the same night.
- *
- * Given a list of non-negative integers representing the amount of money of
- * each house, determine the maximum amount of money you can rob tonight without
- * alerting the police.
- *
- * ======
- *
- * Similar: HRI,Pizza Slices
- *
- * ======
- *
- * Source: Leetcode
  */
 public class HouseRobberII {
-	/**
-	 * dp[i] - am of money if ending at ith house. we can pick pick this one or
-	 * not - dp[i]=max(dp[i-2]+cur,dp[i-1]) note that if we take 0, we cant take
-	 * last and vice versa.
-	 */
-	public static class Solution {
-		public int rob(int[] a) {
-			int n = a.length;
-			if (n == 0) {
-				return 0;
-			}
-			if (n == 1) {
-				return a[0];
-			}
 
-			int[] dp1 = new int[n + 1];
-			int[] dp2 = new int[n + 1];
-			Arrays.fill(dp1, -1);
-			dp1[0] = 0;
-			dp1[1] = 0;
-			Arrays.fill(dp2, -1);
-			dp2[0] = 0;
+  /**
+   * We can't take 1st and last at the same time. So we try 2 variants - sub-array with 1st and sub-array without it.
+   */
+  public static class Solution {
 
-			return Math.max(dfs(n, dp1, a), dfs(n - 1, dp2, a));
-		}
+    public int rob(int[] nums) {
+      if (nums.length == 1) {
+        return nums[0];
+      }
+      return Math.max(robHelper(nums, 0, nums.length - 2),
+          robHelper(nums, 1, nums.length - 1));
+    }
 
-		private int dfs(int i, int[] dp, int[] a) {
-			if (i < 0) {
-				return 0;
-			}
-			if (dp[i] != -1) {
-				return dp[i];
-			}
-			dp[i] = Math.max(dfs(i - 1, dp, a), dfs(i - 2, dp, a) + a[i - 1]);
-			return dp[i];
-		}
-	}
+    private int robHelper(int[] nums, int i, int j) {
+      if (j == i) {
+        return nums[i];
+      }
+      int n = nums.length;
+      int[] dp = new int[n + 1];
+      // j + 1 is n in this case
+      for (int k = i; k <= j + 1; k++) {
+        int prev = k > 0 ? dp[k - 1] : 0; // i - 1
+        int prevprev = k > 1 ? dp[k - 2] : 0; // i - 2
+        int cur = k < j + 1 ? nums[k] : 0;
+        dp[k] = Math.max(prev, cur + prevprev);
+      }
+      return dp[j + 1];
+    }
+  }
 }

@@ -2,7 +2,8 @@ package dp.subset.order;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import dp.subset.order.StudentGoodwillSelection.Solution;
+import dp.subset.StudentGoodwillSelection;
+import dp.subset.StudentGoodwillSelection.Solution;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,16 +19,19 @@ class StudentGoodwillSelectionTest {
   StudentGoodwillSelection.Solution4 solution4;
   List<Solution> solutionList;
   int[] bigAr1 =
-      new int[] {
-        91, 146, 860, 421, 974, 339, 860, 686, 40, 637, 189, 589, 320, 424, 827, 954, 437, 500, 895,
-        57, 336, 755, 255, 813, 862, 727, 589, 231, 665, 267, 466, 572, 658, 686, 623, 460, 517,
-        233, 736, 159, 328, 122, 126, 602, 457, 33, 591, 951, 996
+      new int[]{
+          91, 146, 860, 421, 974, 339, 860, 686, 40, 637, 189, 589, 320, 424, 827, 954, 437, 500,
+          895,
+          57, 336, 755, 255, 813, 862, 727, 589, 231, 665, 267, 466, 572, 658, 686, 623, 460, 517,
+          233, 736, 159, 328, 122, 126, 602, 457, 33, 591, 951, 996
       };
   int[] bigAr2 =
-      new int[] {
-        450, 800, 83, 711, 488, 891, 705, 848, 90, 13, 813, 244, 109, 879, 682, 255, 567, 334, 306,
-        525, 718, 412, 847, 279, 617, 973, 305, 20, 697, 788, 546, 759, 515, 3, 954, 486, 605, 698,
-        895, 19, 506, 206, 396, 979, 636, 187, 573, 435, 525
+      new int[]{
+          450, 800, 83, 711, 488, 891, 705, 848, 90, 13, 813, 244, 109, 879, 682, 255, 567, 334,
+          306,
+          525, 718, 412, 847, 279, 617, 973, 305, 20, 697, 788, 546, 759, 515, 3, 954, 486, 605,
+          698,
+          895, 19, 506, 206, 396, 979, 636, 187, 573, 435, 525
       };
 
   @BeforeEach
@@ -40,7 +44,7 @@ class StudentGoodwillSelectionTest {
         Arrays.asList(
             solution1, solution2, solution3
             //        , solution4
-            );
+        );
   }
 
   @Test
@@ -70,7 +74,7 @@ class StudentGoodwillSelectionTest {
   @Test
   void test1() {
     for (Solution s : solutionList) {
-      int result = s.solve(4, new int[] {1, 2, 3, 6}, new int[] {2, 6, 7, 5}, 5);
+      int result = s.solve(4, new int[]{1, 2, 3, 6}, new int[]{2, 6, 7, 5}, 5);
       assertEquals(3, result);
     }
   }
@@ -78,7 +82,7 @@ class StudentGoodwillSelectionTest {
   @Test
   void test2() {
     for (Solution s : solutionList) {
-      int result = s.solve(5, new int[] {1, 2, 3, 6, 1}, new int[] {2, 6, 7, 5, 8}, 5);
+      int result = s.solve(5, new int[]{1, 2, 3, 6, 1}, new int[]{2, 6, 7, 5, 8}, 5);
       assertEquals(7, result);
     }
   }
@@ -86,7 +90,7 @@ class StudentGoodwillSelectionTest {
   @Test
   void test3() {
     for (Solution s : solutionList) {
-      int result = s.solve(5, new int[] {1, 2, 3, 3, 3}, new int[] {2, 6, 7, 5, 6}, 6);
+      int result = s.solve(5, new int[]{1, 2, 3, 3, 3}, new int[]{2, 6, 7, 5, 6}, 6);
       assertEquals(1, result);
     }
   }
@@ -94,7 +98,7 @@ class StudentGoodwillSelectionTest {
   @Test
   void test4() {
     for (Solution s : solutionList) {
-      int result = s.solve(2, new int[] {3, 3}, new int[] {2, 3}, 2);
+      int result = s.solve(2, new int[]{3, 3}, new int[]{2, 3}, 2);
       assertEquals(3, result);
     }
   }
@@ -102,7 +106,7 @@ class StudentGoodwillSelectionTest {
   @Test
   void test5() {
     for (Solution s : solutionList) {
-      int result = s.solve(2, new int[] {3, 3}, new int[] {2, 3}, 7);
+      int result = s.solve(2, new int[]{3, 3}, new int[]{2, 3}, 7);
       assertEquals(0, result);
     }
   }
@@ -110,7 +114,7 @@ class StudentGoodwillSelectionTest {
   @Test
   void test6() {
     for (Solution s : solutionList) {
-      int result = s.solve(1, new int[] {3}, new int[] {1}, 2);
+      int result = s.solve(1, new int[]{3}, new int[]{1}, 2);
       assertEquals(1, result);
     }
   }
@@ -118,7 +122,7 @@ class StudentGoodwillSelectionTest {
   @Test
   void test7() {
     for (Solution s : solutionList) {
-      int result = s.solve(1, new int[] {1}, new int[] {1}, 2);
+      int result = s.solve(1, new int[]{1}, new int[]{1}, 2);
       assertEquals(0, result);
     }
   }

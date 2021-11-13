@@ -24,7 +24,6 @@ public class JumpGameVII {
       if (s.charAt(s.length() - 1) == '1') {
         return false;
       }
-      Integer.MAX_VALUE;
       // queue for possible indexes of jump places
       List<Integer> q = new ArrayList<>();
       int n = s.length();

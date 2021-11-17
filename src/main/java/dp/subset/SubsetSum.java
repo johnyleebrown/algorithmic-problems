@@ -1,12 +1,12 @@
 package dp.subset;
 
 /**
- * Given a set of positive numbers, determine if there exists a subset whose sum is equal to a given
- * number ‘S’.
+ * Given a set of positive numbers, determine if there exists a subset whose sum
+ * is equal to a given number ‘S’.
  */
 public class SubsetSum {
 
-  interface Solution {
+  public interface Solution {
 
     boolean canPartition(int[] num, int sum);
   }
@@ -14,18 +14,19 @@ public class SubsetSum {
   /**
    * Iterative
    *
-   * Subproblem - is it true of false that [0,i] has a subset which sum is equal to sum Recurrence -
-   * either we take the number into the subset and see if we can form a subset for a remaining sum
-   * or we dont take the number Parameters - index and sum => 2d array
+   * Subproblem - is it true of false that [0,i] has a subset which sum is equal
+   * to sum Recurrence - either we take the number into the subset and see if we
+   * can form a subset for a remaining sum or we dont take the number Parameters
+   * - index and sum => 2d array
    */
   public static class Solution1 implements Solution {
 
     public boolean canPartition(int[] ar, int sum) {
       int n = ar.length;
       boolean[][] dp = new boolean[n][sum + 1];
-			for (int i = 0; i < n; i++) {
-				dp[i][0] = true;
-			}
+      for (int i = 0; i < n; i++) {
+        dp[i][0] = true;
+      }
       for (int i = 1; i < sum + 1; i++) {
         dp[0][i] = ar[0] == i;
       }
@@ -79,9 +80,9 @@ public class SubsetSum {
       boolean[][] dp = new boolean[num.length][sum + 1];
 
       // populate the sum=0 columns, as we can always form '0' sum with an empty set
-			for (int i = 0; i < num.length; i++) {
-				dp[i][0] = true;
-			}
+      for (int i = 0; i < num.length; i++) {
+        dp[i][0] = true;
+      }
 
       // with only one number, we can form a subset only when the required sum is
       // equal to its value

@@ -5,11 +5,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * You have two arrays of size n, first one is the amount of goodwill and second is the heights of
- * the respective students. You have to count the total number of unique selection of atleast one
- * student such that the sum of their goodwill is greater than k and their heights are in strictly
- * increasing order(you cannot reorder the students, i.e you have to select them from left to right
- * such that for 0<=i<j<=n, h[i]<h[j] where h is the height array).
+ * You have two arrays of size n, first one is the amount of goodwill and second
+ * is the heights of the respective students. You have to count the total number
+ * of unique selection of atleast one student such that the sum of their
+ * goodwill is greater than k and their heights are in strictly increasing
+ * order(you cannot reorder the students, i.e you have to select them from left
+ * to right such that for 0<=i<j<=n, h[i]<h[j] where h is the height array).
  *
  * <p>Constraints: 0<n<40 G[i],H[i] and k can be as large as 10^9
  *
@@ -27,7 +28,7 @@ import java.util.Set;
  */
 public class StudentGoodwillSelection {
 
-  interface Solution {
+  public interface Solution {
 
     public int solve(int n, int[] goodwill, int[] heights, int k);
   }
@@ -48,7 +49,8 @@ public class StudentGoodwillSelection {
     }
 
     public void dfs(
-        int sum, int i, int[] goodwill, int[] heights, int k, Set<String> set, StringBuilder sb) {
+        int sum, int i, int[] goodwill, int[] heights, int k, Set<String> set,
+        StringBuilder sb) {
       sum += goodwill[i];
       // record current subset
       String curIndexString = "," + i;
@@ -80,7 +82,8 @@ public class StudentGoodwillSelection {
     }
 
     public int dfs(
-        int sum, int i, int[] goodwill, int[] heights, int k, Set<String> set, StringBuilder sb) {
+        int sum, int i, int[] goodwill, int[] heights, int k, Set<String> set,
+        StringBuilder sb) {
       sum += goodwill[i];
       // record current subset
       String curIndexString = "," + i;
@@ -122,7 +125,8 @@ public class StudentGoodwillSelection {
       return res;
     }
 
-    public int dfs(int sum, int i, int[] goodwill, int[] heights, int k, int[][] dp) {
+    public int dfs(int sum, int i, int[] goodwill, int[] heights, int k,
+        int[][] dp) {
       if (dp[sum][i] != 0) {
         return dp[sum][i];
       }

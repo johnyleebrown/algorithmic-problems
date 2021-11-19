@@ -24,7 +24,7 @@ public class RedTapeBlueTape {
       int[] cur = blueTapes.get(i);
       int left = cur[0], right = cur[1];
       while (i + 1 < blueTapes.size() && blueTapes.get(i + 1)[0] <= right) {
-        right = blueTapes.get(++i)[1];
+        right = Math.max(blueTapes.get(++i)[1], right);
       }
       System.out.println(i);
       if (i != blueTapes.size() - 1) {

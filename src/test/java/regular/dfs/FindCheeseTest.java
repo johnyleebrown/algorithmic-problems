@@ -3,9 +3,8 @@ package regular.dfs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import regular.dfs.FindCheese.AbstractMouse;
-import regular.dfs.FindCheese.MouseImpl;
-import regular.dfs.FindCheese.Mouse;
+import graph.dfs.FindCheese.MouseImpl;
+import graph.dfs.FindCheese.Mouse;
 
 class FindCheeseTest {
 

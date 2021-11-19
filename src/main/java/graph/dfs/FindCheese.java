@@ -1,4 +1,4 @@
-package regular.dfs;
+package graph.dfs;
 
 import java.util.HashSet;
 import java.util.Set;

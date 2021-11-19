@@ -64,7 +64,7 @@ class RedTapeBlueTapeTest {
     int[] red = new int[]{0, 10};
     List<int[]> blue = new ArrayList<>(
         Arrays.asList(new int[]{0, 3}, new int[]{1, 4}, new int[]{4, 10},
-            new int[]{4, 10}));
+            new int[]{4, 9}));
     assertEquals(false, solution1.solve(red, blue));
   }
 }

@@ -8,10 +8,53 @@ import java.util.List;
  * 54
  */
 public class SpiralMatrix {
-	public static class Solution {
-		enum dir {
-			U, D, L, R;
+
+	/**
+	 * Robot cleaner style
+	 */
+	public static class Solution0 {
+
+		int i = 0, j = 0, d = 1, iStart = 0, iEnd, jStart = 0, jEnd, count;
+
+		public List<Integer> spiralOrder(int[][] matrix) {
+			count = matrix.length * matrix[0].length;
+			iEnd = matrix.length - 1;
+			jEnd = matrix[0].length - 1;
+			List<Integer> ans = new ArrayList<>();
+			while (--count >= 0) {
+				ans.add(matrix[i][j]);
+				if (reachedLimit()) {
+					turnRight();
+				}
+				move();
+			}
+			return ans;
 		}
+
+		private boolean reachedLimit() {
+			if (d == 0) return i == iStart;
+			else if (d == 1) return j == jEnd;
+			else if (d == 2) return i == iEnd;
+			else return j == jStart;
+		}
+
+		private void turnRight() {
+			if (d == 0) jStart++;
+			else if (d == 1) iStart++;
+			else if (d == 2) jEnd--;
+			else iEnd--;
+			d = (d + 1) % 4;
+		}
+
+		private void move() {
+			if (d == 0) i--;
+			else if (d == 1) j++;
+			else if (d == 2) i++;
+			else j--;
+		}
+	}
+
+	public static class Solution {
 
 		public List<Integer> spiralOrder(int[][] ar) {
 			List<Integer> ans = new ArrayList<>();
@@ -66,9 +109,14 @@ public class SpiralMatrix {
 			}
 			return ans;
 		}
+
+		enum dir {
+			U, D, L, R;
+		}
 	}
 
 	public static class Solution2 {
+
 		public List<Integer> spiralOrder(int[][] a) {
 			List<Integer> res = new LinkedList<>();
 			int n = a.length;

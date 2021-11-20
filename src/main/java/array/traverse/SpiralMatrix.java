@@ -182,32 +182,52 @@ public class SpiralMatrix {
 		}
 	}
 
+	/**
+	 * Recursive. One method call goes around all perimeter.
+	 */
 	public static class Solution3 {
 
-		public List<Integer> spiralOrder(int[][] m) {
-			List<Integer> ans = new ArrayList<>();
-			dfs(ans, 1, 0, 0, m.length * m[0].length, 0, m.length - 1, 0,
-					m[0].length - 1, m);
-			return ans;
+		public List<Integer> spiralOrder(int[][] matrix) {
+			// Check for edge cases for the matrix
+			if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
+				return new ArrayList<Integer>();
+
+			List<Integer> res = new ArrayList<Integer>();
+			// Run our recursion starting with the first and last eligible rows and the first and last eligible columns
+			spiralOut(res, matrix, 0, matrix.length - 1, 0, matrix[0].length - 1);
+			return res;
 		}
 
-		private void dfs(List<Integer> ans, int d, int i, int j, int count,
-				int iStart, int iEnd, int jStart, int jEnd, int[][] m) {
-			if (count == 0) return;
-			ans.add(m[i][j]);
-			if ((d == 0 && i == iStart) || (d == 1 && j == jEnd) ||
-					(d == 2 && i == iEnd) || (d == 3 && j == jStart)) {
-				if (d == 0) jStart++;
-				else if (d == 1) iStart++;
-				else if (d == 2) jEnd--;
-				else iEnd--;
-				d = (d + 1) % 4;
+		private void spiralOut(List<Integer> res, int[][] m, int r1, int r2, int c1,
+				int c2) {
+			// Return if we've exhausted all values to the point of invalid indices
+			if (r1 > r2 || c1 > c2) return;
+
+			// TOP ROW: left to right
+			for (int c = c1; c <= c2; c++) {
+				res.add(m[r1][c]);
 			}
-			if (d == 0) i--;
-			else if (d == 1) j++;
-			else if (d == 2) i++;
-			else j--;
-			dfs(ans, d, i, j, count - 1, iStart, iEnd, jStart, jEnd, m);
+
+			// RIGHT COLUMN: top to bottom
+			for (int r = r1 + 1; r <= r2; r++) {
+				res.add(m[r][c2]);
+			}
+
+			// Return if we've processed the last row/column because we'd otherwise repeat values
+			if (r1 == r2 || c1 == c2) return;
+
+			// BOTTOM ROW: right to left
+			for (int c = c2 - 1; c >= c1; c--) {
+				res.add(m[r2][c]);
+			}
+
+			// LEFT COLUMN: bottom to top
+			for (int r = r2 - 1; r >= r1 + 1; r--) {
+				res.add(m[r][c1]);
+			}
+
+			// Recursion through the inner matrix
+			spiralOut(res, m, r1 + 1, r2 - 1, c1 + 1, c2 - 1);
 		}
 	}
 }

@@ -181,4 +181,33 @@ public class SpiralMatrix {
 			return res;
 		}
 	}
+
+	public static class Solution3 {
+
+		public List<Integer> spiralOrder(int[][] m) {
+			List<Integer> ans = new ArrayList<>();
+			dfs(ans, 1, 0, 0, m.length * m[0].length, 0, m.length - 1, 0,
+					m[0].length - 1, m);
+			return ans;
+		}
+
+		private void dfs(List<Integer> ans, int d, int i, int j, int count,
+				int iStart, int iEnd, int jStart, int jEnd, int[][] m) {
+			if (count == 0) return;
+			ans.add(m[i][j]);
+			if ((d == 0 && i == iStart) || (d == 1 && j == jEnd) ||
+					(d == 2 && i == iEnd) || (d == 3 && j == jStart)) {
+				if (d == 0) jStart++;
+				else if (d == 1) iStart++;
+				else if (d == 2) jEnd--;
+				else iEnd--;
+				d = (d + 1) % 4;
+			}
+			if (d == 0) i--;
+			else if (d == 1) j++;
+			else if (d == 2) i++;
+			else j--;
+			dfs(ans, d, i, j, count - 1, iStart, iEnd, jStart, jEnd, m);
+		}
+	}
 }

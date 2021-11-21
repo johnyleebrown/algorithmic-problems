@@ -2,16 +2,13 @@ package bs.regular;
 
 /**
  * 374
- We are playing the Guess Game. The game is as follows:
- I pick a number from 1 to n. You have to guess which number I picked.
- Every time you guess wrong, I'll tell you whether the number is higher or lower.
- You call a pre-defined API guess(int num) which returns 3 possible results (-1, 1, or 0):
  */
 public class GuessNumberHigherOrLower {
 
     // Binary Search
     // O(log2n)
     public class Solution extends GuessGame {
+
         public int guessNumber(int n) {
             int low = 1;
             int high = n;
@@ -32,6 +29,7 @@ public class GuessNumberHigherOrLower {
     // Ternary Search
     // O(log3(n))
     public class Solution2 extends GuessGame {
+
         public int guessNumber(int n) {
             int low = 1;
             int high = n;
@@ -57,7 +55,8 @@ public class GuessNumberHigherOrLower {
         }
     }
 
-    private class GuessGame{
+    private class GuessGame {
+
         int guess(int mid) {
             return 0;
         }

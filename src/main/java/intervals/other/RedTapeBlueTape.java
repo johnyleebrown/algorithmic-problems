@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * @company fb
  * @url https://leetcode.com/discuss/interview-experience/1151028/facebook-phone-screen-london-mar-2021-reject
+ * @pattern merge
  */
 public class RedTapeBlueTape {
 
@@ -26,7 +27,6 @@ public class RedTapeBlueTape {
       while (i + 1 < blueTapes.size() && blueTapes.get(i + 1)[0] <= right) {
         right = Math.max(blueTapes.get(++i)[1], right);
       }
-      System.out.println(i);
       if (i != blueTapes.size() - 1) {
         return true;
       }

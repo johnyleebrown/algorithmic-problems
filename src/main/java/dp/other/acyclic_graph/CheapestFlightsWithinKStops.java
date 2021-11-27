@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class CheapestFlightsWithinKStops {
 
+  /**
+   * Top-Down
+   */
   public static class Solution {
 
     private List<Integer>[] indegree;
@@ -17,7 +20,7 @@ public class CheapestFlightsWithinKStops {
 
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
       ans = new int[n + 1][k + 2];
-      indegree = new List[n];
+      indegree = new ArrayList[n];
       cost = new int[n][n];
 
       // base
@@ -63,5 +66,12 @@ public class CheapestFlightsWithinKStops {
 
       return ans[dst][k];
     }
+  }
+
+  /**
+   * Bottom-Up https://leetcode.com/problems/cheapest-flights-within-k-stops/discuss/516723/Four-Method-To-Solve-This-Program
+   */
+  public static class Solution2 {
+
   }
 }

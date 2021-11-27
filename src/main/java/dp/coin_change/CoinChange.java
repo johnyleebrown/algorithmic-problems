@@ -1,4 +1,4 @@
-package dp.unlimitedBag;
+package dp.coin_change;
 
 import java.util.Arrays;
 
@@ -10,8 +10,8 @@ public class CoinChange {
   /**
    * Top Down 1d
    *
-   * 1. dp[i] - smallest n of c for amount i 2. with what ends with - either we take a count + 1 or
-   * we don't
+   * 1. dp[i] - smallest n of c for amount i 2. with what ends with - either we take a
+   * count + 1 or we don't
    */
   public static class Solution1 {
 

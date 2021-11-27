@@ -1,6 +1,5 @@
-package dp.unlimitedBag;
+package dp.coin_change;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +10,9 @@ import java.util.Map;
 public class SmallestSufficientTeam {
 
   /**
-   * max sum - smallest number of coins задача набрать мин людей на amount
-   * amount в данном случае это сет где все 1-цы нужен перебор от 0 выбранных до
-   * всех выбранных это amount coins это люди человек это скил
+   * max sum - smallest number of coins задача набрать мин людей на amount amount в данном
+   * случае это сет где все 1-цы нужен перебор от 0 выбранных до всех выбранных это amount
+   * coins это люди человек это скил
    */
   public static class Solution {
 

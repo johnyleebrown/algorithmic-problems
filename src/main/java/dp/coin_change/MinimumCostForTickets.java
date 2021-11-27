@@ -1,4 +1,4 @@
-package dp.unlimitedBag;
+package dp.coin_change;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,10 +12,14 @@ import java.util.Set;
 public class MinimumCostForTickets {
 
   /**
-   * Similarly to coin change try different ticket costs for the current day. In
-   * the beginning there was a confusion on whether I should do a dp forward.
-   * But in coin change we did it backwards if the coin was good - if was not
-   * bigger than sum.
+   * Similarly to coin change try different ticket costs for the current day. In the
+   * beginning there was a confusion on whether I should do a dp forward. But in coin
+   * change we did it backwards if the coin was good - if was not bigger than sum.
+   *
+   * We track the minimum cost for all calendar days in dp. For non-travel days, the cost
+   * stays the same as for the previous day. For travel days, it's a minimum of
+   * yesterday's cost plus single-day ticket, or cost for 8 days ago plus 7-day pass, or
+   * cost 31 days ago plus 30-day pass.
    */
   public static class Solution {
 

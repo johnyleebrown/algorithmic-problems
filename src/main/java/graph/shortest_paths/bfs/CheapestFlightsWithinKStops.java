@@ -7,10 +7,12 @@ import java.util.*;
  */
 public class CheapestFlightsWithinKStops {
 
+  /**
+   * Prioritize variants by distance from source and not by cost as in dijkstra.
+   */
   public static class Solution {
 
-    public int findCheapestPrice(int n, int[][] flights, int src, int dst,
-        int K) {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
 
       // create graph
       Map<Integer, Map<Integer, Integer>> g = new HashMap<>();
@@ -34,8 +36,7 @@ public class CheapestFlightsWithinKStops {
 
           for (int w : m.keySet()) {
             int costSourceToTarget = m.get(w);
-            if (ans[w] < costToSource + costSourceToTarget)
-              continue;
+            if (ans[w] < costToSource + costSourceToTarget) continue;
             ans[w] = costToSource + costSourceToTarget;
             q.add(new int[]{costToSource + costSourceToTarget, w});
           }

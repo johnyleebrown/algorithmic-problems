@@ -4,52 +4,54 @@ package unionFind.other;
  * 765
  */
 public class CouplesHoldingHands {
-    class Solution {
-        public int minSwapsCouples(int[] row) {
-            int c = 0;
-            int[] temp = new int[row.length];
 
-            for (int i = 0; i < row.length; i += 2) {
-                temp[row[i]] = temp[row[i + 1]] = -1;
-                if (sanityCheck(row[i], row[i + 1])) continue;
-                temp[row[i]] = i;
-                temp[row[i + 1]] = i + 1;
-            }
+  public static class Solution {
 
-            for (int key = 0; key < row.length; key++) {
-                int curVal = temp[key];
-                if (curVal == -1) continue;
+    public int minSwapsCouples(int[] row) {
+      int c = 0;
+      int[] temp = new int[row.length];
 
-                int nbr = getInd(key);
-                int nbrVal = temp[nbr];
+      for (int i = 0; i < row.length; i += 2) {
+        temp[row[i]] = temp[row[i + 1]] = -1;
+        if (sanityCheck(row[i], row[i + 1])) continue;
+        temp[row[i]] = i;
+        temp[row[i + 1]] = i + 1;
+      }
 
-                if (sanityCheck(curVal, nbrVal)) continue;
+      for (int key = 0; key < row.length; key++) {
+        int curVal = temp[key];
+        if (curVal == -1) continue;
 
-                int swapWith = getInd(curVal);
+        int nbr = getInd(key);
+        int nbrVal = temp[nbr];
 
-                temp[row[swapWith]] = nbrVal;
-                temp[nbr] = -1;
+        if (sanityCheck(curVal, nbrVal)) continue;
 
-                swap(row, nbrVal, swapWith);
+        int swapWith = getInd(curVal);
 
-                c++;
-            }
+        temp[row[swapWith]] = nbrVal;
+        temp[nbr] = -1;
 
-            return c;
-        }
+        swap(row, nbrVal, swapWith);
 
-        private int getInd(int curVal) {
-            return curVal % 2 == 0 ? curVal + 1 : curVal - 1;
-        }
+        c++;
+      }
 
-        private boolean sanityCheck(int curVal, int nbrVal) {
-            return nbrVal == getInd(curVal);
-        }
-
-        private void swap(int[] a, int b, int c) {
-            int t = a[b];
-            a[b] = a[c];
-            a[c] = t;
-        }
+      return c;
     }
+
+    private int getInd(int curVal) {
+      return curVal % 2 == 0 ? curVal + 1 : curVal - 1;
+    }
+
+    private boolean sanityCheck(int curVal, int nbrVal) {
+      return nbrVal == getInd(curVal);
+    }
+
+    private void swap(int[] a, int b, int c) {
+      int t = a[b];
+      a[b] = a[c];
+      a[c] = t;
+    }
+  }
 }

@@ -69,9 +69,29 @@ public class CheapestFlightsWithinKStops {
   }
 
   /**
-   * Bottom-Up https://leetcode.com/problems/cheapest-flights-within-k-stops/discuss/516723/Four-Method-To-Solve-This-Program
+   * Bottom-Up
    */
   public static class Solution2 {
 
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+
+      // <<dst, stops> - min cost>
+      int[][] dp = new int[n][k + 2];
+      for (int i = 0; i < n; i++) {
+        if (i != src) {
+          Arrays.fill(dp[i], Integer.MAX_VALUE);
+        }
+      }
+
+      for (int stops = 1; stops <= k + 1; stops++) {
+        for (int j = 0; j < flights.length; j++) {
+          int from = flights[j][0], to = flights[j][1], cost = flights[j][2];
+          if (dp[from][stops - 1] != Integer.MAX_VALUE)
+            dp[to][stops] = Math.min(dp[from][stops - 1] + cost, dp[to][stops]);
+        }
+      }
+
+      return dp[dst][k + 1] == Integer.MAX_VALUE ? -1 : dp[dst][k + 1];
+    }
   }
 }

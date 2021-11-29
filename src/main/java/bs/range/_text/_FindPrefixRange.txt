@@ -1,0 +1,4 @@
+Array is sorted.
+Find the length of substring containing the prefix.
+ar=["a","b","b","ba","baa","bab","badac","baeaac","bb","bc","de","z"]
+prefix="ba"

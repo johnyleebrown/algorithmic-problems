@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @company FB
+ * @company fb
  * @url https://leetcode.com/discuss/interview-question/633689/facebook-phonevideo-find-cheese
  */
 public class FindCheese {
@@ -17,11 +17,11 @@ public class FindCheese {
    * SF
    */
 
-  interface Mouse {
+  public interface Mouse {
 
     /**
-     * Moves to one of the directions (left, right, up, down) and returns false
-     * if you can't move and true if you can.
+     * Moves to one of the directions (left, right, up, down) and returns false if you
+     * can't move and true if you can.
      */
     public abstract boolean move(Direction direction);
 
@@ -31,8 +31,8 @@ public class FindCheese {
     public abstract boolean hasCheese();
 
     /**
-     * Should return true and leave the mouse at that location or false if we
-     * can't find cheese and return the mouse back to where it started.
+     * Should return true and leave the mouse at that location or false if we can't find
+     * cheese and return the mouse back to where it started.
      */
     public abstract boolean getCheese();
 

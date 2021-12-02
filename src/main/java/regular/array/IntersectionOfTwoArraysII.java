@@ -1,56 +1,50 @@
 package regular.array;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-
 /**
  * 350
- * Given two arrays, write a function to compute their intersection.
- Each element in the result should appear as many times as it shows in both arrays.
- The result can be in any order.
  */
 public class IntersectionOfTwoArraysII {
 
-    // O(m + n)
-    // O(min(m, n))
-    class Solution {
+    public static class Solution {
+
         public int[] intersect(int[] nums1, int[] nums2) {
-            ArrayList<Integer> l = new ArrayList<>();
-            HashMap<Integer, Integer> map = new HashMap<>();
-            for (int i = 0; i < nums1.length; i++) map.put(nums1[i], map.getOrDefault(nums1[i], 0) + 1);
-            for (int i = 0; i < nums2.length; i++) {
-                int x = map.getOrDefault(nums2[i], -1);
-                if (x > 0) {
-                    l.add(nums2[i]);
-                    map.put(nums2[i], x - 1);
+            int[] a = new int[1001], b = new int[1001];
+            for (int val : nums1) {
+                a[val]++;
+            }
+            int count = 0;
+            for (int val : nums2) {
+                if (a[val] > 0) {
+                    b[val]++;
+                    a[val]--;
+                    count++;
                 }
             }
-            int[] a = new int[l.size()];
-            for (int i = 0; i < a.length; i++) a[i] = l.get(i);
-            return a;
+            int[] ans = new int[count];
+            for (int i = 0, j = 0; i < 1001; i++) {
+                while (--b[i] >= 0) {
+                    ans[j++] = i;
+                }
+            }
+            return ans;
         }
     }
 
-    // O(n*log n + m*log m)
-    class Solution2 {
-        public int[] intersect(int[] nums1, int[] nums2) {
-            if (nums1.length == 0 || nums2.length == 0) return new int[0];
-            Arrays.sort(nums1);
-            Arrays.sort(nums2);
-            ArrayList<Integer> tempList = new ArrayList<>();
-            int i1 = 0, i2 = 0;
-            while (i1 < nums1.length && i2 < nums2.length) {
-                if (nums1[i1] == nums2[i2]) {
-                    tempList.add(nums1[i1]);
-                    i1++;
-                    i2++;
-                } else if (nums1[i1] < nums2[i2]) i1++;
-                else i2++;
-            }
-            int[] result = new int[tempList.size()];
-            for (int i = 0; i < result.length; i++) result[i] = tempList.get(i);
-            return result;
-        }
+    /**
+     * What if the given array is already sorted? How would you optimize your algorithm?
+     *
+     * 2 pointers
+     *
+     * What if nums1's size is small compared to nums2's size? Which algorithm is better?
+     *
+     * Use map for nums1 and not for nums2
+     *
+     * What if elements of nums2 are stored on disk, and the memory is limited such that you
+     * cannot load all elements into the memory at once?
+     *
+     * Go through ranges of numbers that can fit in memory. Since we know that max is 10^5 -
+     * go through [0..9999] .. ranges by 10k numbers lets say.
+     */
+    public static class Solution2 {
     }
 }

@@ -4,81 +4,92 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 210
  */
 public class CourseScheduleII {
-	public static class Solution {
-		private Map<Integer, List<Integer>> g;
-		private boolean[] seen;
-		private boolean[] isInRecursion;
-		private int[] postOrder;
-		private int c;
-		private boolean[] postOrderSeen;
 
-		public int[] findOrder(int numCourses, int[][] prerequisites) {
-			if (numCourses == 0) return new int[]{};
+  public static class Solution {
 
-			init(numCourses);
-			fillTheGraph(prerequisites, numCourses);
+    private Map<Integer, List<Integer>> g;
+    private boolean[] seen;
+    private boolean[] isInRecursion;
+    private int[] postOrder;
+    private int c;
+    private boolean[] postOrderSeen;
 
-			if (graphHasCycle()) return new int[]{};
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+      if (numCourses == 0) return new int[]{};
 
-			return getTopologicalOrder();
-		}
+      init(numCourses);
+      fillTheGraph(prerequisites, numCourses);
 
-		private int[] getTopologicalOrder() {
-			for (int v : g.keySet())
-				dfs2(v);
+      if (graphHasCycle()) return new int[]{};
 
-			return postOrder;
-		}
+      return getTopologicalOrder();
+    }
 
-		private void dfs2(int v) {
-			if (postOrderSeen[v]) return;
+    private int[] getTopologicalOrder() {
+      for (int v : g.keySet()) {
+        dfs2(v);
+      }
 
-			postOrderSeen[v] = true;
+      return postOrder;
+    }
 
-			for (int w : g.getOrDefault(v, new ArrayList<>()))
-				dfs2(w);
+    private void dfs2(int v) {
+      if (postOrderSeen[v]) return;
 
-			postOrder[c--] = v;
-		}
+      postOrderSeen[v] = true;
 
-		private boolean graphHasCycle() {
-			for (int v : g.keySet())
-				if (dfs(v)) return true;
+      for (int w : g.getOrDefault(v, new ArrayList<>())) {
+        dfs2(w);
+      }
 
-			return false;
-		}
+      postOrder[c--] = v;
+    }
 
-		private boolean dfs(int v) {
-			if (isInRecursion[v]) return true;
-			if (seen[v]) return false;
+    private boolean graphHasCycle() {
+      for (int v : g.keySet()) {
+        if (dfs(v)) return true;
+      }
 
-			isInRecursion[v] = seen[v] = true;
+      return false;
+    }
 
-			for (int w : g.getOrDefault(v, new ArrayList<>()))
-				if (dfs(w)) return true;
+    private boolean dfs(int v) {
+      if (isInRecursion[v]) return true;
+      if (seen[v]) return false;
 
-			isInRecursion[v] = false;
-			return false;
-		}
+      isInRecursion[v] = seen[v] = true;
 
-		private void fillTheGraph(int[][] prerequisites, int n) {
-			for (int i = 0; i < n; i++) g.put(i, new ArrayList<>());
-			for (int[] p : prerequisites) g.get(p[1]).add(p[0]);
-		}
+      for (int w : g.getOrDefault(v, new ArrayList<>())) {
+        if (dfs(w)) return true;
+      }
 
-		private void init(int n) {
-			g = new HashMap<>();
-			seen = new boolean[n];
-			isInRecursion = new boolean[n];
-			postOrder = new int[n];
-			postOrderSeen = new boolean[n];
-			c = n - 1;
-		}
-	}
+      isInRecursion[v] = false;
+      return false;
+    }
+
+    private void fillTheGraph(int[][] prerequisites, int n) {
+      for (int i = 0; i < n; i++) {
+        g.put(i, new ArrayList<>());
+      }
+      for (int[] p : prerequisites) {
+        g.get(p[1]).add(p[0]);
+      }
+    }
+
+    private void init(int n) {
+      g = new HashMap<>();
+      seen = new boolean[n];
+      isInRecursion = new boolean[n];
+      postOrder = new int[n];
+      postOrderSeen = new boolean[n];
+      c = n - 1;
+    }
+  }
 }
 

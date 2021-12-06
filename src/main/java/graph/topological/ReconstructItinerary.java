@@ -6,36 +6,40 @@ import java.util.*;
  * 332
  */
 public class ReconstructItinerary {
-	public static class Solution {
-		public List<String> findItinerary(String[][] tickets) {
-			if (tickets == null || tickets.length == 0 || tickets[0].length == 0)
-				return null;
 
-			Map<String, PriorityQueue<String>> m = new HashMap<>();
-			fillMap(m, tickets);
+  public static class Solution {
 
-			LinkedList<String> l = new LinkedList<>();
-			createPath(l, m, "JFK");
+    public List<String> findItinerary(String[][] tickets) {
+      if (tickets == null || tickets.length == 0 || tickets[0].length == 0)
+        return null;
 
-			return l;
-		}
+      Map<String, PriorityQueue<String>> m = new HashMap<>();
+      fillMap(m, tickets);
 
-		private void createPath(LinkedList<String> l, Map<String, PriorityQueue<String>> m, String at) {
-			PriorityQueue<String> pq = m.get(at);
+      LinkedList<String> l = new LinkedList<>();
+      createPath(l, m, "JFK");
 
-			while (pq != null && !pq.isEmpty()) {
-				createPath(l, m, pq.poll());
-			}
+      return l;
+    }
 
-			l.addFirst(at);
-		}
+    private void createPath(LinkedList<String> l, Map<String, PriorityQueue<String>> m,
+        String at) {
+      PriorityQueue<String> pq = m.get(at);
 
-		private void fillMap(Map<String, PriorityQueue<String>> m, String[][] tickets) {
-			for (String[] ticket : tickets) {
-				String from = ticket[0], to = ticket[1];
-				m.putIfAbsent(from, new PriorityQueue<>());
-				m.get(from).add(to);
-			}
-		}
-	}
+      while (pq != null && !pq.isEmpty()) {
+        String to = pq.poll();
+        createPath(l, m, to);
+      }
+
+      l.addFirst(at);
+    }
+
+    private void fillMap(Map<String, PriorityQueue<String>> m, String[][] tickets) {
+      for (String[] ticket : tickets) {
+        String from = ticket[0], to = ticket[1];
+        m.putIfAbsent(from, new PriorityQueue<>());
+        m.get(from).add(to);
+      }
+    }
+  }
 }

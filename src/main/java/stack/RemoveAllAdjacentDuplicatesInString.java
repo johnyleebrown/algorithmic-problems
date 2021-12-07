@@ -3,11 +3,7 @@ package stack;
 import java.util.Stack;
 
 /**
- * 1047. Remove All Adjacent Duplicates In String
- *
- * https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
- *
- * @pic yes
+ * 1047
  */
 public class RemoveAllAdjacentDuplicatesInString {
 

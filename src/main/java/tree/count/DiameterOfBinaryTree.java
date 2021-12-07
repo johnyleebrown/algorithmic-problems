@@ -6,24 +6,25 @@ import commons.TreeNode;
  * 543
  */
 public class DiameterOfBinaryTree {
-	/**
-	 * max could be not at root but also at some other node
-	 */
-	class Solution {
-		int max = Integer.MIN_VALUE;
 
-		public int diameterOfBinaryTree(TreeNode root) {
-			if (root == null) return 0;
-			int x = h(root);
-			return max;
-		}
+  /**
+   * max could be not at root but also at some other node
+   */
+  public static class Solution {
 
-		int h(TreeNode root) {
-			if (root == null) return 0;
-			int l = h(root.left);
-			int r = h(root.right);
-			max = Math.max(max, l + r);
-			return Math.max(l, r) + 1;
-		}
-	}
+    int ans = Integer.MIN_VALUE;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+      helper(root);
+      return ans;
+    }
+
+    private int helper(TreeNode root) {
+      if (root == null) return 0;
+      int left = helper(root.left);
+      int right = helper(root.right);
+      ans = Math.max(left + right, ans);
+      return Math.max(left, right) + 1;
+    }
+  }
 }

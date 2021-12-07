@@ -12,37 +12,33 @@ public class ThreeSumClosest {
    */
   public static class Solution {
 
-    public int threeSumClosest(int[] ar, int x) {
-
-      Arrays.sort(ar);
-      int n = ar.length;
+    public int threeSumClosest(int[] nums, int target) {
+      Arrays.sort(nums);
+      int n = nums.length;
       int diff = Integer.MAX_VALUE;
-      int ans = 0;
+      int sum = 0;
 
-      for (int i1 = 0; i1 < n - 2; i1++) {
+      for (int i = 0; i < n - 2; i++) {
+        int a = target - nums[i];
+        int l = i + 1, r = n - 1;
 
-        int sum = x - ar[i1];
-        int i2 = i1 + 1;
-        int i3 = n - 1;
-
-        while (i2 < i3) {
-          int y = Math.abs(ar[i2] + ar[i3] - sum);
-          if (y < diff) {
-            diff = y;
-            ans = ar[i2] + ar[i3] + ar[i1];
+        while (l < r) {
+          int b = nums[l] + nums[r];
+          int localDiff = Math.abs(b - a);
+          if (localDiff < diff) {
+            sum = b + nums[i];
+            diff = localDiff;
+            if (localDiff == 0) return sum;
           }
-
-          if (ar[i2] + ar[i3] == sum) {
-            return ans;
-          } else if (ar[i2] + ar[i3] < sum) {
-            i2++;
+          if (b < a) {
+            l++;
           } else {
-            i3--;
+            r--;
           }
         }
       }
 
-      return ans;
+      return sum;
     }
   }
 }

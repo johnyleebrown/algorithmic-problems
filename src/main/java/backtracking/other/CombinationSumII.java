@@ -8,42 +8,38 @@ import java.util.List;
  * 40
  */
 public class CombinationSumII {
-	class Solution {
-		private List<List<Integer>> combinations = new ArrayList<>();
 
-		public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-			if (candidates == null || candidates.length == 0)
-				return combinations;
+  /**
+   * Unique combinations - sort + don't step on same number.
+   *
+   * When we start a new combination we shouldn't start with seen number.
+   */
+  public static class Solution {
 
-			// optimization for comparison further
-			Arrays.sort(candidates);
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+      Arrays.sort(candidates);
+      List<List<Integer>> ans = new ArrayList<>();
+      gen(candidates, target, ans, new ArrayList<>(), 0, 0);
+      return ans;
+    }
 
-			backtrack(candidates, new ArrayList<>(), 0, target);
-			return combinations;
-		}
+    private void gen(int[] ar, int target, List<List<Integer>> ans, List<Integer> cur,
+        int sum, int j) {
+      if (sum == target) {
+        ans.add(new ArrayList<>(cur));
+      } else {
+        for (int i = j; i < ar.length; i++) {
+          // overflow
+          if (ar[i] + sum > target) continue;
+          // don't step on same number
+          if (i != j && ar[i] == ar[i - 1]) continue;
 
-		public void backtrack(int[] nums, List<Integer> combination, int start, int leftOver) {
-			if (leftOver < 0) {
-				return;
-			}
-			if (leftOver == 0) {
-				combinations.add(new ArrayList<>(combination));
-			} else {
-				for (int i = start; i < nums.length; i++) {
-					// optimization
-					if (nums[i] > leftOver) break;
-
-					// i != start means not the first one
-					// and not the first one in recursion
-					// avoid duplicates, ex [1,1,2,5] sum=8
-					if (i != start && nums[i] == nums[i - 1]) continue;
-
-					combination.add(nums[i]);
-					backtrack(nums, combination, i + 1, leftOver - nums[i]);
-					combination.remove(combination.size() - 1);
-				}
-			}
-		}
-	}
+          cur.add(ar[i]);
+          gen(ar, target, ans, cur, sum + ar[i], i + 1);
+          cur.remove(cur.size() - 1);
+        }
+      }
+    }
+  }
 }
 

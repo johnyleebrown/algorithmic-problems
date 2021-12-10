@@ -87,4 +87,11 @@ public class ExpressionAddOperators {
       return c >= '0' && c <= '9';
     }
   }
+
+  /**
+   * Using a trick to do dynamic evaluation.
+   */
+  public static class Solution2 {
+
+  }
 }

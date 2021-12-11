@@ -7,54 +7,37 @@ import java.util.List;
 
 /**
  * 1382
- *
- * ======
- *
- * Task.
- *
- * Given a binary search tree, return a balanced binary search tree with the
- * same node values.
- *
- * A binary search tree is balanced if and only if the depth of the two subtrees
- * of every node never differ by more than 1.
- *
- * If there is more than one answer, return any of them.
- *
- * ======
- *
- * Source: Leetcode
  */
 public class BalanceABinarySearchTree {
-	/**
-	 * SF.
-	 */
-	public static class Solution {
-		private int ind;
-		private List<Integer> nodes = new ArrayList<>();
 
-		public TreeNode balanceBST(TreeNode root) {
-			collectNodesValues(root, nodes);
-			return buildTree(nodes.size());
-		}
+  /**
+   * Collect values in inorder and then construct like you would construct a balanced
+   * tree.
+   */
+  public static class Solution {
 
-		private TreeNode buildTree(int count) {
-			if (count <= 0)
-				return null;
-			int half = (count - 1) / 2;
-			TreeNode l = buildTree(half);
-			TreeNode cur = new TreeNode(nodes.get(ind++));
-			TreeNode r = buildTree(count - 1 - half);
-			cur.left = l;
-			cur.right = r;
-			return cur;
-		}
+    List<Integer> values = new ArrayList<>();
 
-		private void collectNodesValues(TreeNode cur, List<Integer> l) {
-			if (cur == null)
-				return;
-			collectNodesValues(cur.left, l);
-			l.add(cur.val);
-			collectNodesValues(cur.right, l);
-		}
-	}
+    public TreeNode balanceBST(TreeNode root) {
+      collectValues(root);
+      return constructBST(0, values.size() - 1);
+    }
+
+    private TreeNode constructBST(int l, int r) {
+      if (l > r) return null;
+      int ind = l + (r - l) / 2;
+      int val = values.get(ind);
+      TreeNode newRoot = new TreeNode(val);
+      newRoot.left = constructBST(l, ind - 1);
+      newRoot.right = constructBST(ind + 1, r);
+      return newRoot;
+    }
+
+    private void collectValues(TreeNode root) {
+      if (root == null) return;
+      collectValues(root.left);
+      values.add(root.val);
+      collectValues(root.right);
+    }
+  }
 }

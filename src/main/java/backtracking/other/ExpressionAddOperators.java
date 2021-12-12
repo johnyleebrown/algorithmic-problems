@@ -90,8 +90,40 @@ public class ExpressionAddOperators {
 
   /**
    * Using a trick to do dynamic evaluation.
+   *
+   * The trick is about subtracting the prev. In case of + and - we dont need to do that.
+   * If this is multiplication - we need to subtract previous number and add sum.
    */
   public static class Solution2 {
 
+    private static final String[] ops = new String[]{"+", "-", "*"};
+    List<String> ans = new ArrayList<>();
+
+    public List<String> addOperators(String num, int target) {
+      gen(num, target, "", 0, 0, 0);
+      return ans;
+    }
+
+    private void gen(String num, long target, String sumString, int i, long sum,
+        long prev) {
+      if (sum == target && i == num.length()) {
+        ans.add(sumString);
+      } else {
+        for (int len = 1; i + len <= num.length(); len++) {
+          if (num.charAt(i) == '0' && len == 2) break;
+          String curString = num.substring(i, i + len);
+          long cur = Long.parseLong(curString);
+
+          if (i == 0) {
+            gen(num, target, curString, i + len, cur, cur);
+          } else {
+            gen(num, target, sumString + "+" + curString, i + len, sum + cur, cur);
+            gen(num, target, sumString + "-" + curString, i + len, sum - cur, -cur);
+            gen(num, target, sumString + "*" + curString, i + len,
+                prev * cur + sum - prev, prev * cur);
+          }
+        }
+      }
+    }
   }
 }

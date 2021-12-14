@@ -4,20 +4,39 @@ package regular.array;
  * 283
  */
 public class MoveZeroes {
+
 	public static class Solution {
-		public void moveZeroes(int[] a) {
-			int l = 0;
-			int r = 0;
-			int n = a.length;
-			while (r < n) {
-				if (a[r] != 0) {
-					if (r != l) {
-						a[l] = a[r];
-						a[r] = 0;
+
+		public void moveZeroes(int[] nums) {
+			int l = 0, r = 0;
+			while (r < nums.length) {
+				if (nums[r] != 0) {
+					if (l < r) {
+						nums[l] = nums[r];
+						nums[r] = 0;
 					}
 					l++;
 				}
 				r++;
+			}
+		}
+	}
+
+	public static class Solution2 {
+
+		public void moveZeroes(int[] nums) {
+			int l = 0, r = 0;
+			while (l < nums.length && r < nums.length) {
+				if (nums[l] != 0) {
+					l++;
+				} else if (nums[r] == 0 || l >= r) {
+					r++;
+				} else {
+					nums[l] = nums[r];
+					nums[r] = 0;
+					l++;
+					r++;
+				}
 			}
 		}
 	}

@@ -30,4 +30,20 @@ public class MaximumSubarray {
       return ans;
     }
   }
+
+  class Solution2 {
+
+    public int maxSubArray(int[] nums) {
+      int sum = 0, ans = Integer.MIN_VALUE;
+      for (int i = 0; i < nums.length; i++) {
+        if (nums[i] + sum < nums[i]) {
+          sum = nums[i];
+        } else {
+          sum += nums[i];
+        }
+        ans = Math.max(ans, sum);
+      }
+      return ans;
+    }
+  }
 }

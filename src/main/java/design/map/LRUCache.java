@@ -5,27 +5,9 @@ import java.util.Map;
 
 /**
  * 146
- *
- * ======
- *
- * Task.
- *
- * Design and implement a data structure for Least Recently Used (LRU) cache. It
- * should support the following operations: get and put.
- *
- * get(key) - Get the value (will always be positive) of the key if the key
- * exists in the cache, otherwise return -1. put(key, value) - Set or insert the
- * value if the key is not already present. When the cache reached its capacity,
- * it should invalidate the least recently used item before inserting a new
- * item.
- *
- * The cache is initialized with a positive capacity.
- *
- * ======
- *
- * Source: Leetcode
  */
 public class LRUCache {
+
 	/**
 	 * Least used items will be in the end of list because we will always move
 	 * to the front the ones that we use. Map<Key, Node> + double linked list,
@@ -37,6 +19,7 @@ public class LRUCache {
 	 * last .. first
 	 */
 	public static class Solution {
+
 		public static class LRUCacheSolution {
 
 			Map<Integer, Node> m;
@@ -61,9 +44,7 @@ public class LRUCache {
 
 			private void moveToFront(Node node) {
 				if (node == first) return;
-				if (node == last) {
-					last = node.next;
-				}
+				if (node == last) last = node.next;
 
 				Node prev = node.prev;
 				Node next = node.next;
@@ -105,6 +86,7 @@ public class LRUCache {
 			}
 
 			private static class Node {
+
 				int val, key;
 				Node next, prev;
 

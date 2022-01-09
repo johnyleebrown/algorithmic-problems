@@ -1,4 +1,4 @@
-package graph.topological;
+package graph.topological_sort;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,6 +42,7 @@ public class AlienDictionary {
       if (hasCycle(g)) return "";
 
       StringBuilder sb = new StringBuilder();
+      sb.replace()
       Set<Character> seen = new HashSet<>();
       for (char v : g.keySet()) {
         dfs(v, sb, seen, g);

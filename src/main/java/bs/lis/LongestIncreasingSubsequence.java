@@ -2,22 +2,11 @@ package bs.lis;
 
 /**
  * 300
- *
- * ======
- *
- * Task.
- *
- * Given an unsorted array of integers, find the length of longest increasing
- * subsequence.
- *
- * ======
- *
- * Source: Leetcode
  */
 public class LongestIncreasingSubsequence {
 	/**
-	 * We create an increasing array of elements while iterating the original
-	 * array. If the cur element is bigger then the last el of the incr ar.
+	 * We create an increasing array of elements while iterating the original array.
+	 * If the cur element is bigger then the last el of the incr ar.
 	 */
 	public static class Solution {
 		public int lengthOfLIS(int[] a) {
@@ -34,8 +23,7 @@ public class LongestIncreasingSubsequence {
 				if (a[i] > increasingSubsequence[j - 1]) { // if still increasing
 					increasingSubsequence[j] = a[i];
 					j++;
-				}
-				else {
+				} else {
 					int insertPosition = bs(j - 1, increasingSubsequence, a[i]);
 					increasingSubsequence[insertPosition] = a[i];
 				}
@@ -52,11 +40,9 @@ public class LongestIncreasingSubsequence {
 				int mid = lo + (hi - lo) / 2;
 				if (a[mid] == t) {
 					return mid;
-				}
-				else if (a[mid] > t) {
+				} else if (a[mid] > t) {
 					hi = mid - 1;
-				}
-				else {
+				} else {
 					lo = mid + 1;
 				}
 			}

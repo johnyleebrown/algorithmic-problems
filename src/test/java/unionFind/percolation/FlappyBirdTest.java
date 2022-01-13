@@ -10,12 +10,7 @@ import static reader.IOUtils.getFolderFilesReaders;
 
 class FlappyBirdTest {
 	@Test
-	void allTests() {
-
-		Class c = getClass();
-		ClassLoader classLoader = c.getClassLoader();
-		String pathToFolder = c.getName().replace('.', '/');
-		System.out.println(pathToFolder);
+	void allTests() throws Exception {
 		List<InputReader> inputReaders = getFolderFilesReaders(getClass());
 		for (InputReader r : inputReaders) {
 			boolean ans = r.nextInt() == 1;

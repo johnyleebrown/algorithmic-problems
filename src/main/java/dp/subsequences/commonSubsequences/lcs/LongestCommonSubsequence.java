@@ -1,8 +1,8 @@
 package dp.subsequences.commonSubsequences.lcs;
 
-import java.util.Arrays;
+import static utils.string.StringUtils.getMaxLen3Strings;
 
-import static utils.StringUtils.getMaxLen3Strings;
+import java.util.Arrays;
 
 /**
  * 1143

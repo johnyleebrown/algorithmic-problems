@@ -22,12 +22,19 @@
     <dependency>
       <groupId>me.grigorii</groupId>
       <artifactId>java-utils</artifactId>
-      <version>1.0</version>
+      <version>0.0.1</version>
     </dependency>
     <dependency>
-      <artifactId>mockito-core</artifactId>
-      <groupId>org.mockito</groupId>
-      <version>4.0.0</version>
+      <artifactId>junit</artifactId>
+      <groupId>junit</groupId>
+      <scope>test</scope>
+      <version>4.12</version>
+    </dependency>
+    <dependency>
+      <artifactId>junit-jupiter-params</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+      <version>5.6.2</version>
     </dependency>
   </dependencies>
 

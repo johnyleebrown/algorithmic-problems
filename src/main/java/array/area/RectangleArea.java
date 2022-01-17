@@ -2,35 +2,40 @@ package array.area;
 
 /**
  * 223
- *
- * ======
- *
- * Task.
- *
- * Find the total area covered by two rectilinear rectangles in a 2D plane.
- *
- * Each rectangle is defined by its bottom left corner and top right corner as
- * shown in the figure.
- *
- * ======
- *
- * Source: Leetcode
  */
 public class RectangleArea {
+
 	/**
 	 * Area + area - overlap. For overlap use min, max;
 	 */
 	private static class Solution {
-		public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
-			int area = (C - A) * (D - B) + (G - E) * (H - F);
-			int rightMin = Math.min(C, G);
-			int leftMax = Math.max(A, E);
-			int topMin = Math.min(D, H);
-			int botMax = Math.max(B, F);
-			if (rightMin > leftMax && topMin > botMax) {
-				area -= (rightMin - leftMax) * (topMin - botMax);
+
+		public int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2,
+				int by2) {
+
+			int aArea = (ax2 - ax1) * (ay2 - ay1);
+			int bArea = (bx2 - bx1) * (by2 - by1);
+			int result = aArea + bArea;
+
+			// overlap
+			if (overlap(ax1, ay1, ax2, ay2, bx1, by1, bx2, by2)) {
+				int up = Math.min(ay2, by2);
+				int down = Math.max(ay1, by1);
+				int h = up - down;
+				int left = Math.max(ax1, bx1);
+				int right = Math.min(ax2, bx2);
+				int w = right - left;
+
+				int common = h * w;
+				result -= common;
 			}
-			return area;
+
+			return result;
+		}
+
+		private boolean overlap(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2,
+				int by2) {
+			return bx1 < ax2 && by1 < ay2 && bx2 > ax1 && by2 > ay1;
 		}
 	}
 }

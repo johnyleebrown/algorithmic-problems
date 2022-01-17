@@ -2,23 +2,9 @@ package math.bits.twoPointers;
 
 /**
  * 1404
- *
- * ======
- *
- * Task.
- *
- * Given a number s in their binary representation. Return the number of steps
- * to reduce it to 1 under the following rules:
- *
- * If the current number is even, you have to divide it by 2.
- *
- * If the current number is odd, you have to add 1 to it.
- *
- * ======
- *
- * Source: Leetcode
  */
 public class NumberOfStepsToReduceANumberInBinaryRepresentationToOne {
+
 	/**
 	 * 2 pointers.
 	 *
@@ -27,6 +13,7 @@ public class NumberOfStepsToReduceANumberInBinaryRepresentationToOne {
 	 * it’s 0, the number is even.
 	 */
 	public static class Solution {
+
 		public int numSteps(String s) {
 			int n = s.length();
 			int l = 0;
@@ -39,8 +26,7 @@ public class NumberOfStepsToReduceANumberInBinaryRepresentationToOne {
 					if (newl) {
 						r++;
 					}
-				}
-				else { // divide by 2 => shift right
+				} else { // divide by 2 => shift right
 					r--;
 				}
 				steps++;
@@ -54,12 +40,10 @@ public class NumberOfStepsToReduceANumberInBinaryRepresentationToOne {
 				if (cur == '1') {
 					sb.setCharAt(r, '0');
 					r--;
-				}
-				else if (cur == '0') {
+				} else if (cur == '0') {
 					sb.setCharAt(r, '1');
 					return false;
-				}
-				else {
+				} else {
 					return false;
 				}
 			}

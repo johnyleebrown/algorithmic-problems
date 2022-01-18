@@ -2,32 +2,14 @@ package bs.greedy;
 
 /**
  * 1231
- *
- * ======
- *
- * Task.
- *
- * You have one chocolate bar that consists of some chunks. Each chunk has its own sweetness given
- * by the array sweetness.
- *
- * You want to share the chocolate with your K friends so you start cutting the chocolate bar into
- * K+1 pieces using K cuts, each piece consists of some consecutive chunks.
- *
- * Being generous, you will eat the piece with the minimum total sweetness and give the other pieces
- * to your friends.
- *
- * Find the maximum total sweetness of the piece you can get by cutting the chocolate bar
- * optimally.
- *
- * ======
- *
- * Source: Leetcode
  */
 public class DivideChocolate {
+
 	/**
 	 * Using binary search pick the piece with the right amount of sweetness greedily.
 	 */
 	public static class Solution {
+
 		public int maximizeSweetness(int[] chocolateBar, int k) {
 
 			// we want k + 1 pieces cuz yourself + k friends
@@ -65,7 +47,8 @@ public class DivideChocolate {
 		}
 
 		/**
-		 * How many pieces we can get greedily having a min cut. A min cut is a sweetness of our
+		 * How many pieces we can get greedily having a min cut. A min cut is a sweetness of
+		 * our
 		 * piece, all other pieces have to have more sweetness in them.
 		 */
 		private int countPiecesWithMinCut(int minimumCut, int[] chocolateBar) {

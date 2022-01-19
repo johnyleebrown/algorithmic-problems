@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Order {
 
-	private String id;
+	private String orderId;
 	private Date date;
 	private List<Package> packageList;
 }

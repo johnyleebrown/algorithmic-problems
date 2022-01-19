@@ -29,3 +29,4 @@ implement placePackage() and retrievePackage() functions
 - [lc - post](https://leetcode.com/discuss/interview-question/1056942/Amazon-SDE-2-or-Virtual-Onsite-or-Finding-the-best-possible-empty-locker-for-a-given-package)
 - [lc - post](https://leetcode.com/discuss/interview-question/862940/Amazon-Onsite-question-SDE2-Seattle)
 - [wiki - bin packing](https://en.wikipedia.org/wiki/Bin_packing_problem)
+- [gh](https://github.com/gopalbala/amazonlocker)

@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class MaximumLengthOfPairChain {
 
 	/**
-	 * $INSERT_EXPLANATION
+	 * lis
 	 */
 	public static class Solution {
 

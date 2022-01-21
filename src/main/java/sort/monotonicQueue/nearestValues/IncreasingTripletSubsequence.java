@@ -7,23 +7,14 @@ import java.util.Set;
 
 /**
  * 334
- *
- * ======
- *
- * Task.
- *
- * Given an unsorted array return whether an increasing subsequence of length 3
- * exists or not in the array.
- *
- * ======
- *
- * Source: Leetcode
  */
 public class IncreasingTripletSubsequence {
+
 	/**
 	 * Using MQ and set. Keeping a decreasing queue, going from the back.
 	 */
 	public static class Solution {
+
 		public boolean increasingTriplet(int[] a) {
 			MQ mq = new MQ();
 			for (int i = a.length - 1; i >= 0; i--) {
@@ -36,12 +27,12 @@ public class IncreasingTripletSubsequence {
 		}
 
 		private static class MQ {
+
 			private Deque<Integer> q = new ArrayDeque<>();
 			private Set<Integer> s = new HashSet<>();
 
 			public void push(int cur) {
-				if (!s.add(cur))
-					return;
+				if (!s.add(cur)) return;
 				while (q.size() > 0 && q.peekLast() <= cur) {
 					s.remove(q.peekLast());
 					q.removeLast();

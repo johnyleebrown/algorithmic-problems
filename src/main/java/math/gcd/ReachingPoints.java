@@ -7,6 +7,8 @@ public class ReachingPoints {
 
 	/**
 	 * Similar to finding gcd. This method is an optimization of dp dfs.
+	 *
+	 * O(logN) where N = max(tx,ty).
 	 */
 	public static class Solution {
 

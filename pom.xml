@@ -5,19 +5,19 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>me.grigorii</groupId>
-  <artifactId>algorithmic-problems</artifactId>
+  <artifactId>a-sol</artifactId>
   <version>1.0</version>
 
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.8.1</version>
+      <version>5.8.2</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>5.8.1</version>
+      <version>5.8.2</version>
     </dependency>
     <dependency>
       <groupId>me.grigorii</groupId>
@@ -28,13 +28,13 @@
       <artifactId>junit</artifactId>
       <groupId>junit</groupId>
       <scope>test</scope>
-      <version>4.12</version>
+      <version>4.13.2</version>
     </dependency>
     <dependency>
       <artifactId>junit-jupiter-params</artifactId>
       <groupId>org.junit.jupiter</groupId>
       <scope>test</scope>
-      <version>5.6.2</version>
+      <version>5.8.2</version>
     </dependency>
   </dependencies>
 

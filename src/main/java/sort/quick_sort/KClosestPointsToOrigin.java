@@ -10,67 +10,63 @@ public class KClosestPointsToOrigin {
 	 */
 	private static class Solution {
 
-		public int[][] kClosest(int[][] points, int K) {
-			int lo = 0, hi = points.length - 1;
+		public int[][] kClosest(int[][] ar, int k) {
+			// quick select
+			int lo = 0, hi = ar.length - 1;
 			while (lo < hi) {
-				int p = findPartition(lo, hi, points);
-				if (p > K) {
-					hi = p - 1;
-				} else if (p < K) {
-					lo = p + 1;
-				} else {
+				int splitIndex = partition(lo, hi, ar);
+				if (splitIndex == k) {
 					break;
+				} else if (splitIndex < k) {
+					lo = splitIndex + 1;
+				} else {
+					hi = splitIndex - 1;
 				}
 			}
-
-			return convertListToArray(points, K);
+			return convert(ar, k);
 		}
 
-		private int[][] convertListToArray(int[][] ar, int K) {
-			int[][] ans = new int[K][2];
-			for (int i = 0; i < K; i++) {
+		int[][] convert(int[][] ar, int k) {
+			int[][] ans = new int[k][2];
+			for (int i = 0; i < k; i++) {
 				ans[i] = ar[i];
 			}
 			return ans;
 		}
 
-		private int findPartition(int lo, int hi, int[][] a) {
-			int[] v = a[lo];
-			int i = lo;
-			int j = hi + 1;
-
+		int partition(int lo, int hi, int[][] ar) {
+			int[] v = ar[lo];
+			int i = lo, j = hi + 1;
 			while (true) {
-				while (less(a[++i], v)) {
-					if (i == hi) {
-						break;
-					}
+				while (less(ar[++i], v)) {
+					if (i == hi) break;
 				}
-
-				while (less(v, a[--j])) {
-					if (j == lo) {
-						break;
-					}
+				while (larger(ar[--j], v)) {
+					if (j == lo) break;
 				}
-
-				if (i >= j) {
-					break;
-				}
-
-				exch(a, i, j);
+				if (i >= j) break;
+				exch(ar, i, j);
 			}
-
-			exch(a, lo, j);
+			exch(ar, lo, j);
 			return j;
 		}
 
-		private boolean less(int[] a, int[] b) {
-			return a[0] * a[0] + a[1] * a[1] < b[0] * b[0] + b[1] * b[1];
+		void exch(int[][] ar, int i, int j) {
+			int[] t = ar[i];
+			ar[i] = ar[j];
+			ar[j] = t;
 		}
 
-		private void exch(int[][] a, int i, int j) {
-			int[] temp = a[i];
-			a[i] = a[j];
-			a[j] = temp;
+		boolean less(int[] p1, int[] p2) {
+			return dist(p1) < dist(p2);
+		}
+
+		boolean larger(int[] p1, int[] p2) {
+			return dist(p1) > dist(p2);
+		}
+
+		int dist(int[] p) {
+			return p[0] * p[0] + p[1] * p[1];
 		}
 	}
 }

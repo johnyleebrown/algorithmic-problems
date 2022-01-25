@@ -2,7 +2,8 @@ package intervals.other;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import intervals.other.RedTapeBlueTape.Solution1;
+import intervals.RedTapeBlueTape;
+import intervals.RedTapeBlueTape.Solution1;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

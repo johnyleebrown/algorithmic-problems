@@ -1,4 +1,4 @@
-package dp.other.games;
+package dp.games;
 
 import java.util.HashMap;
 

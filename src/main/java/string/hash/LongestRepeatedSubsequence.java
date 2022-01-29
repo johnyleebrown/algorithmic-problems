@@ -1,4 +1,4 @@
-package dp.subsequences;
+package string.hash;
 
 import java.math.BigInteger;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package dp.subsequences.commonSubsequences.lcs;
+package dp.lcs;
 
 /**
  * 516

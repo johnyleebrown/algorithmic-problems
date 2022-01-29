@@ -1,4 +1,4 @@
-package dp.other.games;
+package dp.games;
 
 /**
  * 1140

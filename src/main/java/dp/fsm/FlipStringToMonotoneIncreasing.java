@@ -1,4 +1,4 @@
-package dp.other;
+package dp.fsm;
 
 import java.util.Arrays;
 
@@ -33,7 +33,7 @@ public class FlipStringToMonotoneIncreasing {
 	}
 
 	/**
-	 * $INSERT_EXPLANATION
+	 * dfs dp
 	 */
 	public static class Solution2 {
 

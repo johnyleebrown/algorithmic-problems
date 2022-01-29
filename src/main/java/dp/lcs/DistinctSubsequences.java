@@ -1,23 +1,7 @@
-package dp.subsequences.commonSubsequences.count;
+package dp.lcs;
 
 /**
  * 115
- *
- * ======
- *
- * Task.
- *
- * Given a string S and a string T, count the number of distinct subsequences of S which equals T.
- *
- * A subsequence of a string is a new string which is formed from the original string by deleting
- * some (can be none) of the characters without disturbing the relative positions of the remaining
- * characters. (ie, "ACE" is a subsequence of "ABCDE" while "AEC" is not).
- *
- * It's guaranteed the answer fits on a 32-bit signed integer.
- *
- * ======
- *
- * Source: Leetcode
  */
 public class DistinctSubsequences {
 	/**

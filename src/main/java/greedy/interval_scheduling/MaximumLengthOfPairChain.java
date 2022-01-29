@@ -1,4 +1,4 @@
-package greedy.jobs;
+package greedy.interval_scheduling;
 
 import java.util.Arrays;
 

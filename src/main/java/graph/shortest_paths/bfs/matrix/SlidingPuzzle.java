@@ -7,12 +7,14 @@ import java.util.List;
  * 773
  */
 public class SlidingPuzzle {
+
 	/**
 	 * 123450 = 001 010 011 100 101 000 -> 42792
 	 *
 	 * 543210 = 101 100 011 010 001 000 -> 181896
 	 */
 	public static class Solution {
+
 		private static int[][] d = new int[][]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 		private static int[] finalState = new int[]{1, 2, 3, 4, 5, 0};
 
@@ -74,6 +76,7 @@ public class SlidingPuzzle {
 		}
 
 		private class Cell {
+
 			int[][] b = new int[2][3];
 			int i, j;
 

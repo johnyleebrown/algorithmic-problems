@@ -12,7 +12,8 @@ import java.util.Set;
 public class SplitArrayWithSameAverage {
 
 	/**
-	 * Math: sa = sb + sc, na = nb + nc, sb/nb = sc/nc => sa/na = sb/nb Time complexity: O(n^3) Space
+	 * Math: sa = sb + sc, na = nb + nc, sb/nb = sc/nc => sa/na = sb/nb Time complexity:
+	 * O(n^3) Space
 	 * complexity: O(n^2)
 	 */
 	public static class Solution {

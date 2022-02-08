@@ -4,11 +4,13 @@ package backtracking.other;
  * 37
  */
 public class SudokuSolver {
+
 	/**
 	 * Backtracking classic. As seen array - keep track of x axis, y axis and
 	 * cubes. First, we preprocess, set what is already filled.
 	 */
 	private static class Solution1 {
+
 		private boolean[][][] a = new boolean[3][10][10];
 
 		public void solveSudoku(char[][] b) {
@@ -19,8 +21,7 @@ public class SudokuSolver {
 		private void preProcess(char[][] b) {
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++) {
-					if (b[i][j] == '.')
-						continue;
+					if (b[i][j] == '.') continue;
 
 					int cubeId = calculateCube(i, j);
 					int val = getIntFromChar(b[i][j]);
@@ -94,7 +95,7 @@ public class SudokuSolver {
 		}
 
 		private boolean solver(char[][] board) {
-			for (int i = 0; i < 9; i++)
+			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++) {
 					if (board[i][j] != '.') continue;
 					for (char k = '1'; k <= '9'; k++) {
@@ -110,6 +111,7 @@ public class SudokuSolver {
 					// for a cell but haven't found the right one
 					return false;
 				}
+			}
 
 			return true;
 		}

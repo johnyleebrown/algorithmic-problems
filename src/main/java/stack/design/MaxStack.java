@@ -1,4 +1,4 @@
-package design.stack;
+package stack.design;
 
 /**
  * 716

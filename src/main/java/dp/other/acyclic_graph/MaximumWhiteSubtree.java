@@ -1,13 +1,12 @@
 package dp.other.acyclic_graph;
 
-import reader.InputReader;
+import static utils.aut.OutUtils.printAr;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static utils.OutUtils.printAr;
+import reader.InputReader;
 
 /**
  * 627div3F

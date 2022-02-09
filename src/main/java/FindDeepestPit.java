@@ -1,6 +1,3 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 /**
  * @company TikTok
  * @desc Find Deepest Pit
@@ -27,8 +24,8 @@ public class FindDeepestPit {
 	public static class Solution1 {
 
 		public int solve(int[] heights) {
-			MQ q = new MQ();
-			for (int i = 0; i < heights.length; i++) {
+			MQ q = new MQ(heights);
+			for (int i = 1; i < heights.length; i++) {
 				q.add(i, heights[i]);
 			}
 			return q.deepest;
@@ -36,31 +33,33 @@ public class FindDeepestPit {
 
 		class MQ {
 
-			Deque<Height> q;
-			Height maxLeft, minBottom, maxRight;
+			Height left, floor, right;
 			int deepest;
 
-			MQ() {
-				q = new ArrayDeque<>();
-				deepest = 0;
+			MQ(int[] heights) {
+				deepest = Integer.MIN_VALUE;
+				left = new Height(0, 0, heights[0]);
 			}
 
 			void add(int ind, int val) {
-				if (maxLeft != null && val > maxLeft.value) {
-
-					maxLeft = new Height(0, ind, val);
+				if (val > left.value) {
+					updateMax(val);
+					left = new Height(0, ind, val);
+					floor = null;
+					right = null;
+				} else if (floor == null || val < floor.value) {
+					floor = new Height(1, ind, val);
+				} else {
+					right = new Height(2, ind, val);
+					updateMax(right.value);
 				}
-				if (maxLeft == null || minBottom == null || maxRight == null) {
-					if (maxLeft == null) {
-						maxLeft = new Height(0, ind, val);
-					} else if (minBottom == null && val < maxLeft.value) {
-						minBottom = new Height(1, ind, val);
-					} else if (maxRight == null && minBottom != null && val > minBottom.value) {
-						maxRight = new Height(2, ind, val);
-						deepest = Math.min(maxLeft.value, maxRight.value) - minBottom.value;
-					}
-				}
+			}
 
+			void updateMax(int val) {
+				if (floor != null) {
+					int diff = Math.min(left.value, val) - floor.value;
+					deepest = Math.max(diff, deepest);
+				}
 			}
 		}
 
@@ -72,6 +71,11 @@ public class FindDeepestPit {
 
 			public Height(int type, int ind, int value) {
 				this.type = type;
+				this.ind = ind;
+				this.value = value;
+			}
+
+			void update(int ind, int value) {
 				this.ind = ind;
 				this.value = value;
 			}

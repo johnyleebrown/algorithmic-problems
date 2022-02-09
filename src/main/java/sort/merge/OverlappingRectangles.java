@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @company Miro
- * @desc Determine if there is any overlapping of the rectangles.
+ * @desc Determine if there is any rectangle overlap.
  */
 public class OverlappingRectangles {
 
@@ -30,21 +30,13 @@ public class OverlappingRectangles {
 	public static class Solution1 {
 
 		/**
-		 * Line sweep sort.
 		 * @param coords list of rectangles coordinates like [(x1,y1,x2,y2),..] - where x1,y1
 		 *               are the coords of bottom left corner and x2,y2 are the coords of the
 		 *               upper right corner.
 		 * @return true if there is any overlapping of figures
 		 */
 		public static boolean overlap(List<List<Integer>> coords) {
-			coords.sort((a, b) -> {
-				int xa = a.get(0);
-				int xb = b.get(0);
-				if (xa == xb) {
-					return a.get(1) - b.get(1);
-				}
-				return xa - xb;
-			});
+
 			for (int i = 0; i < coords.size() - 1; i++) {
 				if (figuresOverlap(coords.get(i), coords.get(i + 1))) {
 					return true;

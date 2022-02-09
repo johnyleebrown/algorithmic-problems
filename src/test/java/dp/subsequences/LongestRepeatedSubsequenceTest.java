@@ -1,6 +1,7 @@
 package dp.subsequences;
 
 import org.junit.jupiter.api.Test;
+import string.hash.LongestRepeatedSubsequence;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

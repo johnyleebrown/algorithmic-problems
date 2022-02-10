@@ -6,12 +6,40 @@
 public class FindDeepestPit {
 
 	public static void main(String[] args) {
-		int res = new Solution1().solve(new int[]{10, 0, 10});
-		System.out.println(res == 10);
-		int res2 = new Solution1().solve(new int[]{100, 0, 10, 10, 100});
-		System.out.println(res2 == 100);
-		int res3 = new Solution1().solve(new int[]{100, 0, 10, -50, 0});
-		System.out.println(res3 == 50);
+		// basic
+		System.out.println(new Solution1().solve(new int[]{10, 0, 10}) == 10);
+		System.out.println(new Solution1().solve(new int[]{100, 0, 10, 10, 100}) == 100);
+		System.out.println(new Solution1().solve(new int[]{100, 0, 10, -50, 0}) == 50);
+
+		// no pit
+		System.out.println(new Solution1().solve(new int[]{100, 200}) == -1);
+		System.out.println(new Solution1().solve(new int[]{100}) == -1);
+		System.out.println(new Solution1().solve(new int[]{100, 50}) == -1);
+		System.out.println(new Solution1().solve(new int[]{100, 50, 0}) == -1);
+		System.out.println(new Solution1().solve(new int[]{0, 50}) == -1);
+
+		// easy pit
+		System.out.println(new Solution1().solve(new int[]{30, 0, 40}) == 30);
+		System.out.println(new Solution1().solve(new int[]{30, 0, 20}) == 20);
+
+		// medium
+		System.out.println(new Solution1().solve(new int[]{60, 30, 0, 20}) == 20);
+		System.out.println(new Solution1().solve(new int[]{60, 30, 0, 50}) == 50);
+		System.out.println(new Solution1().solve(new int[]{60, 30, 0, -30}) == -1);
+		System.out.println(new Solution1().solve(new int[]{60, 30, 0, 100}) == 60);
+
+		// hard
+		System.out.println(new Solution1().solve(new int[]{5, 0, 5, 100, 50, 100}) == 50);
+		System.out.println(new Solution1().solve(new int[]{40, 20, 0, 30, 10, 20}) == 30);
+		System.out.println(new Solution1().solve(new int[]{40, 20, 0, 30, 20, 30}) == 30);
+		System.out.println(new Solution1().solve(new int[]{40, 20, 0, 30, 20, 35}) == 35);
+		System.out.println(new Solution1().solve(new int[]{40, 20, 0, 30, -20, 20}) == 40);
+		System.out.println(
+				new Solution1().solve(new int[]{40, 20, 0, 30, -20, 20, 20, 10}) == 40);
+		System.out.println(new Solution1().solve(new int[]{40, 20, 0, 30, -20, 30}) == 50);
+		System.out.println(new Solution1().solve(new int[]{40, 20, 0, 30, -20, 35}) == 55);
+		System.out.println(
+				new Solution1().solve(new int[]{40, 20, 0, 30, 50, 45, 45, 50}) == 40);
 	}
 
 	/**
@@ -28,7 +56,7 @@ public class FindDeepestPit {
 			for (int i = 1; i < heights.length; i++) {
 				q.add(i, heights[i]);
 			}
-			return q.deepest;
+			return q.deepest == Integer.MIN_VALUE ? -1 : q.deepest;
 		}
 
 		class MQ {
@@ -74,15 +102,6 @@ public class FindDeepestPit {
 				this.ind = ind;
 				this.value = value;
 			}
-
-			void update(int ind, int value) {
-				this.ind = ind;
-				this.value = value;
-			}
 		}
-	}
-
-	public static class Solution2 {
-
 	}
 }

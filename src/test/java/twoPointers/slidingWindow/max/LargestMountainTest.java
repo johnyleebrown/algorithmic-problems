@@ -2,7 +2,7 @@ package twoPointers.slidingWindow.max;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import sort.monotonicQueue.nearestValues.LargestMountain;
+import queue.monotonicQueue.nearestValues.LargestMountain;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 

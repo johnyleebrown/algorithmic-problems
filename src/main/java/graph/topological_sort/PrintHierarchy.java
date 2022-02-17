@@ -4,8 +4,7 @@ import java.util.*;
 
 /**
  * Print Hierarchy
- *
- * @company: Google
+ * @company Google
  */
 public class PrintHierarchy {
 

@@ -14,7 +14,7 @@ import java.util.Set;
 public class LargestColorValueInADirectedGraph {
 
 	/**
-	 * $INSERT_EXPLANATION
+	 * DFS bottom-up
 	 */
 	public static class Solution {
 

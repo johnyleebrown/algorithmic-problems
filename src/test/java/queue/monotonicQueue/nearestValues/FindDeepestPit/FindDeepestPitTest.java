@@ -114,7 +114,5 @@ class FindDeepestPitTest {
 		System.out.println("solve: " + ans);
 		int newAnswer = new Solution1().solve(genAr);
 		assertEquals(ans, newAnswer);
-
-
 	}
 }

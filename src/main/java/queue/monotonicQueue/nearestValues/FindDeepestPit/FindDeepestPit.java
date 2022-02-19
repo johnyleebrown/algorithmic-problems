@@ -23,11 +23,6 @@ public class FindDeepestPit {
 		StdDraw.setCanvasSize(1000, 1000);
 		StdDraw.setPenColor(StdDraw.BLACK);
 
-		//		StdDraw.rectangle(0.02, 0.05, 0.02, 0.05);
-		//		StdDraw.filledRectangle(0.06, 0.2, 0.02, 0.05);
-		//		StdDraw.filledRectangle(0.1, 0.2, 0.02, 0.1);
-		//		StdDraw.filledRectangle(0.14, 0.2, 0.02, 0.2);
-
 		int[] genAr = ArrayGenerator.genIntArray(10, 100, true);
 		double offset = 0.02;
 		System.out.println(Arrays.toString(genAr));
@@ -44,14 +39,17 @@ public class FindDeepestPit {
 			double h = (double) val / 100;
 			System.out.println("h: " + h);
 			StdDraw.filledRectangle(offset, h / 2, 0.02, h / 2);
+			double fh = Double.parseDouble(new DecimalFormat("0.00").format(h));
 
 			if (i == resultIndex) {
 				double x = h + resD / 2;
 				double fx = Double.parseDouble(new DecimalFormat("0.00").format(h + resD));
+				double fresd = Double.parseDouble(new DecimalFormat("0.00").format(resD));
 				StdDraw.setPenColor(StdDraw.RED);
 				StdDraw.filledRectangle(offset, x, 0.02, resD / 2);
-				StdDraw.text(offset, fx + 0.01, (fx) + "");
+				StdDraw.text(offset, fx + 0.01, (fresd) + "");
 				StdDraw.setPenColor(StdDraw.BLACK);
+				StdDraw.text(offset, h + 0.01, (fh) + "");
 			} else {
 				StdDraw.text(offset, h + 0.01, h + "");
 			}

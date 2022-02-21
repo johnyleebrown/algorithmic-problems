@@ -4,22 +4,16 @@ import java.math.BigInteger;
 import java.util.Random;
 
 /**
- * LongestRepeatedSubsequence
- *
- * ======
- *
- * Task.
- *
- * Find out the length of the longest repeated subsequence of s1 in s2.
+ * @title Longest Repeated Subsequence
+ * @desc Find out the length of the longest repeated subsequence of s1 in s2.
  * s1="ab", s2="abcababdefab" ans=2
- *
- * ======
- *
- * Company: Pure Storage
+ * @company Pure Storage
+ * @source interview
  */
 public class LongestRepeatedSubsequence {
 
 	public interface S {
+
 		int getLongestRepeatedSubsequence(String shortStr, String longStr);
 	}
 
@@ -27,6 +21,7 @@ public class LongestRepeatedSubsequence {
 	 * Brute force.
 	 */
 	public static class Solution1 implements S {
+
 		public int getLongestRepeatedSubsequence(String shortStr, String longStr) {
 
 			// base
@@ -63,6 +58,7 @@ public class LongestRepeatedSubsequence {
 	}
 
 	public static class Solution2 implements S {
+
 		private final long R = 256;
 		private long powR;
 		private long Q;
@@ -90,8 +86,8 @@ public class LongestRepeatedSubsequence {
 				int localCount = 0, localL = l, localR = r;
 				long localHash = rollingHash;
 				while (localHash == shortStrHash) {
-					localL+=m;
-					localR+=m;
+					localL += m;
+					localR += m;
 					localHash = getHashCode(longStr, localL, localR);
 					localCount++;
 				}
@@ -104,8 +100,6 @@ public class LongestRepeatedSubsequence {
 
 			return ans;
 		}
-
-		/*========================================================*/
 
 		private long addLast(long h, char c) {
 			return ((h * R) % Q + c) % Q;

@@ -4,7 +4,9 @@ package array.counter;
  * 169
  */
 public class MajorityElement {
-	class Solution {
+
+	static class Solution {
+
 		public int majorityElement(int[] nums) {
 			int count = 0;
 			Integer candidate = null;

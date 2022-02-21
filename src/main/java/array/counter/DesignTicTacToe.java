@@ -2,35 +2,16 @@ package array.counter;
 
 /**
  * 348
- *
- * ======
- *
- * Task.
- *
- * Design a Tic-tac-toe game that is played between two players on a n x n
- * grid.
- *
- * You may assume the following rules:
- *
- * A move is guaranteed to be valid and is placed on an empty block. Once a
- * winning condition is reached, no more moves is allowed. A player who succeeds
- * in placing n of their marks in a horizontal, vertical, or diagonal row wins
- * the game.
- *
- * ======
- *
- * Similar: Sudoku validation.
- *
- * ======
- *
- * Source: Leetcode
  */
 public class DesignTicTacToe {
+
 	/**
 	 * Counters for each person for rows, cols and 2 diags.
 	 */
 	public static class Solution {
+
 		class TicTacToe {
+
 			int[][] rows;
 			int[][] cols;
 			int[] d1 = new int[3];

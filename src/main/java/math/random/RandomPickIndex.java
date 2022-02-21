@@ -8,6 +8,7 @@ import java.util.Random;
  * 398
  */
 public class RandomPickIndex {
+
 	/**
 	 * Reservoir sampling. Treating target elements as stream, so for each
 	 * target element probability to be chosen will be 1/countTargets.
@@ -16,7 +17,8 @@ public class RandomPickIndex {
 	 * 0 can be any # from 0.. targetCount-1 but we use 0 because it works for
 	 * all targetCount sizes.
 	 */
-	class Solution {
+	static class Solution {
+
 		private int[] nums;
 
 		public Solution(int[] nums) {
@@ -45,6 +47,7 @@ public class RandomPickIndex {
 	 * SF. But memory is O(n).
 	 */
 	class Solution2 {
+
 		int[] nums;
 		Random rand;
 
@@ -55,9 +58,10 @@ public class RandomPickIndex {
 
 		public int pick(int target) {
 			List<Integer> list = new ArrayList<>();
-			for (int i = 0; i < nums.length; i++)
+			for (int i = 0; i < nums.length; i++) {
 				if (nums[i] == target)
 					list.add(i);
+			}
 
 			return list.get(rand.nextInt(list.size()));
 		}

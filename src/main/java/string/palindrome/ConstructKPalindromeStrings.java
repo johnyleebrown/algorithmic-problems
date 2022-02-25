@@ -2,22 +2,9 @@ package string.palindrome;
 
 /**
  * 1400
- *
- * ======
- *
- * Task.
- *
- * Given a string s and an integer k. You should construct k non-empty
- * palindrome strings using all the characters in s.
- *
- * Return True if you can use all the characters in s to construct k palindrome
- * strings or False otherwise.
- *
- * ======
- *
- * Source: Leetcode
  */
 public class ConstructKPalindromeStrings {
+
 	/**
 	 * Count unique chars, count odd and even chars. The idea is to count the lo
 	 * and hi for possible k. It turns out that hi is the same for all cases -
@@ -27,26 +14,13 @@ public class ConstructKPalindromeStrings {
 	 * [pp][pp][pp](c) => {pppp} {ppc} or {pppcppp} => min = c.
 	 */
 	public static class Solution {
+
 		public boolean canConstruct(String s, int k) {
-			if (s.length() < k) {
-				return false;
-			}
-			if (s.length() == k) {
-				return true;
-			}
-			int n = s.length();
-			int[] ch = new int[26];
-			for (int i = 0; i < n; i++) {
-				ch[s.charAt(i) - 'a']++;
-			}
-			int c = 0;
-			for (int i = 0; i < 26; i++) {
-				if (ch[i] % 2 != 0) {
-					c++;
-				}
-			}
-			int pp = (n - c) / 2;
-			return c == pp ? k >= pp : k >= c;
+			int[] count = new int[26]; for (int i = 0; i < s.length(); ++i) {
+				count[s.charAt(i) - 'a']++;
+			} int oddNum = 0; for (int i = 0; i < 26; ++i) {
+				oddNum += count[i] % 2;
+			} return oddNum <= k && k <= s.length();
 		}
 	}
 }

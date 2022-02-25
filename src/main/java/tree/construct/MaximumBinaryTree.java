@@ -5,33 +5,27 @@ import commons.TreeNode;
 /**
  * 654
  */
-public class MaximumBinaryTree
-{
-	class Solution
-	{
-		public TreeNode constructMaximumBinaryTree(int[] nums)
-		{
-			if (nums == null || nums.length == 0)
-			{
+public class MaximumBinaryTree {
+
+	static class Solution {
+
+		public TreeNode constructMaximumBinaryTree(int[] nums) {
+			if (nums == null || nums.length == 0) {
 				return null;
 			}
 
 			return subtreeSearch(0, nums.length - 1, nums);
 		}
 
-		private TreeNode subtreeSearch(int i, int j, int[] nums)
-		{
-			if (j < i)
-			{
+		private TreeNode subtreeSearch(int i, int j, int[] nums) {
+			if (j < i) {
 				return null;
 			}
 
 			int maxInd = i;
 			int maxNum = nums[i];
-			for (int k = i + 1; k <= j; k++)
-			{
-				if (maxNum < nums[k])
-				{
+			for (int k = i + 1; k <= j; k++) {
+				if (maxNum < nums[k]) {
 					maxNum = nums[k];
 					maxInd = k;
 				}

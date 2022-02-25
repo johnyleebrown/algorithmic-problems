@@ -6,7 +6,9 @@ import commons.ListNode;
  * 160
  */
 public class IntersectionOfTwoLinkedLists {
-	public class Solution {
+
+	static class Solution {
+
 		public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
 			int lenA = length(headA), lenB = length(headB);
 

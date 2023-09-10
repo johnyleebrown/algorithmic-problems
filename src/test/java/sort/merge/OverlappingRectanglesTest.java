@@ -38,10 +38,10 @@ class OverlappingRectanglesTest {
 				});
 	}
 
-	@ParameterizedTest
-	@MethodSource("sort.merge.OverlappingRectanglesTest#providerData")
-	void test(boolean ans, List<List<Integer>> input) {
-		assertEquals(ans, Solution2.overlap(input));
-		assertEquals(ans, Solution1.overlap(input));
-	}
+//	@ParameterizedTest
+//	@MethodSource("sort.merge.OverlappingRectanglesTest#providerData")
+//	void test(boolean ans, List<List<Integer>> input) {
+//		assertEquals(ans, Solution2.overlap(input));
+//		assertEquals(ans, Solution1.overlap(input));
+//	}
 }

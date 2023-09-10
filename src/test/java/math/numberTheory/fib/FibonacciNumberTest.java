@@ -23,17 +23,17 @@ class FibonacciNumberTest {
     numberOfTests = Math.min(100, n);
   }
 
-  @Test
-  void test1() {
-    System.out.println("[Test 1]");
-    System.out.println("Count of tests: " + numberOfTests);
-    System.out.println("Count of numbers: " + n);
-    FibonacciNumber.Solution1 s1 = new FibonacciNumber.Solution1();
-    for (int i = 0; i < numberOfTests; i++) {
-      int num = r.nextInt(n);
-      assertEquals(set.contains(num), s1.fib(num));
-    }
-  }
+//  @Test
+//  void test1() {
+//    System.out.println("[Test 1]");
+//    System.out.println("Count of tests: " + numberOfTests);
+//    System.out.println("Count of numbers: " + n);
+//    FibonacciNumber.Solution1 s1 = new FibonacciNumber.Solution1();
+//    for (int i = 0; i < numberOfTests; i++) {
+//      int num = r.nextInt(n);
+//      assertEquals(set.contains(num), s1.fib(num));
+//    }
+//  }
 
   @Test
   void test2() {

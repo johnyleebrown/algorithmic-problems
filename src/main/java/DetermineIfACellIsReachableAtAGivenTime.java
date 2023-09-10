@@ -22,7 +22,8 @@ public class DetermineIfACellIsReachableAtAGivenTime {
     /**
      * Number of seconds is number of steps is the shortest distance.
      * In this case if we reach the dest in the shortest dist it means we can circle around for the rest of time because "You can visit the same cell several times.".
-     * No obstacles on the map. What's the SP in rectangle with 8 direction movement?
+     * No obstacles on the map. What's the SP in rectangle with 8 direction movement? Imagine a square, here it is a length of a diagonal.
+     * If me move destination in any direction, the SP will be diagonal to one of the axis of dest + straight line length.
      */
     private static class Solution {
         public boolean isReachableAtTime(int sx, int sy, int fx, int fy, int t) {
